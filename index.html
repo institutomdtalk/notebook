@@ -482,6 +482,460 @@
     color: var(--muted);
   }
 
+
+/* ═══════════════════════════════════════════════
+   CADERNO DO ALUNO — MD Talk
+═══════════════════════════════════════════════ */
+
+/* ── SEÇÃO CADERNO ── */
+#caderno {
+  background: var(--navy-deep);
+  min-height: 100vh;
+  padding: 5rem 2rem 6rem;
+}
+
+.caderno-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Header do caderno */
+.caderno-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+.caderno-overline {
+  font-family: 'Raleway', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 0.8rem;
+}
+.caderno-overline::before,
+.caderno-overline::after {
+  content: '';
+  width: 32px; height: 1px;
+  background: var(--gold);
+  opacity: 0.4;
+}
+.caderno-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.1;
+}
+.caderno-title em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+/* ── TOOLBAR ── */
+.caderno-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+  flex-wrap: wrap;
+}
+
+/* Search */
+.search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+.search-wrap svg {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+#search-input {
+  width: 100%;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(196,164,90,.18);
+  border-radius: 10px;
+  padding: 0.6rem 0.9rem 0.6rem 2.4rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.75rem;
+  color: var(--cream);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+#search-input::placeholder { color: var(--muted); }
+#search-input:focus {
+  border-color: rgba(196,164,90,.4);
+  box-shadow: 0 0 0 3px rgba(196,164,90,.06);
+}
+
+/* Botão novo item */
+.btn-novo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--gold);
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1.3rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--navy-deep);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+.btn-novo:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-novo svg { flex-shrink: 0; }
+
+/* Botão download */
+.btn-download {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  border: 1px solid rgba(196,164,90,.3);
+  border-radius: 10px;
+  padding: 0.6rem 1.1rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.btn-download:hover {
+  background: rgba(196,164,90,.08);
+  border-color: rgba(196,164,90,.5);
+}
+
+/* ── TABS DE SEÇÃO ── */
+.tabs-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.tab {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 30px;
+  padding: 0.45rem 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.tab:hover { color: var(--gold-pale); border-color: rgba(196,164,90,.25); }
+.tab.active {
+  color: var(--navy-deep);
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.tab-nova {
+  color: rgba(0,229,255,.6);
+  border-color: rgba(0,229,255,.2);
+  background: rgba(0,229,255,.04);
+}
+.tab-nova:hover {
+  color: rgba(0,229,255,.9);
+  border-color: rgba(0,229,255,.4);
+  background: rgba(0,229,255,.08);
+}
+
+/* ── GRID DE CARDS ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+}
+
+/* Card */
+.card {
+  background: rgba(15,38,69,0.6);
+  border: 1px solid rgba(196,164,90,.15);
+  border-radius: 16px;
+  padding: 1.3rem 1.4rem;
+  position: relative;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: cardReveal 0.4s ease forwards;
+  opacity: 0;
+  transform: translateY(12px);
+}
+@keyframes cardReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(196,164,90,.35);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+/* Tag de seção no card */
+.card-tag {
+  display: inline-block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--navy-deep);
+  background: var(--gold);
+  border-radius: 20px;
+  padding: 2px 9px;
+  margin-bottom: 0.75rem;
+}
+.card-tag.vocabulario { background: var(--gold); }
+.card-tag.frases      { background: rgba(0,229,255,.8); color: var(--navy-deep); }
+.card-tag.termos      { background: rgba(196,164,90,.5); }
+.card-tag.anotacoes   { background: rgba(255,255,255,.15); color: var(--cream); }
+.card-tag.custom      { background: rgba(163,120,220,.7); color: #fff; }
+
+/* Termo principal */
+.card-termo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: 0.3rem;
+}
+
+/* Tradução */
+.card-traducao {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--gold-pale);
+  opacity: 0.8;
+  margin-bottom: 0.65rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.card-traducao::before {
+  content: '';
+  width: 14px; height: 1px;
+  background: var(--gold);
+  opacity: 0.4;
+  flex-shrink: 0;
+}
+
+/* Exemplo */
+.card-exemplo {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.69rem;
+  font-weight: 400;
+  color: rgba(255,255,255,.5);
+  font-style: italic;
+  line-height: 1.6;
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding-top: 0.6rem;
+  margin-top: 0.3rem;
+}
+
+/* Data */
+.card-date {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-top: 0.8rem;
+  opacity: 0.6;
+}
+
+/* Ações do card */
+.card-actions {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.card:hover .card-actions { opacity: 1; }
+.card-btn {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(5,13,26,.8);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 10px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.card-btn:hover { border-color: rgba(196,164,90,.4); background: rgba(196,164,90,.1); }
+.card-btn.delete:hover { border-color: rgba(255,80,80,.4); background: rgba(255,80,80,.1); }
+
+/* Estado vazio */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  opacity: 0.5;
+}
+.empty-state svg { margin-bottom: 1rem; opacity: 0.3; }
+.empty-state p {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── MODAL NOVO ITEM ── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5,13,26,.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.modal-backdrop.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal {
+  background: var(--navy-mid);
+  border: 1px solid rgba(196,164,90,.25);
+  border-radius: 20px;
+  padding: 2rem 2.2rem;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 24px 80px rgba(0,0,0,.6);
+  transform: translateY(20px);
+  transition: transform 0.3s;
+  position: relative;
+}
+.modal-backdrop.open .modal { transform: translateY(0); }
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.6rem;
+}
+.modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--cream);
+}
+.modal-close {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.12);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+.modal-close:hover { border-color: rgba(196,164,90,.4); color: var(--gold); }
+
+.form-group { margin-bottom: 1.1rem; }
+.form-label {
+  display: block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.7;
+  margin-bottom: 0.4rem;
+}
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(196,164,90,.18);
+  border-radius: 10px;
+  padding: 0.65rem 0.9rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.76rem;
+  color: var(--cream);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-input::placeholder,
+.form-textarea::placeholder { color: var(--muted); }
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: rgba(196,164,90,.45);
+  box-shadow: 0 0 0 3px rgba(196,164,90,.07);
+}
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C4A45A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 2rem;
+  cursor: pointer;
+  color: var(--cream);
+}
+.form-select option { background: var(--navy-mid); color: var(--cream); }
+.form-textarea { resize: vertical; min-height: 72px; line-height: 1.5; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.btn-salvar {
+  width: 100%;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--navy-deep);
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 16px rgba(196,164,90,.25);
+}
+.btn-salvar:hover { opacity: 0.9; transform: translateY(-1px); }
+
 </style>
 </head>
 <body>
@@ -812,5 +1266,96 @@ document.getElementById('trans-input').addEventListener('keydown', e => {
 })();
 
 </script>
+
+<!-- ══════════════════════════════════════════
+     CADERNO DO ALUNO
+══════════════════════════════════════════ -->
+<section id="caderno">
+  <div class="caderno-wrap">
+
+    <!-- Header -->
+    <div class="caderno-header" data-reveal>
+      <div class="caderno-overline">Instituto MD Talk · Caderno Pessoal</div>
+      <h2 class="caderno-title">Meu <em>Caderno</em></h2>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="caderno-toolbar" data-reveal>
+      <div class="search-wrap">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="search-input" placeholder="Buscar termo, frase ou anotação...">
+      </div>
+      <button class="btn-download" onclick="downloadCaderno()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download
+      </button>
+      <button class="btn-novo" onclick="abrirModal()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Nova entrada
+      </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs-wrap" id="tabs-wrap" data-reveal>
+      <button class="tab active" data-tab="todos" onclick="setTab('todos', this)">Todos</button>
+      <button class="tab" data-tab="vocabulario" onclick="setTab('vocabulario', this)">Vocabulário</button>
+      <button class="tab" data-tab="frases" onclick="setTab('frases', this)">Frases</button>
+      <button class="tab" data-tab="termos" onclick="setTab('termos', this)">Termos Clínicos</button>
+      <button class="tab" data-tab="anotacoes" onclick="setTab('anotacoes', this)">Anotações</button>
+      <button class="tab tab-nova" onclick="novaSeccao()">+ Nova seção</button>
+    </div>
+
+    <!-- Grid de cards -->
+    <div class="cards-grid" id="cards-grid"></div>
+
+  </div>
+</section>
+
+<!-- ── MODAL NOVO ITEM ── -->
+<div class="modal-backdrop" id="modal" onclick="fecharModalBackdrop(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modal-title">Nova entrada</h3>
+      <button class="modal-close" onclick="fecharModal()">✕</button>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Seção</label>
+        <select class="form-select" id="form-secao">
+          <option value="vocabulario">Vocabulário</option>
+          <option value="frases">Frases</option>
+          <option value="termos">Termos Clínicos</option>
+          <option value="anotacoes">Anotações</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Idioma do termo</label>
+        <select class="form-select" id="form-idioma">
+          <option value="en">English</option>
+          <option value="pt">Português</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Termo / Frase *</label>
+      <input type="text" class="form-input" id="form-termo" placeholder="Ex: dyspnea on exertion">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Tradução <span style="opacity:.5;font-size:.6rem;">(opcional)</span></label>
+      <input type="text" class="form-input" id="form-traducao" placeholder="Ex: dispneia aos esforços">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Exemplo em frase <span style="opacity:.5;font-size:.6rem;">(opcional)</span></label>
+      <textarea class="form-textarea" id="form-exemplo" placeholder="Ex: The patient reports dyspnea on exertion since last week."></textarea>
+    </div>
+
+    <button class="btn-salvar" onclick="salvarEntrada()">Salvar entrada</button>
+  </div>
+</div>
+
 </body>
 </html>
