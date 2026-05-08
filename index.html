@@ -2235,6 +2235,234 @@ initHero();
 .btn-salvar:hover { background: #163158; }
 
 
+
+/* ── FLASH HANDLE ── */
+#flash-handle {
+  position: relative; z-index: 40;
+  background: #F0EDE8;
+  border-top: 1px solid #e0dbd4;
+  cursor: pointer; transition: background 0.2s;
+}
+#flash-handle:hover { background: #E8E4DF; }
+#flash-handle::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(11,29,58,.25), transparent);
+  transform: scaleX(0); transition: transform 0.4s ease;
+}
+#flash-handle.open::before { transform: scaleX(1); }
+#flash-handle.open .handle-inner { color: #1a1a2e; }
+#flash-handle.open #flash-arrow { transform: rotate(180deg); }
+#flash-handle.open svg:first-child { color: var(--navy); }
+#flash-arrow { margin-left: auto; transition: transform 0.4s ease; }
+
+/* ── FLASH DRAWER ── */
+#flash-drawer {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.55s cubic-bezier(0.4,0,0.2,1);
+  background: #F0EDE8;
+  border-bottom: 1.5px solid #e0dbd4;
+}
+#flash-drawer.open { max-height: 100vh; }
+#flash-drawer-inner {
+  max-width: 900px; margin: 0 auto;
+  padding: 2.5rem 2rem 3.5rem;
+  opacity: 0; transform: translateY(-16px);
+  transition: opacity 0.35s ease 0.15s, transform 0.35s ease 0.15s;
+}
+#flash-drawer.open #flash-drawer-inner { opacity: 1; transform: translateY(0); }
+
+/* ── FLASH CONFIG ── */
+.flash-config {
+  display: flex; align-items: center;
+  gap: 1.2rem; margin-bottom: 2rem; flex-wrap: wrap;
+}
+.flash-config-label {
+  font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 700;
+  letter-spacing: 0.26em; text-transform: uppercase; color: #999;
+  white-space: nowrap;
+}
+.flash-section-btns { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.flash-sec-btn {
+  font-family: 'Raleway', sans-serif; font-size: 0.63rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  border: 1.5px solid #d4cfc9; background: #fff;
+  border-radius: 20px; padding: 0.3rem 0.85rem;
+  cursor: pointer; color: #999; transition: all 0.15s;
+}
+.flash-sec-btn.on { background: #1a1a2e; border-color: #1a1a2e; color: #fff; }
+.flash-sec-btn:hover:not(.on) { border-color: #aaa; color: #555; }
+
+.flash-mode-btns { display: flex; gap: 0.4rem; margin-left: auto; }
+.flash-mode-btn {
+  font-family: 'Raleway', sans-serif; font-size: 0.63rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1.5px solid #d4cfc9; background: #fff;
+  border-radius: 20px; padding: 0.3rem 0.9rem;
+  cursor: pointer; color: #999; transition: all 0.15s;
+}
+.flash-mode-btn.on { background: var(--gold); border-color: var(--gold); color: #fff; }
+.flash-mode-btn:hover:not(.on) { border-color: var(--gold); color: var(--gold); }
+
+/* ── FLASH ARENA ── */
+.flash-arena {
+  display: flex; flex-direction: column; align-items: center; gap: 1.6rem;
+}
+.flash-progress-wrap {
+  width: 100%; max-width: 520px;
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.flash-progress-bar {
+  flex: 1; height: 3px; background: #ddd; border-radius: 3px; overflow: hidden;
+}
+.flash-progress-fill {
+  height: 100%; background: var(--gold); border-radius: 3px;
+  transition: width 0.4s ease;
+}
+.flash-progress-label {
+  font-family: 'Raleway', sans-serif; font-size: 0.65rem;
+  font-weight: 600; color: #aaa; white-space: nowrap;
+}
+
+/* O card 3D */
+.flash-card-wrap {
+  width: 100%; max-width: 520px; height: 240px;
+  perspective: 1200px; cursor: pointer;
+}
+.flash-card-inner {
+  width: 100%; height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+}
+.flash-card-wrap.flipped .flash-card-inner { transform: rotateY(180deg); }
+
+.flash-face {
+  position: absolute; inset: 0;
+  background: #fff; border-radius: 20px;
+  border: 1.5px solid #e8e4e0;
+  box-shadow: 0 8px 32px rgba(0,0,0,.08);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 2rem 2.5rem; text-align: center;
+}
+.flash-face.back {
+  transform: rotateY(180deg);
+  background: #1a1a2e;
+}
+
+.flash-face-label {
+  font-family: 'Raleway', sans-serif; font-size: 7.5px; font-weight: 700;
+  letter-spacing: 0.26em; text-transform: uppercase;
+  color: #ccc; margin-bottom: 0.8rem;
+}
+.flash-face.back .flash-face-label { color: rgba(255,255,255,.35); }
+
+.flash-term {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 400; color: #1a1a2e; line-height: 1.2;
+}
+.flash-face.back .flash-term { color: var(--gold-light); }
+
+.flash-exemplo {
+  font-family: 'Raleway', sans-serif; font-size: 0.68rem;
+  color: rgba(255,255,255,.45); font-style: italic;
+  line-height: 1.6; margin-top: 0.8rem;
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding-top: 0.8rem;
+}
+
+.flash-hint {
+  font-family: 'Raleway', sans-serif; font-size: 0.62rem;
+  color: #ccc; letter-spacing: 0.08em; margin-top: 0.5rem;
+  display: flex; align-items: center; gap: 5px;
+}
+.flash-face.back .flash-hint { color: rgba(255,255,255,.25); }
+
+/* Controles */
+.flash-controls {
+  display: flex; align-items: center; gap: 1rem;
+}
+.flash-ctrl-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1.5px solid #d4cfc9; background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: #888; font-size: 18px;
+  transition: all 0.2s;
+}
+.flash-ctrl-btn:hover { border-color: #aaa; color: #555; }
+.flash-ctrl-btn.knew {
+  border-color: #a5d6a7; color: #388e3c; background: #f1f8f1;
+}
+.flash-ctrl-btn.knew:hover { background: #e8f5e9; border-color: #66bb6a; }
+.flash-ctrl-btn.skip {
+  border-color: #ffcc80; color: #f57c00; background: #fffbf0;
+}
+.flash-ctrl-btn.skip:hover { background: #fff8e1; border-color: #ffa726; }
+
+.flash-shuffle-btn {
+  font-family: 'Raleway', sans-serif; font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  border: 1.5px solid #d4cfc9; background: transparent;
+  border-radius: 20px; padding: 0.4rem 1rem;
+  cursor: pointer; color: #999; transition: all 0.2s;
+  display: flex; align-items: center; gap: 5px;
+}
+.flash-shuffle-btn:hover { border-color: #aaa; color: #555; }
+
+/* Score */
+.flash-score {
+  display: flex; gap: 1.5rem;
+}
+.flash-score-item {
+  text-align: center;
+}
+.flash-score-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; font-weight: 300; line-height: 1;
+}
+.flash-score-num.green { color: #388e3c; }
+.flash-score-num.orange { color: #f57c00; }
+.flash-score-label {
+  font-family: 'Raleway', sans-serif; font-size: 0.6rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: #bbb;
+  margin-top: 0.2rem;
+}
+
+/* Empty */
+.flash-empty {
+  text-align: center; padding: 2rem;
+}
+.flash-empty p {
+  font-family: 'Raleway', sans-serif; font-size: 0.75rem; color: #aaa;
+  line-height: 1.7;
+}
+.flash-empty strong { color: #555; font-weight: 600; }
+
+/* Fim de baralho */
+.flash-done {
+  text-align: center; padding: 2rem 1rem;
+}
+.flash-done-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+.flash-done-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; font-weight: 300; color: #1a1a2e; margin-bottom: 0.4rem;
+}
+.flash-done-sub {
+  font-family: 'Raleway', sans-serif; font-size: 0.72rem; color: #888;
+  margin-bottom: 1.4rem; line-height: 1.6;
+}
+.flash-restart-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #1a1a2e; color: #fff; border: none; border-radius: 20px;
+  padding: 0.6rem 1.4rem; font-family: 'Raleway', sans-serif;
+  font-size: 0.63rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; cursor: pointer; transition: background 0.2s;
+}
+.flash-restart-btn:hover { background: #163158; }
+
 /* ── PLANNER HANDLE (orelha) ── */
 #planner-handle {
   position: relative;
@@ -2486,6 +2714,22 @@ initHero();
 <div id="planner-drawer">
   <div id="planner-drawer-inner">
     <div id="planner-body"></div>
+  </div>
+</div>
+
+<!-- FLASHCARD HANDLE -->
+<div id="flash-handle" onclick="toggleFlash()">
+  <div class="handle-inner">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    <span>Flashcards</span>
+    <svg id="flash-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+  </div>
+</div>
+
+<!-- FLASHCARD DRAWER -->
+<div id="flash-drawer">
+  <div id="flash-drawer-inner">
+    <div id="flash-body"></div>
   </div>
 </div>
 
@@ -2928,6 +3172,207 @@ function renderTourStep(){
 function tourNext(){ tourIdx++; if(tourIdx>=TOUR.length) fecharTour(); else renderTourStep(); }
 function fecharTour(){ document.getElementById('tour-overlay').classList.remove('active'); localStorage.setItem('mdtalk_tour_ok','1'); }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ fecharModal(); fecharTour(); } });
+
+
+// ═══════════════════════════════════════════
+//  FLASHCARDS
+// ═══════════════════════════════════════════
+let flashSections = ['vocabulario','frases','termos','anotacoes'];
+let flashMode     = 'termo'; // 'termo' | 'traducao' | 'aleatorio'
+let flashDeck     = [];
+let flashIdx      = 0;
+let flashKnew     = 0;
+let flashSkipped  = 0;
+let flashFlipped  = false;
+
+function toggleFlash() {
+  const handle = document.getElementById('flash-handle');
+  const drawer = document.getElementById('flash-drawer');
+  const isOpen = drawer.classList.contains('open');
+  drawer.classList.toggle('open');
+  handle.classList.toggle('open');
+  if (!isOpen) renderFlash();
+}
+
+function flashBuildDeck() {
+  const pool = entradas.filter(e =>
+    flashSections.includes(e.secao) && e.traducao && e.traducao.trim()
+  );
+  // Embaralhar
+  flashDeck = [...pool].sort(() => Math.random() - 0.5);
+  flashIdx = 0; flashKnew = 0; flashSkipped = 0; flashFlipped = false;
+}
+
+function flashGetMode(entry) {
+  if (flashMode === 'aleatorio') return Math.random() > 0.5 ? 'termo' : 'traducao';
+  return flashMode;
+}
+
+function renderFlash() {
+  const body = document.getElementById('flash-body');
+
+  // Seções disponíveis (que têm entradas com tradução)
+  const availSecs = [...new Set(
+    entradas.filter(e => e.traducao && e.traducao.trim()).map(e => e.secao)
+  )];
+
+  const secLabels = { vocabulario:'Vocabulário', frases:'Frases', termos:'Termos', anotacoes:'Anotações' };
+
+  const secBtns = availSecs.map(s =>
+    `<button class="flash-sec-btn ${flashSections.includes(s)?'on':''}"
+      onclick="flashToggleSec('${s}')">${secLabels[s]||s}</button>`
+  ).join('');
+
+  const modeBtns = [
+    { id:'termo',    label:'Termo → PT' },
+    { id:'traducao', label:'PT → Termo' },
+    { id:'aleatorio',label:'Aleatório'  },
+  ].map(m =>
+    `<button class="flash-mode-btn ${flashMode===m.id?'on':''}"
+      onclick="flashSetMode('${m.id}')">${m.label}</button>`
+  ).join('');
+
+  // Sem entradas disponíveis
+  if (availSecs.length === 0) {
+    body.innerHTML = `<div class="flash-empty">
+      <p>Nenhuma entrada com tradução encontrada.<br>
+      Adicione termos com tradução no seu caderno para criar flashcards.</p>
+    </div>`;
+    return;
+  }
+
+  // Rebuild deck se vazio
+  if (flashDeck.length === 0) flashBuildDeck();
+
+  let arenaHtml;
+
+  if (flashIdx >= flashDeck.length) {
+    // Fim do baralho
+    const total = flashDeck.length;
+    const pct   = total > 0 ? Math.round(flashKnew / total * 100) : 0;
+    arenaHtml = `<div class="flash-done">
+      <div class="flash-done-icon">${pct >= 70 ? '🎉' : '💪'}</div>
+      <div class="flash-done-title">${pct >= 70 ? 'Muito bem!' : 'Continue praticando!'}</div>
+      <div class="flash-done-sub">
+        Você acertou <strong>${flashKnew}</strong> de <strong>${total}</strong> cards (${pct}%).<br>
+        ${flashSkipped > 0 ? `${flashSkipped} para revisar depois.` : 'Nenhuma revisão pendente.'}
+      </div>
+      <button class="flash-restart-btn" onclick="flashRestart()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+        Repetir baralho
+      </button>
+    </div>`;
+  } else {
+    const entry  = flashDeck[flashIdx];
+    const mode   = flashMode === 'aleatorio'
+      ? (entry._mode || (entry._mode = Math.random() > 0.5 ? 'termo' : 'traducao'))
+      : flashMode;
+    const front  = mode === 'termo' ? entry.termo    : entry.traducao;
+    const back   = mode === 'termo' ? entry.traducao : entry.termo;
+    const frontL = mode === 'termo' ? 'Termo'        : 'Tradução';
+    const backL  = mode === 'termo' ? 'Tradução'     : 'Termo';
+    const pct    = flashDeck.length > 0 ? (flashIdx / flashDeck.length * 100) : 0;
+
+    arenaHtml = `<div class="flash-arena">
+      <div class="flash-progress-wrap">
+        <div class="flash-progress-bar">
+          <div class="flash-progress-fill" style="width:${pct}%"></div>
+        </div>
+        <span class="flash-progress-label">${flashIdx + 1} / ${flashDeck.length}</span>
+      </div>
+
+      <div class="flash-card-wrap ${flashFlipped?'flipped':''}" id="flash-card" onclick="flashFlip()">
+        <div class="flash-card-inner">
+          <div class="flash-face front">
+            <div class="flash-face-label">${frontL}</div>
+            <div class="flash-term">${front}</div>
+            <div class="flash-hint">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+              Clique para revelar
+            </div>
+          </div>
+          <div class="flash-face back">
+            <div class="flash-face-label">${backL}</div>
+            <div class="flash-term">${back}</div>
+            ${entry.exemplo ? `<div class="flash-exemplo">${entry.exemplo}</div>` : ''}
+          </div>
+        </div>
+      </div>
+
+      <div class="flash-controls">
+        <button class="flash-ctrl-btn skip" onclick="flashNext(false)" title="Revisar depois">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+        </button>
+        <button class="flash-shuffle-btn" onclick="flashShuffle()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+          Embaralhar
+        </button>
+        <button class="flash-ctrl-btn knew" onclick="flashNext(true)" title="Sabia!">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        </button>
+      </div>
+
+      <div class="flash-score">
+        <div class="flash-score-item">
+          <div class="flash-score-num green">${flashKnew}</div>
+          <div class="flash-score-label">Sabia</div>
+        </div>
+        <div class="flash-score-item">
+          <div class="flash-score-num orange">${flashSkipped}</div>
+          <div class="flash-score-label">Revisar</div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  body.innerHTML = `
+    <div class="flash-config">
+      <span class="flash-config-label">Seções</span>
+      <div class="flash-section-btns">${secBtns}</div>
+      <div class="flash-mode-btns">${modeBtns}</div>
+    </div>
+    ${arenaHtml}
+  `;
+}
+
+function flashToggleSec(sec) {
+  const idx = flashSections.indexOf(sec);
+  if (idx === -1) flashSections.push(sec);
+  else if (flashSections.length > 1) flashSections.splice(idx, 1);
+  flashBuildDeck();
+  renderFlash();
+}
+
+function flashSetMode(mode) {
+  flashMode = mode;
+  // Limpar _mode para forçar recalculo no aleatório
+  flashDeck.forEach(e => delete e._mode);
+  renderFlash();
+}
+
+function flashFlip() {
+  flashFlipped = !flashFlipped;
+  const card = document.getElementById('flash-card');
+  if (card) card.classList.toggle('flipped');
+}
+
+function flashNext(knew) {
+  if (knew) flashKnew++; else flashSkipped++;
+  flashFlipped = false;
+  flashIdx++;
+  renderFlash();
+}
+
+function flashShuffle() {
+  flashDeck.sort(() => Math.random() - 0.5);
+  flashIdx = 0; flashKnew = 0; flashSkipped = 0; flashFlipped = false;
+  renderFlash();
+}
+
+function flashRestart() {
+  flashBuildDeck();
+  renderFlash();
+}
 
 // ── INIT ──────────────────────────────────
 renderCards();
