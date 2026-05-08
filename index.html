@@ -1750,5 +1750,1101 @@ async function initHero() {
 initHero();
 </script>
 
+<!-- ══════════════════════════════════════════
+     TRADUTOR FLUTUANTE
+══════════════════════════════════════════ -->
+<style>
+/* ── TRADUTOR ── */
+#translator {
+  position: fixed;
+  z-index: 100;
+  width: 320px;
+  background: rgba(5,13,26,0.88);
+  border: 1px solid rgba(0,229,255,.35);
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px rgba(0,229,255,.08), 0 12px 60px rgba(0,0,0,0.7), 0 0 40px rgba(0,229,255,.12), 0 0 80px rgba(0,229,255,.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1.2rem 1.4rem 1.4rem;
+  animation: translatorFloat 9s ease-in-out infinite;
+  cursor: grab;
+  user-select: none;
+  overflow: hidden;
+  bottom: 60px; right: 48px;
+}
+#translator::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,229,255,.8), transparent);
+  animation: scanLine 3s ease-in-out infinite;
+}
+#translator::after {
+  content: '';
+  position: absolute; top: 10px; right: 10px;
+  width: 8px; height: 8px;
+  border-top: 1px solid rgba(0,229,255,.7);
+  border-right: 1px solid rgba(0,229,255,.7);
+  border-radius: 0 3px 0 0;
+}
+@keyframes scanLine { 0%,100%{opacity:.3;transform:scaleX(.4)} 50%{opacity:1;transform:scaleX(1)} }
+@keyframes translatorFloat {
+  0%   { transform: translateY(0px)   translateX(0px); }
+  20%  { transform: translateY(-22px) translateX(18px); }
+  40%  { transform: translateY(-10px) translateX(36px); }
+  60%  { transform: translateY(-30px) translateX(20px); }
+  80%  { transform: translateY(-16px) translateX(6px); }
+  100% { transform: translateY(0px)   translateX(0px); }
+}
+#translator.dragging { animation: none; }
+#translator.minimized {
+  width: 52px !important; height: 52px !important;
+  padding: 0 !important; border-radius: 50% !important;
+  overflow: hidden; cursor: pointer !important;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 1px rgba(0,229,255,.08), 0 8px 32px rgba(0,0,0,0.7), 0 0 24px rgba(0,229,255,.25), 0 0 60px rgba(0,229,255,.12);
+}
+#translator.minimized .trans-body { display: none; }
+#translator.minimized .trans-header { display: none; }
+#translator.minimized::before, #translator.minimized::after { display: none; }
+#trans-icon-min { display: none; font-size: 18px; color: rgba(0,229,255,.9); pointer-events: none; }
+#translator.minimized #trans-icon-min { display: flex; align-items: center; justify-content: center; }
+#translator.minimized .pulse-ring {
+  position: absolute; inset: -4px; border-radius: 50%;
+  border: 1.5px solid rgba(0,229,255,.4);
+  animation: pulseRing 2s ease-out infinite;
+}
+@keyframes pulseRing { 0%{transform:scale(1);opacity:.7} 100%{transform:scale(1.5);opacity:0} }
+.trans-header {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: 1rem;
+}
+.trans-title-wrap { display: flex; align-items: center; gap: 7px; }
+.trans-icon {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: rgba(0,229,255,.08); border: 1px solid rgba(0,229,255,.3);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(0,229,255,.8);
+}
+.trans-title {
+  font-family: 'Raleway', sans-serif; font-size: 8.5px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold);
+}
+.trans-header-right { display: flex; align-items: center; gap: 6px; }
+.trans-direction {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(0,229,255,.04); border: 1px solid rgba(0,229,255,.25);
+  border-radius: 30px; padding: 4px 10px; cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.trans-direction:hover { background: rgba(0,229,255,.08); box-shadow: 0 0 12px rgba(0,229,255,.25); }
+.trans-direction span {
+  font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--gold-pale);
+}
+.trans-direction .arrow { color: var(--gold); font-size: 10px; transition: transform .35s ease; }
+.trans-direction.flipped .arrow { transform: rotate(180deg); }
+.trans-minimize {
+  cursor: pointer; width: 20px; height: 20px; border-radius: 50%;
+  background: rgba(0,229,255,.08); border: 1px solid rgba(0,229,255,.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: rgba(0,229,255,.7); font-weight: 700;
+  transition: all .2s;
+}
+.trans-minimize:hover { background: rgba(0,229,255,.18); }
+#trans-input {
+  width: 100%; background: rgba(255,255,255,.03);
+  border: 1px solid rgba(0,229,255,.2); border-radius: 12px;
+  padding: .7rem .9rem; font-family: 'Raleway', sans-serif;
+  font-size: .76rem; color: var(--cream); outline: none;
+  resize: none; height: 68px; transition: border-color .25s, box-shadow .25s;
+  line-height: 1.5; margin-bottom: .7rem; display: block; width: 100%;
+}
+#trans-input::placeholder { color: var(--muted); font-size: .71rem; }
+#trans-input:focus { border-color: rgba(0,229,255,.55); box-shadow: 0 0 0 3px rgba(0,229,255,.08), 0 0 16px rgba(0,229,255,.12); }
+#trans-btn {
+  width: 100%; background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  border: none; border-radius: 10px; padding: .62rem;
+  font-family: 'Raleway', sans-serif; font-size: .63rem; font-weight: 700;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--navy-deep);
+  cursor: pointer; transition: opacity .2s, transform .15s; margin-bottom: .9rem;
+  box-shadow: 0 4px 16px rgba(196,164,90,.25);
+}
+#trans-btn:hover { opacity: .9; transform: translateY(-1px); }
+#trans-btn:disabled { opacity: .45; cursor: wait; }
+#trans-result { display: none; border-top: 1px solid rgba(0,229,255,.12); padding-top: .9rem; }
+#trans-result.visible { display: block; }
+.result-label {
+  font-family: 'Raleway', sans-serif; font-size: 7.5px; font-weight: 700;
+  letter-spacing: .26em; text-transform: uppercase; color: var(--gold);
+  opacity: .65; margin-bottom: .3rem;
+  display: flex; align-items: center; gap: 5px;
+}
+.result-label::before { content:''; width:12px; height:1px; background:var(--gold); opacity:.4; }
+.result-translation {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.25rem;
+  font-weight: 400; color: var(--cream); line-height: 1.3; margin-bottom: .85rem;
+  padding: .5rem .7rem; background: rgba(0,229,255,.03);
+  border-radius: 8px; border-left: 2px solid rgba(0,229,255,.5);
+}
+.result-block { margin-bottom: .7rem; }
+.result-block p { font-family: 'Raleway', sans-serif; font-size: .68rem; color: rgba(255,255,255,.6); line-height: 1.65; }
+.result-block p em { font-style: italic; color: var(--gold-pale); }
+.trans-loading { display: flex; align-items: center; gap: 8px; padding: .5rem 0; }
+.trans-spinner {
+  width: 14px; height: 14px; border: 1.5px solid rgba(0,229,255,.15);
+  border-top-color: var(--neon); border-radius: 50%; animation: spin .75s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.trans-loading span { font-family: 'Raleway', sans-serif; font-size: .63rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+</style>
+
+<div id="translator" class="minimized">
+  <div class="pulse-ring"></div>
+  <span id="trans-icon-min">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+  </span>
+  <div class="trans-header">
+    <div class="trans-title-wrap">
+      <div class="trans-icon">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+      </div>
+      <span class="trans-title">Tradutor Médico</span>
+    </div>
+    <div class="trans-header-right">
+      <div class="trans-direction" id="trans-dir" onclick="toggleDirection()">
+        <span id="dir-from">PT</span>
+        <span class="arrow">⇄</span>
+        <span id="dir-to">EN</span>
+      </div>
+      <div class="trans-minimize" onclick="document.getElementById('translator').classList.add('minimized')" title="Minimizar">✕</div>
+    </div>
+  </div>
+  <div class="trans-body">
+    <textarea id="trans-input" placeholder="Digite uma palavra, frase ou termo clínico..."></textarea>
+    <button id="trans-btn" onclick="translate()">Traduzir</button>
+    <div id="trans-result">
+      <div class="trans-loading" id="trans-loading" style="display:none;">
+        <div class="trans-spinner"></div>
+        <span>Traduzindo...</span>
+      </div>
+      <div id="trans-output"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SEÇÃO CADERNO
+══════════════════════════════════════════ -->
+<style>
+:root { --navy:#0B1D3A; }
+
+/* ── LAYOUT GERAL ── */
+#caderno {
+  background: #F5F2EE;
+  min-height: 100vh;
+}
+
+/* Sticky nav do caderno */
+#caderno-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(245,242,238,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1.5px solid #e8e4df;
+  padding: 0 2rem;
+}
+
+.caderno-nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 60px;
+}
+
+.caderno-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #1a1a2e;
+  white-space: nowrap;
+  margin-right: 0.5rem;
+}
+.caderno-brand em { font-style: italic; color: var(--gold); }
+
+/* Tabs na nav */
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+
+.nav-tab {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.67rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: #aaa; background: transparent;
+  border: none; border-bottom: 2px solid transparent;
+  padding: 0 1rem; height: 60px;
+  cursor: pointer; transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap; flex-shrink: 0;
+}
+.nav-tab:hover { color: #555; }
+.nav-tab.active { color: #1a1a2e; border-bottom-color: var(--gold); }
+.nav-tab.tab-planner { color: #7c6ea0; }
+.nav-tab.tab-planner.active { color: #5c4e80; border-bottom-color: #7c6ea0; }
+.nav-tab-nova {
+  color: var(--gold) !important;
+  border: 1.5px dashed rgba(196,164,90,.35) !important;
+  border-bottom: 1.5px dashed rgba(196,164,90,.35) !important;
+  border-radius: 20px !important;
+  height: auto !important;
+  padding: 0.25rem 0.8rem !important;
+  margin-left: 0.5rem;
+  font-size: 0.6rem !important;
+}
+.nav-tab-nova:hover { background: rgba(196,164,90,.08) !important; }
+
+/* Ações do lado direito */
+.nav-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
+.nav-search-wrap {
+  position: relative;
+}
+.nav-search-wrap svg {
+  position: absolute; left: 10px; top: 50%;
+  transform: translateY(-50%); color: #aaa; pointer-events: none;
+}
+#search-input {
+  background: #fff; border: 1.5px solid #e0dbd4;
+  border-radius: 20px; padding: 0.45rem 0.9rem 0.45rem 2.2rem;
+  font-family: 'Raleway', sans-serif; font-size: 0.72rem;
+  color: #1a1a2e; outline: none; width: 200px;
+  transition: border-color 0.2s, width 0.3s;
+}
+#search-input:focus { border-color: var(--gold); width: 240px; }
+#search-input::placeholder { color: #bbb; }
+
+.btn-novo {
+  display: flex; align-items: center; gap: 6px;
+  background: #1a1a2e; border: none; border-radius: 20px;
+  padding: 0.45rem 1rem;
+  font-family: 'Raleway', sans-serif; font-size: 0.63rem; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: #fff; cursor: pointer; transition: background 0.2s;
+  white-space: nowrap;
+}
+.btn-novo:hover { background: #163158; }
+
+.btn-download {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1.5px solid #e0dbd4; background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  color: #999; cursor: pointer; transition: all 0.2s;
+  flex-shrink: 0;
+}
+.btn-download:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ── CONTEÚDO ── */
+#caderno-body {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 6rem;
+}
+
+/* Contador de entradas */
+.entries-count {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.68rem; font-weight: 500;
+  color: #bbb; letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+}
+.entries-count strong { color: #888; }
+
+/* ── CARDS ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: #fff;
+  border: 1.5px solid #ece8e2;
+  border-radius: 16px;
+  padding: 1.2rem 1.3rem 1rem;
+  position: relative;
+  transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+  animation: cardReveal 0.35s ease forwards;
+  opacity: 0; transform: translateY(8px);
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  cursor: default;
+}
+@keyframes cardReveal { to { opacity:1; transform:translateY(0); } }
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  box-shadow: 0 8px 24px rgba(196,164,90,.12);
+}
+
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.6rem; }
+.card-tag {
+  display: inline-block;
+  font-family: 'Raleway', sans-serif; font-size: 7px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  border-radius: 20px; padding: 2px 9px;
+}
+.card-tag.vocabulario { background: #FFF3DC; color: #9A7B2E; }
+.card-tag.frases      { background: #E0F7FA; color: #00838F; }
+.card-tag.termos      { background: #EDE7F6; color: #6A3FA0; }
+.card-tag.anotacoes   { background: #F1F8E9; color: #558B2F; }
+.card-tag.custom      { background: #FCE4EC; color: #C2185B; }
+
+.card-actions {
+  display: flex; gap: 4px; opacity: 0; transition: opacity 0.18s;
+}
+.card:hover .card-actions { opacity: 1; }
+.card-btn {
+  width: 26px; height: 26px; border-radius: 8px;
+  border: 1.5px solid #e8e4e0; background: #fafafa;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: #bbb; transition: all 0.15s;
+}
+.card-btn:hover { border-color: var(--gold); color: var(--gold); background: #fff8ee; }
+.card-btn.delete:hover { border-color: #ef5350; color: #ef5350; background: #fff5f5; }
+
+.card-termo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem; font-weight: 400;
+  color: #1a1a2e; line-height: 1.2; margin-bottom: 0.25rem;
+}
+.card-traducao {
+  font-family: 'Raleway', sans-serif; font-size: 0.7rem; font-weight: 500;
+  color: var(--gold); margin-bottom: 0.5rem;
+  display: flex; align-items: center; gap: 5px;
+}
+.card-traducao::before { content:''; width:10px; height:1px; background:var(--gold); opacity:.5; flex-shrink:0; }
+.card-exemplo {
+  font-family: 'Raleway', sans-serif; font-size: 0.67rem;
+  color: #999; font-style: italic; line-height: 1.6;
+  border-top: 1px solid #f0ece6; padding-top: 0.5rem; margin-top: 0.25rem;
+}
+.card-date {
+  font-family: 'Raleway', sans-serif; font-size: 0.58rem;
+  color: #ccc; letter-spacing: 0.08em; margin-top: 0.65rem;
+}
+
+/* Empty state */
+.empty-state {
+  grid-column: 1/-1; text-align: center; padding: 5rem 2rem;
+}
+.empty-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: #ece8e2; margin: 0 auto 1.2rem;
+  display: flex; align-items: center; justify-content: center; color: #ccc;
+}
+.empty-state h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 300; color: #555; margin-bottom: 0.4rem;
+}
+.empty-state p { font-family: 'Raleway', sans-serif; font-size: 0.72rem; color: #aaa; }
+.empty-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #1a1a2e; color: #fff; border: none; border-radius: 20px;
+  padding: 0.55rem 1.2rem; font-family: 'Raleway', sans-serif;
+  font-size: 0.63rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; cursor: pointer; margin-top: 1.2rem;
+  transition: background 0.2s;
+}
+.empty-cta:hover { background: #163158; }
+
+/* ── MODAL ── */
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(26,26,46,.5);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  z-index: 200; display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.25s;
+}
+.modal-backdrop.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: #fff; border-radius: 20px;
+  padding: 0; width: 100%; max-width: 500px;
+  box-shadow: 0 24px 80px rgba(0,0,0,.18);
+  transform: translateY(16px); transition: transform 0.25s;
+  overflow: hidden;
+}
+.modal-backdrop.open .modal { transform: translateY(0); }
+.modal-top {
+  background: #1a1a2e;
+  padding: 1.4rem 1.8rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 300; color: #fff;
+}
+.modal-close {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.2); background: transparent;
+  color: rgba(255,255,255,.5); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; transition: all 0.2s;
+}
+.modal-close:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+.modal-body { padding: 1.6rem 1.8rem 1.8rem; }
+.form-group { margin-bottom: 1rem; }
+.form-label {
+  display: block; font-family: 'Raleway', sans-serif;
+  font-size: 8px; font-weight: 700; letter-spacing: 0.24em;
+  text-transform: uppercase; color: #aaa; margin-bottom: 0.4rem;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%; background: #fafafa; border: 1.5px solid #e8e4e0;
+  border-radius: 10px; padding: 0.65rem 0.9rem;
+  font-family: 'Raleway', sans-serif; font-size: 0.76rem; color: #1a1a2e;
+  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-input::placeholder, .form-textarea::placeholder { color: #ccc; }
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--gold); box-shadow: 0 0 0 3px rgba(196,164,90,.1); background: #fff;
+}
+.form-select {
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C4A45A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+  padding-right: 2rem; cursor: pointer;
+}
+.form-select option { background: #fff; color: #1a1a2e; }
+.form-textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+.form-hint { font-family: 'Raleway', sans-serif; font-size: 0.61rem; color: #ccc; margin-top: 0.25rem; font-style: italic; }
+.btn-salvar {
+  width: 100%; background: #1a1a2e; border: none; border-radius: 10px;
+  padding: 0.8rem; font-family: 'Raleway', sans-serif;
+  font-size: 0.63rem; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: #fff; cursor: pointer;
+  transition: background 0.2s; margin-top: 0.4rem;
+}
+.btn-salvar:hover { background: #163158; }
+
+/* ── PLANNER ── */
+.planner-header {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 2rem; flex-wrap: wrap;
+}
+.planner-week {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; font-weight: 300; color: #1a1a2e; flex: 1;
+}
+.planner-nav { display: flex; gap: 4px; }
+.planner-nav-btn {
+  width: 32px; height: 32px; border-radius: 10px;
+  border: 1.5px solid #e8e4e0; background: #fff;
+  color: #555; cursor: pointer; font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.planner-nav-btn:hover { border-color: var(--gold); color: var(--gold); }
+.planner-suggest-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: #1a1a2e; color: #fff; border: none; border-radius: 20px;
+  padding: 0.5rem 1.1rem; font-family: 'Raleway', sans-serif;
+  font-size: 0.63rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; cursor: pointer; transition: background 0.2s;
+}
+.planner-suggest-btn:hover { background: #163158; }
+
+.planner-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 0.8rem; margin-bottom: 2rem;
+}
+.planner-day {
+  background: #fff; border: 1.5px solid #ece8e2;
+  border-radius: 14px; padding: 0.9rem 0.75rem;
+  min-height: 170px; transition: border-color 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+.planner-day.today { border-color: var(--gold); box-shadow: 0 4px 16px rgba(196,164,90,.15); }
+.planner-day-label {
+  font-family: 'Raleway', sans-serif; font-size: 7px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: #ccc; margin-bottom: 0.2rem;
+}
+.planner-day-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 300; color: #1a1a2e; margin-bottom: 0.65rem;
+}
+.planner-day.today .planner-day-num { color: var(--gold); }
+
+.planner-activities { display: flex; flex-wrap: wrap; gap: 5px; }
+.activity-icon {
+  position: relative; width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s; border: 1.5px solid transparent;
+}
+.activity-icon:hover { transform: scale(1.12); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+.activity-icon.done { opacity: 0.45; filter: grayscale(.4); }
+.activity-icon.done::after {
+  content: '✓'; position: absolute; top: -4px; right: -4px;
+  width: 14px; height: 14px; background: #4caf50; border-radius: 50%;
+  font-size: 8px; color: #fff; display: flex; align-items: center; justify-content: center;
+  font-family: 'Raleway', sans-serif; font-weight: 700;
+}
+.activity-icon .tip {
+  display: none; position: absolute; bottom: calc(100% + 8px);
+  left: 50%; transform: translateX(-50%);
+  background: #1a1a2e; color: #fff; font-family: 'Raleway', sans-serif;
+  font-size: 0.6rem; font-weight: 500; white-space: nowrap;
+  padding: 4px 10px; border-radius: 6px; z-index: 50; pointer-events: none;
+}
+.activity-icon:hover .tip { display: block; }
+
+.planner-add-btn {
+  width: 30px; height: 30px; border-radius: 9px;
+  border: 1.5px dashed #d0cbc4; background: transparent;
+  color: #ccc; cursor: pointer; font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; margin-top: 2px;
+}
+.planner-add-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+.activity-picker {
+  display: none; position: absolute; top: 0; left: calc(100% + 10px);
+  background: #fff; border: 1.5px solid #ece8e2; border-radius: 14px;
+  padding: 0.9rem; box-shadow: 0 8px 32px rgba(0,0,0,.14); z-index: 100; width: 210px;
+}
+.activity-picker.open { display: block; }
+.picker-title {
+  font-family: 'Raleway', sans-serif; font-size: 7.5px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: #aaa; margin-bottom: 0.7rem;
+}
+.picker-items { display: flex; flex-wrap: wrap; gap: 6px; }
+.picker-item {
+  width: 38px; height: 38px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; cursor: pointer; border: 1.5px solid #ece8e2;
+  transition: all 0.15s; position: relative;
+}
+.picker-item:hover { border-color: var(--gold); transform: scale(1.08); }
+.picker-item .tip {
+  display: none; position: absolute; bottom: calc(100% + 6px);
+  left: 50%; transform: translateX(-50%);
+  background: #1a1a2e; color: #fff; font-family: 'Raleway', sans-serif;
+  font-size: 0.58rem; white-space: nowrap; padding: 3px 8px;
+  border-radius: 5px; z-index: 200; pointer-events: none;
+}
+.picker-item:hover .tip { display: block; }
+
+.planner-legend {
+  background: #fff; border: 1.5px solid #ece8e2;
+  border-radius: 16px; padding: 1.4rem 1.6rem;
+}
+.legend-title {
+  font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 700;
+  letter-spacing: 0.24em; text-transform: uppercase; color: #bbb; margin-bottom: 1rem;
+}
+.legend-items { display: flex; flex-wrap: wrap; gap: 1rem; }
+.legend-item { display: flex; align-items: center; gap: 9px; }
+.legend-icon {
+  width: 34px; height: 34px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.legend-text { font-family: 'Raleway', sans-serif; font-size: 0.68rem; color: #555; line-height: 1.3; }
+
+/* ── TOUR ── */
+#tour-overlay {
+  display: none; position: fixed; inset: 0; z-index: 9999;
+  background: rgba(26,26,46,.6); backdrop-filter: blur(2px);
+}
+#tour-overlay.active { display: flex; align-items: center; justify-content: center; }
+#tour-card {
+  background: #fff; border-radius: 20px; padding: 2rem;
+  max-width: 340px; width: 90%; box-shadow: 0 24px 60px rgba(0,0,0,.2); text-align: center;
+}
+.tour-icon-big { font-size: 2.2rem; margin-bottom: 0.8rem; }
+.tour-step-label {
+  font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 700;
+  letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;
+}
+.tour-title-big {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;
+  font-weight: 300; color: #1a1a2e; margin-bottom: 0.5rem;
+}
+.tour-desc-text {
+  font-family: 'Raleway', sans-serif; font-size: 0.72rem;
+  color: #666; line-height: 1.65; margin-bottom: 1.4rem;
+}
+.tour-dots { display: flex; justify-content: center; gap: 5px; margin-bottom: 1.2rem; }
+.tour-dot { width: 6px; height: 6px; border-radius: 50%; background: #e0dbd4; }
+.tour-dot.on { background: var(--gold); }
+.tour-btns { display: flex; justify-content: center; gap: 0.8rem; align-items: center; }
+.tour-btn-skip {
+  font-family: 'Raleway', sans-serif; font-size: 0.62rem; color: #bbb;
+  background: none; border: none; cursor: pointer; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.tour-btn-next {
+  background: #1a1a2e; color: #fff; border: none; border-radius: 10px;
+  padding: 0.55rem 1.3rem; font-family: 'Raleway', sans-serif;
+  font-size: 0.63rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; cursor: pointer; transition: background 0.2s;
+}
+.tour-btn-next:hover { background: #163158; }
+
+@media (max-width: 700px) {
+  .planner-grid { grid-template-columns: repeat(2, 1fr); }
+  #caderno-nav .caderno-brand { display: none; }
+  #search-input { width: 140px; }
+}
+</style>
+
+<!-- CADERNO NAV (sticky) -->
+<nav id="caderno-nav">
+  <div class="caderno-nav-inner">
+    <span class="caderno-brand">Meu <em>Caderno</em></span>
+    <div class="nav-tabs" id="tabs-wrap">
+      <button class="nav-tab active" data-tab="todos"        onclick="setTab('todos',this)">Todos</button>
+      <button class="nav-tab"        data-tab="vocabulario"  onclick="setTab('vocabulario',this)" id="tour-tabs">Vocabulário</button>
+      <button class="nav-tab"        data-tab="frases"       onclick="setTab('frases',this)">Frases</button>
+      <button class="nav-tab"        data-tab="termos"       onclick="setTab('termos',this)">Termos</button>
+      <button class="nav-tab"        data-tab="anotacoes"    onclick="setTab('anotacoes',this)">Anotações</button>
+      <button class="nav-tab tab-planner" data-tab="planner" onclick="setTab('planner',this)">Planner</button>
+      <button class="nav-tab nav-tab-nova" onclick="novaSeccao()">+ Seção</button>
+    </div>
+    <div class="nav-actions">
+      <div class="nav-search-wrap" id="tour-busca">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="search-input" placeholder="Buscar...">
+      </div>
+      <button class="btn-download" id="tour-download" onclick="downloadCaderno()" title="Download do caderno">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </button>
+      <button class="btn-novo" id="tour-novo" onclick="abrirModal()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Nova entrada
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- CORPO DO CADERNO -->
+<section id="caderno">
+  <div id="caderno-body">
+    <div class="entries-count" id="entries-count"></div>
+    <div class="cards-grid" id="cards-grid"></div>
+    <div id="planner-panel" style="display:none;"></div>
+  </div>
+</section>
+
+<!-- Modal nova entrada -->
+<div class="modal-backdrop" id="modal" onclick="fecharModalBackdrop(event)">
+  <div class="modal">
+    <div class="modal-top">
+      <h3 class="modal-title" id="modal-title">Nova entrada</h3>
+      <button class="modal-close" onclick="fecharModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Seção</label>
+          <select class="form-select" id="form-secao">
+            <option value="vocabulario">Vocabulário</option>
+            <option value="frases">Frases</option>
+            <option value="termos">Termos Clínicos</option>
+            <option value="anotacoes">Anotações</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Idioma</label>
+          <select class="form-select" id="form-idioma">
+            <option value="en">English</option>
+            <option value="pt">Português</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Termo / Frase *</label>
+        <input type="text" class="form-input" id="form-termo" placeholder="Ex: dyspnea on exertion">
+        <p class="form-hint">Escreva o termo exatamente como quer memorizar.</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tradução <span style="opacity:.5">(opcional)</span></label>
+        <input type="text" class="form-input" id="form-traducao" placeholder="Ex: dispneia aos esforços">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Exemplo em frase <span style="opacity:.5">(opcional)</span></label>
+        <textarea class="form-textarea" id="form-exemplo" placeholder="Ex: The patient reports dyspnea on exertion since last week."></textarea>
+        <p class="form-hint">Um exemplo em contexto ajuda na memorização.</p>
+      </div>
+      <button class="btn-salvar" onclick="salvarEntrada()">Salvar entrada</button>
+    </div>
+  </div>
+</div>
+
+<!-- Tour -->
+<div id="tour-overlay">
+  <div id="tour-card">
+    <div class="tour-icon-big" id="tour-icon">👋</div>
+    <div class="tour-step-label" id="tour-label">Passo 1 de 5</div>
+    <div class="tour-title-big" id="tour-title">Bem-vindo ao seu Caderno</div>
+    <div class="tour-desc-text" id="tour-desc">Este é o seu espaço pessoal de aprendizado.</div>
+    <div class="tour-dots" id="tour-dots"></div>
+    <div class="tour-btns">
+      <button class="tour-btn-skip" onclick="fecharTour()">Pular</button>
+      <button class="tour-btn-next" onclick="tourNext()">Próximo →</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+// ═══════════════════════════════════════════
+//  TRADUTOR
+// ═══════════════════════════════════════════
+let direction = 'PT_EN';
+function toggleDirection() {
+  direction = direction === 'PT_EN' ? 'EN_PT' : 'PT_EN';
+  document.getElementById('trans-dir').classList.toggle('flipped');
+  document.getElementById('dir-from').textContent = direction === 'PT_EN' ? 'PT' : 'EN';
+  document.getElementById('dir-to').textContent   = direction === 'PT_EN' ? 'EN' : 'PT';
+  document.getElementById('trans-input').placeholder = direction === 'PT_EN'
+    ? 'Digite uma palavra, frase ou termo clínico...'
+    : 'Type a word, phrase or clinical term...';
+}
+async function translate() {
+  const text = document.getElementById('trans-input').value.trim();
+  if (!text) return;
+  const btn=document.getElementById('trans-btn'), result=document.getElementById('trans-result');
+  const loading=document.getElementById('trans-loading'), output=document.getElementById('trans-output');
+  btn.disabled=true; result.classList.add('visible'); loading.style.display='flex'; output.innerHTML='';
+  const sl=direction==='PT_EN'?'pt':'en', tl=direction==='PT_EN'?'en':'pt';
+  try {
+    const res  = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sl}&tl=${tl}&dt=t&dt=bd&q=${encodeURIComponent(text)}`);
+    const data = await res.json();
+    const main = data[0].filter(s=>s&&s[0]).map(s=>s[0]).join('');
+    let synsHtml='';
+    if(data[1]&&data[1].length){
+      const syns=[];
+      data[1].forEach(g=>{ if(g[2]) g[2].forEach(i=>{ if(i[0]) syns.push(i[0]); }); });
+      if(syns.length) synsHtml=`<div class="result-block"><div class="result-label">Alternativas</div><p>${syns.slice(0,6).join(' · ')}</p></div>`;
+    }
+    loading.style.display='none';
+    output.innerHTML=`<div class="result-label">Tradução</div><div class="result-translation">${main}</div>${synsHtml}`;
+  } catch(e) {
+    loading.style.display='none';
+    output.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:.7rem;">Erro ao traduzir. Tente novamente.</p>';
+  }
+  btn.disabled=false;
+}
+document.getElementById('trans-input').addEventListener('keydown', e => {
+  if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); translate(); }
+});
+document.getElementById('translator').addEventListener('click', function(e) {
+  if(this.classList.contains('minimized')){ this.classList.remove('minimized'); e.stopPropagation(); }
+});
+// Drag
+(function(){
+  const el=document.getElementById('translator');
+  let drag=false,sx,sy,ox,oy;
+  el.addEventListener('mousedown',e=>{
+    if(e.target.tagName==='TEXTAREA'||e.target.tagName==='BUTTON'||e.target.closest('.trans-direction')) return;
+    drag=true; el.classList.add('dragging');
+    const r=el.getBoundingClientRect(); sx=e.clientX; sy=e.clientY; ox=r.left; oy=r.top; e.preventDefault();
+  });
+  document.addEventListener('mousemove',e=>{
+    if(!drag) return;
+    el.style.left=(ox+e.clientX-sx)+'px'; el.style.top=(oy+e.clientY-sy)+'px';
+    el.style.right='auto'; el.style.bottom='auto';
+  });
+  document.addEventListener('mouseup',()=>{ drag=false; el.classList.remove('dragging'); });
+})();
+
+// ═══════════════════════════════════════════
+//  CADERNO — DADOS & LÓGICA
+// ═══════════════════════════════════════════
+let entradas = [
+  { id:1, secao:'vocabulario', termo:'Dyspnea on exertion', traducao:'Dispneia aos esforços', exemplo:'The patient reports dyspnea on exertion, worsening over the past two weeks.', data:'2025-05-01' },
+  { id:2, secao:'vocabulario', termo:'Tachycardia', traducao:'Taquicardia', exemplo:'On examination, the patient presented with tachycardia at 112 bpm.', data:'2025-05-01' },
+  { id:3, secao:'frases', termo:'The patient denies any history of...', traducao:'O paciente nega qualquer histórico de...', exemplo:'The patient denies any history of chest pain or previous cardiac events.', data:'2025-05-03' },
+  { id:4, secao:'frases', termo:'On further questioning...', traducao:'Ao aprofundar o interrogatório...', exemplo:'On further questioning, she admitted to occasional palpitations.', data:'2025-05-03' },
+  { id:5, secao:'termos', termo:'Myocardial infarction', traducao:'Infarto agudo do miocárdio', exemplo:'The ECG findings were consistent with an acute myocardial infarction.', data:'2025-05-05' },
+  { id:6, secao:'termos', termo:'Pulmonary embolism', traducao:'Embolia pulmonar', exemplo:'', data:'2025-05-06' },
+  { id:7, secao:'anotacoes', termo:'Diferença: complaint vs. chief complaint', traducao:'', exemplo:'"Chief complaint" é o motivo principal da consulta. "Complaint" pode ser qualquer queixa secundária.', data:'2025-05-07' }
+];
+let tabAtiva='todos', secoes=['vocabulario','frases','termos','anotacoes'], editandoId=null;
+const tagLabel={ vocabulario:'Vocabulário', frases:'Frase', termos:'Termo Clínico', anotacoes:'Anotação' };
+
+function formatDate(d){ if(!d)return''; const[y,m,dd]=d.split('-'); return dd+'/'+m+'/'+y; }
+
+function renderCards(){
+  const grid=document.getElementById('cards-grid');
+  const count=document.getElementById('entries-count');
+  const busca=(document.getElementById('search-input').value||'').toLowerCase();
+  if(tabAtiva==='planner'){ grid.style.display='none'; return; }
+  grid.style.display='grid';
+  let f=entradas.filter(e=>{
+    const mt=tabAtiva==='todos'||e.secao===tabAtiva;
+    const mb=!busca||e.termo.toLowerCase().includes(busca)||(e.traducao&&e.traducao.toLowerCase().includes(busca))||(e.exemplo&&e.exemplo.toLowerCase().includes(busca));
+    return mt&&mb;
+  });
+  if(count){
+    const total=tabAtiva==='todos'?entradas.length:entradas.filter(e=>e.secao===tabAtiva).length;
+    count.innerHTML=`<strong>${f.length}</strong> ${f.length===1?'entrada':'entradas'}${busca?' encontradas':tabAtiva!=='todos'?' em '+(tagLabel[tabAtiva]||tabAtiva):''}`;
+  }
+  if(!f.length){
+    grid.innerHTML=`<div class="empty-state">
+      <div class="empty-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <h3>Nenhuma entrada ainda</h3>
+      <p>Comece registrando um termo, frase ou anotação.</p>
+      <button class="empty-cta" onclick="abrirModal()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Nova entrada
+      </button>
+    </div>`;
+    return;
+  }
+  grid.innerHTML=f.map((e,i)=>`
+    <div class="card" style="animation-delay:${i*.04}s">
+      <div class="card-top">
+        <span class="card-tag ${e.secao}">${tagLabel[e.secao]||e.secao}</span>
+        <div class="card-actions">
+          <div class="card-btn" onclick="editarEntrada(${e.id})" title="Editar">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </div>
+          <div class="card-btn delete" onclick="deletarEntrada(${e.id})" title="Excluir">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="card-termo">${e.termo}</div>
+      ${e.traducao?`<div class="card-traducao">${e.traducao}</div>`:''}
+      ${e.exemplo?`<div class="card-exemplo">${e.exemplo}</div>`:''}
+      <div class="card-date">${formatDate(e.data)}</div>
+    </div>
+  `).join('');
+}
+
+function setTab(tab,el){
+  tabAtiva=tab;
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const pp=document.getElementById('planner-panel');
+  const cg=document.getElementById('cards-grid');
+  const ec=document.getElementById('entries-count');
+  if(tab==='planner'){
+    pp.style.display='block'; cg.style.display='none';
+    if(ec) ec.style.display='none';
+    renderPlanner();
+  } else {
+    pp.style.display='none'; cg.style.display='grid';
+    if(ec) ec.style.display='block';
+    renderCards();
+  }
+}
+
+function novaSeccao(){
+  const nome=prompt('Nome da nova seção:');
+  if(!nome||!nome.trim()) return;
+  const slug=nome.trim().toLowerCase().replace(/\s+/g,'-');
+  if(secoes.includes(slug)) return;
+  secoes.push(slug);
+  const wrap=document.getElementById('tabs-wrap');
+  const btnNova=wrap.querySelector('.nav-tab-nova');
+  const tab=document.createElement('button');
+  tab.className='nav-tab'; tab.dataset.tab=slug; tab.textContent=nome.trim();
+  tab.onclick=function(){ setTab(slug,this); };
+  wrap.insertBefore(tab,btnNova);
+  const sel=document.getElementById('form-secao');
+  const opt=document.createElement('option'); opt.value=slug; opt.textContent=nome.trim();
+  sel.appendChild(opt);
+}
+
+function abrirModal(dados){
+  editandoId=dados?dados.id:null;
+  document.getElementById('modal-title').textContent=dados?'Editar entrada':'Nova entrada';
+  document.getElementById('form-termo').value=dados?dados.termo:'';
+  document.getElementById('form-traducao').value=dados?dados.traducao:'';
+  document.getElementById('form-exemplo').value=dados?dados.exemplo:'';
+  if(dados) document.getElementById('form-secao').value=dados.secao;
+  document.getElementById('modal').classList.add('open');
+  setTimeout(()=>document.getElementById('form-termo').focus(),300);
+}
+function fecharModal(){ document.getElementById('modal').classList.remove('open'); editandoId=null; }
+function fecharModalBackdrop(e){ if(e.target===document.getElementById('modal')) fecharModal(); }
+
+function salvarEntrada(){
+  const termo=document.getElementById('form-termo').value.trim();
+  if(!termo){ document.getElementById('form-termo').focus(); return; }
+  const nova={
+    id:editandoId||Date.now(), secao:document.getElementById('form-secao').value,
+    termo, traducao:document.getElementById('form-traducao').value.trim(),
+    exemplo:document.getElementById('form-exemplo').value.trim(),
+    data:new Date().toISOString().split('T')[0]
+  };
+  entradas=editandoId?entradas.map(e=>e.id===editandoId?nova:e):[nova,...entradas];
+  fecharModal(); renderCards();
+}
+function editarEntrada(id){ const e=entradas.find(e=>e.id===id); if(e) abrirModal(e); }
+function deletarEntrada(id){ if(!confirm('Excluir esta entrada?')) return; entradas=entradas.filter(e=>e.id!==id); renderCards(); }
+
+function downloadCaderno(){
+  const nome=sessionStorage.getItem('mdtalk_student_name')||'Aluno';
+  const hoje=new Date().toLocaleDateString('pt-BR');
+  const agrupado={};
+  entradas.forEach(e=>{ const s=tagLabel[e.secao]||e.secao; if(!agrupado[s]) agrupado[s]=[]; agrupado[s].push(e); });
+  let txt='MD TALK — CADERNO DE '+nome.toUpperCase()+'
+Gerado em '+hoje+'
+'+'='.repeat(50)+'
+';
+  Object.entries(agrupado).forEach(([s,items])=>{
+    txt+='
+── '+s.toUpperCase()+' ──
+
+';
+    items.forEach(e=>{ txt+='• '+e.termo+'
+'; if(e.traducao) txt+='  → '+e.traducao+'
+'; if(e.exemplo) txt+='  "'+e.exemplo+'"
+'; txt+='  ['+formatDate(e.data)+']
+
+'; });
+  });
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain;charset=utf-8'}));
+  a.download='caderno-mdtalk.txt'; a.click();
+}
+
+document.getElementById('search-input').addEventListener('input', renderCards);
+
+// ═══════════════════════════════════════════
+//  PLANNER
+// ═══════════════════════════════════════════
+const SKILLS=[
+  {id:'video-sem',  emoji:'🎬', label:'Vídeo sem legenda',     desc:'Assista 1 ep. ou vídeo em inglês sem legenda', bg:'#FFF3DC', border:'#F0C860'},
+  {id:'video-leg',  emoji:'📺', label:'Vídeo com legenda EN',  desc:'Assista com legenda em inglês para absorver vocabulário', bg:'#E0F7FA', border:'#00BCD4'},
+  {id:'cantar',     emoji:'🎵', label:'Cantar em inglês',      desc:'Escolha uma música e cante em inglês', bg:'#FCE4EC', border:'#E91E63'},
+  {id:'transcrever',emoji:'✍️', label:'Transcrever música',    desc:'Escreva a letra de uma música ao ouvi-la', bg:'#F3E5F5', border:'#9C27B0'},
+  {id:'infograficos',emoji:'📊',label:'3 Infográficos',        desc:'Leia e compreenda 3 infográficos em inglês', bg:'#E8F5E9', border:'#4CAF50'},
+  {id:'leitura',    emoji:'📖', label:'Leitura de texto',      desc:'Leia um artigo, texto médico ou capítulo', bg:'#E3F2FD', border:'#2196F3'},
+  {id:'noticia',    emoji:'📰', label:'Notícia online',        desc:'Leia uma notícia em inglês na internet', bg:'#FFF8E1', border:'#FFC107'},
+];
+const SUGGESTED=['video-sem','leitura','video-leg','noticia','infograficos','cantar','transcrever'];
+const DAY_NAMES=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+let plannerOffset=0, plannerData={}, openPickerKey=null;
+
+function plannerWeekDates(offset){
+  const today=new Date(), dow=today.getDay();
+  const mon=new Date(today);
+  mon.setDate(today.getDate()-dow+(dow===0?-6:1)+offset*7);
+  return Array.from({length:7},(_,i)=>{ const d=new Date(mon); d.setDate(mon.getDate()+i); return d; });
+}
+function dateKey(d){ return d.toISOString().split('T')[0]; }
+function plannerWeek(dir){ plannerOffset+=dir; renderPlanner(); }
+function plannerSuggest(){
+  plannerWeekDates(plannerOffset).forEach((d,i)=>{ const k=dateKey(d); if(!plannerData[k]||!plannerData[k].length) plannerData[k]=[SUGGESTED[i]]; });
+  renderPlanner();
+}
+function toggleActivityDone(key,sid){
+  const dk=key+'__done', done=plannerData[dk]||[];
+  const idx=done.indexOf(sid);
+  if(idx===-1) done.push(sid); else done.splice(idx,1);
+  plannerData[dk]=done; renderPlanner();
+}
+function removeActivity(key,sid){ if(plannerData[key]) plannerData[key]=plannerData[key].filter(s=>s!==sid); renderPlanner(); }
+function addActivity(key,sid){
+  if(!plannerData[key]) plannerData[key]=[];
+  if(!plannerData[key].includes(sid)) plannerData[key].push(sid);
+  openPickerKey=null; renderPlanner();
+}
+function togglePicker(key){ openPickerKey=openPickerKey===key?null:key; renderPlanner(); }
+
+function renderPlanner(){
+  const panel=document.getElementById('planner-panel');
+  const dates=plannerWeekDates(plannerOffset);
+  const today=dateKey(new Date());
+  const fmt=d=>d.getDate()+'/'+(d.getMonth()+1);
+  panel.innerHTML=`
+    <div class="planner-header">
+      <div class="planner-week">Semana de ${fmt(dates[0])} a ${fmt(dates[6])}${plannerOffset===0?' <span style="font-size:.7rem;color:#aaa;font-family:Raleway,sans-serif;font-style:normal;">· esta semana</span>':''}</div>
+      <div class="planner-nav">
+        <button class="planner-nav-btn" onclick="plannerWeek(-1)">‹</button>
+        <button class="planner-nav-btn" onclick="plannerWeek(1)">›</button>
+      </div>
+      <button class="planner-suggest-btn" onclick="plannerSuggest()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Sugerir semana
+      </button>
+    </div>
+    <div class="planner-grid">
+      ${dates.map(d=>{
+        const key=dateKey(d), isToday=key===today;
+        const skills=plannerData[key]||[], done=plannerData[key+'__done']||[];
+        const pickerOpen=openPickerKey===key;
+        return `<div class="planner-day ${isToday?'today':''}">
+          <div class="planner-day-label">${DAY_NAMES[d.getDay()]}</div>
+          <div class="planner-day-num">${d.getDate()}</div>
+          <div class="planner-activities">
+            ${skills.map(sid=>{ const sk=SKILLS.find(s=>s.id===sid); if(!sk) return '';
+              const isDone=done.includes(sid);
+              return `<div class="activity-icon ${isDone?'done':''}" style="background:${sk.bg};border-color:${sk.border};" onclick="toggleActivityDone('${key}','${sid}')" oncontextmenu="event.preventDefault();removeActivity('${key}','${sid}')">${sk.emoji}<span class="tip">${sk.label}${isDone?' ✓':''}</span></div>`;
+            }).join('')}
+            <div style="position:relative;">
+              <button class="planner-add-btn" onclick="togglePicker('${key}')">+</button>
+              <div class="activity-picker ${pickerOpen?'open':''}">
+                <div class="picker-title">Adicionar atividade</div>
+                <div class="picker-items">
+                  ${SKILLS.map(sk=>`<div class="picker-item" style="background:${sk.bg};border-color:${sk.border};" onclick="addActivity('${key}','${sk.id}')">${sk.emoji}<span class="tip">${sk.label}</span></div>`).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="planner-legend">
+      <div class="legend-title">Habilidades disponíveis</div>
+      <div class="legend-items">
+        ${SKILLS.map(sk=>`<div class="legend-item"><div class="legend-icon" style="background:${sk.bg};border:1.5px solid ${sk.border};">${sk.emoji}</div><div class="legend-text"><strong>${sk.label}</strong><br><span style="color:#aaa;font-size:.62rem;">${sk.desc}</span></div></div>`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════
+//  TOUR
+// ═══════════════════════════════════════════
+const TOUR=[
+  {icon:'👋', title:'Bem-vindo ao seu Caderno', desc:'Este é o seu espaço pessoal de aprendizado. Registre vocabulário, frases e termos clínicos das suas aulas — do seu jeito.'},
+  {icon:'✏️', title:'Nova entrada', desc:'Clique em "Nova entrada" para adicionar um termo, frase ou anotação. Tradução e exemplo são sempre opcionais.'},
+  {icon:'🗂️', title:'Seções', desc:'Navegue pelas seções na barra de cima: Vocabulário, Frases, Termos ou Anotações. Crie novas seções quando quiser.'},
+  {icon:'📅', title:'Planner Semanal', desc:'Na aba Planner, organize suas atividades de imersão em inglês para cada dia da semana.'},
+  {icon:'⬇️', title:'Download', desc:'Clique no ícone de download para exportar todo o conteúdo do seu caderno a qualquer momento.'},
+];
+let tourIdx=0;
+function initTour(){ if(localStorage.getItem('mdtalk_tour_ok')) return; setTimeout(()=>{ renderTourStep(); document.getElementById('tour-overlay').classList.add('active'); },1200); }
+function renderTourStep(){
+  const s=TOUR[tourIdx], n=TOUR.length;
+  document.getElementById('tour-icon').textContent=s.icon;
+  document.getElementById('tour-label').textContent='Passo '+(tourIdx+1)+' de '+n;
+  document.getElementById('tour-title').textContent=s.title;
+  document.getElementById('tour-desc').textContent=s.desc;
+  document.getElementById('tour-dots').innerHTML=TOUR.map((_,i)=>`<div class="tour-dot ${i===tourIdx?'on':''}"></div>`).join('');
+  const btn=document.querySelector('.tour-btn-next');
+  if(btn) btn.textContent=tourIdx===n-1?'Começar ✓':'Próximo →';
+}
+function tourNext(){ tourIdx++; if(tourIdx>=TOUR.length) fecharTour(); else renderTourStep(); }
+function fecharTour(){ document.getElementById('tour-overlay').classList.remove('active'); localStorage.setItem('mdtalk_tour_ok','1'); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ fecharModal(); fecharTour(); } });
+
+// ── INIT ──────────────────────────────────
+renderCards();
+initTour();
+</script>
 </body>
 </html>
