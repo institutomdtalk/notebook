@@ -1092,6 +1092,104 @@
 }
 .tour-btn-next:hover { background: #163158; }
 
+
+/* ── GAVETAS LATERAIS ── */
+#gv-overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(20,20,40,.4); backdrop-filter:blur(3px);
+  z-index:800;
+}
+#gv-overlay.on { display:block; }
+
+/* Aba (puxador) */
+.gv-tab {
+  position:fixed; right:0; z-index:900;
+  display:flex; flex-direction:column; align-items:center;
+  padding:16px 10px; gap:10px;
+  border-radius:10px 0 0 10px;
+  cursor:pointer;
+  box-shadow:-2px 0 12px rgba(0,0,0,.15);
+  transition:transform .2s;
+}
+.gv-tab:hover { transform:translateX(-5px); }
+.gv-tab span {
+  writing-mode:vertical-lr;
+  transform:rotate(180deg);
+  font-family:'Raleway',sans-serif;
+  font-size:.6rem; font-weight:700;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:#fff;
+}
+#gv-tab-planner { top:160px; background:#7c6ea0; }
+#gv-tab-flash   { top:280px; background:#2196F3; }
+
+/* Gaveta */
+.gv-drawer {
+  position:fixed; top:0; right:0; bottom:0;
+  width:min(620px,90vw);
+  background:#FDFBF8;
+  z-index:850;
+  transform:translateX(100%);
+  transition:transform .45s cubic-bezier(.4,0,.2,1);
+  display:flex; flex-direction:column;
+  box-shadow:-6px 0 40px rgba(0,0,0,.18);
+}
+.gv-drawer.on { transform:translateX(0); }
+
+/* Header da gaveta */
+.gv-head {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.1rem 1.5rem; flex-shrink:0;
+  font-family:'Raleway',sans-serif; font-size:.7rem;
+  font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:rgba(255,255,255,.95);
+}
+#gv-head-planner { background:#7c6ea0; }
+#gv-head-flash   { background:#2196F3; }
+.gv-head button {
+  width:28px; height:28px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.3);
+  background:rgba(255,255,255,.15); color:#fff;
+  cursor:pointer; font-size:12px;
+  display:flex; align-items:center; justify-content:center;
+}
+.gv-head button:hover { background:rgba(255,255,255,.3); }
+
+/* Corpo da gaveta */
+.gv-body {
+  flex:1; overflow-y:auto; padding:1.8rem 1.5rem 3rem;
+  scrollbar-width:thin; scrollbar-color:#ddd transparent;
+}
+
+/* Botão de cor na aba */
+.gv-tab-color {
+  width:16px; height:16px; border-radius:50%;
+  background:rgba(255,255,255,.3); border:none;
+  cursor:pointer; display:flex; align-items:center;
+  justify-content:center; font-size:8px; color:#fff;
+}
+
+/* Color picker */
+#gv-cp {
+  position:fixed; z-index:1000;
+  background:#fff; border:1.5px solid #e8e4e0;
+  border-radius:14px; padding:1rem 1.1rem;
+  box-shadow:0 12px 40px rgba(0,0,0,.15); width:210px;
+}
+.gv-cp-title {
+  font-family:'Raleway',sans-serif; font-size:8px; font-weight:700;
+  letter-spacing:.24em; text-transform:uppercase; color:#aaa; margin-bottom:.7rem;
+}
+#gv-cp-swatches {
+  display:grid; grid-template-columns:repeat(5,1fr); gap:6px;
+}
+.gv-swatch {
+  aspect-ratio:1; border-radius:7px; border:2px solid transparent;
+  cursor:pointer; transition:transform .15s;
+}
+.gv-swatch:hover { transform:scale(1.12); }
+.gv-swatch.on { border-color:#1a1a2e; }
+
 </style>
 
 <body>
@@ -1661,7 +1759,7 @@ document.addEventListener('keydown', e => { if (e.key==='Escape') { fecharModal(
 
 renderCards();
 initTour();
-initDrawerColors();
+gvInitColors();
 </script>
 
 
@@ -2702,66 +2800,35 @@ initHero();
 }
 </style>
 
-<!-- ══════════════════════════════════════
-     GAVETAS LATERAIS (fichário)
-══════════════════════════════════════ -->
+<!-- GAVETAS LATERAIS -->
+<div id="gv-overlay" onclick="gvClose()"></div>
 
-<!-- Overlay de fundo -->
-<div id="drawer-overlay" onclick="closeAllDrawers()"></div>
-
-<!-- ABA PLANNER -->
-<div class="file-tab" id="tab-planner" style="--tab-color:#7c6ea0;top:140px"
-     onclick="toggleDrawer('planner')">
-  <span class="tab-label" style="writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);letter-spacing:.14em;font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.92);">Planner</span>
-  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-  <button class="tab-color-btn" onclick="event.stopPropagation();openColorPicker('planner')" title="Personalizar cor">●</button>
+<div id="gv-tab-planner" class="gv-tab" onclick="gvToggle('planner')">
+  <span>Planner</span>
+</div>
+<div id="gv-tab-flash" class="gv-tab" onclick="gvToggle('flash')">
+  <span>Flashcards</span>
 </div>
 
-<!-- ABA FLASHCARDS -->
-<div class="file-tab" id="tab-flash" style="--tab-color:#2196F3;top:230px"
-     onclick="toggleDrawer('flash')">
-  <span class="tab-label" style="writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);letter-spacing:.14em;font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.92);">Flashcards</span>
-  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-  <button class="tab-color-btn" onclick="event.stopPropagation();openColorPicker('flash')" title="Personalizar cor">●</button>
-</div>
-
-<!-- GAVETA PLANNER -->
-<div class="side-drawer" id="drawer-planner">
-  <div class="side-drawer-inner">
-    <div class="side-drawer-header" style="--tab-color:#7c6ea0">
-      <span class="side-drawer-title">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        Planner Semanal
-      </span>
-      <button class="side-drawer-close" onclick="closeAllDrawers()">✕</button>
-    </div>
-    <div class="side-drawer-body" id="planner-body"></div>
+<div id="gv-planner" class="gv-drawer">
+  <div class="gv-head" id="gv-head-planner">
+    <span>Planner Semanal</span>
+    <button onclick="gvClose()">✕</button>
   </div>
+  <div class="gv-body" id="planner-body"></div>
 </div>
 
-<!-- GAVETA FLASHCARDS -->
-<div class="side-drawer" id="drawer-flash">
-  <div class="side-drawer-inner">
-    <div class="side-drawer-header" style="--tab-color:#2196F3">
-      <span class="side-drawer-title">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        Flashcards
-      </span>
-      <button class="side-drawer-close" onclick="closeAllDrawers()">✕</button>
-    </div>
-    <div class="side-drawer-body" id="flash-body"></div>
+<div id="gv-flash" class="gv-drawer">
+  <div class="gv-head" id="gv-head-flash">
+    <span>Flashcards</span>
+    <button onclick="gvClose()">✕</button>
   </div>
+  <div class="gv-body" id="flash-body"></div>
 </div>
 
-<!-- Color picker flutuante -->
-<div id="color-picker-popup" style="display:none;">
-  <div class="cp-title">Escolha uma cor</div>
-  <div class="cp-swatches" id="cp-swatches"></div>
-  <div class="cp-custom">
-    <label class="cp-custom-label">Personalizada</label>
-    <input type="color" id="cp-custom-input" value="#C4A45A">
-    <button class="cp-apply-btn" onclick="applyCustomColor()">Aplicar</button>
-  </div>
+<div id="gv-cp" style="display:none">
+  <div class="gv-cp-title">Cor da aba</div>
+  <div id="gv-cp-swatches"></div>
 </div>
 
 <!-- CADERNO NAV (sticky) -->
@@ -3198,110 +3265,6 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ fecharModal(); fe
 
 
 // ═══════════════════════════════════════════
-//  GAVETAS LATERAIS
-// ═══════════════════════════════════════════
-
-const DRAWER_COLORS = {
-  planner: localStorage.getItem('drawer_color_planner') || '#7c6ea0',
-  flash:   localStorage.getItem('drawer_color_flash')   || '#2196F3',
-};
-
-const COLOR_SWATCHES = [
-  '#7c6ea0','#2196F3','#C4A45A','#0B1D3A',
-  '#E91E63','#4CAF50','#FF5722','#00BCD4',
-  '#795548','#607D8B','#9C27B0','#FF9800',
-  '#388E3C','#C62828','#1565C0','#4A148C',
-];
-
-function applyTabColor(id, color) {
-  DRAWER_COLORS[id] = color;
-  localStorage.setItem('drawer_color_'+id, color);
-  const tab = document.getElementById('tab-'+id);
-  const header = document.querySelector('#drawer-'+id+' .side-drawer-header');
-  if (tab)    tab.style.setProperty('--tab-color', color);
-  if (header) header.style.setProperty('--tab-color', color);
-}
-
-function initDrawerColors() {
-  Object.entries(DRAWER_COLORS).forEach(([id, color]) => applyTabColor(id, color));
-}
-
-let activeDrawer = null;
-function toggleDrawer(id) {
-  if (activeDrawer === id) { closeAllDrawers(); return; }
-  closeAllDrawers(false);
-  activeDrawer = id;
-  document.getElementById('drawer-'+id).classList.add('open');
-  document.getElementById('tab-'+id).classList.add('open');
-  document.getElementById('drawer-overlay').classList.add('on');
-  if (id === 'planner') renderPlanner();
-  if (id === 'flash')   renderFlash();
-}
-
-function closeAllDrawers(clearActive=true) {
-  document.querySelectorAll('.side-drawer').forEach(d => d.classList.remove('open'));
-  document.querySelectorAll('.file-tab').forEach(t => t.classList.remove('open'));
-  document.getElementById('drawer-overlay').classList.remove('on');
-  closeColorPicker();
-  if (clearActive) activeDrawer = null;
-}
-
-// Color picker
-let cpTarget = null;
-function openColorPicker(id) {
-  cpTarget = id;
-  const popup = document.getElementById('color-picker-popup');
-  const tab   = document.getElementById('tab-'+id);
-  const rect  = tab.getBoundingClientRect();
-
-  // Render swatches
-  document.getElementById('cp-swatches').innerHTML = COLOR_SWATCHES.map(col =>
-    `<div class="cp-swatch ${DRAWER_COLORS[id]===col?'selected':''}"
-      style="background:${col}"
-      onclick="applyTabColor('${id}','${col}');renderSwatches('${id}')"></div>`
-  ).join('');
-  document.getElementById('cp-custom-input').value = DRAWER_COLORS[id];
-
-  popup.style.display = 'block';
-  popup.style.top    = Math.min(rect.top, window.innerHeight-280)+'px';
-  popup.style.right  = (window.innerWidth - rect.left + 8)+'px';
-  popup.style.left   = 'auto';
-}
-
-function renderSwatches(id) {
-  document.getElementById('cp-swatches').innerHTML = COLOR_SWATCHES.map(col =>
-    `<div class="cp-swatch ${DRAWER_COLORS[id]===col?'selected':''}"
-      style="background:${col}"
-      onclick="applyTabColor('${id}','${col}');renderSwatches('${id}')"></div>`
-  ).join('');
-}
-
-function applyCustomColor() {
-  const color = document.getElementById('cp-custom-input').value;
-  if (cpTarget) applyTabColor(cpTarget, color);
-  closeColorPicker();
-}
-
-function closeColorPicker() {
-  document.getElementById('color-picker-popup').style.display = 'none';
-  cpTarget = null;
-}
-
-document.addEventListener('click', e => {
-  const popup = document.getElementById('color-picker-popup');
-  if (popup.style.display !== 'none' &&
-      !popup.contains(e.target) &&
-      !e.target.classList.contains('tab-color-btn')) {
-    closeColorPicker();
-  }
-});
-
-// Fechar ao pressionar ESC
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeAllDrawers(); fecharModal(); fecharTour(); }
-});
-
-// ═══════════════════════════════════════════
 //  FLASHCARDS
 // ═══════════════════════════════════════════
 let flashSections = ['vocabulario','frases','termos','anotacoes'];
@@ -3493,10 +3456,88 @@ function flashRestart() {
   renderFlash();
 }
 
+
+// ── GAVETAS ──────────────────────────────────────────────
+const GV_COLORS = {
+  planner: localStorage.getItem('gv_c_planner') || '#7c6ea0',
+  flash:   localStorage.getItem('gv_c_flash')   || '#2196F3',
+};
+const GV_SWATCHES = [
+  '#7c6ea0','#2196F3','#C4A45A','#0B1D3A','#E91E63','#4CAF50',
+  '#FF5722','#00BCD4','#795548','#607D8B','#9C27B0','#FF9800',
+  '#388E3C','#C62828','#1565C0','#4A148C',
+];
+
+function gvApplyColor(id, color) {
+  GV_COLORS[id] = color;
+  localStorage.setItem('gv_c_'+id, color);
+  const tab  = document.getElementById('gv-tab-'+id);
+  const head = document.getElementById('gv-head-'+id);
+  if (tab)  tab.style.background  = color;
+  if (head) head.style.background = color;
+}
+
+function gvInitColors() {
+  Object.entries(GV_COLORS).forEach(([id,col]) => gvApplyColor(id,col));
+  // Adicionar botão de cor às abas
+  document.querySelectorAll('.gv-tab').forEach(tab => {
+    const id = tab.id.replace('gv-tab-','');
+    if (!tab.querySelector('.gv-tab-color')) {
+      const btn = document.createElement('button');
+      btn.className = 'gv-tab-color';
+      btn.innerHTML = '●';
+      btn.title = 'Personalizar cor';
+      btn.onclick = e => { e.stopPropagation(); gvOpenCP(id, tab); };
+      tab.appendChild(btn);
+    }
+  });
+}
+
+let gvActive = null;
+function gvToggle(id) {
+  if (gvActive === id) { gvClose(); return; }
+  gvClose(false);
+  gvActive = id;
+  document.getElementById('gv-'+id).classList.add('on');
+  document.getElementById('gv-overlay').classList.add('on');
+  if (id === 'planner') renderPlanner();
+  if (id === 'flash')   renderFlash();
+}
+function gvClose(clearActive=true) {
+  document.querySelectorAll('.gv-drawer').forEach(d => d.classList.remove('on'));
+  document.getElementById('gv-overlay').classList.remove('on');
+  gvCPClose();
+  if (clearActive) gvActive = null;
+}
+
+// Color picker
+let gvCPTarget = null;
+function gvOpenCP(id, tabEl) {
+  gvCPTarget = id;
+  const popup = document.getElementById('gv-cp');
+  const rect  = tabEl.getBoundingClientRect();
+  document.getElementById('gv-cp-swatches').innerHTML = GV_SWATCHES.map(col =>
+    `<div class="gv-swatch ${GV_COLORS[id]===col?'on':''}" style="background:${col}"
+      onclick="gvApplyColor('${id}','${col}');gvCPClose()"></div>`
+  ).join('');
+  popup.style.display = 'block';
+  popup.style.top  = Math.min(rect.top, window.innerHeight-220)+'px';
+  popup.style.left = Math.max(8, rect.left-220)+'px';
+}
+function gvCPClose() {
+  document.getElementById('gv-cp').style.display='none';
+  gvCPTarget = null;
+}
+document.addEventListener('click', e => {
+  const cp = document.getElementById('gv-cp');
+  if (cp.style.display!=='none' && !cp.contains(e.target) && !e.target.closest('.gv-tab-color'))
+    gvCPClose();
+});
+
 // ── INIT ──────────────────────────────────
 renderCards();
 initTour();
-initDrawerColors();
+gvInitColors();
 </script>
 </body>
 </html>
