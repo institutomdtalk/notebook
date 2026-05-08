@@ -7,15 +7,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy-deep: #050D1A;
-    --gold:      #C4A45A;
-    --gold-light:#D4BA7A;
-    --cream:     rgba(255,255,255,.88);
-    --muted:     rgba(255,255,255,.42);
+    --navy:       #0B1D3A;
+    --navy-deep:  #050D1A;
+    --navy-mid:   #0F2645;
+    --navy-light: #163158;
+    --gold:       #C4A45A;
+    --gold-light: #D4BA7A;
+    --gold-pale:  #E8D9B0;
+    --cream:      rgba(255,255,255,.88);
+    --muted:      rgba(255,255,255,.42);
+    --neon:       #00E5FF;
+    --neon-dim:   rgba(0,229,255,0.15);
+    --neon-mid:   rgba(0,229,255,0.35);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     font-family: 'Raleway', sans-serif;
     background: var(--navy-deep);
@@ -32,173 +37,151 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-x: hidden;
+    overflow: hidden;
   }
-
-  /* Imagem de fundo */
   #hero-bg {
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 1.6s ease;
+    opacity: 0; transition: opacity 1.6s ease;
   }
   #hero-bg.loaded { opacity: 1; }
-
-  /* Overlay */
   #hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to bottom,
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom,
       rgba(5,13,26,0.80) 0%,
       rgba(5,13,26,0.68) 40%,
-      rgba(5,13,26,0.88) 100%
-    );
+      rgba(5,13,26,0.88) 100%);
   }
-
-  /* Dot grid */
   #hero-dots {
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     background-image: radial-gradient(rgba(196,164,90,.07) 1px, transparent 1px);
-    background-size: 30px 30px;
-    pointer-events: none;
+    background-size: 30px 30px; pointer-events: none;
   }
-
-  /* ── CONTEÚDO ── */
+  .geo { position: absolute; pointer-events: none; }
+  .geo-ring {
+    width: 340px; height: 340px;
+    border: 1px solid rgba(196,164,90,.13); border-radius: 50%;
+    top: -80px; right: -90px;
+    animation: geoFloat 11s ease-in-out infinite;
+  }
+  .geo-ring-2 {
+    width: 200px; height: 200px;
+    border: 1px solid rgba(196,164,90,.09); border-radius: 50%;
+    bottom: 100px; left: -50px;
+    animation: geoFloat 14s ease-in-out infinite; animation-delay: -5s;
+  }
+  .geo-diamond {
+    width: 56px; height: 56px;
+    border: 1px solid rgba(196,164,90,.22);
+    bottom: 180px; right: 140px;
+    animation: geoFloatDiamond 8s ease-in-out infinite; animation-delay: -3s;
+  }
+  .geo-line {
+    width: 1px; height: 110px;
+    background: linear-gradient(to bottom, transparent, rgba(196,164,90,.28), transparent);
+    top: 32%; left: 72px;
+    animation: geoFloat 10s ease-in-out infinite; animation-delay: -7s;
+  }
+  @keyframes geoFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-16px); }
+  }
+  @keyframes geoFloatDiamond {
+    0%, 100% { transform: rotate(45deg) translateY(0); }
+    50%       { transform: rotate(45deg) translateY(-12px); }
+  }
   #hero-content {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    padding: 2rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1.1s ease 0.6s, transform 1.1s ease 0.6s;
+    position: relative; z-index: 10;
+    text-align: center; padding: 2rem 1.5rem;
+    max-width: 720px;
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
   }
-  #hero-content.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Overline — "BOA NOITE," */
+  #hero-content.visible { opacity: 1; transform: translateY(0); }
   .overline {
     font-family: 'Raleway', sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.6rem;
-    display: block;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem; display: block;
   }
-
-  /* Nome grande */
   .hero-name {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(4.5rem, 12vw, 9rem);
-    font-weight: 400;
-    line-height: 0.95;
-    color: var(--cream);
-    letter-spacing: -0.01em;
-    margin-bottom: 0;
+    font-weight: 400; line-height: 0.95;
+    color: var(--cream); letter-spacing: -0.01em;
   }
-
-  /* Divider fino */
   .hero-divider {
-    width: 40px;
-    height: 1px;
+    width: 40px; height: 1px;
     background: rgba(196,164,90,0.5);
     margin: 1.4rem auto 1.2rem;
   }
-
-  /* Linha de info: cidade · temp · condição */
   .hero-info {
     font-family: 'Raleway', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase;
     color: var(--muted);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    margin-bottom: 0.9rem;
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; margin-bottom: 0.9rem;
   }
   .hero-info .sep {
-    width: 3px; height: 3px;
-    background: var(--gold);
-    border-radius: 50%;
-    opacity: 0.6;
-    flex-shrink: 0;
+    width: 3px; height: 3px; background: var(--gold);
+    border-radius: 50%; opacity: 0.6; flex-shrink: 0;
   }
-
-  /* Relógio */
   #clock {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(1.1rem, 3vw, 1.6rem);
-    font-weight: 300;
-    letter-spacing: 0.18em;
-    color: var(--cream);
-    opacity: 0.75;
-    margin-bottom: 1.4rem;
+    font-weight: 300; letter-spacing: 0.18em;
+    color: var(--cream); opacity: 0.75; margin-bottom: 1.4rem;
   }
-
-  /* Clima ao vivo */
   .clima-label {
     font-family: 'Raleway', sans-serif;
-    font-size: 0.62rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--gold);
-    opacity: 0.7;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
+    font-size: 0.62rem; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); opacity: 0.7;
+    display: flex; align-items: center; justify-content: center; gap: 7px;
   }
   .clima-dot {
-    width: 6px; height: 6px;
-    background: var(--gold);
-    border-radius: 50%;
-    animation: pulse 2.2s ease-in-out infinite;
+    width: 6px; height: 6px; background: var(--gold);
+    border-radius: 50%; animation: pulse 2.2s ease-in-out infinite;
   }
   @keyframes pulse {
     0%, 100% { opacity: 0.3; transform: scale(0.8); }
     50%       { opacity: 1;   transform: scale(1.2); }
   }
-
-  /* Loading */
+  .scroll-indicator {
+    position: absolute; bottom: 2.2rem; left: 50%;
+    transform: translateX(-50%); z-index: 10;
+    display: flex; flex-direction: column; align-items: center; gap: 7px;
+    animation: scrollPulse 2.8s ease-in-out infinite;
+  }
+  .scroll-indicator span {
+    font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); font-family: 'Raleway', sans-serif;
+  }
+  .scroll-line { width: 1px; height: 38px; background: linear-gradient(to bottom, var(--gold), transparent); }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.28; transform: translateX(-50%) translateY(0); }
+    50%       { opacity: 0.65; transform: translateX(-50%) translateY(7px); }
+  }
   #loading-state {
-    position: absolute;
-    inset: 0;
-    background: var(--navy-deep);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 20;
-    transition: opacity 1s ease;
+    position: absolute; inset: 0; background: var(--navy-deep);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 20; transition: opacity 0.9s ease;
   }
   #loading-state.hidden { opacity: 0; pointer-events: none; }
+  .loading-mark { display: flex; flex-direction: column; align-items: center; gap: 14px; }
   .loading-logo {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    font-weight: 300;
-    letter-spacing: 0.38em;
-    color: var(--gold);
-    text-transform: uppercase;
-    animation: fadeInOut 2s ease-in-out infinite;
+    font-size: 1.3rem; font-weight: 300; letter-spacing: 0.35em;
+    color: var(--gold); text-transform: uppercase;
+    animation: fadeInOut 1.9s ease-in-out infinite;
   }
-  @keyframes fadeInOut {
-    0%, 100% { opacity: 0.15; }
-    50%       { opacity: 0.7; }
-  }
+  .loading-line { width: 40px; height: 1px; background: var(--gold); opacity: 0.3; animation: fadeInOut 1.9s ease-in-out infinite reverse; }
+  @keyframes fadeInOut { 0%, 100% { opacity: 0.15; } 50% { opacity: 0.75; } }
 
-  /* ── TRADUTOR FLUTUANTE ── */
+/* ── TRADUTOR FLUTUANTE ── */
   #translator {
     position: fixed;
     z-index: 100;
@@ -913,6 +896,45 @@
 
 </style>
 
+<body>
+<section id="hero">
+  <div id="loading-state">
+    <div class="loading-mark">
+      <span class="loading-logo">MD Talk</span>
+      <div class="loading-line"></div>
+    </div>
+  </div>
+  <div id="hero-bg"></div>
+  <div id="hero-overlay"></div>
+  <div id="hero-dots"></div>
+  <div class="geo geo-ring"></div>
+  <div class="geo geo-ring-2"></div>
+  <div class="geo geo-diamond"></div>
+  <div class="geo geo-line"></div>
+  <div id="hero-content">
+    <span class="overline" id="greeting-overline">Boa noite,</span>
+    <h1 class="hero-name" id="student-name">Thaiana</h1>
+    <div class="hero-divider"></div>
+    <div class="hero-info">
+      <span id="info-city">São Paulo, SP</span>
+      <span class="sep"></span>
+      <span id="info-temp">—°C</span>
+      <span class="sep"></span>
+      <span id="info-condition">Carregando</span>
+    </div>
+    <div id="clock">00:00:00</div>
+    <div class="clima-label">
+      <span class="clima-dot"></span>
+      <span>Clima ao vivo</span>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Explorar</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+
 <!-- ══════════════════════════════════════════
      CADERNO DO ALUNO
 ══════════════════════════════════════════ -->
@@ -1225,5 +1247,93 @@ document.addEventListener('keydown', e => { if (e.key==='Escape') { fecharModal(
 renderCards();
 initTour();
 </script>
+
+
+<script>
+// ── IMAGENS DO DRIVE ───────────────────────────────────────
+const IMAGES = {
+  "amanhecer-limpo": "1Rk7SnutIEJnS48SbQsh_IkjAzGy3IpYm",
+  "amanhecer-chuva": "1ZuEQ4zA-f_f7iApj4YrujNUA9mLLDnGU",
+  "dia-ensolarado":  "17UO6iLqIaiA5vnYEs7jqkDR3d1jiL35E",
+  "dia-nublado":     "1NGL3xbDMu4DxcT1Kca20280VfflbjjeX",
+  "dia-chuva":       "1OXhei11KCLjOLBv1nGzQpw6Sw36X3FTQ",
+  "por-do-sol":      "1PDwEYdjlZ2eqa1lZcGSReQryNrLqjLqo",
+  "noite-limpa":     "1SSXCMyE7xw611qr7IukKmFuW8RsdbTkT",
+  "noite-chuva":     "1AFVaFEdP8AFqQHtExCZUCmlJMCxDWHVo"
+};
+function driveUrl(id) { return `https://drive.google.com/thumbnail?id=${id}&sz=w1920`; }
+function selectImage(code, hour) {
+  const rainy  = code >= 51;
+  const cloudy = code >= 1 && code < 51;
+  if (hour >= 5  && hour < 8)  return rainy ? "amanhecer-chuva" : "amanhecer-limpo";
+  if (hour >= 8  && hour < 17) return rainy ? "dia-chuva" : cloudy ? "dia-nublado" : "dia-ensolarado";
+  if (hour >= 17 && hour < 20) return "por-do-sol";
+  return rainy ? "noite-chuva" : "noite-limpa";
+}
+function greetingText(hour) {
+  if (hour >= 5  && hour < 12) return "Bom dia,";
+  if (hour >= 12 && hour < 18) return "Boa tarde,";
+  return "Boa noite,";
+}
+function weatherDesc(code) {
+  if (code === 0) return "Céu limpo";
+  if (code <= 3)  return "Parcialmente nublado";
+  if (code <= 48) return "Nublado";
+  if (code <= 67) return "Chuva";
+  return "Tempestade";
+}
+function startClock() {
+  function tick() {
+    const n = new Date();
+    const h = String(n.getHours()).padStart(2,'0');
+    const m = String(n.getMinutes()).padStart(2,'0');
+    const s = String(n.getSeconds()).padStart(2,'0');
+    document.getElementById("clock").textContent = h+':'+m+':'+s;
+  }
+  tick(); setInterval(tick, 1000);
+}
+async function fetchWeather(city) {
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-20250514", max_tokens: 1000,
+      system: 'Return ONLY valid JSON, no markdown. Format: {"lat":number,"lon":number}. Coordinates for this Brazilian city.',
+      messages: [{ role: "user", content: city }]
+    })
+  });
+  const data = await res.json();
+  const text = data.content.filter(b => b.type==="text").map(b => b.text).join("");
+  const { lat, lon } = JSON.parse(text.replace(/```json|```/g,"").trim());
+  const w = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+  const wd = await w.json();
+  return { code: wd.current_weather.weathercode, temp: Math.round(wd.current_weather.temperature) };
+}
+async function initHero() {
+  const name = sessionStorage.getItem("mdtalk_student_name") || "Thaiana";
+  const city = sessionStorage.getItem("mdtalk_student_city") || "São Paulo";
+  const hour = new Date().getHours();
+  document.getElementById("greeting-overline").textContent = greetingText(hour);
+  document.getElementById("student-name").textContent = name;
+  document.getElementById("info-city").textContent = city + ", SP";
+  startClock();
+  let code = 0, temp = "—";
+  try { const w = await fetchWeather(city); code = w.code; temp = w.temp; } catch(e) {}
+  document.getElementById("info-temp").textContent = temp + "°C";
+  document.getElementById("info-condition").textContent = weatherDesc(code);
+  const key = selectImage(code, hour);
+  const bg  = document.getElementById("hero-bg");
+  const img = new Image();
+  img.onload = () => { bg.style.backgroundImage = `url('${driveUrl(IMAGES[key])}')`;  bg.classList.add("loaded"); };
+  img.onerror = () => { bg.style.background = `radial-gradient(ellipse at 50% 30%, #163158 0%, #050D1A 70%)`; bg.classList.add("loaded"); };
+  img.src = driveUrl(IMAGES[key]);
+  setTimeout(() => {
+    document.getElementById("loading-state").classList.add("hidden");
+    document.getElementById("hero-content").classList.add("visible");
+  }, 600);
+}
+initHero();
+</script>
+
 </body>
 </html>
