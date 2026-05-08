@@ -1357,5 +1357,168 @@ document.getElementById('trans-input').addEventListener('keydown', e => {
   </div>
 </div>
 
+<script>
+// ═══════════════════════════════════════════
+//  CADERNO DO ALUNO — LÓGICA
+// ═══════════════════════════════════════════
+
+let entradas = [
+  { id:1, secao:'vocabulario', termo:'Dyspnea on exertion', traducao:'Dispneia aos esforços', exemplo:'The patient reports dyspnea on exertion, worsening over the past two weeks.', data:'2025-05-01' },
+  { id:2, secao:'vocabulario', termo:'Tachycardia', traducao:'Taquicardia', exemplo:'On examination, the patient presented with tachycardia at 112 bpm.', data:'2025-05-01' },
+  { id:3, secao:'frases', termo:'The patient denies any history of...', traducao:'O paciente nega qualquer histórico de...', exemplo:'The patient denies any history of chest pain or previous cardiac events.', data:'2025-05-03' },
+  { id:4, secao:'frases', termo:'On further questioning...', traducao:'Ao aprofundar o interrogatório...', exemplo:'On further questioning, she admitted to occasional palpitations.', data:'2025-05-03' },
+  { id:5, secao:'termos', termo:'Myocardial infarction', traducao:'Infarto agudo do miocárdio', exemplo:'The ECG findings were consistent with an acute myocardial infarction.', data:'2025-05-05' },
+  { id:6, secao:'termos', termo:'Pulmonary embolism', traducao:'Embolia pulmonar', exemplo:'', data:'2025-05-06' },
+  { id:7, secao:'anotacoes', termo:'Diferença: complaint vs. chief complaint', traducao:'', exemplo:'"Chief complaint" é o motivo principal da consulta. "Complaint" pode ser qualquer queixa secundária.', data:'2025-05-07' }
+];
+
+let tabAtiva   = 'todos';
+let secoes     = ['vocabulario','frases','termos','anotacoes'];
+let editandoId = null;
+const tagLabel = { vocabulario:'Vocabulário', frases:'Frase', termos:'Termo Clínico', anotacoes:'Anotação' };
+
+function formatDate(d) {
+  if (!d) return '';
+  const [y,m,dd] = d.split('-');
+  return dd+'/'+m+'/'+y;
+}
+
+function renderCards() {
+  const grid  = document.getElementById('cards-grid');
+  const busca = document.getElementById('search-input').value.toLowerCase();
+  let filtradas = entradas.filter(e => {
+    const matchTab   = tabAtiva === 'todos' || e.secao === tabAtiva;
+    const matchBusca = !busca ||
+      e.termo.toLowerCase().includes(busca) ||
+      (e.traducao && e.traducao.toLowerCase().includes(busca)) ||
+      (e.exemplo  && e.exemplo.toLowerCase().includes(busca));
+    return matchTab && matchBusca;
+  });
+  if (!filtradas.length) {
+    grid.innerHTML = '<div class="empty-state"><p>Nenhuma entrada encontrada</p></div>';
+    return;
+  }
+  grid.innerHTML = filtradas.map((e,i) => `
+    <div class="card" style="animation-delay:${i*0.05}s">
+      <span class="card-tag ${e.secao}">${tagLabel[e.secao] || e.secao}</span>
+      <div class="card-actions">
+        <div class="card-btn" onclick="editarEntrada(${e.id})">✎</div>
+        <div class="card-btn delete" onclick="deletarEntrada(${e.id})">✕</div>
+      </div>
+      <div class="card-termo">${e.termo}</div>
+      ${e.traducao ? '<div class="card-traducao">'+e.traducao+'</div>' : ''}
+      ${e.exemplo  ? '<div class="card-exemplo">'+e.exemplo+'</div>'   : ''}
+      <div class="card-date">${formatDate(e.data)}</div>
+    </div>
+  `).join('');
+}
+
+function setTab(tab, el) {
+  tabAtiva = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderCards();
+}
+
+function novaSeccao() {
+  const nome = prompt('Nome da nova seção:');
+  if (!nome || !nome.trim()) return;
+  const slug = nome.trim().toLowerCase().replace(/\s+/g,'-');
+  if (secoes.includes(slug)) return;
+  secoes.push(slug);
+  const wrap    = document.getElementById('tabs-wrap');
+  const btnNova = wrap.querySelector('.tab-nova');
+  const tab     = document.createElement('button');
+  tab.className   = 'tab';
+  tab.dataset.tab = slug;
+  tab.textContent = nome.trim();
+  tab.onclick     = function(){ setTab(slug, this); };
+  wrap.insertBefore(tab, btnNova);
+  const select    = document.getElementById('form-secao');
+  const opt       = document.createElement('option');
+  opt.value       = slug;
+  opt.textContent = nome.trim();
+  select.appendChild(opt);
+}
+
+function abrirModal(dados) {
+  editandoId = dados ? dados.id : null;
+  document.getElementById('modal-title').textContent = dados ? 'Editar entrada' : 'Nova entrada';
+  document.getElementById('form-termo').value    = dados ? dados.termo    : '';
+  document.getElementById('form-traducao').value = dados ? dados.traducao : '';
+  document.getElementById('form-exemplo').value  = dados ? dados.exemplo  : '';
+  if (dados) document.getElementById('form-secao').value = dados.secao;
+  document.getElementById('modal').classList.add('open');
+  setTimeout(() => document.getElementById('form-termo').focus(), 300);
+}
+
+function fecharModal() {
+  document.getElementById('modal').classList.remove('open');
+  editandoId = null;
+}
+
+function fecharModalBackdrop(e) {
+  if (e.target === document.getElementById('modal')) fecharModal();
+}
+
+function salvarEntrada() {
+  const termo = document.getElementById('form-termo').value.trim();
+  if (!termo) { document.getElementById('form-termo').focus(); return; }
+  const nova = {
+    id:       editandoId || Date.now(),
+    secao:    document.getElementById('form-secao').value,
+    termo,
+    traducao: document.getElementById('form-traducao').value.trim(),
+    exemplo:  document.getElementById('form-exemplo').value.trim(),
+    data:     new Date().toISOString().split('T')[0]
+  };
+  entradas = editandoId
+    ? entradas.map(e => e.id === editandoId ? nova : e)
+    : [nova, ...entradas];
+  fecharModal();
+  renderCards();
+}
+
+function editarEntrada(id) {
+  const e = entradas.find(e => e.id === id);
+  if (e) abrirModal(e);
+}
+
+function deletarEntrada(id) {
+  if (!confirm('Excluir esta entrada?')) return;
+  entradas = entradas.filter(e => e.id !== id);
+  renderCards();
+}
+
+function downloadCaderno() {
+  const nome  = sessionStorage.getItem('mdtalk_student_name') || 'Aluno';
+  const hoje  = new Date().toLocaleDateString('pt-BR');
+  const agrupado = {};
+  entradas.forEach(e => {
+    const s = tagLabel[e.secao] || e.secao;
+    if (!agrupado[s]) agrupado[s] = [];
+    agrupado[s].push(e);
+  });
+  let txt = 'MD TALK — CADERNO DE ' + nome.toUpperCase() + '\nGerado em ' + hoje + '\n' + '='.repeat(50) + '\n';
+  Object.entries(agrupado).forEach(([secao, items]) => {
+    txt += '\n── ' + secao.toUpperCase() + ' ──\n\n';
+    items.forEach(e => {
+      txt += '• ' + e.termo + '\n';
+      if (e.traducao) txt += '  → ' + e.traducao + '\n';
+      if (e.exemplo)  txt += '  "' + e.exemplo + '"\n';
+      txt += '  [' + formatDate(e.data) + ']\n\n';
+    });
+  });
+  const blob = new Blob([txt], { type:'text/plain;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'caderno-mdtalk.txt'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById('search-input').addEventListener('input', renderCards);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharModal(); });
+renderCards();
+</script>
 </body>
 </html>
