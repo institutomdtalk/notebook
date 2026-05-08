@@ -484,14 +484,13 @@
 
 
 /* ═══════════════════════════════════════════════
-   CADERNO DO ALUNO — MD Talk
+   CADERNO DO ALUNO — Light Theme
 ═══════════════════════════════════════════════ */
 
-/* ── SEÇÃO CADERNO ── */
 #caderno {
-  background: var(--navy-deep);
+  background: #F5F2EE;
   min-height: 100vh;
-  padding: 5rem 2rem 6rem;
+  padding: 5rem 2rem 7rem;
 }
 
 .caderno-wrap {
@@ -499,15 +498,15 @@
   margin: 0 auto;
 }
 
-/* Header do caderno */
+/* Header */
 .caderno-header {
   text-align: center;
-  margin-bottom: 3.5rem;
+  margin-bottom: 3rem;
 }
 .caderno-overline {
   font-family: 'Raleway', sans-serif;
   font-size: 9px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--gold);
@@ -515,757 +514,412 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.7rem;
 }
 .caderno-overline::before,
 .caderno-overline::after {
-  content: '';
-  width: 32px; height: 1px;
-  background: var(--gold);
-  opacity: 0.4;
+  content: ''; width: 32px; height: 1px;
+  background: var(--gold); opacity: 0.5;
 }
 .caderno-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 300;
-  color: var(--cream);
+  color: #1a1a2e;
   line-height: 1.1;
 }
-.caderno-title em {
-  font-style: italic;
-  color: var(--gold-light);
+.caderno-title em { font-style: italic; color: var(--gold); }
+.caderno-subtitle {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: #888;
+  letter-spacing: 0.06em;
+  margin-top: 0.6rem;
 }
 
-/* ── TOOLBAR ── */
+/* Toolbar */
 .caderno-toolbar {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.8rem;
+  gap: 0.8rem;
+  margin-bottom: 1.6rem;
   flex-wrap: wrap;
 }
-
-/* Search */
 .search-wrap {
   position: relative;
   flex: 1;
   min-width: 200px;
 }
 .search-wrap svg {
-  position: absolute;
-  left: 12px;
-  top: 50%;
+  position: absolute; left: 12px; top: 50%;
   transform: translateY(-50%);
-  color: var(--muted);
-  pointer-events: none;
+  color: #aaa; pointer-events: none;
 }
 #search-input {
   width: 100%;
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(196,164,90,.18);
-  border-radius: 10px;
-  padding: 0.6rem 0.9rem 0.6rem 2.4rem;
+  background: #fff;
+  border: 1.5px solid #e0dbd4;
+  border-radius: 12px;
+  padding: 0.65rem 0.9rem 0.65rem 2.4rem;
   font-family: 'Raleway', sans-serif;
-  font-size: 0.75rem;
-  color: var(--cream);
+  font-size: 0.76rem;
+  color: #1a1a2e;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,.05);
 }
-#search-input::placeholder { color: var(--muted); }
+#search-input::placeholder { color: #bbb; }
 #search-input:focus {
-  border-color: rgba(196,164,90,.4);
-  box-shadow: 0 0 0 3px rgba(196,164,90,.06);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(196,164,90,.12);
 }
-
-/* Botão novo item */
 .btn-novo {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  background: var(--gold);
-  border: none;
-  border-radius: 10px;
-  padding: 0.6rem 1.3rem;
+  display: flex; align-items: center; gap: 7px;
+  background: var(--navy);
+  border: none; border-radius: 12px;
+  padding: 0.65rem 1.3rem;
   font-family: 'Raleway', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--navy-deep);
-  cursor: pointer;
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: #fff; cursor: pointer;
   transition: background 0.2s, transform 0.15s;
   white-space: nowrap;
+  box-shadow: 0 2px 12px rgba(11,29,58,.2);
 }
-.btn-novo:hover { background: var(--gold-light); transform: translateY(-1px); }
-.btn-novo svg { flex-shrink: 0; }
-
-/* Botão download */
+.btn-novo:hover { background: #163158; transform: translateY(-1px); }
 .btn-download {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  background: transparent;
-  border: 1px solid rgba(196,164,90,.3);
-  border-radius: 10px;
-  padding: 0.6rem 1.1rem;
+  display: flex; align-items: center; gap: 7px;
+  background: #fff;
+  border: 1.5px solid #e0dbd4; border-radius: 12px;
+  padding: 0.65rem 1.1rem;
   font-family: 'Raleway', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+  font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: #555; cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
   white-space: nowrap;
 }
-.btn-download:hover {
-  background: rgba(196,164,90,.08);
-  border-color: rgba(196,164,90,.5);
-}
+.btn-download:hover { border-color: var(--gold); color: var(--gold); }
 
-/* ── TABS DE SEÇÃO ── */
+/* Tabs */
 .tabs-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
+  display: flex; align-items: center;
+  gap: 0.4rem; margin-bottom: 2rem;
+  flex-wrap: wrap; border-bottom: 1.5px solid #e8e4df;
+  padding-bottom: 0.8rem;
 }
 .tab {
   font-family: 'Raleway', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 30px;
-  padding: 0.45rem 1.1rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: #aaa; background: transparent;
+  border: none; border-radius: 0;
+  padding: 0.4rem 1rem;
+  cursor: pointer; transition: color 0.2s;
+  position: relative; white-space: nowrap;
 }
-.tab:hover { color: var(--gold-pale); border-color: rgba(196,164,90,.25); }
-.tab.active {
-  color: var(--navy-deep);
-  background: var(--gold);
-  border-color: var(--gold);
+.tab::after {
+  content: ''; position: absolute;
+  bottom: -0.8rem; left: 0; right: 0;
+  height: 2px; background: var(--gold);
+  transform: scaleX(0); transition: transform 0.2s;
 }
+.tab:hover { color: #555; }
+.tab.active { color: var(--navy); }
+.tab.active::after { transform: scaleX(1); }
 .tab-nova {
-  color: rgba(0,229,255,.6);
-  border-color: rgba(0,229,255,.2);
-  background: rgba(0,229,255,.04);
+  color: var(--gold); opacity: 0.7;
+  border: 1.5px dashed rgba(196,164,90,.4) !important;
+  border-radius: 20px !important;
+  padding: 0.3rem 0.9rem !important;
+  margin-left: 0.3rem;
 }
-.tab-nova:hover {
-  color: rgba(0,229,255,.9);
-  border-color: rgba(0,229,255,.4);
-  background: rgba(0,229,255,.08);
-}
+.tab-nova::after { display: none; }
+.tab-nova:hover { opacity: 1; background: rgba(196,164,90,.06); }
 
-/* ── GRID DE CARDS ── */
+/* Cards grid */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 1.1rem;
 }
 
 /* Card */
 .card {
-  background: rgba(15,38,69,0.6);
-  border: 1px solid rgba(196,164,90,.15);
+  background: #fff;
+  border: 1.5px solid #ece8e2;
   border-radius: 16px;
-  padding: 1.3rem 1.4rem;
+  padding: 1.3rem 1.4rem 1.1rem;
   position: relative;
   transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  animation: cardReveal 0.4s ease forwards;
-  opacity: 0;
-  transform: translateY(12px);
+  animation: cardReveal 0.35s ease forwards;
+  opacity: 0; transform: translateY(10px);
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
 }
 @keyframes cardReveal {
   to { opacity: 1; transform: translateY(0); }
 }
 .card:hover {
   transform: translateY(-3px);
-  border-color: rgba(196,164,90,.35);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  border-color: var(--gold);
+  box-shadow: 0 8px 24px rgba(196,164,90,.12);
 }
-
-/* Tag de seção no card */
 .card-tag {
   display: inline-block;
   font-family: 'Raleway', sans-serif;
-  font-size: 7.5px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--navy-deep);
-  background: var(--gold);
-  border-radius: 20px;
-  padding: 2px 9px;
+  font-size: 7px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  border-radius: 20px; padding: 2px 10px;
   margin-bottom: 0.75rem;
 }
-.card-tag.vocabulario { background: var(--gold); }
-.card-tag.frases      { background: rgba(0,229,255,.8); color: var(--navy-deep); }
-.card-tag.termos      { background: rgba(196,164,90,.5); }
-.card-tag.anotacoes   { background: rgba(255,255,255,.15); color: var(--cream); }
-.card-tag.custom      { background: rgba(163,120,220,.7); color: #fff; }
+.card-tag.vocabulario { background: #FFF3DC; color: #9A7B2E; }
+.card-tag.frases      { background: #E0F7FA; color: #00838F; }
+.card-tag.termos      { background: #EDE7F6; color: #6A3FA0; }
+.card-tag.anotacoes   { background: #F1F8E9; color: #558B2F; }
+.card-tag.custom      { background: #FCE4EC; color: #C2185B; }
 
-/* Termo principal */
 .card-termo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.35rem;
-  font-weight: 400;
-  color: var(--cream);
-  line-height: 1.2;
+  font-size: 1.3rem; font-weight: 400;
+  color: #1a1a2e; line-height: 1.2;
   margin-bottom: 0.3rem;
 }
-
-/* Tradução */
 .card-traducao {
   font-family: 'Raleway', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 500;
-  color: var(--gold-pale);
-  opacity: 0.8;
-  margin-bottom: 0.65rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  font-size: 0.72rem; font-weight: 500;
+  color: var(--gold); margin-bottom: 0.6rem;
+  display: flex; align-items: center; gap: 6px;
 }
 .card-traducao::before {
-  content: '';
-  width: 14px; height: 1px;
-  background: var(--gold);
-  opacity: 0.4;
-  flex-shrink: 0;
+  content: ''; width: 12px; height: 1px;
+  background: var(--gold); opacity: 0.5; flex-shrink: 0;
 }
-
-/* Exemplo */
 .card-exemplo {
   font-family: 'Raleway', sans-serif;
-  font-size: 0.69rem;
-  font-weight: 400;
-  color: rgba(255,255,255,.5);
-  font-style: italic;
-  line-height: 1.6;
-  border-top: 1px solid rgba(255,255,255,.06);
-  padding-top: 0.6rem;
-  margin-top: 0.3rem;
+  font-size: 0.68rem; color: #888;
+  font-style: italic; line-height: 1.6;
+  border-top: 1px solid #f0ece6;
+  padding-top: 0.55rem; margin-top: 0.3rem;
 }
-
-/* Data */
 .card-date {
   font-family: 'Raleway', sans-serif;
-  font-size: 0.6rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  margin-top: 0.8rem;
-  opacity: 0.6;
+  font-size: 0.58rem; font-weight: 500;
+  letter-spacing: 0.1em; color: #ccc;
+  margin-top: 0.7rem;
 }
-
-/* Ações do card */
 .card-actions {
-  position: absolute;
-  top: 1rem; right: 1rem;
-  display: flex;
-  gap: 6px;
-  opacity: 0;
-  transition: opacity 0.2s;
+  position: absolute; top: 1rem; right: 1rem;
+  display: flex; gap: 5px;
+  opacity: 0; transition: opacity 0.2s;
 }
 .card:hover .card-actions { opacity: 1; }
 .card-btn {
-  width: 24px; height: 24px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(5,13,26,.8);
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 1.5px solid #e8e4e0; background: #fafafa;
   display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  font-size: 10px;
-  transition: border-color 0.2s, background 0.2s;
+  cursor: pointer; font-size: 10px; color: #999;
+  transition: all 0.2s;
 }
-.card-btn:hover { border-color: rgba(196,164,90,.4); background: rgba(196,164,90,.1); }
-.card-btn.delete:hover { border-color: rgba(255,80,80,.4); background: rgba(255,80,80,.1); }
+.card-btn:hover { border-color: var(--gold); color: var(--gold); background: #fff8ee; }
+.card-btn.delete:hover { border-color: #e57373; color: #e57373; background: #fff5f5; }
 
-/* Estado vazio */
+/* Empty state */
 .empty-state {
-  grid-column: 1 / -1;
-  text-align: center;
+  grid-column: 1/-1; text-align: center;
   padding: 4rem 2rem;
-  opacity: 0.5;
 }
-.empty-state svg { margin-bottom: 1rem; opacity: 0.3; }
+.empty-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: #f0ece6; display: flex;
+  align-items: center; justify-content: center;
+  margin: 0 auto 1rem; color: #ccc;
+}
+.empty-state h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 300; color: #555;
+  margin-bottom: 0.4rem;
+}
 .empty-state p {
   font-family: 'Raleway', sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
+  font-size: 0.72rem; color: #aaa;
+  letter-spacing: 0.06em;
 }
 
-/* ── MODAL NOVO ITEM ── */
+/* Modal */
 .modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(5,13,26,.85);
+  position: fixed; inset: 0;
+  background: rgba(26,26,46,.5);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
+  z-index: 200; display: flex;
+  align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
   transition: opacity 0.3s;
 }
-.modal-backdrop.open {
-  opacity: 1;
-  pointer-events: all;
-}
+.modal-backdrop.open { opacity: 1; pointer-events: all; }
 .modal {
-  background: var(--navy-mid);
-  border: 1px solid rgba(196,164,90,.25);
+  background: #fff;
   border-radius: 20px;
   padding: 2rem 2.2rem;
-  width: 100%;
-  max-width: 480px;
-  box-shadow: 0 24px 80px rgba(0,0,0,.6);
-  transform: translateY(20px);
-  transition: transform 0.3s;
-  position: relative;
+  width: 100%; max-width: 480px;
+  box-shadow: 0 24px 80px rgba(0,0,0,.15);
+  transform: translateY(20px); transition: transform 0.3s;
 }
 .modal-backdrop.open .modal { transform: translateY(0); }
-
 .modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.6rem;
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: 1.5rem;
 }
 .modal-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem;
-  font-weight: 300;
-  color: var(--cream);
+  font-size: 1.5rem; font-weight: 300; color: #1a1a2e;
 }
 .modal-close {
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.12);
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1.5px solid #e8e4e0; background: #fafafa;
+  color: #999; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  font-size: 12px;
-  transition: all 0.2s;
+  font-size: 12px; transition: all 0.2s;
 }
-.modal-close:hover { border-color: rgba(196,164,90,.4); color: var(--gold); }
-
+.modal-close:hover { border-color: #e57373; color: #e57373; }
 .form-group { margin-bottom: 1.1rem; }
 .form-label {
   display: block;
   font-family: 'Raleway', sans-serif;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--gold);
-  opacity: 0.7;
-  margin-bottom: 0.4rem;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: #999; margin-bottom: 0.4rem;
 }
-.form-input,
-.form-select,
-.form-textarea {
+.form-input, .form-select, .form-textarea {
   width: 100%;
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(196,164,90,.18);
+  background: #fafafa;
+  border: 1.5px solid #e8e4e0;
   border-radius: 10px;
   padding: 0.65rem 0.9rem;
   font-family: 'Raleway', sans-serif;
-  font-size: 0.76rem;
-  color: var(--cream);
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  font-size: 0.76rem; color: #1a1a2e;
+  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
 }
-.form-input::placeholder,
-.form-textarea::placeholder { color: var(--muted); }
-.form-input:focus,
-.form-select:focus,
-.form-textarea:focus {
-  border-color: rgba(196,164,90,.45);
-  box-shadow: 0 0 0 3px rgba(196,164,90,.07);
+.form-input::placeholder, .form-textarea::placeholder { color: #ccc; }
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(196,164,90,.1);
+  background: #fff;
 }
 .form-select {
-  appearance: none;
-  -webkit-appearance: none;
+  appearance: none; -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C4A45A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  padding-right: 2rem;
-  cursor: pointer;
-  color: var(--cream);
+  background-repeat: no-repeat; background-position: right 12px center;
+  padding-right: 2rem; cursor: pointer;
 }
-.form-select option { background: var(--navy-mid); color: var(--cream); }
+.form-select option { background: #fff; color: #1a1a2e; }
 .form-textarea { resize: vertical; min-height: 72px; line-height: 1.5; }
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.8rem;
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+.form-hint {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.62rem; color: #bbb;
+  margin-top: 0.3rem; font-style: italic;
 }
-
 .btn-salvar {
   width: 100%;
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-  border: none;
-  border-radius: 10px;
-  padding: 0.75rem;
+  background: var(--navy);
+  border: none; border-radius: 12px;
+  padding: 0.8rem;
   font-family: 'Raleway', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--navy-deep);
-  cursor: pointer;
-  transition: opacity 0.2s, transform 0.15s;
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: #fff; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
   margin-top: 0.5rem;
-  box-shadow: 0 4px 16px rgba(196,164,90,.25);
+  box-shadow: 0 4px 16px rgba(11,29,58,.2);
 }
-.btn-salvar:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-salvar:hover { background: #163158; transform: translateY(-1px); }
+
+/* ── TOOLTIP TOUR ── */
+.tooltip-overlay {
+  position: fixed; inset: 0;
+  z-index: 500; pointer-events: none;
+}
+.tooltip-overlay.active { pointer-events: all; }
+.tooltip-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(26,26,46,.55);
+  backdrop-filter: blur(2px);
+}
+.tooltip-box {
+  position: fixed;
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.4rem 1.6rem;
+  max-width: 300px;
+  box-shadow: 0 16px 48px rgba(0,0,0,.18);
+  z-index: 501;
+}
+.tooltip-step {
+  font-family: 'Raleway', sans-serif;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.5rem;
+}
+.tooltip-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; font-weight: 400;
+  color: #1a1a2e; margin-bottom: 0.4rem;
+}
+.tooltip-desc {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.72rem; color: #666;
+  line-height: 1.6; margin-bottom: 1.1rem;
+}
+.tooltip-actions {
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 0.8rem;
+}
+.tooltip-skip {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.62rem; color: #bbb;
+  background: none; border: none;
+  cursor: pointer; letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.tooltip-skip:hover { color: #999; }
+.tooltip-next {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  background: var(--navy); color: #fff;
+  border: none; border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  cursor: pointer; transition: background 0.2s;
+}
+.tooltip-next:hover { background: #163158; }
+.tooltip-dots {
+  display: flex; gap: 5px;
+  align-items: center;
+}
+.tooltip-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #e0dbd4; transition: background 0.2s;
+}
+.tooltip-dot.active { background: var(--gold); }
+/* Seta do tooltip */
+.tooltip-arrow {
+  position: absolute;
+  width: 12px; height: 12px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+
+/* Highlight do elemento em foco */
+.tour-highlight {
+  position: relative;
+  z-index: 502 !important;
+  border-radius: 12px;
+  box-shadow: 0 0 0 4px rgba(196,164,90,.5), 0 0 0 8px rgba(196,164,90,.15) !important;
+}
 
 </style>
-</head>
-<body>
-
-<section id="hero">
-
-  <div id="loading-state">
-    <span class="loading-logo">MD Talk</span>
-  </div>
-
-  <div id="hero-bg"></div>
-  <div id="hero-overlay"></div>
-  <div id="hero-dots"></div>
-
-  <div id="hero-content">
-    <span class="overline" id="greeting-overline">Boa noite,</span>
-
-    <h1 class="hero-name" id="student-name">Thaiana</h1>
-
-    <div class="hero-divider"></div>
-
-    <div class="hero-info">
-      <span id="info-city">São Paulo, SP</span>
-      <span class="sep"></span>
-      <span id="info-temp">—°C</span>
-      <span class="sep"></span>
-      <span id="info-condition">Carregando</span>
-    </div>
-
-    <div id="clock">00:00:00</div>
-
-    <div class="clima-label">
-      <span class="clima-dot"></span>
-      <span>Clima ao vivo</span>
-    </div>
-  </div>
-
-
-  <!-- TRADUTOR FLUTUANTE -->
-  <div id="translator" style="bottom: 60px; right: 48px;" class="minimized">
-    <div class="pulse-ring"></div>
-    <span id="trans-icon-min"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg></span>
-    <div class="trans-body">
-    <div class="trans-header">
-      <div class="trans-title-wrap">
-        <div class="trans-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg></div>
-        <span class="trans-title">Tradutor Médico</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;">
-      <div class="trans-direction" id="trans-dir" onclick="toggleDirection()">
-        <span id="dir-from">PT</span>
-        <span class="arrow">⇄</span>
-        <span id="dir-to">EN</span>
-      </div>
-      <div onclick="document.getElementById('translator').classList.add('minimized')" style="cursor:pointer;width:20px;height:20px;border-radius:50%;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.25);display:flex;align-items:center;justify-content:center;font-size:9px;color:rgba(0,229,255,.7);font-weight:700;flex-shrink:0;" title="Minimizar">✕</div>
-      </div>
-    </div>
-
-    <div class="trans-input-wrap">
-      <textarea id="trans-input" placeholder="Digite uma palavra, frase ou termo clínico..."></textarea>
-    </div>
-
-    <button id="trans-btn" onclick="translate()">Traduzir</button>
-
-    <div id="trans-result">
-      <div class="trans-loading" id="trans-loading" style="display:none;">
-        <div class="trans-spinner"></div>
-        <span>Traduzindo...</span>
-      </div>
-      <div id="trans-output"></div>
-    </div>
-  </div>
-
-</section>
-
-<script>
-// ── IMAGENS DO DRIVE ───────────────────────────────────────
-const IMAGES = {
-  "amanhecer-limpo": "1Rk7SnutIEJnS48SbQsh_IkjAzGy3IpYm",
-  "amanhecer-chuva": "1ZuEQ4zA-f_f7iApj4YrujNUA9mLLDnGU",
-  "dia-ensolarado":  "17UO6iLqIaiA5vnYEs7jqkDR3d1jiL35E",
-  "dia-nublado":     "1NGL3xbDMu4DxcT1Kca20280VfflbjjeX",
-  "dia-chuva":       "1OXhei11KCLjOLBv1nGzQpw6Sw36X3FTQ",
-  "por-do-sol":      "1PDwEYdjlZ2eqa1lZcGSReQryNrLqjLqo",
-  "noite-limpa":     "1SSXCMyE7xw611qr7IukKmFuW8RsdbTkT",
-  "noite-chuva":     "1AFVaFEdP8AFqQHtExCZUCmlJMCxDWHVo"
-};
-
-function driveUrl(id) {
-  return `https://drive.google.com/thumbnail?id=${id}&sz=w1920`;
-}
-
-function selectImage(code, hour) {
-  const rainy  = code >= 51;
-  const cloudy = code >= 1 && code < 51;
-  if (hour >= 5  && hour < 8)  return rainy ? "amanhecer-chuva" : "amanhecer-limpo";
-  if (hour >= 8  && hour < 17) return rainy ? "dia-chuva" : cloudy ? "dia-nublado" : "dia-ensolarado";
-  if (hour >= 17 && hour < 20) return "por-do-sol";
-  return rainy ? "noite-chuva" : "noite-limpa";
-}
-
-// ── SAUDAÇÃO ──────────────────────────────────────────────
-function greetingText(hour) {
-  if (hour >= 5  && hour < 12) return "Bom dia,";
-  if (hour >= 12 && hour < 18) return "Boa tarde,";
-  return "Boa noite,";
-}
-
-// ── DESCRIÇÃO DO CLIMA ────────────────────────────────────
-function weatherDesc(code) {
-  if (code === 0)  return "Céu limpo";
-  if (code <= 3)   return "Parcialmente nublado";
-  if (code <= 48)  return "Nublado";
-  if (code <= 67)  return "Chuva";
-  return "Tempestade";
-}
-
-// ── RELÓGIO ───────────────────────────────────────────────
-function startClock() {
-  function tick() {
-    const now = new Date();
-    const h = String(now.getHours()).padStart(2,'0');
-    const m = String(now.getMinutes()).padStart(2,'0');
-    const s = String(now.getSeconds()).padStart(2,'0');
-    document.getElementById("clock").textContent = `${h}:${m}:${s}`;
-  }
-  tick();
-  setInterval(tick, 1000);
-}
-
-// ── CLIMA VIA CLAUDE BACKEND ──────────────────────────────
-async function fetchWeather(city) {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 1000,
-      system: `Return ONLY a valid JSON object, no markdown, no explanation.
-Format: {"lat": number, "lon": number}
-Return coordinates for this Brazilian city.`,
-      messages: [{ role: "user", content: city }]
-    })
-  });
-  const data = await res.json();
-  const text = data.content.filter(b => b.type === "text").map(b => b.text).join("");
-  const { lat, lon } = JSON.parse(text.replace(/```json|```/g,"").trim());
-
-  const w = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
-  const wd = await w.json();
-  return {
-    code: wd.current_weather.weathercode,
-    temp: Math.round(wd.current_weather.temperature)
-  };
-}
-
-// ── INICIALIZAÇÃO ─────────────────────────────────────────
-async function init() {
-  const name = sessionStorage.getItem("mdtalk_student_name") || "Thaiana";
-  const city = sessionStorage.getItem("mdtalk_student_city") || "São Paulo";
-  const hour = new Date().getHours();
-
-  // Textos estáticos imediatos
-  document.getElementById("greeting-overline").textContent = greetingText(hour);
-  document.getElementById("student-name").textContent = name;
-  document.getElementById("info-city").textContent = city + ", SP";
-
-  startClock();
-
-  // Clima
-  let code = 0, temp = "—";
-  try {
-    const w = await fetchWeather(city);
-    code = w.code;
-    temp = w.temp;
-  } catch(e) {}
-
-  document.getElementById("info-temp").textContent = `${temp}°C`;
-  document.getElementById("info-condition").textContent = weatherDesc(code);
-
-  // Imagem de fundo
-  const key = selectImage(code, hour);
-  const bg  = document.getElementById("hero-bg");
-  const img = new Image();
-  img.onload = () => {
-    bg.style.backgroundImage = `url('${driveUrl(IMAGES[key])}')`;
-    bg.classList.add("loaded");
-  };
-  img.onerror = () => {
-    bg.style.background = `radial-gradient(ellipse at 50% 30%, #163158 0%, #050D1A 70%)`;
-    bg.classList.add("loaded");
-  };
-  img.src = driveUrl(IMAGES[key]);
-
-  // Revela
-  setTimeout(() => {
-    document.getElementById("loading-state").classList.add("hidden");
-    document.getElementById("hero-content").classList.add("visible");
-  }, 600);
-}
-
-init();
-
-
-// ── TOGGLE TRADUTOR ──────────────────────────────────────────
-function toggleTranslator(e) {
-  const el = document.getElementById('translator');
-  if (el.classList.contains('minimized')) {
-    el.classList.remove('minimized');
-    e.stopPropagation();
-  }
-}
-document.getElementById('translator').addEventListener('click', function(e) {
-  if (this.classList.contains('minimized')) {
-    this.classList.remove('minimized');
-    e.stopPropagation();
-  }
-});
-
-// ── TRADUTOR ──────────────────────────────────────────────
-let direction = 'PT_EN'; // PT→EN ou EN_PT
-
-function toggleDirection() {
-  direction = direction === 'PT_EN' ? 'EN_PT' : 'PT_EN';
-  const dir = document.getElementById('trans-dir');
-  dir.classList.toggle('flipped');
-  document.getElementById('dir-from').textContent = direction === 'PT_EN' ? 'PT' : 'EN';
-  document.getElementById('dir-to').textContent   = direction === 'PT_EN' ? 'EN' : 'PT';
-  document.getElementById('trans-input').placeholder =
-    direction === 'PT_EN'
-      ? 'Digite uma palavra, frase ou termo clínico...'
-      : 'Type a word, phrase or clinical term...';
-}
-
-async function translate() {
-  const text = document.getElementById('trans-input').value.trim();
-  if (!text) return;
-
-  const btn    = document.getElementById('trans-btn');
-  const result = document.getElementById('trans-result');
-  const loading = document.getElementById('trans-loading');
-  const output = document.getElementById('trans-output');
-
-  btn.disabled = true;
-  result.classList.add('visible');
-  loading.style.display = 'flex';
-  output.innerHTML = '';
-
-  const sl = direction === 'PT_EN' ? 'pt' : 'en';
-  const tl = direction === 'PT_EN' ? 'en' : 'pt';
-
-  try {
-    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sl}&tl=${tl}&dt=t&dt=bd&q=${encodeURIComponent(text)}`;
-    const res  = await fetch(url);
-    const data = await res.json();
-
-    // Tradução principal — array[0] contém os segmentos traduzidos
-    const mainTranslation = data[0]
-      .filter(seg => seg && seg[0])
-      .map(seg => seg[0])
-      .join('');
-
-    // Definições/sinônimos — data[1] quando disponível
-    let synonymsHtml = '';
-    if (data[1] && data[1].length) {
-      const syns = [];
-      data[1].forEach(group => {
-        if (group[2]) group[2].forEach(item => { if(item[0]) syns.push(item[0]); });
-      });
-      if (syns.length) {
-        synonymsHtml = `
-        <div class="result-block">
-          <div class="result-label">Alternativas</div>
-          <p>${syns.slice(0,6).join(' · ')}</p>
-        </div>`;
-      }
-    }
-
-    loading.style.display = 'none';
-    output.innerHTML = `
-      <div class="result-label">Tradução</div>
-      <div class="result-translation">${mainTranslation}</div>
-      ${synonymsHtml}
-    `;
-
-  } catch(e) {
-    loading.style.display = 'none';
-    output.innerHTML = '<p style="color:rgba(255,255,255,.4);font-size:.7rem;">Erro ao traduzir. Tente novamente.</p>';
-  }
-
-  btn.disabled = false;
-}
-
-// Enter para traduzir (Shift+Enter = nova linha)
-document.getElementById('trans-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); translate(); }
-});
-
-// ── DRAG DO TRADUTOR ──────────────────────────────────────
-(function() {
-  const el = document.getElementById('translator');
-  let isDragging = false, startX, startY, origX, origY;
-
-  el.addEventListener('mousedown', e => {
-    if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'BUTTON') return;
-    isDragging = true;
-    el.classList.add('dragging');
-    const rect = el.getBoundingClientRect();
-    startX = e.clientX; startY = e.clientY;
-    origX  = rect.left;  origY  = rect.top;
-    e.preventDefault();
-  });
-
-  document.addEventListener('mousemove', e => {
-    if (!isDragging) return;
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
-    el.style.left   = (origX + dx) + 'px';
-    el.style.top    = (origY + dy) + 'px';
-    el.style.right  = 'auto';
-    el.style.bottom = 'auto';
-  });
-
-  document.addEventListener('mouseup', () => {
-    isDragging = false;
-    el.classList.remove('dragging');
-  });
-})();
-
-</script>
 
 <!-- ══════════════════════════════════════════
      CADERNO DO ALUNO
@@ -1273,52 +927,50 @@ document.getElementById('trans-input').addEventListener('keydown', e => {
 <section id="caderno">
   <div class="caderno-wrap">
 
-    <!-- Header -->
-    <div class="caderno-header" data-reveal>
+    <div class="caderno-header">
       <div class="caderno-overline">Instituto MD Talk · Caderno Pessoal</div>
       <h2 class="caderno-title">Meu <em>Caderno</em></h2>
+      <p class="caderno-subtitle">Vocabulário · Frases · Termos Clínicos · Anotações</p>
     </div>
 
     <!-- Toolbar -->
-    <div class="caderno-toolbar" data-reveal>
-      <div class="search-wrap">
+    <div class="caderno-toolbar">
+      <div class="search-wrap" id="tour-busca">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         <input type="text" id="search-input" placeholder="Buscar termo, frase ou anotação...">
       </div>
-      <button class="btn-download" onclick="downloadCaderno()">
+      <button class="btn-download" id="tour-download" onclick="downloadCaderno()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download
       </button>
-      <button class="btn-novo" onclick="abrirModal()">
+      <button class="btn-novo" id="tour-novo" onclick="abrirModal()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Nova entrada
       </button>
     </div>
 
     <!-- Tabs -->
-    <div class="tabs-wrap" id="tabs-wrap" data-reveal>
-      <button class="tab active" data-tab="todos" onclick="setTab('todos', this)">Todos</button>
-      <button class="tab" data-tab="vocabulario" onclick="setTab('vocabulario', this)">Vocabulário</button>
-      <button class="tab" data-tab="frases" onclick="setTab('frases', this)">Frases</button>
-      <button class="tab" data-tab="termos" onclick="setTab('termos', this)">Termos Clínicos</button>
-      <button class="tab" data-tab="anotacoes" onclick="setTab('anotacoes', this)">Anotações</button>
+    <div class="tabs-wrap" id="tabs-wrap">
+      <button class="tab active" data-tab="todos"       onclick="setTab('todos',this)">Todos</button>
+      <button class="tab"        data-tab="vocabulario" onclick="setTab('vocabulario',this)" id="tour-tabs">Vocabulário</button>
+      <button class="tab"        data-tab="frases"      onclick="setTab('frases',this)">Frases</button>
+      <button class="tab"        data-tab="termos"      onclick="setTab('termos',this)">Termos Clínicos</button>
+      <button class="tab"        data-tab="anotacoes"   onclick="setTab('anotacoes',this)">Anotações</button>
       <button class="tab tab-nova" onclick="novaSeccao()">+ Nova seção</button>
     </div>
 
-    <!-- Grid de cards -->
+    <!-- Grid -->
     <div class="cards-grid" id="cards-grid"></div>
-
   </div>
 </section>
 
-<!-- ── MODAL NOVO ITEM ── -->
+<!-- Modal nova entrada -->
 <div class="modal-backdrop" id="modal" onclick="fecharModalBackdrop(event)">
   <div class="modal">
     <div class="modal-header">
       <h3 class="modal-title" id="modal-title">Nova entrada</h3>
       <button class="modal-close" onclick="fecharModal()">✕</button>
     </div>
-
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Seção</label>
@@ -1337,29 +989,44 @@ document.getElementById('trans-input').addEventListener('keydown', e => {
         </select>
       </div>
     </div>
-
     <div class="form-group">
       <label class="form-label">Termo / Frase *</label>
       <input type="text" class="form-input" id="form-termo" placeholder="Ex: dyspnea on exertion">
+      <p class="form-hint">Escreva o termo ou frase exatamente como quer memorizar.</p>
     </div>
-
     <div class="form-group">
-      <label class="form-label">Tradução <span style="opacity:.5;font-size:.6rem;">(opcional)</span></label>
+      <label class="form-label">Tradução <span style="opacity:.5">(opcional)</span></label>
       <input type="text" class="form-input" id="form-traducao" placeholder="Ex: dispneia aos esforços">
     </div>
-
     <div class="form-group">
-      <label class="form-label">Exemplo em frase <span style="opacity:.5;font-size:.6rem;">(opcional)</span></label>
+      <label class="form-label">Exemplo em frase <span style="opacity:.5">(opcional)</span></label>
       <textarea class="form-textarea" id="form-exemplo" placeholder="Ex: The patient reports dyspnea on exertion since last week."></textarea>
+      <p class="form-hint">Um exemplo em contexto ajuda muito na memorização.</p>
     </div>
-
     <button class="btn-salvar" onclick="salvarEntrada()">Salvar entrada</button>
+  </div>
+</div>
+
+<!-- Tooltip tour -->
+<div class="tooltip-overlay" id="tooltip-overlay">
+  <div class="tooltip-backdrop" onclick="proximoTooltip()"></div>
+  <div class="tooltip-box" id="tooltip-box">
+    <div class="tooltip-step" id="tooltip-step">Passo 1 de 4</div>
+    <div class="tooltip-title" id="tooltip-title">Bem-vindo ao seu Caderno</div>
+    <div class="tooltip-desc"  id="tooltip-desc">Este é o seu espaço pessoal de aprendizado. Aqui você salva vocabulário, frases e termos clínicos das suas aulas.</div>
+    <div class="tooltip-actions">
+      <div class="tooltip-dots" id="tooltip-dots"></div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="tooltip-skip" onclick="fecharTour()">Pular</button>
+        <button class="tooltip-next" id="tooltip-next-btn" onclick="proximoTooltip()">Próximo →</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
 // ═══════════════════════════════════════════
-//  CADERNO DO ALUNO — LÓGICA
+//  CADERNO — DADOS & LÓGICA
 // ═══════════════════════════════════════════
 
 let entradas = [
@@ -1385,7 +1052,7 @@ function formatDate(d) {
 
 function renderCards() {
   const grid  = document.getElementById('cards-grid');
-  const busca = document.getElementById('search-input').value.toLowerCase();
+  const busca = (document.getElementById('search-input').value||'').toLowerCase();
   let filtradas = entradas.filter(e => {
     const matchTab   = tabAtiva === 'todos' || e.secao === tabAtiva;
     const matchBusca = !busca ||
@@ -1394,20 +1061,32 @@ function renderCards() {
       (e.exemplo  && e.exemplo.toLowerCase().includes(busca));
     return matchTab && matchBusca;
   });
+
   if (!filtradas.length) {
-    grid.innerHTML = '<div class="empty-state"><p>Nenhuma entrada encontrada</p></div>';
+    grid.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+      </div>
+      <h3>Nenhuma entrada ainda</h3>
+      <p>Clique em "Nova entrada" para começar seu caderno.</p>
+    </div>`;
     return;
   }
+
   grid.innerHTML = filtradas.map((e,i) => `
-    <div class="card" style="animation-delay:${i*0.05}s">
-      <span class="card-tag ${e.secao}">${tagLabel[e.secao] || e.secao}</span>
+    <div class="card" style="animation-delay:${i*0.04}s">
+      <span class="card-tag ${e.secao}">${tagLabel[e.secao]||e.secao}</span>
       <div class="card-actions">
-        <div class="card-btn" onclick="editarEntrada(${e.id})">✎</div>
-        <div class="card-btn delete" onclick="deletarEntrada(${e.id})">✕</div>
+        <div class="card-btn" onclick="editarEntrada(${e.id})" title="Editar">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <div class="card-btn delete" onclick="deletarEntrada(${e.id})" title="Excluir">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+        </div>
       </div>
       <div class="card-termo">${e.termo}</div>
-      ${e.traducao ? '<div class="card-traducao">'+e.traducao+'</div>' : ''}
-      ${e.exemplo  ? '<div class="card-exemplo">'+e.exemplo+'</div>'   : ''}
+      ${e.traducao ? `<div class="card-traducao">${e.traducao}</div>` : ''}
+      ${e.exemplo  ? `<div class="card-exemplo">${e.exemplo}</div>`   : ''}
       <div class="card-date">${formatDate(e.data)}</div>
     </div>
   `).join('');
@@ -1429,15 +1108,13 @@ function novaSeccao() {
   const wrap    = document.getElementById('tabs-wrap');
   const btnNova = wrap.querySelector('.tab-nova');
   const tab     = document.createElement('button');
-  tab.className   = 'tab';
-  tab.dataset.tab = slug;
+  tab.className = 'tab'; tab.dataset.tab = slug;
   tab.textContent = nome.trim();
-  tab.onclick     = function(){ setTab(slug, this); };
+  tab.onclick = function(){ setTab(slug, this); };
   wrap.insertBefore(tab, btnNova);
-  const select    = document.getElementById('form-secao');
-  const opt       = document.createElement('option');
-  opt.value       = slug;
-  opt.textContent = nome.trim();
+  const select = document.getElementById('form-secao');
+  const opt    = document.createElement('option');
+  opt.value = slug; opt.textContent = nome.trim();
   select.appendChild(opt);
 }
 
@@ -1456,7 +1133,6 @@ function fecharModal() {
   document.getElementById('modal').classList.remove('open');
   editandoId = null;
 }
-
 function fecharModalBackdrop(e) {
   if (e.target === document.getElementById('modal')) fecharModal();
 }
@@ -1472,21 +1148,18 @@ function salvarEntrada() {
     exemplo:  document.getElementById('form-exemplo').value.trim(),
     data:     new Date().toISOString().split('T')[0]
   };
-  entradas = editandoId
-    ? entradas.map(e => e.id === editandoId ? nova : e)
-    : [nova, ...entradas];
+  entradas = editandoId ? entradas.map(e => e.id===editandoId ? nova : e) : [nova,...entradas];
   fecharModal();
   renderCards();
 }
 
 function editarEntrada(id) {
-  const e = entradas.find(e => e.id === id);
+  const e = entradas.find(e => e.id===id);
   if (e) abrirModal(e);
 }
-
 function deletarEntrada(id) {
   if (!confirm('Excluir esta entrada?')) return;
-  entradas = entradas.filter(e => e.id !== id);
+  entradas = entradas.filter(e => e.id!==id);
   renderCards();
 }
 
@@ -1509,16 +1182,131 @@ function downloadCaderno() {
       txt += '  [' + formatDate(e.data) + ']\n\n';
     });
   });
-  const blob = new Blob([txt], { type:'text/plain;charset=utf-8' });
+  const blob = new Blob([txt],{type:'text/plain;charset=utf-8'});
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
-  a.href = url; a.download = 'caderno-mdtalk.txt'; a.click();
+  a.href=url; a.download='caderno-mdtalk.txt'; a.click();
   URL.revokeObjectURL(url);
 }
 
+// ── TOOLTIP TOUR ─────────────────────────────────────
+const tourSteps = [
+  {
+    target: null,
+    title: 'Bem-vindo ao seu Caderno',
+    desc: 'Este é o seu espaço pessoal de aprendizado. Aqui você salva vocabulário, frases e termos clínicos das suas aulas — do seu jeito.',
+    pos: 'center'
+  },
+  {
+    target: 'tour-novo',
+    title: 'Nova entrada',
+    desc: 'Clique aqui para adicionar um novo termo, frase ou anotação. Tradução e exemplo são opcionais — você decide o quanto quer registrar.',
+    pos: 'bottom-left'
+  },
+  {
+    target: 'tour-tabs',
+    title: 'Seções do caderno',
+    desc: 'Organize seu conteúdo por tipo: Vocabulário, Frases, Termos Clínicos ou Anotações. Você também pode criar seções personalizadas.',
+    pos: 'bottom-left'
+  },
+  {
+    target: 'tour-busca',
+    title: 'Busca instantânea',
+    desc: 'Encontre qualquer entrada digitando aqui — pesquisa em termos, traduções e exemplos ao mesmo tempo.',
+    pos: 'bottom-right'
+  },
+  {
+    target: 'tour-download',
+    title: 'Baixe seu caderno',
+    desc: 'A qualquer momento você pode exportar todo o conteúdo do seu caderno em formato de texto, organizado por seção.',
+    pos: 'bottom-left'
+  }
+];
+
+let tourStep = 0;
+let tourHighlight = null;
+
+function initTour() {
+  if (localStorage.getItem('mdtalk_tour_done')) return;
+  setTimeout(startTour, 1200);
+}
+
+function startTour() {
+  tourStep = 0;
+  renderTooltip();
+  document.getElementById('tooltip-overlay').classList.add('active');
+}
+
+function renderTooltip() {
+  const step  = tourSteps[tourStep];
+  const total = tourSteps.length;
+  const box   = document.getElementById('tooltip-box');
+
+  document.getElementById('tooltip-step').textContent  = `Passo ${tourStep+1} de ${total}`;
+  document.getElementById('tooltip-title').textContent = step.title;
+  document.getElementById('tooltip-desc').textContent  = step.desc;
+  document.getElementById('tooltip-next-btn').textContent = tourStep === total-1 ? 'Começar ✓' : 'Próximo →';
+
+  // Dots
+  const dots = document.getElementById('tooltip-dots');
+  dots.innerHTML = tourSteps.map((_,i) =>
+    `<div class="tooltip-dot ${i===tourStep?'active':''}"></div>`
+  ).join('');
+
+  // Remover highlight anterior
+  if (tourHighlight) {
+    tourHighlight.classList.remove('tour-highlight');
+    tourHighlight = null;
+  }
+
+  // Posicionar tooltip
+  if (!step.target) {
+    // Centro da tela
+    box.style.top  = '50%';
+    box.style.left = '50%';
+    box.style.transform = 'translate(-50%, -50%)';
+  } else {
+    const el = document.getElementById(step.target);
+    if (el) {
+      el.classList.add('tour-highlight');
+      tourHighlight = el;
+      const rect = el.getBoundingClientRect();
+      box.style.transform = 'none';
+
+      if (step.pos === 'bottom-left') {
+        box.style.top  = (rect.bottom + 16) + 'px';
+        box.style.left = rect.left + 'px';
+      } else if (step.pos === 'bottom-right') {
+        box.style.top  = (rect.bottom + 16) + 'px';
+        box.style.left = Math.max(8, rect.right - 300) + 'px';
+      } else {
+        box.style.top  = (rect.bottom + 16) + 'px';
+        box.style.left = (rect.left + rect.width/2 - 150) + 'px';
+      }
+    }
+  }
+}
+
+function proximoTooltip() {
+  tourStep++;
+  if (tourStep >= tourSteps.length) {
+    fecharTour();
+  } else {
+    renderTooltip();
+  }
+}
+
+function fecharTour() {
+  if (tourHighlight) { tourHighlight.classList.remove('tour-highlight'); tourHighlight = null; }
+  document.getElementById('tooltip-overlay').classList.remove('active');
+  localStorage.setItem('mdtalk_tour_done', '1');
+}
+
 document.getElementById('search-input').addEventListener('input', renderCards);
-document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharModal(); });
+document.addEventListener('keydown', e => { if (e.key==='Escape') { fecharModal(); fecharTour(); } });
+
 renderCards();
+initTour();
 </script>
 </body>
 </html>
