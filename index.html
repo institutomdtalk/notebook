@@ -197,6 +197,251 @@
     0%, 100% { opacity: 0.15; }
     50%       { opacity: 0.7; }
   }
+
+  /* ── TRADUTOR FLUTUANTE ── */
+  #translator {
+    position: fixed;
+    z-index: 100;
+    width: 320px;
+    background: rgba(5,13,26,0.82);
+    border: 1px solid rgba(0,229,255,.35);
+    border-radius: 20px;
+    box-shadow:
+      0 0 0 1px rgba(0,229,255,.08),
+      0 12px 60px rgba(0,0,0,0.7),
+      0 0 40px rgba(0,229,255,.12),
+      0 0 80px rgba(0,229,255,.06),
+      inset 0 1px 0 rgba(255,255,255,.04);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 1.2rem 1.4rem 1.4rem;
+    animation: translatorFloat 9s ease-in-out infinite;
+    cursor: grab;
+    user-select: none;
+    overflow: hidden;
+  }
+  /* linha de scan tech */
+  #translator::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,229,255,.8), transparent);
+    animation: scanLine 3s ease-in-out infinite;
+  }
+  @keyframes scanLine {
+    0%, 100% { opacity: 0.3; transform: scaleX(0.4); }
+    50%       { opacity: 1;   transform: scaleX(1); }
+  }
+  /* corner marks */
+  #translator::after {
+    content: '';
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 8px; height: 8px;
+    border-top: 1px solid rgba(0,229,255,.7);
+    border-right: 1px solid rgba(0,229,255,.7);
+    border-radius: 0 3px 0 0;
+  }
+
+  #translator:active { cursor: grabbing; }
+
+  @keyframes translatorFloat {
+    0%   { transform: translateY(0px)   translateX(0px); }
+    25%  { transform: translateY(-10px) translateX(6px); }
+    50%  { transform: translateY(-4px)  translateX(12px); }
+    75%  { transform: translateY(-14px) translateX(4px); }
+    100% { transform: translateY(0px)   translateX(0px); }
+  }
+  #translator.dragging { animation: none; }
+
+  .trans-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .trans-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .trans-icon {
+    width: 20px; height: 20px;
+    border-radius: 6px;
+    background: rgba(0,229,255,.08);
+    border: 1px solid rgba(0,229,255,.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+  }
+  .trans-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .trans-direction {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(0,229,255,.04);
+    border: 1px solid rgba(0,229,255,.25);
+    border-radius: 30px;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .trans-direction:hover {
+    background: rgba(0,229,255,.08);
+    box-shadow: 0 0 12px rgba(0,229,255,.25);
+  }
+  .trans-direction span {
+    font-family: 'Raleway', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-pale);
+  }
+  .trans-direction .arrow {
+    color: var(--gold);
+    font-size: 10px;
+    transition: transform 0.35s ease;
+  }
+  .trans-direction.flipped .arrow { transform: rotate(180deg); }
+
+  /* Input area */
+  .trans-input-wrap {
+    position: relative;
+    margin-bottom: 0.7rem;
+  }
+  #trans-input {
+    width: 100%;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(0,229,255,.2);
+    border-radius: 12px;
+    padding: 0.7rem 0.9rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.76rem;
+    font-weight: 400;
+    color: var(--cream);
+    outline: none;
+    resize: none;
+    height: 68px;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    line-height: 1.5;
+  }
+  #trans-input::placeholder { color: var(--muted); font-size: 0.71rem; }
+  #trans-input:focus {
+    border-color: rgba(0,229,255,.55);
+    box-shadow: 0 0 0 3px rgba(0,229,255,.08), 0 0 16px rgba(0,229,255,.12);
+  }
+
+  #trans-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    border: none;
+    border-radius: 10px;
+    padding: 0.62rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--navy-deep);
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    margin-bottom: 0.9rem;
+    box-shadow: 0 4px 16px rgba(196,164,90,.25);
+    position: relative;
+    overflow: hidden;
+  }
+  #trans-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,.15) 0%, transparent 60%);
+    border-radius: 10px;
+  }
+  #trans-btn:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(196,164,90,.35); }
+  #trans-btn:disabled { opacity: 0.45; cursor: wait; transform: none; }
+
+  /* Resultado */
+  #trans-result {
+    display: none;
+    border-top: 1px solid rgba(0,229,255,.12);
+    padding-top: 0.9rem;
+  }
+  #trans-result.visible { display: block; }
+
+  .result-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: 7.5px;
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.65;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .result-label::before {
+    content: '';
+    width: 12px; height: 1px;
+    background: var(--neon);
+    opacity: 0.5;
+  }
+  .result-translation {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.3;
+    margin-bottom: 0.85rem;
+    padding: 0.5rem 0.7rem;
+    background: rgba(0,229,255,.03);
+    border-radius: 8px;
+    border-left: 2px solid rgba(0,229,255,.5);
+  }
+  .result-block { margin-bottom: 0.7rem; }
+  .result-block p {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 400;
+    color: rgba(255,255,255,.6);
+    line-height: 1.65;
+  }
+  .result-block p em {
+    font-style: italic;
+    color: var(--gold-pale);
+  }
+
+  .trans-loading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.5rem 0;
+  }
+  .trans-spinner {
+    width: 14px; height: 14px;
+    border: 1.5px solid rgba(0,229,255,.15);
+    border-top-color: var(--neon);
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .trans-loading span {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.63rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
 </style>
 </head>
 <body>
@@ -231,6 +476,36 @@
     <div class="clima-label">
       <span class="clima-dot"></span>
       <span>Clima ao vivo</span>
+    </div>
+  </div>
+
+
+  <!-- TRADUTOR FLUTUANTE -->
+  <div id="translator" style="bottom: 60px; right: 48px;">
+    <div class="trans-header">
+      <div class="trans-title-wrap">
+        <div class="trans-icon">⚕</div>
+        <span class="trans-title">Tradutor Médico</span>
+      </div>
+      <div class="trans-direction" id="trans-dir" onclick="toggleDirection()">
+        <span id="dir-from">PT</span>
+        <span class="arrow">⇄</span>
+        <span id="dir-to">EN</span>
+      </div>
+    </div>
+
+    <div class="trans-input-wrap">
+      <textarea id="trans-input" placeholder="Digite uma palavra, frase ou termo clínico..."></textarea>
+    </div>
+
+    <button id="trans-btn" onclick="translate()">Traduzir</button>
+
+    <div id="trans-result">
+      <div class="trans-loading" id="trans-loading" style="display:none;">
+        <div class="trans-spinner"></div>
+        <span>Traduzindo...</span>
+      </div>
+      <div id="trans-output"></div>
     </div>
   </div>
 
@@ -363,6 +638,131 @@ async function init() {
 }
 
 init();
+
+
+// ── TRADUTOR ──────────────────────────────────────────────
+let direction = 'PT_EN'; // PT→EN ou EN_PT
+
+function toggleDirection() {
+  direction = direction === 'PT_EN' ? 'EN_PT' : 'PT_EN';
+  const dir = document.getElementById('trans-dir');
+  dir.classList.toggle('flipped');
+  document.getElementById('dir-from').textContent = direction === 'PT_EN' ? 'PT' : 'EN';
+  document.getElementById('dir-to').textContent   = direction === 'PT_EN' ? 'EN' : 'PT';
+  document.getElementById('trans-input').placeholder =
+    direction === 'PT_EN'
+      ? 'Digite uma palavra, frase ou termo clínico...'
+      : 'Type a word, phrase or clinical term...';
+}
+
+async function translate() {
+  const text = document.getElementById('trans-input').value.trim();
+  if (!text) return;
+
+  const btn = document.getElementById('trans-btn');
+  const result = document.getElementById('trans-result');
+  const loading = document.getElementById('trans-loading');
+  const output = document.getElementById('trans-output');
+
+  btn.disabled = true;
+  result.classList.add('visible');
+  loading.style.display = 'flex';
+  output.innerHTML = '';
+
+  const fromLang = direction === 'PT_EN' ? 'Portuguese' : 'English';
+  const toLang   = direction === 'PT_EN' ? 'English'    : 'Portuguese';
+
+  const prompt = `You are a medical English expert. Translate the following ${fromLang} term/phrase to ${toLang} in the medical/clinical context.
+
+Input: "${text}"
+
+Return ONLY a valid JSON object with this exact structure, no markdown, no explanation:
+{
+  "translation": "main translation here",
+  "synonyms": ["synonym1", "synonym2"],
+  "clinical_use": "brief explanation of clinical context and usage (2-3 sentences)",
+  "example": "example sentence using the translation in a clinical context"
+}`;
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const raw = data.content.filter(b => b.type === "text").map(b => b.text).join("");
+    const json = JSON.parse(raw.replace(/```json|```/g,"").trim());
+
+    loading.style.display = 'none';
+    output.innerHTML = `
+      <div class="result-label">Tradução</div>
+      <div class="result-translation">${json.translation}</div>
+
+      ${json.synonyms && json.synonyms.length ? `
+      <div class="result-block">
+        <div class="result-label">Sinônimos</div>
+        <p>${json.synonyms.join(' · ')}</p>
+      </div>` : ''}
+
+      <div class="result-block">
+        <div class="result-label">Uso Clínico</div>
+        <p>${json.clinical_use}</p>
+      </div>
+
+      <div class="result-block">
+        <div class="result-label">Exemplo</div>
+        <p><em>${json.example}</em></p>
+      </div>
+    `;
+  } catch(e) {
+    loading.style.display = 'none';
+    output.innerHTML = '<p style="color:rgba(255,255,255,.4);font-size:.7rem;">Erro ao traduzir. Tente novamente.</p>';
+  }
+
+  btn.disabled = false;
+}
+
+// Enter para traduzir (Shift+Enter = nova linha)
+document.getElementById('trans-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); translate(); }
+});
+
+// ── DRAG DO TRADUTOR ──────────────────────────────────────
+(function() {
+  const el = document.getElementById('translator');
+  let isDragging = false, startX, startY, origX, origY;
+
+  el.addEventListener('mousedown', e => {
+    if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'BUTTON') return;
+    isDragging = true;
+    el.classList.add('dragging');
+    const rect = el.getBoundingClientRect();
+    startX = e.clientX; startY = e.clientY;
+    origX  = rect.left;  origY  = rect.top;
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    el.style.left   = (origX + dx) + 'px';
+    el.style.top    = (origY + dy) + 'px';
+    el.style.right  = 'auto';
+    el.style.bottom = 'auto';
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    el.classList.remove('dragging');
+  });
+})();
+
 </script>
 </body>
 </html>
