@@ -523,11 +523,11 @@
   <!-- TRADUTOR FLUTUANTE -->
   <div id="translator" style="bottom: 60px; right: 48px;" class="minimized">
     <div class="pulse-ring"></div>
-    <span id="trans-icon-min">⚕</span>
+    <span id="trans-icon-min"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg></span>
     <div class="trans-body">
     <div class="trans-header">
       <div class="trans-title-wrap">
-        <div class="trans-icon">⚕</div>
+        <div class="trans-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg></div>
         <span class="trans-title">Tradutor Médico</span>
       </div>
       <div style="display:flex;align-items:center;gap:6px;">
@@ -720,7 +720,7 @@ async function translate() {
   const text = document.getElementById('trans-input').value.trim();
   if (!text) return;
 
-  const btn = document.getElementById('trans-btn');
+  const btn    = document.getElementById('trans-btn');
   const result = document.getElementById('trans-result');
   const loading = document.getElementById('trans-loading');
   const output = document.getElementById('trans-output');
@@ -730,59 +730,43 @@ async function translate() {
   loading.style.display = 'flex';
   output.innerHTML = '';
 
-  const fromLang = direction === 'PT_EN' ? 'Portuguese' : 'English';
-  const toLang   = direction === 'PT_EN' ? 'English'    : 'Portuguese';
-
-  const prompt = `You are a medical English expert. Translate the following ${fromLang} term/phrase to ${toLang} in the medical/clinical context.
-
-Input: "${text}"
-
-Return ONLY a valid JSON object with this exact structure, no markdown, no explanation:
-{
-  "translation": "main translation here",
-  "synonyms": ["synonym1", "synonym2"],
-  "clinical_use": "brief explanation of clinical context and usage (2-3 sentences)",
-  "example": "example sentence using the translation in a clinical context"
-}`;
+  const sl = direction === 'PT_EN' ? 'pt' : 'en';
+  const tl = direction === 'PT_EN' ? 'en' : 'pt';
 
   try {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "anthropic-dangerous-direct-browser-access": "true"
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        messages: [{ role: "user", content: prompt }]
-      })
-    });
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sl}&tl=${tl}&dt=t&dt=bd&q=${encodeURIComponent(text)}`;
+    const res  = await fetch(url);
     const data = await res.json();
-    const raw = data.content.filter(b => b.type === "text").map(b => b.text).join("");
-    const json = JSON.parse(raw.replace(/```json|```/g,"").trim());
+
+    // Tradução principal — array[0] contém os segmentos traduzidos
+    const mainTranslation = data[0]
+      .filter(seg => seg && seg[0])
+      .map(seg => seg[0])
+      .join('');
+
+    // Definições/sinônimos — data[1] quando disponível
+    let synonymsHtml = '';
+    if (data[1] && data[1].length) {
+      const syns = [];
+      data[1].forEach(group => {
+        if (group[2]) group[2].forEach(item => { if(item[0]) syns.push(item[0]); });
+      });
+      if (syns.length) {
+        synonymsHtml = `
+        <div class="result-block">
+          <div class="result-label">Alternativas</div>
+          <p>${syns.slice(0,6).join(' · ')}</p>
+        </div>`;
+      }
+    }
 
     loading.style.display = 'none';
     output.innerHTML = `
       <div class="result-label">Tradução</div>
-      <div class="result-translation">${json.translation}</div>
-
-      ${json.synonyms && json.synonyms.length ? `
-      <div class="result-block">
-        <div class="result-label">Sinônimos</div>
-        <p>${json.synonyms.join(' · ')}</p>
-      </div>` : ''}
-
-      <div class="result-block">
-        <div class="result-label">Uso Clínico</div>
-        <p>${json.clinical_use}</p>
-      </div>
-
-      <div class="result-block">
-        <div class="result-label">Exemplo</div>
-        <p><em>${json.example}</em></p>
-      </div>
+      <div class="result-translation">${mainTranslation}</div>
+      ${synonymsHtml}
     `;
+
   } catch(e) {
     loading.style.display = 'none';
     output.innerHTML = '<p style="color:rgba(255,255,255,.4);font-size:.7rem;">Erro ao traduzir. Tente novamente.</p>';
