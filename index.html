@@ -837,89 +837,79 @@
 .btn-salvar:hover { background: #163158; transform: translateY(-1px); }
 
 /* ── TOOLTIP TOUR ── */
-.tooltip-overlay {
-  position: fixed; inset: 0;
-  z-index: 500; pointer-events: none;
-}
-.tooltip-overlay.active { pointer-events: none; }
-.tooltip-backdrop {
-  position: fixed; inset: 0;
-  background: rgba(26,26,46,.55);
-  backdrop-filter: blur(2px);
-  pointer-events: all;
-}
-.tooltip-box {
+#tour-overlay {
+  display: none;
   position: fixed;
-  background: #fff;
-  border-radius: 16px;
-  padding: 1.4rem 1.6rem;
-  max-width: 300px;
-  box-shadow: 0 16px 48px rgba(0,0,0,.18);
-  z-index: 502;
-  pointer-events: all;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(26,26,46,.6);
+  backdrop-filter: blur(2px);
 }
-.tooltip-step {
+#tour-overlay.active { display: flex; align-items: center; justify-content: center; }
+#tour-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 1.8rem 2rem;
+  max-width: 320px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0,0,0,.2);
+  text-align: center;
+}
+.tour-step-label {
   font-family: 'Raleway', sans-serif;
   font-size: 8px; font-weight: 700;
-  letter-spacing: 0.24em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 0.5rem;
+  letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.6rem;
 }
-.tooltip-title {
+.tour-icon {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: #FFF8EC;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem; font-size: 22px;
+}
+.tour-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem; font-weight: 400;
-  color: #1a1a2e; margin-bottom: 0.4rem;
+  font-size: 1.4rem; font-weight: 400;
+  color: #1a1a2e; margin-bottom: 0.5rem;
 }
-.tooltip-desc {
+.tour-desc {
   font-family: 'Raleway', sans-serif;
-  font-size: 0.72rem; color: #666;
-  line-height: 1.6; margin-bottom: 1.1rem;
+  font-size: 0.73rem; color: #777;
+  line-height: 1.65; margin-bottom: 1.4rem;
 }
-.tooltip-actions {
-  display: flex; align-items: center;
-  justify-content: space-between; gap: 0.8rem;
+.tour-dots {
+  display: flex; justify-content: center;
+  gap: 6px; margin-bottom: 1.2rem;
 }
-.tooltip-skip {
+.tour-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #e8e4e0; transition: background 0.2s;
+}
+.tour-dot.on { background: var(--gold); }
+.tour-btns {
+  display: flex; gap: 8px; justify-content: center;
+}
+.tour-btn-skip {
   font-family: 'Raleway', sans-serif;
-  font-size: 0.62rem; color: #bbb;
-  background: none; border: none;
-  cursor: pointer; letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 0.63rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: #bbb; background: none;
+  border: 1.5px solid #e8e4e0; border-radius: 8px;
+  padding: 0.55rem 1.1rem; cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
 }
-.tooltip-skip:hover { color: #999; }
-.tooltip-next {
+.tour-btn-skip:hover { color: #999; border-color: #ccc; }
+.tour-btn-next {
   font-family: 'Raleway', sans-serif;
   font-size: 0.65rem; font-weight: 700;
   letter-spacing: 0.18em; text-transform: uppercase;
-  background: var(--navy); color: #fff;
+  color: #fff; background: var(--navy);
   border: none; border-radius: 8px;
-  padding: 0.5rem 1.2rem;
-  cursor: pointer; transition: background 0.2s;
+  padding: 0.55rem 1.4rem; cursor: pointer;
+  transition: background 0.2s;
+  flex: 1;
 }
-.tooltip-next:hover { background: #163158; }
-.tooltip-dots {
-  display: flex; gap: 5px;
-  align-items: center;
-}
-.tooltip-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #e0dbd4; transition: background 0.2s;
-}
-.tooltip-dot.active { background: var(--gold); }
-/* Seta do tooltip */
-.tooltip-arrow {
-  position: absolute;
-  width: 12px; height: 12px;
-  background: #fff;
-  transform: rotate(45deg);
-}
-
-/* Highlight do elemento em foco */
-.tour-highlight {
-  position: relative;
-  z-index: 502 !important;
-  border-radius: 12px;
-  box-shadow: 0 0 0 4px rgba(196,164,90,.5), 0 0 0 8px rgba(196,164,90,.15) !important;
-}
+.tour-btn-next:hover { background: #163158; }
 
 </style>
 
@@ -1009,19 +999,17 @@
   </div>
 </div>
 
-<!-- Tooltip tour -->
-<div class="tooltip-overlay" id="tooltip-overlay">
-  <div class="tooltip-backdrop" onclick="proximoTooltip()"></div>
-  <div class="tooltip-box" id="tooltip-box">
-    <div class="tooltip-step" id="tooltip-step">Passo 1 de 4</div>
-    <div class="tooltip-title" id="tooltip-title">Bem-vindo ao seu Caderno</div>
-    <div class="tooltip-desc"  id="tooltip-desc">Este é o seu espaço pessoal de aprendizado. Aqui você salva vocabulário, frases e termos clínicos das suas aulas.</div>
-    <div class="tooltip-actions">
-      <div class="tooltip-dots" id="tooltip-dots"></div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <button class="tooltip-skip" onclick="fecharTour()">Pular</button>
-        <button class="tooltip-next" id="tooltip-next-btn" onclick="proximoTooltip()">Próximo →</button>
-      </div>
+<!-- Tour -->
+<div id="tour-overlay">
+  <div id="tour-card">
+    <div class="tour-step-label" id="tour-label">Passo 1 de 5</div>
+    <div class="tour-icon" id="tour-icon">👋</div>
+    <div class="tour-title" id="tour-title">Bem-vindo ao seu Caderno</div>
+    <div class="tour-desc"  id="tour-desc">Este é o seu espaço pessoal. Aqui você registra vocabulário, frases e termos clínicos das suas aulas.</div>
+    <div class="tour-dots"  id="tour-dots"></div>
+    <div class="tour-btns">
+      <button class="tour-btn-skip" onclick="fecharTour()">Pular</button>
+      <button class="tour-btn-next" onclick="tourNext()">Próximo →</button>
     </div>
   </div>
 </div>
@@ -1191,121 +1179,48 @@ function downloadCaderno() {
   URL.revokeObjectURL(url);
 }
 
-// ── TOOLTIP TOUR ─────────────────────────────────────
-const tourSteps = [
-  {
-    target: null,
-    title: 'Bem-vindo ao seu Caderno',
-    desc: 'Este é o seu espaço pessoal de aprendizado. Aqui você salva vocabulário, frases e termos clínicos das suas aulas — do seu jeito.',
-    pos: 'center'
-  },
-  {
-    target: 'tour-novo',
-    title: 'Nova entrada',
-    desc: 'Clique aqui para adicionar um novo termo, frase ou anotação. Tradução e exemplo são opcionais — você decide o quanto quer registrar.',
-    pos: 'bottom-left'
-  },
-  {
-    target: 'tour-tabs',
-    title: 'Seções do caderno',
-    desc: 'Organize seu conteúdo por tipo: Vocabulário, Frases, Termos Clínicos ou Anotações. Você também pode criar seções personalizadas.',
-    pos: 'bottom-left'
-  },
-  {
-    target: 'tour-busca',
-    title: 'Busca instantânea',
-    desc: 'Encontre qualquer entrada digitando aqui — pesquisa em termos, traduções e exemplos ao mesmo tempo.',
-    pos: 'bottom-right'
-  },
-  {
-    target: 'tour-download',
-    title: 'Baixe seu caderno',
-    desc: 'A qualquer momento você pode exportar todo o conteúdo do seu caderno em formato de texto, organizado por seção.',
-    pos: 'bottom-left'
-  }
+// ── TOUR ───────────────────────────────────────────
+const TOUR = [
+  { icon:'👋', title:'Bem-vindo ao seu Caderno',   desc:'Seu espaço pessoal de aprendizado. Registre vocabulário, frases e termos clínicos das suas aulas — do seu jeito.' },
+  { icon:'✏️', title:'Nova entrada',               desc:'Clique em "Nova entrada" para adicionar um termo, frase ou anotação. Tradução e exemplo são sempre opcionais.' },
+  { icon:'🗂️', title:'Seções do caderno',          desc:'Organize por tipo: Vocabulário, Frases, Termos Clínicos ou Anotações. Você pode criar seções personalizadas também.' },
+  { icon:'🔍', title:'Busca instantânea',           desc:'Digite qualquer coisa na barra de busca — ela pesquisa em termos, traduções e exemplos ao mesmo tempo.' },
+  { icon:'⬇️', title:'Baixe seu caderno',          desc:'Clique em "Download" para exportar todo o conteúdo em formato texto, organizado por seção, quando quiser.' },
 ];
-
-let tourStep = 0;
-let tourHighlight = null;
+let tourIdx = 0;
 
 function initTour() {
   if (localStorage.getItem('mdtalk_tour_done')) return;
-  setTimeout(startTour, 1200);
+  setTimeout(() => {
+    renderTourStep();
+    document.getElementById('tour-overlay').classList.add('active');
+  }, 1000);
 }
 
-function startTour() {
-  tourStep = 0;
-  renderTooltip();
-  document.getElementById('tooltip-overlay').classList.add('active');
-}
-
-function renderTooltip() {
-  const step  = tourSteps[tourStep];
-  const total = tourSteps.length;
-  const box   = document.getElementById('tooltip-box');
-
-  document.getElementById('tooltip-step').textContent  = `Passo ${tourStep+1} de ${total}`;
-  document.getElementById('tooltip-title').textContent = step.title;
-  document.getElementById('tooltip-desc').textContent  = step.desc;
-  document.getElementById('tooltip-next-btn').textContent = tourStep === total-1 ? 'Começar ✓' : 'Próximo →';
-
-  // Dots
-  const dots = document.getElementById('tooltip-dots');
-  dots.innerHTML = tourSteps.map((_,i) =>
-    `<div class="tooltip-dot ${i===tourStep?'active':''}"></div>`
-  ).join('');
-
-  // Remover highlight anterior
-  if (tourHighlight) {
-    tourHighlight.classList.remove('tour-highlight');
-    tourHighlight = null;
-  }
-
-  // Posicionar tooltip
-  if (!step.target) {
-    // Centro da tela
-    box.style.top  = '50%';
-    box.style.left = '50%';
-    box.style.transform = 'translate(-50%, -50%)';
-  } else {
-    const el = document.getElementById(step.target);
-    if (el) {
-      el.classList.add('tour-highlight');
-      tourHighlight = el;
-      const rect = el.getBoundingClientRect();
-      box.style.transform = 'none';
-
-      if (step.pos === 'bottom-left') {
-        box.style.top  = (rect.bottom + 16) + 'px';
-        box.style.left = rect.left + 'px';
-      } else if (step.pos === 'bottom-right') {
-        box.style.top  = (rect.bottom + 16) + 'px';
-        box.style.left = Math.max(8, rect.right - 300) + 'px';
-      } else {
-        box.style.top  = (rect.bottom + 16) + 'px';
-        box.style.left = (rect.left + rect.width/2 - 150) + 'px';
-      }
-    }
-  }
-}
-
-function proximoTooltip() {
-  tourStep++;
-  if (tourStep >= tourSteps.length) {
-    fecharTour();
-  } else {
-    renderTooltip();
-  }
+function renderTourStep() {
+  const s = TOUR[tourIdx];
+  const total = TOUR.length;
+  document.getElementById('tour-label').textContent = 'Passo ' + (tourIdx+1) + ' de ' + total;
+  document.getElementById('tour-icon').textContent  = s.icon;
+  document.getElementById('tour-title').textContent = s.title;
+  document.getElementById('tour-desc').textContent  = s.desc;
+  document.getElementById('tour-next').textContent  = tourIdx === total-1 ? 'Começar ✓' : 'Próximo →';
+  const dots = document.getElementById('tour-dots');
+  dots.innerHTML = TOUR.map((_,i) => '<div class="tour-dot '+(i===tourIdx?'on':'')+'"></div>').join('');
 }
 
 function fecharTour() {
-  if (tourHighlight) { tourHighlight.classList.remove('tour-highlight'); tourHighlight = null; }
-  document.getElementById('tooltip-overlay').classList.remove('active');
+  document.getElementById('tour-overlay').classList.remove('active');
   localStorage.setItem('mdtalk_tour_done', '1');
 }
 
+function tourNext() {
+  tourIdx++;
+  if (tourIdx >= TOUR.length) { fecharTour(); } else { renderTourStep(); }
+}
+
 document.getElementById('search-input').addEventListener('input', renderCards);
-document.addEventListener('keydown', e => { if (e.key==='Escape') { fecharModal(); fecharTour(); } });
+document.addEventListener('keydown', e => { if (e.key==='Escape') { fecharModal(); tourSkip(); } });
 
 renderCards();
 initTour();
