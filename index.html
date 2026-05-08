@@ -1661,6 +1661,7 @@ document.addEventListener('keydown', e => { if (e.key==='Escape') { fecharModal(
 
 renderCards();
 initTour();
+initDrawerColors();
 </script>
 
 
@@ -2701,35 +2702,65 @@ initHero();
 }
 </style>
 
-<!-- PLANNER DRAWER HANDLE -->
-<div id="planner-handle" onclick="togglePlanner()">
-  <div class="handle-inner">
-    <svg id="handle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-    <span>Planner Semanal</span>
-    <svg id="handle-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+<!-- ══════════════════════════════════════
+     GAVETAS LATERAIS (fichário)
+══════════════════════════════════════ -->
+
+<!-- Overlay de fundo -->
+<div id="drawer-overlay" onclick="closeAllDrawers()"></div>
+
+<!-- ABA PLANNER -->
+<div class="file-tab" id="tab-planner" style="--tab-color:#7c6ea0;top:140px"
+     onclick="toggleDrawer('planner')">
+  <span class="tab-label" style="writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);letter-spacing:.14em;font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.92);">Planner</span>
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+  <button class="tab-color-btn" onclick="event.stopPropagation();openColorPicker('planner')" title="Personalizar cor">●</button>
+</div>
+
+<!-- ABA FLASHCARDS -->
+<div class="file-tab" id="tab-flash" style="--tab-color:#2196F3;top:230px"
+     onclick="toggleDrawer('flash')">
+  <span class="tab-label" style="writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);letter-spacing:.14em;font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.92);">Flashcards</span>
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+  <button class="tab-color-btn" onclick="event.stopPropagation();openColorPicker('flash')" title="Personalizar cor">●</button>
+</div>
+
+<!-- GAVETA PLANNER -->
+<div class="side-drawer" id="drawer-planner">
+  <div class="side-drawer-inner">
+    <div class="side-drawer-header" style="--tab-color:#7c6ea0">
+      <span class="side-drawer-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Planner Semanal
+      </span>
+      <button class="side-drawer-close" onclick="closeAllDrawers()">✕</button>
+    </div>
+    <div class="side-drawer-body" id="planner-body"></div>
   </div>
 </div>
 
-<!-- PLANNER DRAWER -->
-<div id="planner-drawer">
-  <div id="planner-drawer-inner">
-    <div id="planner-body"></div>
+<!-- GAVETA FLASHCARDS -->
+<div class="side-drawer" id="drawer-flash">
+  <div class="side-drawer-inner">
+    <div class="side-drawer-header" style="--tab-color:#2196F3">
+      <span class="side-drawer-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        Flashcards
+      </span>
+      <button class="side-drawer-close" onclick="closeAllDrawers()">✕</button>
+    </div>
+    <div class="side-drawer-body" id="flash-body"></div>
   </div>
 </div>
 
-<!-- FLASHCARD HANDLE -->
-<div id="flash-handle" onclick="toggleFlash()">
-  <div class="handle-inner">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-    <span>Flashcards</span>
-    <svg id="flash-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
-  </div>
-</div>
-
-<!-- FLASHCARD DRAWER -->
-<div id="flash-drawer">
-  <div id="flash-drawer-inner">
-    <div id="flash-body"></div>
+<!-- Color picker flutuante -->
+<div id="color-picker-popup" style="display:none;">
+  <div class="cp-title">Escolha uma cor</div>
+  <div class="cp-swatches" id="cp-swatches"></div>
+  <div class="cp-custom">
+    <label class="cp-custom-label">Personalizada</label>
+    <input type="color" id="cp-custom-input" value="#C4A45A">
+    <button class="cp-apply-btn" onclick="applyCustomColor()">Aplicar</button>
   </div>
 </div>
 
@@ -3086,15 +3117,6 @@ function addActivity(key,sid){
 }
 function togglePicker(key){ openPickerKey=openPickerKey===key?null:key; renderPlanner(); }
 
-function togglePlanner(){
-  const handle = document.getElementById('planner-handle');
-  const drawer = document.getElementById('planner-drawer');
-  const isOpen = drawer.classList.contains('open');
-  drawer.classList.toggle('open');
-  handle.classList.toggle('open');
-  if (!isOpen) renderPlanner();
-}
-
 function renderPlanner(){
   const panel=document.getElementById('planner-body') || document.getElementById('planner-panel');
   const dates=plannerWeekDates(plannerOffset);
@@ -3174,6 +3196,111 @@ function fecharTour(){ document.getElementById('tour-overlay').classList.remove(
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ fecharModal(); fecharTour(); } });
 
 
+
+// ═══════════════════════════════════════════
+//  GAVETAS LATERAIS
+// ═══════════════════════════════════════════
+
+const DRAWER_COLORS = {
+  planner: localStorage.getItem('drawer_color_planner') || '#7c6ea0',
+  flash:   localStorage.getItem('drawer_color_flash')   || '#2196F3',
+};
+
+const COLOR_SWATCHES = [
+  '#7c6ea0','#2196F3','#C4A45A','#0B1D3A',
+  '#E91E63','#4CAF50','#FF5722','#00BCD4',
+  '#795548','#607D8B','#9C27B0','#FF9800',
+  '#388E3C','#C62828','#1565C0','#4A148C',
+];
+
+function applyTabColor(id, color) {
+  DRAWER_COLORS[id] = color;
+  localStorage.setItem('drawer_color_'+id, color);
+  const tab = document.getElementById('tab-'+id);
+  const header = document.querySelector('#drawer-'+id+' .side-drawer-header');
+  if (tab)    tab.style.setProperty('--tab-color', color);
+  if (header) header.style.setProperty('--tab-color', color);
+}
+
+function initDrawerColors() {
+  Object.entries(DRAWER_COLORS).forEach(([id, color]) => applyTabColor(id, color));
+}
+
+let activeDrawer = null;
+function toggleDrawer(id) {
+  if (activeDrawer === id) { closeAllDrawers(); return; }
+  closeAllDrawers(false);
+  activeDrawer = id;
+  document.getElementById('drawer-'+id).classList.add('open');
+  document.getElementById('tab-'+id).classList.add('open');
+  document.getElementById('drawer-overlay').classList.add('on');
+  if (id === 'planner') renderPlanner();
+  if (id === 'flash')   renderFlash();
+}
+
+function closeAllDrawers(clearActive=true) {
+  document.querySelectorAll('.side-drawer').forEach(d => d.classList.remove('open'));
+  document.querySelectorAll('.file-tab').forEach(t => t.classList.remove('open'));
+  document.getElementById('drawer-overlay').classList.remove('on');
+  closeColorPicker();
+  if (clearActive) activeDrawer = null;
+}
+
+// Color picker
+let cpTarget = null;
+function openColorPicker(id) {
+  cpTarget = id;
+  const popup = document.getElementById('color-picker-popup');
+  const tab   = document.getElementById('tab-'+id);
+  const rect  = tab.getBoundingClientRect();
+
+  // Render swatches
+  document.getElementById('cp-swatches').innerHTML = COLOR_SWATCHES.map(col =>
+    `<div class="cp-swatch ${DRAWER_COLORS[id]===col?'selected':''}"
+      style="background:${col}"
+      onclick="applyTabColor('${id}','${col}');renderSwatches('${id}')"></div>`
+  ).join('');
+  document.getElementById('cp-custom-input').value = DRAWER_COLORS[id];
+
+  popup.style.display = 'block';
+  popup.style.top    = Math.min(rect.top, window.innerHeight-280)+'px';
+  popup.style.right  = (window.innerWidth - rect.left + 8)+'px';
+  popup.style.left   = 'auto';
+}
+
+function renderSwatches(id) {
+  document.getElementById('cp-swatches').innerHTML = COLOR_SWATCHES.map(col =>
+    `<div class="cp-swatch ${DRAWER_COLORS[id]===col?'selected':''}"
+      style="background:${col}"
+      onclick="applyTabColor('${id}','${col}');renderSwatches('${id}')"></div>`
+  ).join('');
+}
+
+function applyCustomColor() {
+  const color = document.getElementById('cp-custom-input').value;
+  if (cpTarget) applyTabColor(cpTarget, color);
+  closeColorPicker();
+}
+
+function closeColorPicker() {
+  document.getElementById('color-picker-popup').style.display = 'none';
+  cpTarget = null;
+}
+
+document.addEventListener('click', e => {
+  const popup = document.getElementById('color-picker-popup');
+  if (popup.style.display !== 'none' &&
+      !popup.contains(e.target) &&
+      !e.target.classList.contains('tab-color-btn')) {
+    closeColorPicker();
+  }
+});
+
+// Fechar ao pressionar ESC
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeAllDrawers(); fecharModal(); fecharTour(); }
+});
+
 // ═══════════════════════════════════════════
 //  FLASHCARDS
 // ═══════════════════════════════════════════
@@ -3185,14 +3312,6 @@ let flashKnew     = 0;
 let flashSkipped  = 0;
 let flashFlipped  = false;
 
-function toggleFlash() {
-  const handle = document.getElementById('flash-handle');
-  const drawer = document.getElementById('flash-drawer');
-  const isOpen = drawer.classList.contains('open');
-  drawer.classList.toggle('open');
-  handle.classList.toggle('open');
-  if (!isOpen) renderFlash();
-}
 
 function flashBuildDeck() {
   const pool = entradas.filter(e =>
@@ -3377,6 +3496,7 @@ function flashRestart() {
 // ── INIT ──────────────────────────────────
 renderCards();
 initTour();
+initDrawerColors();
 </script>
 </body>
 </html>
