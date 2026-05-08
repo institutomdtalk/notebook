@@ -248,12 +248,52 @@
 
   @keyframes translatorFloat {
     0%   { transform: translateY(0px)   translateX(0px); }
-    25%  { transform: translateY(-10px) translateX(6px); }
-    50%  { transform: translateY(-4px)  translateX(12px); }
-    75%  { transform: translateY(-14px) translateX(4px); }
+    20%  { transform: translateY(-22px) translateX(18px); }
+    40%  { transform: translateY(-10px) translateX(36px); }
+    60%  { transform: translateY(-30px) translateX(20px); }
+    80%  { transform: translateY(-16px) translateX(6px); }
     100% { transform: translateY(0px)   translateX(0px); }
   }
   #translator.dragging { animation: none; }
+  #translator.minimized {
+    width: 52px !important;
+    height: 52px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    overflow: hidden;
+    cursor: pointer !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 0 0 1px rgba(0,229,255,.08),
+      0 8px 32px rgba(0,0,0,0.7),
+      0 0 24px rgba(0,229,255,.25),
+      0 0 60px rgba(0,229,255,.12);
+  }
+  #translator.minimized .trans-body { display: none; }
+  #translator.minimized .trans-header { display: none; }
+  #translator.minimized::before { display: none; }
+  #translator.minimized::after { display: none; }
+  #trans-icon-min {
+    display: none;
+    font-size: 22px;
+    color: rgba(0,229,255,.9);
+    pointer-events: none;
+  }
+  #translator.minimized #trans-icon-min { display: flex; align-items: center; justify-content: center; }
+  /* pulse ring quando minimizado */
+  #translator.minimized .pulse-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,229,255,.4);
+    animation: pulseRing 2s ease-out infinite;
+  }
+  @keyframes pulseRing {
+    0%   { transform: scale(1);   opacity: 0.7; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
 
   .trans-header {
     display: flex;
@@ -481,16 +521,22 @@
 
 
   <!-- TRADUTOR FLUTUANTE -->
-  <div id="translator" style="bottom: 60px; right: 48px;">
+  <div id="translator" style="bottom: 60px; right: 48px;" class="minimized">
+    <div class="pulse-ring"></div>
+    <span id="trans-icon-min">⚕</span>
+    <div class="trans-body">
     <div class="trans-header">
       <div class="trans-title-wrap">
         <div class="trans-icon">⚕</div>
         <span class="trans-title">Tradutor Médico</span>
       </div>
+      <div style="display:flex;align-items:center;gap:6px;">
       <div class="trans-direction" id="trans-dir" onclick="toggleDirection()">
         <span id="dir-from">PT</span>
         <span class="arrow">⇄</span>
         <span id="dir-to">EN</span>
+      </div>
+      <div onclick="document.getElementById('translator').classList.add('minimized')" style="cursor:pointer;width:20px;height:20px;border-radius:50%;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.25);display:flex;align-items:center;justify-content:center;font-size:9px;color:rgba(0,229,255,.7);font-weight:700;flex-shrink:0;" title="Minimizar">✕</div>
       </div>
     </div>
 
@@ -640,6 +686,21 @@ async function init() {
 init();
 
 
+// ── TOGGLE TRADUTOR ──────────────────────────────────────────
+function toggleTranslator(e) {
+  const el = document.getElementById('translator');
+  if (el.classList.contains('minimized')) {
+    el.classList.remove('minimized');
+    e.stopPropagation();
+  }
+}
+document.getElementById('translator').addEventListener('click', function(e) {
+  if (this.classList.contains('minimized')) {
+    this.classList.remove('minimized');
+    e.stopPropagation();
+  }
+});
+
 // ── TRADUTOR ──────────────────────────────────────────────
 let direction = 'PT_EN'; // PT→EN ou EN_PT
 
@@ -687,7 +748,10 @@ Return ONLY a valid JSON object with this exact structure, no markdown, no expla
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "anthropic-dangerous-direct-browser-access": "true"
+      },
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
         max_tokens: 1000,
