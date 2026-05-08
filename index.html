@@ -6,6 +6,66 @@
 <title>Caderno do Aluno — MD Talk</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+:root{--navy:#0B1D3A;--navy-deep:#050D1A;--navy-mid:#0F2645;--navy-light:#163158;--gold:#C4A45A;--gold-light:#D4BA7A;--gold-pale:#E8D9B0;--cream:rgba(255,255,255,.88);--muted:rgba(255,255,255,.42);--neon:#00E5FF;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cream);overflow-x:hidden;}
+#hero{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+#hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease;}
+#hero-bg.loaded{opacity:1;}
+#hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,13,26,.80) 0%,rgba(5,13,26,.68) 40%,rgba(5,13,26,.88) 100%);}
+#hero-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(196,164,90,.07) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;}
+.geo{position:absolute;pointer-events:none;}
+.geo-ring{width:340px;height:340px;border:1px solid rgba(196,164,90,.13);border-radius:50%;top:-80px;right:-90px;animation:geoFloat 11s ease-in-out infinite;}
+.geo-ring-2{width:200px;height:200px;border:1px solid rgba(196,164,90,.09);border-radius:50%;bottom:100px;left:-50px;animation:geoFloat 14s ease-in-out infinite;animation-delay:-5s;}
+.geo-diamond{width:56px;height:56px;border:1px solid rgba(196,164,90,.22);bottom:180px;right:140px;animation:geoFloatD 8s ease-in-out infinite;animation-delay:-3s;}
+.geo-line{width:1px;height:110px;background:linear-gradient(to bottom,transparent,rgba(196,164,90,.28),transparent);top:32%;left:72px;animation:geoFloat 10s ease-in-out infinite;animation-delay:-7s;}
+@keyframes geoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+@keyframes geoFloatD{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(-12px)}}
+#hero-content{position:relative;z-index:10;text-align:center;padding:2rem 1.5rem;max-width:720px;opacity:0;transform:translateY(28px);transition:opacity 1s ease .5s,transform 1s ease .5s;}
+#hero-content.visible{opacity:1;transform:translateY(0);}
+.overline{font-family:'Raleway',sans-serif;font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;display:block;}
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(4.5rem,12vw,9rem);font-weight:400;line-height:.95;color:var(--cream);}
+.hero-divider{width:40px;height:1px;background:rgba(196,164,90,.5);margin:1.4rem auto 1.2rem;}
+.hero-info{font-family:'Raleway',sans-serif;font-size:.7rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:.9rem;}
+.hero-info .sep{width:3px;height:3px;background:var(--gold);border-radius:50%;opacity:.6;}
+#clock{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,3vw,1.6rem);font-weight:300;letter-spacing:.18em;color:var(--cream);opacity:.75;margin-bottom:1.4rem;}
+.clima-label{font-family:'Raleway',sans-serif;font-size:.62rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.7;display:flex;align-items:center;justify-content:center;gap:7px;}
+.clima-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2.2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.scroll-indicator{position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:7px;animation:scrollPulse 2.8s ease-in-out infinite;}
+.scroll-indicator span{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-family:'Raleway',sans-serif;}
+.scroll-line{width:1px;height:38px;background:linear-gradient(to bottom,var(--gold),transparent);}
+@keyframes scrollPulse{0%,100%{opacity:.28;transform:translateX(-50%) translateY(0)}50%{opacity:.65;transform:translateX(-50%) translateY(7px)}}
+#loading-state{position:absolute;inset:0;background:var(--navy-deep);display:flex;align-items:center;justify-content:center;z-index:20;transition:opacity .9s ease;}
+#loading-state.hidden{opacity:0;pointer-events:none;}
+.loading-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;animation:fadeIO 1.9s ease-in-out infinite;}
+@keyframes fadeIO{0%,100%{opacity:.15}50%{opacity:.75}}
+</style>
+
+
+<body>
+<section id="hero">
+  <div id="loading-state"><div style="display:flex;flex-direction:column;align-items:center;gap:14px;"><span class="loading-logo">MD Talk</span><div style="width:40px;height:1px;background:var(--gold);opacity:.3;"></div></div></div>
+  <div id="hero-bg"></div><div id="hero-overlay"></div><div id="hero-dots"></div>
+  <div class="geo geo-ring"></div><div class="geo geo-ring-2"></div><div class="geo geo-diamond"></div><div class="geo geo-line"></div>
+  <div id="hero-content">
+    <span class="overline" id="greeting-overline">Boa noite,</span>
+    <h1 class="hero-name" id="student-name">Thaiana</h1>
+    <div class="hero-divider"></div>
+    <div class="hero-info"><span id="info-city">Sao Paulo, SP</span><span class="sep"></span><span id="info-temp">--C</span><span class="sep"></span><span id="info-condition">Carregando</span></div>
+    <div id="clock">00:00:00</div>
+    <div class="clima-label"><span class="clima-dot"></span><span>Clima ao vivo</span></div>
+  </div>
+  <div class="scroll-indicator"><span>Explorar</span><div class="scroll-line"></div></div>
+</section>
+TYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caderno do Aluno — MD Talk</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
   :root {
     --navy:       #0B1D3A;
     --navy-deep:  #050D1A;
@@ -1093,1542 +1153,6 @@
 .tour-btn-next:hover { background: #163158; }
 
 
-/* ── GAVETAS LATERAIS ── */
-#gv-overlay {
-  display:none; position:fixed; inset:0;
-  background:rgba(20,20,40,.4); backdrop-filter:blur(3px);
-  z-index:800;
-}
-#gv-overlay.on { display:block; }
-
-/* Aba (puxador) */
-.gv-tab {
-  position:fixed; right:0; z-index:900;
-  display:flex; flex-direction:column; align-items:center;
-  padding:16px 10px; gap:10px;
-  border-radius:10px 0 0 10px;
-  cursor:pointer;
-  box-shadow:-2px 0 12px rgba(0,0,0,.15);
-  transition:transform .2s;
-}
-.gv-tab:hover { transform:translateX(-5px); }
-.gv-tab span {
-  writing-mode:vertical-lr;
-  transform:rotate(180deg);
-  font-family:'Raleway',sans-serif;
-  font-size:.6rem; font-weight:700;
-  letter-spacing:.15em; text-transform:uppercase;
-  color:#fff;
-}
-#gv-tab-planner { top:160px; background:#7c6ea0; }
-#gv-tab-flash   { top:280px; background:#2196F3; }
-
-/* Gaveta */
-.gv-drawer {
-  position:fixed; top:0; right:0; bottom:0;
-  width:min(620px,90vw);
-  background:#FDFBF8;
-  z-index:850;
-  transform:translateX(100%);
-  transition:transform .45s cubic-bezier(.4,0,.2,1);
-  display:flex; flex-direction:column;
-  box-shadow:-6px 0 40px rgba(0,0,0,.18);
-}
-.gv-drawer.on { transform:translateX(0); }
-
-/* Header da gaveta */
-.gv-head {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:1.1rem 1.5rem; flex-shrink:0;
-  font-family:'Raleway',sans-serif; font-size:.7rem;
-  font-weight:700; letter-spacing:.18em; text-transform:uppercase;
-  color:rgba(255,255,255,.95);
-}
-#gv-head-planner { background:#7c6ea0; }
-#gv-head-flash   { background:#2196F3; }
-.gv-head button {
-  width:28px; height:28px; border-radius:50%;
-  border:1px solid rgba(255,255,255,.3);
-  background:rgba(255,255,255,.15); color:#fff;
-  cursor:pointer; font-size:12px;
-  display:flex; align-items:center; justify-content:center;
-}
-.gv-head button:hover { background:rgba(255,255,255,.3); }
-
-/* Corpo da gaveta */
-.gv-body {
-  flex:1; overflow-y:auto; padding:1.8rem 1.5rem 3rem;
-  scrollbar-width:thin; scrollbar-color:#ddd transparent;
-}
-
-/* Botão de cor na aba */
-.gv-tab-color {
-  width:16px; height:16px; border-radius:50%;
-  background:rgba(255,255,255,.3); border:none;
-  cursor:pointer; display:flex; align-items:center;
-  justify-content:center; font-size:8px; color:#fff;
-}
-
-/* Color picker */
-#gv-cp {
-  position:fixed; z-index:1000;
-  background:#fff; border:1.5px solid #e8e4e0;
-  border-radius:14px; padding:1rem 1.1rem;
-  box-shadow:0 12px 40px rgba(0,0,0,.15); width:210px;
-}
-.gv-cp-title {
-  font-family:'Raleway',sans-serif; font-size:8px; font-weight:700;
-  letter-spacing:.24em; text-transform:uppercase; color:#aaa; margin-bottom:.7rem;
-}
-#gv-cp-swatches {
-  display:grid; grid-template-columns:repeat(5,1fr); gap:6px;
-}
-.gv-swatch {
-  aspect-ratio:1; border-radius:7px; border:2px solid transparent;
-  cursor:pointer; transition:transform .15s;
-}
-.gv-swatch:hover { transform:scale(1.12); }
-.gv-swatch.on { border-color:#1a1a2e; }
-
-</style>
-
-<body>
-<section id="hero">
-  <div id="loading-state">
-    <div class="loading-mark">
-      <span class="loading-logo">MD Talk</span>
-      <div class="loading-line"></div>
-    </div>
-  </div>
-  <div id="hero-bg"></div>
-  <div id="hero-overlay"></div>
-  <div id="hero-dots"></div>
-  <div class="geo geo-ring"></div>
-  <div class="geo geo-ring-2"></div>
-  <div class="geo geo-diamond"></div>
-  <div class="geo geo-line"></div>
-  <div id="hero-content">
-    <span class="overline" id="greeting-overline">Boa noite,</span>
-    <h1 class="hero-name" id="student-name">Thaiana</h1>
-    <div class="hero-divider"></div>
-    <div class="hero-info">
-      <span id="info-city">São Paulo, SP</span>
-      <span class="sep"></span>
-      <span id="info-temp">—°C</span>
-      <span class="sep"></span>
-      <span id="info-condition">Carregando</span>
-    </div>
-    <div id="clock">00:00:00</div>
-    <div class="clima-label">
-      <span class="clima-dot"></span>
-      <span>Clima ao vivo</span>
-    </div>
-  </div>
-  <div class="scroll-indicator">
-    <span>Explorar</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
-
-
-<!-- ══════════════════════════════════════════
-     CADERNO DO ALUNO
-══════════════════════════════════════════ -->
-<section id="caderno">
-  <div class="caderno-wrap">
-
-    <div class="caderno-header">
-      <h2 class="caderno-title">Meu <em>Caderno</em></h2>
-      <p class="caderno-subtitle">Vocabulário · Frases · Termos Clínicos · Anotações</p>
-    </div>
-
-    <!-- Toolbar -->
-    <div class="caderno-toolbar">
-      <div class="search-wrap" id="tour-busca">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="search-input" placeholder="Buscar termo, frase ou anotação...">
-      </div>
-      <button class="btn-download" id="tour-download" onclick="downloadCaderno()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download
-      </button>
-      <button class="btn-novo" id="tour-novo" onclick="abrirModal()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Nova entrada
-      </button>
-    </div>
-
-    <!-- Tabs -->
-    <div class="tabs-wrap" id="tabs-wrap">
-      <button class="tab active" data-tab="todos"       onclick="setTab('todos',this)">Todos</button>
-      <button class="tab"        data-tab="vocabulario" onclick="setTab('vocabulario',this)" id="tour-tabs">Vocabulário</button>
-      <button class="tab"        data-tab="frases"      onclick="setTab('frases',this)">Frases</button>
-      <button class="tab"        data-tab="termos"      onclick="setTab('termos',this)">Termos Clínicos</button>
-      <button class="tab"        data-tab="anotacoes"   onclick="setTab('anotacoes',this)">Anotações</button>
-      <button class="tab" data-tab="planner" onclick="setTab('planner',this)" id="tour-planner">Planner Semanal</button>
-      <button class="tab tab-nova" onclick="novaSeccao()">+ Nova seção</button>
-    </div>
-
-    <!-- Grid -->
-    <div class="cards-grid" id="cards-grid"></div>
-
-    <!-- Planner Semanal -->
-    <div id="planner-panel" style="display:none;">
-
-      <div class="planner-header">
-        <div class="planner-week" id="planner-week-label">Semana atual</div>
-        <div class="planner-nav">
-          <button class="planner-nav-btn" onclick="plannerWeek(-1)">‹</button>
-          <button class="planner-nav-btn" onclick="plannerWeek(1)">›</button>
-        </div>
-        <button class="planner-suggest-btn" onclick="plannerSuggest()">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          Sugerir semana
-        </button>
-      </div>
-
-      <div class="planner-grid" id="planner-grid"></div>
-
-      <!-- Legenda das habilidades -->
-      <div class="planner-legend">
-        <div class="legend-title">Habilidades disponíveis</div>
-        <div class="legend-items" id="legend-items"></div>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- Modal nova entrada -->
-<div class="modal-backdrop" id="modal" onclick="fecharModalBackdrop(event)">
-  <div class="modal">
-    <div class="modal-header">
-      <h3 class="modal-title" id="modal-title">Nova entrada</h3>
-      <button class="modal-close" onclick="fecharModal()">✕</button>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Seção</label>
-        <select class="form-select" id="form-secao">
-          <option value="vocabulario">Vocabulário</option>
-          <option value="frases">Frases</option>
-          <option value="termos">Termos Clínicos</option>
-          <option value="anotacoes">Anotações</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Idioma do termo</label>
-        <select class="form-select" id="form-idioma">
-          <option value="en">English</option>
-          <option value="pt">Português</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Termo / Frase *</label>
-      <input type="text" class="form-input" id="form-termo" placeholder="Ex: dyspnea on exertion">
-      <p class="form-hint">Escreva o termo ou frase exatamente como quer memorizar.</p>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Tradução <span style="opacity:.5">(opcional)</span></label>
-      <input type="text" class="form-input" id="form-traducao" placeholder="Ex: dispneia aos esforços">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Exemplo em frase <span style="opacity:.5">(opcional)</span></label>
-      <textarea class="form-textarea" id="form-exemplo" placeholder="Ex: The patient reports dyspnea on exertion since last week."></textarea>
-      <p class="form-hint">Um exemplo em contexto ajuda muito na memorização.</p>
-    </div>
-    <button class="btn-salvar" onclick="salvarEntrada()">Salvar entrada</button>
-  </div>
-</div>
-
-<!-- Tour -->
-<div id="tour-overlay">
-  <div id="tour-card">
-    <div class="tour-step-label" id="tour-label">Passo 1 de 5</div>
-    <div class="tour-icon" id="tour-icon">👋</div>
-    <div class="tour-title" id="tour-title">Bem-vindo ao seu Caderno</div>
-    <div class="tour-desc"  id="tour-desc">Este é o seu espaço pessoal. Aqui você registra vocabulário, frases e termos clínicos das suas aulas.</div>
-    <div class="tour-dots"  id="tour-dots"></div>
-    <div class="tour-btns">
-      <button class="tour-btn-skip" onclick="fecharTour()">Pular</button>
-      <button class="tour-btn-next" onclick="tourNext()">Próximo →</button>
-    </div>
-  </div>
-</div>
-
-<script>
-// ═══════════════════════════════════════════
-//  CADERNO — DADOS & LÓGICA
-// ═══════════════════════════════════════════
-
-let entradas = [
-  { id:1, secao:'vocabulario', termo:'Dyspnea on exertion', traducao:'Dispneia aos esforços', exemplo:'The patient reports dyspnea on exertion, worsening over the past two weeks.', data:'2025-05-01' },
-  { id:2, secao:'vocabulario', termo:'Tachycardia', traducao:'Taquicardia', exemplo:'On examination, the patient presented with tachycardia at 112 bpm.', data:'2025-05-01' },
-  { id:3, secao:'frases', termo:'The patient denies any history of...', traducao:'O paciente nega qualquer histórico de...', exemplo:'The patient denies any history of chest pain or previous cardiac events.', data:'2025-05-03' },
-  { id:4, secao:'frases', termo:'On further questioning...', traducao:'Ao aprofundar o interrogatório...', exemplo:'On further questioning, she admitted to occasional palpitations.', data:'2025-05-03' },
-  { id:5, secao:'termos', termo:'Myocardial infarction', traducao:'Infarto agudo do miocárdio', exemplo:'The ECG findings were consistent with an acute myocardial infarction.', data:'2025-05-05' },
-  { id:6, secao:'termos', termo:'Pulmonary embolism', traducao:'Embolia pulmonar', exemplo:'', data:'2025-05-06' },
-  { id:7, secao:'anotacoes', termo:'Diferença: complaint vs. chief complaint', traducao:'', exemplo:'"Chief complaint" é o motivo principal da consulta. "Complaint" pode ser qualquer queixa secundária.', data:'2025-05-07' }
-];
-
-let tabAtiva   = 'todos';
-let secoes     = ['vocabulario','frases','termos','anotacoes'];
-let editandoId = null;
-const tagLabel = { vocabulario:'Vocabulário', frases:'Frase', termos:'Termo Clínico', anotacoes:'Anotação' };
-
-function formatDate(d) {
-  if (!d) return '';
-  const [y,m,dd] = d.split('-');
-  return dd+'/'+m+'/'+y;
-}
-
-function renderCards() {
-  const grid  = document.getElementById('cards-grid');
-  const busca = (document.getElementById('search-input').value||'').toLowerCase();
-  let filtradas = entradas.filter(e => {
-    const matchTab   = tabAtiva === 'todos' || e.secao === tabAtiva;
-    const matchBusca = !busca ||
-      e.termo.toLowerCase().includes(busca) ||
-      (e.traducao && e.traducao.toLowerCase().includes(busca)) ||
-      (e.exemplo  && e.exemplo.toLowerCase().includes(busca));
-    return matchTab && matchBusca;
-  });
-
-  if (!filtradas.length) {
-    grid.innerHTML = `<div class="empty-state">
-      <div class="empty-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-      </div>
-      <h3>Nenhuma entrada ainda</h3>
-      <p>Clique em "Nova entrada" para começar seu caderno.</p>
-    </div>`;
-    return;
-  }
-
-  grid.innerHTML = filtradas.map((e,i) => `
-    <div class="card" style="animation-delay:${i*0.04}s">
-      <span class="card-tag ${e.secao}">${tagLabel[e.secao]||e.secao}</span>
-      <div class="card-actions">
-        <div class="card-btn" onclick="editarEntrada(${e.id})" title="Editar">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        </div>
-        <div class="card-btn delete" onclick="deletarEntrada(${e.id})" title="Excluir">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
-        </div>
-      </div>
-      <div class="card-termo">${e.termo}</div>
-      ${e.traducao ? `<div class="card-traducao">${e.traducao}</div>` : ''}
-      ${e.exemplo  ? `<div class="card-exemplo">${e.exemplo}</div>`   : ''}
-      <div class="card-date">${formatDate(e.data)}</div>
-    </div>
-  `).join('');
-}
-
-function setTab(tab, el) {
-  tabAtiva = tab;
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  renderCards();
-}
-
-function novaSeccao() {
-  const nome = prompt('Nome da nova seção:');
-  if (!nome || !nome.trim()) return;
-  const slug = nome.trim().toLowerCase().replace(/\s+/g,'-');
-  if (secoes.includes(slug)) return;
-  secoes.push(slug);
-  const wrap    = document.getElementById('tabs-wrap');
-  const btnNova = wrap.querySelector('.tab-nova');
-  const tab     = document.createElement('button');
-  tab.className = 'tab'; tab.dataset.tab = slug;
-  tab.textContent = nome.trim();
-  tab.onclick = function(){ setTab(slug, this); };
-  wrap.insertBefore(tab, btnNova);
-  const select = document.getElementById('form-secao');
-  const opt    = document.createElement('option');
-  opt.value = slug; opt.textContent = nome.trim();
-  select.appendChild(opt);
-}
-
-function abrirModal(dados) {
-  editandoId = dados ? dados.id : null;
-  document.getElementById('modal-title').textContent = dados ? 'Editar entrada' : 'Nova entrada';
-  document.getElementById('form-termo').value    = dados ? dados.termo    : '';
-  document.getElementById('form-traducao').value = dados ? dados.traducao : '';
-  document.getElementById('form-exemplo').value  = dados ? dados.exemplo  : '';
-  if (dados) document.getElementById('form-secao').value = dados.secao;
-  document.getElementById('modal').classList.add('open');
-  setTimeout(() => document.getElementById('form-termo').focus(), 300);
-}
-
-function fecharModal() {
-  document.getElementById('modal').classList.remove('open');
-  editandoId = null;
-}
-function fecharModalBackdrop(e) {
-  if (e.target === document.getElementById('modal')) fecharModal();
-}
-
-function salvarEntrada() {
-  const termo = document.getElementById('form-termo').value.trim();
-  if (!termo) { document.getElementById('form-termo').focus(); return; }
-  const nova = {
-    id:       editandoId || Date.now(),
-    secao:    document.getElementById('form-secao').value,
-    termo,
-    traducao: document.getElementById('form-traducao').value.trim(),
-    exemplo:  document.getElementById('form-exemplo').value.trim(),
-    data:     new Date().toISOString().split('T')[0]
-  };
-  entradas = editandoId ? entradas.map(e => e.id===editandoId ? nova : e) : [nova,...entradas];
-  fecharModal();
-  renderCards();
-}
-
-function editarEntrada(id) {
-  const e = entradas.find(e => e.id===id);
-  if (e) abrirModal(e);
-}
-function deletarEntrada(id) {
-  if (!confirm('Excluir esta entrada?')) return;
-  entradas = entradas.filter(e => e.id!==id);
-  renderCards();
-}
-
-function downloadCaderno() {
-  const nome  = sessionStorage.getItem('mdtalk_student_name') || 'Aluno';
-  const hoje  = new Date().toLocaleDateString('pt-BR');
-  const agrupado = {};
-  entradas.forEach(e => {
-    const s = tagLabel[e.secao] || e.secao;
-    if (!agrupado[s]) agrupado[s] = [];
-    agrupado[s].push(e);
-  });
-  let txt = 'MD TALK — CADERNO DE ' + nome.toUpperCase() + '\nGerado em ' + hoje + '\n' + '='.repeat(50) + '\n';
-  Object.entries(agrupado).forEach(([secao, items]) => {
-    txt += '\n── ' + secao.toUpperCase() + ' ──\n\n';
-    items.forEach(e => {
-      txt += '• ' + e.termo + '\n';
-      if (e.traducao) txt += '  → ' + e.traducao + '\n';
-      if (e.exemplo)  txt += '  "' + e.exemplo + '"\n';
-      txt += '  [' + formatDate(e.data) + ']\n\n';
-    });
-  });
-  const blob = new Blob([txt],{type:'text/plain;charset=utf-8'});
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href=url; a.download='caderno-mdtalk.txt'; a.click();
-  URL.revokeObjectURL(url);
-}
-
-// ── TOUR ───────────────────────────────────────────
-const TOUR = [
-  { icon:'👋', title:'Bem-vindo ao seu Caderno',   desc:'Seu espaço pessoal de aprendizado. Registre vocabulário, frases e termos clínicos das suas aulas — do seu jeito.' },
-  { icon:'✏️', title:'Nova entrada',               desc:'Clique em "Nova entrada" para adicionar um termo, frase ou anotação. Tradução e exemplo são sempre opcionais.' },
-  { icon:'🗂️', title:'Seções do caderno',          desc:'Organize por tipo: Vocabulário, Frases, Termos Clínicos ou Anotações. Você pode criar seções personalizadas também.' },
-  { icon:'🔍', title:'Busca instantânea',           desc:'Digite qualquer coisa na barra de busca — ela pesquisa em termos, traduções e exemplos ao mesmo tempo.' },
-  { icon:'⬇️', title:'Baixe seu caderno',          desc:'Clique em "Download" para exportar todo o conteúdo em formato texto, organizado por seção, quando quiser.' },
-];
-let tourIdx = 0;
-
-function initTour() {
-  if (localStorage.getItem('mdtalk_tour_done')) return;
-  setTimeout(() => {
-    renderTourStep();
-    document.getElementById('tour-overlay').classList.add('active');
-  }, 1000);
-}
-
-function renderTourStep() {
-  const s = TOUR[tourIdx];
-  const total = TOUR.length;
-  document.getElementById('tour-label').textContent = 'Passo ' + (tourIdx+1) + ' de ' + total;
-  document.getElementById('tour-icon').textContent  = s.icon;
-  document.getElementById('tour-title').textContent = s.title;
-  document.getElementById('tour-desc').textContent  = s.desc;
-  document.getElementById('tour-next').textContent  = tourIdx === total-1 ? 'Começar ✓' : 'Próximo →';
-  const dots = document.getElementById('tour-dots');
-  dots.innerHTML = TOUR.map((_,i) => '<div class="tour-dot '+(i===tourIdx?'on':'')+'"></div>').join('');
-}
-
-function fecharTour() {
-  document.getElementById('tour-overlay').classList.remove('active');
-  localStorage.setItem('mdtalk_tour_done', '1');
-}
-
-function tourNext() {
-  tourIdx++;
-  if (tourIdx >= TOUR.length) { fecharTour(); } else { renderTourStep(); }
-}
-
-
-// ═══════════════════════════════════════════
-//  PLANNER SEMANAL
-// ═══════════════════════════════════════════
-
-const SKILLS = [
-  { id:'video-sem', emoji:'🎬', label:'Vídeo sem legenda',        desc:'Assista 1 ep. ou vídeo em inglês sem legenda', bg:'#FFF3DC', border:'#F0C860' },
-  { id:'video-leg', emoji:'📺', label:'Vídeo com legenda EN',     desc:'Assista com legenda em inglês para absorver vocabulário', bg:'#E0F7FA', border:'#00BCD4' },
-  { id:'cantar',    emoji:'🎵', label:'Cantar em inglês',         desc:'Escolha uma música e cante em inglês', bg:'#FCE4EC', border:'#E91E63' },
-  { id:'transcrever',emoji:'✍️',label:'Transcrever música',       desc:'Tente escrever a letra de uma música ao ouvi-la', bg:'#F3E5F5', border:'#9C27B0' },
-  { id:'infograficos',emoji:'📊',label:'3 Infográficos',          desc:'Leia e compreenda 3 infográficos em inglês', bg:'#E8F5E9', border:'#4CAF50' },
-  { id:'leitura',   emoji:'📖', label:'Leitura de texto',         desc:'Leia um artigo, texto médico ou capítulo', bg:'#E3F2FD', border:'#2196F3' },
-  { id:'noticia',   emoji:'📰', label:'Notícia online',           desc:'Leia uma notícia em inglês na internet', bg:'#FFF8E1', border:'#FFC107' },
-];
-
-// Distribuição proporcional sugerida (7 dias)
-const SUGGESTED = ['video-sem','leitura','video-leg','noticia','infograficos','cantar','transcrever'];
-
-const DAY_NAMES = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-const DAY_FULL  = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
-let plannerOffset = 0; // semanas a partir de hoje
-let plannerData   = {}; // { "2025-05-12": ["video-sem","leitura"], ... }
-
-function plannerWeekDates(offset) {
-  const today = new Date();
-  const dow   = today.getDay(); // 0=dom
-  const monday = new Date(today);
-  monday.setDate(today.getDate() - dow + (dow === 0 ? -6 : 1) + offset * 7);
-  return Array.from({length:7}, (_,i) => {
-    const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
-    return d;
-  });
-}
-
-function dateKey(d) {
-  return d.toISOString().split('T')[0];
-}
-
-function plannerWeek(dir) {
-  plannerOffset += dir;
-  renderPlanner();
-}
-
-function plannerSuggest() {
-  const dates = plannerWeekDates(plannerOffset);
-  dates.forEach((d, i) => {
-    const key = dateKey(d);
-    if (!plannerData[key] || plannerData[key].length === 0) {
-      plannerData[key] = [SUGGESTED[i]];
-    }
-  });
-  renderPlanner();
-}
-
-function toggleActivityDone(key, skillId) {
-  const arr = plannerData[key] || [];
-  const doneKey = key + '__done';
-  const done = plannerData[doneKey] || [];
-  const idx = done.indexOf(skillId);
-  if (idx === -1) done.push(skillId);
-  else done.splice(idx, 1);
-  plannerData[doneKey] = done;
-  renderPlanner();
-}
-
-function removeActivity(key, skillId) {
-  if (!plannerData[key]) return;
-  plannerData[key] = plannerData[key].filter(s => s !== skillId);
-  renderPlanner();
-}
-
-function addActivity(key, skillId) {
-  if (!plannerData[key]) plannerData[key] = [];
-  if (!plannerData[key].includes(skillId)) plannerData[key].push(skillId);
-  // Fechar picker
-  document.querySelectorAll('.activity-picker.open').forEach(p => p.classList.remove('open'));
-  renderPlanner();
-}
-
-let openPickerKey = null;
-function togglePicker(key) {
-  openPickerKey = openPickerKey === key ? null : key;
-  renderPlanner();
-}
-
-function renderPlanner() {
-  const dates = plannerWeekDates(plannerOffset);
-  const today = dateKey(new Date());
-
-  // Label da semana
-  const first = dates[0], last = dates[6];
-  const fmt = d => d.getDate() + '/' + (d.getMonth()+1);
-  document.getElementById('planner-week-label').textContent =
-    'Semana de ' + fmt(first) + ' a ' + fmt(last) + (plannerOffset === 0 ? ' · esta semana' : '');
-
-  // Grid
-  const grid = document.getElementById('planner-grid');
-  grid.innerHTML = dates.map(d => {
-    const key      = dateKey(d);
-    const isToday  = key === today;
-    const skills   = plannerData[key] || [];
-    const done     = plannerData[key+'__done'] || [];
-    const pickerOpen = openPickerKey === key;
-
-    const iconsHtml = skills.map(sid => {
-      const sk = SKILLS.find(s => s.id === sid);
-      if (!sk) return '';
-      const isDone = done.includes(sid);
-      return `<div class="activity-icon ${isDone?'done':''}"
-        style="background:${sk.bg};border-color:${sk.border};"
-        onclick="toggleActivityDone('${key}','${sid}')"
-        oncontextmenu="event.preventDefault();removeActivity('${key}','${sid}')">
-        ${sk.emoji}
-        <span class="tip">${sk.label}${isDone?' ✓':''}</span>
-      </div>`;
-    }).join('');
-
-    const pickerItemsHtml = SKILLS.map(sk =>
-      `<div class="picker-item"
-        style="background:${sk.bg};border-color:${sk.border};"
-        onclick="addActivity('${key}','${sk.id}')">
-        ${sk.emoji}
-        <span class="tip">${sk.label}</span>
-      </div>`
-    ).join('');
-
-    return `<div class="planner-day ${isToday?'today':''}">
-      <div class="planner-day-label">${DAY_NAMES[d.getDay()]}</div>
-      <div class="planner-day-num">${d.getDate()}</div>
-      <div class="planner-activities">
-        ${iconsHtml}
-        <div style="position:relative;">
-          <button class="planner-add-btn" onclick="togglePicker('${key}')">+</button>
-          <div class="activity-picker ${pickerOpen?'open':''}">
-            <div class="picker-title">Adicionar atividade</div>
-            <div class="picker-items">${pickerItemsHtml}</div>
-          </div>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-
-  // Legenda
-  const legend = document.getElementById('legend-items');
-  legend.innerHTML = SKILLS.map(sk => `
-    <div class="legend-item">
-      <div class="legend-icon" style="background:${sk.bg};border:1.5px solid ${sk.border};">${sk.emoji}</div>
-      <div class="legend-text"><strong>${sk.label}</strong><br><span style="color:#aaa;font-size:.62rem;">${sk.desc}</span></div>
-    </div>
-  `).join('');
-
-  // Fechar picker ao clicar fora
-  setTimeout(() => {
-    if (openPickerKey) {
-      document.addEventListener('click', function closePicker(e) {
-        if (!e.target.closest('.activity-picker') && !e.target.closest('.planner-add-btn')) {
-          openPickerKey = null;
-          renderPlanner();
-        }
-        document.removeEventListener('click', closePicker);
-      });
-    }
-  }, 0);
-}
-
-// Mostrar/ocultar planner na tab
-const _origSetTab = setTab;
-function setTab(tab, el) {
-  const pp = document.getElementById('planner-panel');
-  const cg = document.getElementById('cards-grid');
-  const tb = document.querySelector('.caderno-toolbar');
-  if (tab === 'planner') {
-    pp.style.display = 'block';
-    cg.style.display = 'none';
-    if (tb) tb.style.display = 'none';
-    tabAtiva = 'planner';
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    el.classList.add('active');
-    renderPlanner();
-  } else {
-    pp.style.display = 'none';
-    cg.style.display = 'grid';
-    if (tb) tb.style.display = 'flex';
-    tabAtiva = tab;
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    el.classList.add('active');
-    renderCards();
-  }
-}
-
-document.getElementById('search-input').addEventListener('input', renderCards);
-document.addEventListener('keydown', e => { if (e.key==='Escape') { fecharModal(); tourSkip(); } });
-
-renderCards();
-initTour();
-gvInitColors();
-</script>
-
-
-<script>
-// ── IMAGENS DO DRIVE ───────────────────────────────────────
-const IMAGES = {
-  "amanhecer-limpo": "1Rk7SnutIEJnS48SbQsh_IkjAzGy3IpYm",
-  "amanhecer-chuva": "1ZuEQ4zA-f_f7iApj4YrujNUA9mLLDnGU",
-  "dia-ensolarado":  "17UO6iLqIaiA5vnYEs7jqkDR3d1jiL35E",
-  "dia-nublado":     "1NGL3xbDMu4DxcT1Kca20280VfflbjjeX",
-  "dia-chuva":       "1OXhei11KCLjOLBv1nGzQpw6Sw36X3FTQ",
-  "por-do-sol":      "1PDwEYdjlZ2eqa1lZcGSReQryNrLqjLqo",
-  "noite-limpa":     "1SSXCMyE7xw611qr7IukKmFuW8RsdbTkT",
-  "noite-chuva":     "1AFVaFEdP8AFqQHtExCZUCmlJMCxDWHVo"
-};
-function driveUrl(id) { return `https://drive.google.com/thumbnail?id=${id}&sz=w1920`; }
-function selectImage(code, hour) {
-  const rainy  = code >= 51;
-  const cloudy = code >= 1 && code < 51;
-  if (hour >= 5  && hour < 8)  return rainy ? "amanhecer-chuva" : "amanhecer-limpo";
-  if (hour >= 8  && hour < 17) return rainy ? "dia-chuva" : cloudy ? "dia-nublado" : "dia-ensolarado";
-  if (hour >= 17 && hour < 20) return "por-do-sol";
-  return rainy ? "noite-chuva" : "noite-limpa";
-}
-function greetingText(hour) {
-  if (hour >= 5  && hour < 12) return "Bom dia,";
-  if (hour >= 12 && hour < 18) return "Boa tarde,";
-  return "Boa noite,";
-}
-function weatherDesc(code) {
-  if (code === 0) return "Céu limpo";
-  if (code <= 3)  return "Parcialmente nublado";
-  if (code <= 48) return "Nublado";
-  if (code <= 67) return "Chuva";
-  return "Tempestade";
-}
-function startClock() {
-  function tick() {
-    const n = new Date();
-    const h = String(n.getHours()).padStart(2,'0');
-    const m = String(n.getMinutes()).padStart(2,'0');
-    const s = String(n.getSeconds()).padStart(2,'0');
-    document.getElementById("clock").textContent = h+':'+m+':'+s;
-  }
-  tick(); setInterval(tick, 1000);
-}
-async function fetchWeather(city) {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "claude-sonnet-4-20250514", max_tokens: 1000,
-      system: 'Return ONLY valid JSON, no markdown. Format: {"lat":number,"lon":number}. Coordinates for this Brazilian city.',
-      messages: [{ role: "user", content: city }]
-    })
-  });
-  const data = await res.json();
-  const text = data.content.filter(b => b.type==="text").map(b => b.text).join("");
-  const { lat, lon } = JSON.parse(text.replace(/```json|```/g,"").trim());
-  const w = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
-  const wd = await w.json();
-  return { code: wd.current_weather.weathercode, temp: Math.round(wd.current_weather.temperature) };
-}
-async function initHero() {
-  const name = sessionStorage.getItem("mdtalk_student_name") || "Thaiana";
-  const city = sessionStorage.getItem("mdtalk_student_city") || "São Paulo";
-  const hour = new Date().getHours();
-  document.getElementById("greeting-overline").textContent = greetingText(hour);
-  document.getElementById("student-name").textContent = name;
-  document.getElementById("info-city").textContent = city + ", SP";
-  startClock();
-  let code = 0, temp = "—";
-  try { const w = await fetchWeather(city); code = w.code; temp = w.temp; } catch(e) {}
-  document.getElementById("info-temp").textContent = temp + "°C";
-  document.getElementById("info-condition").textContent = weatherDesc(code);
-  const key = selectImage(code, hour);
-  const bg  = document.getElementById("hero-bg");
-  const img = new Image();
-  img.onload = () => { bg.style.backgroundImage = `url('${driveUrl(IMAGES[key])}')`;  bg.classList.add("loaded"); };
-  img.onerror = () => { bg.style.background = `radial-gradient(ellipse at 50% 30%, #163158 0%, #050D1A 70%)`; bg.classList.add("loaded"); };
-  img.src = driveUrl(IMAGES[key]);
-  setTimeout(() => {
-    document.getElementById("loading-state").classList.add("hidden");
-    document.getElementById("hero-content").classList.add("visible");
-  }, 600);
-}
-initHero();
-</script>
-
-<!-- ══════════════════════════════════════════
-     TRADUTOR FLUTUANTE
-══════════════════════════════════════════ -->
-<style>
-/* ── TRADUTOR ── */
-#translator {
-  position: fixed;
-  z-index: 100;
-  width: 320px;
-  background: rgba(5,13,26,0.88);
-  border: 1px solid rgba(0,229,255,.35);
-  border-radius: 20px;
-  box-shadow: 0 0 0 1px rgba(0,229,255,.08), 0 12px 60px rgba(0,0,0,0.7), 0 0 40px rgba(0,229,255,.12), 0 0 80px rgba(0,229,255,.06);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 1.2rem 1.4rem 1.4rem;
-  animation: translatorFloat 9s ease-in-out infinite;
-  cursor: grab;
-  user-select: none;
-  overflow: hidden;
-  bottom: 60px; right: 48px;
-}
-#translator::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0,229,255,.8), transparent);
-  animation: scanLine 3s ease-in-out infinite;
-}
-#translator::after {
-  content: '';
-  position: absolute; top: 10px; right: 10px;
-  width: 8px; height: 8px;
-  border-top: 1px solid rgba(0,229,255,.7);
-  border-right: 1px solid rgba(0,229,255,.7);
-  border-radius: 0 3px 0 0;
-}
-@keyframes scanLine { 0%,100%{opacity:.3;transform:scaleX(.4)} 50%{opacity:1;transform:scaleX(1)} }
-@keyframes translatorFloat {
-  0%   { transform: translateY(0px)   translateX(0px); }
-  20%  { transform: translateY(-22px) translateX(18px); }
-  40%  { transform: translateY(-10px) translateX(36px); }
-  60%  { transform: translateY(-30px) translateX(20px); }
-  80%  { transform: translateY(-16px) translateX(6px); }
-  100% { transform: translateY(0px)   translateX(0px); }
-}
-#translator.dragging { animation: none; }
-#translator.minimized {
-  width: 52px !important; height: 52px !important;
-  padding: 0 !important; border-radius: 50% !important;
-  overflow: hidden; cursor: pointer !important;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 0 1px rgba(0,229,255,.08), 0 8px 32px rgba(0,0,0,0.7), 0 0 24px rgba(0,229,255,.25), 0 0 60px rgba(0,229,255,.12);
-}
-#translator.minimized .trans-body { display: none; }
-#translator.minimized .trans-header { display: none; }
-#translator.minimized::before, #translator.minimized::after { display: none; }
-#trans-icon-min { display: none; font-size: 18px; color: rgba(0,229,255,.9); pointer-events: none; }
-#translator.minimized #trans-icon-min { display: flex; align-items: center; justify-content: center; }
-#translator.minimized .pulse-ring {
-  position: absolute; inset: -4px; border-radius: 50%;
-  border: 1.5px solid rgba(0,229,255,.4);
-  animation: pulseRing 2s ease-out infinite;
-}
-@keyframes pulseRing { 0%{transform:scale(1);opacity:.7} 100%{transform:scale(1.5);opacity:0} }
-.trans-header {
-  display: flex; align-items: center;
-  justify-content: space-between; margin-bottom: 1rem;
-}
-.trans-title-wrap { display: flex; align-items: center; gap: 7px; }
-.trans-icon {
-  width: 22px; height: 22px; border-radius: 6px;
-  background: rgba(0,229,255,.08); border: 1px solid rgba(0,229,255,.3);
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(0,229,255,.8);
-}
-.trans-title {
-  font-family: 'Raleway', sans-serif; font-size: 8.5px; font-weight: 700;
-  letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold);
-}
-.trans-header-right { display: flex; align-items: center; gap: 6px; }
-.trans-direction {
-  display: flex; align-items: center; gap: 5px;
-  background: rgba(0,229,255,.04); border: 1px solid rgba(0,229,255,.25);
-  border-radius: 30px; padding: 4px 10px; cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s;
-}
-.trans-direction:hover { background: rgba(0,229,255,.08); box-shadow: 0 0 12px rgba(0,229,255,.25); }
-.trans-direction span {
-  font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 700;
-  letter-spacing: .1em; text-transform: uppercase; color: var(--gold-pale);
-}
-.trans-direction .arrow { color: var(--gold); font-size: 10px; transition: transform .35s ease; }
-.trans-direction.flipped .arrow { transform: rotate(180deg); }
-.trans-minimize {
-  cursor: pointer; width: 20px; height: 20px; border-radius: 50%;
-  background: rgba(0,229,255,.08); border: 1px solid rgba(0,229,255,.25);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 9px; color: rgba(0,229,255,.7); font-weight: 700;
-  transition: all .2s;
-}
-.trans-minimize:hover { background: rgba(0,229,255,.18); }
-#trans-input {
-  width: 100%; background: rgba(255,255,255,.03);
-  border: 1px solid rgba(0,229,255,.2); border-radius: 12px;
-  padding: .7rem .9rem; font-family: 'Raleway', sans-serif;
-  font-size: .76rem; color: var(--cream); outline: none;
-  resize: none; height: 68px; transition: border-color .25s, box-shadow .25s;
-  line-height: 1.5; margin-bottom: .7rem; display: block; width: 100%;
-}
-#trans-input::placeholder { color: var(--muted); font-size: .71rem; }
-#trans-input:focus { border-color: rgba(0,229,255,.55); box-shadow: 0 0 0 3px rgba(0,229,255,.08), 0 0 16px rgba(0,229,255,.12); }
-#trans-btn {
-  width: 100%; background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-  border: none; border-radius: 10px; padding: .62rem;
-  font-family: 'Raleway', sans-serif; font-size: .63rem; font-weight: 700;
-  letter-spacing: .24em; text-transform: uppercase; color: var(--navy-deep);
-  cursor: pointer; transition: opacity .2s, transform .15s; margin-bottom: .9rem;
-  box-shadow: 0 4px 16px rgba(196,164,90,.25);
-}
-#trans-btn:hover { opacity: .9; transform: translateY(-1px); }
-#trans-btn:disabled { opacity: .45; cursor: wait; }
-#trans-result { display: none; border-top: 1px solid rgba(0,229,255,.12); padding-top: .9rem; }
-#trans-result.visible { display: block; }
-.result-label {
-  font-family: 'Raleway', sans-serif; font-size: 7.5px; font-weight: 700;
-  letter-spacing: .26em; text-transform: uppercase; color: var(--gold);
-  opacity: .65; margin-bottom: .3rem;
-  display: flex; align-items: center; gap: 5px;
-}
-.result-label::before { content:''; width:12px; height:1px; background:var(--gold); opacity:.4; }
-.result-translation {
-  font-family: 'Cormorant Garamond', serif; font-size: 1.25rem;
-  font-weight: 400; color: var(--cream); line-height: 1.3; margin-bottom: .85rem;
-  padding: .5rem .7rem; background: rgba(0,229,255,.03);
-  border-radius: 8px; border-left: 2px solid rgba(0,229,255,.5);
-}
-.result-block { margin-bottom: .7rem; }
-.result-block p { font-family: 'Raleway', sans-serif; font-size: .68rem; color: rgba(255,255,255,.6); line-height: 1.65; }
-.result-block p em { font-style: italic; color: var(--gold-pale); }
-.trans-loading { display: flex; align-items: center; gap: 8px; padding: .5rem 0; }
-.trans-spinner {
-  width: 14px; height: 14px; border: 1.5px solid rgba(0,229,255,.15);
-  border-top-color: var(--neon); border-radius: 50%; animation: spin .75s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.trans-loading span { font-family: 'Raleway', sans-serif; font-size: .63rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-</style>
-
-<div id="translator" class="minimized">
-  <div class="pulse-ring"></div>
-  <span id="trans-icon-min">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
-  </span>
-  <div class="trans-header">
-    <div class="trans-title-wrap">
-      <div class="trans-icon">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
-      </div>
-      <span class="trans-title">Tradutor Médico</span>
-    </div>
-    <div class="trans-header-right">
-      <div class="trans-direction" id="trans-dir" onclick="toggleDirection()">
-        <span id="dir-from">PT</span>
-        <span class="arrow">⇄</span>
-        <span id="dir-to">EN</span>
-      </div>
-      <div class="trans-minimize" onclick="document.getElementById('translator').classList.add('minimized')" title="Minimizar">✕</div>
-    </div>
-  </div>
-  <div class="trans-body">
-    <textarea id="trans-input" placeholder="Digite uma palavra, frase ou termo clínico..."></textarea>
-    <button id="trans-btn" onclick="translate()">Traduzir</button>
-    <div id="trans-result">
-      <div class="trans-loading" id="trans-loading" style="display:none;">
-        <div class="trans-spinner"></div>
-        <span>Traduzindo...</span>
-      </div>
-      <div id="trans-output"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════
-     SEÇÃO CADERNO
-══════════════════════════════════════════ -->
-<style>
-:root { --navy:#0B1D3A; }
-
-/* ── LAYOUT GERAL ── */
-#caderno {
-  background: #F5F2EE;
-  min-height: 100vh;
-}
-
-/* Sticky nav do caderno */
-#caderno-nav {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: rgba(245,242,238,0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1.5px solid #e8e4df;
-  padding: 0 2rem;
-}
-
-.caderno-nav-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  height: 60px;
-}
-
-.caderno-brand {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: #1a1a2e;
-  white-space: nowrap;
-  margin-right: 0.5rem;
-}
-.caderno-brand em { font-style: italic; color: var(--gold); }
-
-/* Tabs na nav */
-.nav-tabs {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  flex: 1;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.nav-tabs::-webkit-scrollbar { display: none; }
-
-.nav-tab {
-  font-family: 'Raleway', sans-serif;
-  font-size: 0.67rem; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: #aaa; background: transparent;
-  border: none; border-bottom: 2px solid transparent;
-  padding: 0 1rem; height: 60px;
-  cursor: pointer; transition: color 0.2s, border-color 0.2s;
-  white-space: nowrap; flex-shrink: 0;
-}
-.nav-tab:hover { color: #555; }
-.nav-tab.active { color: #1a1a2e; border-bottom-color: var(--gold); }
-.nav-tab.tab-planner { color: #7c6ea0; }
-.nav-tab.tab-planner.active { color: #5c4e80; border-bottom-color: #7c6ea0; }
-.nav-tab-nova {
-  color: var(--gold) !important;
-  border: 1.5px dashed rgba(196,164,90,.35) !important;
-  border-bottom: 1.5px dashed rgba(196,164,90,.35) !important;
-  border-radius: 20px !important;
-  height: auto !important;
-  padding: 0.25rem 0.8rem !important;
-  margin-left: 0.5rem;
-  font-size: 0.6rem !important;
-}
-.nav-tab-nova:hover { background: rgba(196,164,90,.08) !important; }
-
-/* Ações do lado direito */
-.nav-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
-.nav-search-wrap {
-  position: relative;
-}
-.nav-search-wrap svg {
-  position: absolute; left: 10px; top: 50%;
-  transform: translateY(-50%); color: #aaa; pointer-events: none;
-}
-#search-input {
-  background: #fff; border: 1.5px solid #e0dbd4;
-  border-radius: 20px; padding: 0.45rem 0.9rem 0.45rem 2.2rem;
-  font-family: 'Raleway', sans-serif; font-size: 0.72rem;
-  color: #1a1a2e; outline: none; width: 200px;
-  transition: border-color 0.2s, width 0.3s;
-}
-#search-input:focus { border-color: var(--gold); width: 240px; }
-#search-input::placeholder { color: #bbb; }
-
-.btn-novo {
-  display: flex; align-items: center; gap: 6px;
-  background: #1a1a2e; border: none; border-radius: 20px;
-  padding: 0.45rem 1rem;
-  font-family: 'Raleway', sans-serif; font-size: 0.63rem; font-weight: 700;
-  letter-spacing: 0.16em; text-transform: uppercase;
-  color: #fff; cursor: pointer; transition: background 0.2s;
-  white-space: nowrap;
-}
-.btn-novo:hover { background: #163158; }
-
-.btn-download {
-  width: 34px; height: 34px; border-radius: 50%;
-  border: 1.5px solid #e0dbd4; background: #fff;
-  display: flex; align-items: center; justify-content: center;
-  color: #999; cursor: pointer; transition: all 0.2s;
-  flex-shrink: 0;
-}
-.btn-download:hover { border-color: var(--gold); color: var(--gold); }
-
-/* ── CONTEÚDO ── */
-#caderno-body {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2.5rem 2rem 6rem;
-}
-
-/* Contador de entradas */
-.entries-count {
-  font-family: 'Raleway', sans-serif;
-  font-size: 0.68rem; font-weight: 500;
-  color: #bbb; letter-spacing: 0.08em;
-  margin-bottom: 1.5rem;
-}
-.entries-count strong { color: #888; }
-
-/* ── CARDS ── */
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
-}
-
-.card {
-  background: #fff;
-  border: 1.5px solid #ece8e2;
-  border-radius: 16px;
-  padding: 1.2rem 1.3rem 1rem;
-  position: relative;
-  transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
-  animation: cardReveal 0.35s ease forwards;
-  opacity: 0; transform: translateY(8px);
-  box-shadow: 0 1px 4px rgba(0,0,0,.04);
-  cursor: default;
-}
-@keyframes cardReveal { to { opacity:1; transform:translateY(0); } }
-.card:hover {
-  transform: translateY(-3px);
-  border-color: var(--gold);
-  box-shadow: 0 8px 24px rgba(196,164,90,.12);
-}
-
-.card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.6rem; }
-.card-tag {
-  display: inline-block;
-  font-family: 'Raleway', sans-serif; font-size: 7px; font-weight: 700;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  border-radius: 20px; padding: 2px 9px;
-}
-.card-tag.vocabulario { background: #FFF3DC; color: #9A7B2E; }
-.card-tag.frases      { background: #E0F7FA; color: #00838F; }
-.card-tag.termos      { background: #EDE7F6; color: #6A3FA0; }
-.card-tag.anotacoes   { background: #F1F8E9; color: #558B2F; }
-.card-tag.custom      { background: #FCE4EC; color: #C2185B; }
-
-.card-actions {
-  display: flex; gap: 4px; opacity: 0; transition: opacity 0.18s;
-}
-.card:hover .card-actions { opacity: 1; }
-.card-btn {
-  width: 26px; height: 26px; border-radius: 8px;
-  border: 1.5px solid #e8e4e0; background: #fafafa;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; color: #bbb; transition: all 0.15s;
-}
-.card-btn:hover { border-color: var(--gold); color: var(--gold); background: #fff8ee; }
-.card-btn.delete:hover { border-color: #ef5350; color: #ef5350; background: #fff5f5; }
-
-.card-termo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.25rem; font-weight: 400;
-  color: #1a1a2e; line-height: 1.2; margin-bottom: 0.25rem;
-}
-.card-traducao {
-  font-family: 'Raleway', sans-serif; font-size: 0.7rem; font-weight: 500;
-  color: var(--gold); margin-bottom: 0.5rem;
-  display: flex; align-items: center; gap: 5px;
-}
-.card-traducao::before { content:''; width:10px; height:1px; background:var(--gold); opacity:.5; flex-shrink:0; }
-.card-exemplo {
-  font-family: 'Raleway', sans-serif; font-size: 0.67rem;
-  color: #999; font-style: italic; line-height: 1.6;
-  border-top: 1px solid #f0ece6; padding-top: 0.5rem; margin-top: 0.25rem;
-}
-.card-date {
-  font-family: 'Raleway', sans-serif; font-size: 0.58rem;
-  color: #ccc; letter-spacing: 0.08em; margin-top: 0.65rem;
-}
-
-/* Empty state */
-.empty-state {
-  grid-column: 1/-1; text-align: center; padding: 5rem 2rem;
-}
-.empty-icon {
-  width: 72px; height: 72px; border-radius: 50%;
-  background: #ece8e2; margin: 0 auto 1.2rem;
-  display: flex; align-items: center; justify-content: center; color: #ccc;
-}
-.empty-state h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem; font-weight: 300; color: #555; margin-bottom: 0.4rem;
-}
-.empty-state p { font-family: 'Raleway', sans-serif; font-size: 0.72rem; color: #aaa; }
-.empty-cta {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: #1a1a2e; color: #fff; border: none; border-radius: 20px;
-  padding: 0.55rem 1.2rem; font-family: 'Raleway', sans-serif;
-  font-size: 0.63rem; font-weight: 700; letter-spacing: 0.16em;
-  text-transform: uppercase; cursor: pointer; margin-top: 1.2rem;
-  transition: background 0.2s;
-}
-.empty-cta:hover { background: #163158; }
-
-/* ── MODAL ── */
-.modal-backdrop {
-  position: fixed; inset: 0;
-  background: rgba(26,26,46,.5);
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  z-index: 200; display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none; transition: opacity 0.25s;
-}
-.modal-backdrop.open { opacity: 1; pointer-events: all; }
-.modal {
-  background: #fff; border-radius: 20px;
-  padding: 0; width: 100%; max-width: 500px;
-  box-shadow: 0 24px 80px rgba(0,0,0,.18);
-  transform: translateY(16px); transition: transform 0.25s;
-  overflow: hidden;
-}
-.modal-backdrop.open .modal { transform: translateY(0); }
-.modal-top {
-  background: #1a1a2e;
-  padding: 1.4rem 1.8rem;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.modal-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem; font-weight: 300; color: #fff;
-}
-.modal-close {
-  width: 28px; height: 28px; border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.2); background: transparent;
-  color: rgba(255,255,255,.5); cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; transition: all 0.2s;
-}
-.modal-close:hover { border-color: rgba(255,255,255,.5); color: #fff; }
-.modal-body { padding: 1.6rem 1.8rem 1.8rem; }
-.form-group { margin-bottom: 1rem; }
-.form-label {
-  display: block; font-family: 'Raleway', sans-serif;
-  font-size: 8px; font-weight: 700; letter-spacing: 0.24em;
-  text-transform: uppercase; color: #aaa; margin-bottom: 0.4rem;
-}
-.form-input, .form-select, .form-textarea {
-  width: 100%; background: #fafafa; border: 1.5px solid #e8e4e0;
-  border-radius: 10px; padding: 0.65rem 0.9rem;
-  font-family: 'Raleway', sans-serif; font-size: 0.76rem; color: #1a1a2e;
-  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
-}
-.form-input::placeholder, .form-textarea::placeholder { color: #ccc; }
-.form-input:focus, .form-select:focus, .form-textarea:focus {
-  border-color: var(--gold); box-shadow: 0 0 0 3px rgba(196,164,90,.1); background: #fff;
-}
-.form-select {
-  appearance: none; -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C4A45A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 12px center;
-  padding-right: 2rem; cursor: pointer;
-}
-.form-select option { background: #fff; color: #1a1a2e; }
-.form-textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
-.form-hint { font-family: 'Raleway', sans-serif; font-size: 0.61rem; color: #ccc; margin-top: 0.25rem; font-style: italic; }
-.btn-salvar {
-  width: 100%; background: #1a1a2e; border: none; border-radius: 10px;
-  padding: 0.8rem; font-family: 'Raleway', sans-serif;
-  font-size: 0.63rem; font-weight: 700; letter-spacing: 0.22em;
-  text-transform: uppercase; color: #fff; cursor: pointer;
-  transition: background 0.2s; margin-top: 0.4rem;
-}
-.btn-salvar:hover { background: #163158; }
-
-
-
-/* ── FLASH HANDLE ── */
-#flash-handle {
-  position: relative; z-index: 40;
-  background: #F0EDE8;
-  border-top: 1px solid #e0dbd4;
-  cursor: pointer; transition: background 0.2s;
-}
-#flash-handle:hover { background: #E8E4DF; }
-#flash-handle::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(11,29,58,.25), transparent);
-  transform: scaleX(0); transition: transform 0.4s ease;
-}
-#flash-handle.open::before { transform: scaleX(1); }
-#flash-handle.open .handle-inner { color: #1a1a2e; }
-#flash-handle.open #flash-arrow { transform: rotate(180deg); }
-#flash-handle.open svg:first-child { color: var(--navy); }
-#flash-arrow { margin-left: auto; transition: transform 0.4s ease; }
-
-/* ── FLASH DRAWER ── */
-#flash-drawer {
-  max-height: 0; overflow: hidden;
-  transition: max-height 0.55s cubic-bezier(0.4,0,0.2,1);
-  background: #F0EDE8;
-  border-bottom: 1.5px solid #e0dbd4;
-}
-#flash-drawer.open { max-height: 100vh; }
-#flash-drawer-inner {
-  max-width: 900px; margin: 0 auto;
-  padding: 2.5rem 2rem 3.5rem;
-  opacity: 0; transform: translateY(-16px);
-  transition: opacity 0.35s ease 0.15s, transform 0.35s ease 0.15s;
-}
-#flash-drawer.open #flash-drawer-inner { opacity: 1; transform: translateY(0); }
-
-/* ── FLASH CONFIG ── */
-.flash-config {
-  display: flex; align-items: center;
-  gap: 1.2rem; margin-bottom: 2rem; flex-wrap: wrap;
-}
-.flash-config-label {
-  font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 700;
-  letter-spacing: 0.26em; text-transform: uppercase; color: #999;
-  white-space: nowrap;
-}
-.flash-section-btns { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-.flash-sec-btn {
-  font-family: 'Raleway', sans-serif; font-size: 0.63rem; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  border: 1.5px solid #d4cfc9; background: #fff;
-  border-radius: 20px; padding: 0.3rem 0.85rem;
-  cursor: pointer; color: #999; transition: all 0.15s;
-}
-.flash-sec-btn.on { background: #1a1a2e; border-color: #1a1a2e; color: #fff; }
-.flash-sec-btn:hover:not(.on) { border-color: #aaa; color: #555; }
-
-.flash-mode-btns { display: flex; gap: 0.4rem; margin-left: auto; }
-.flash-mode-btn {
-  font-family: 'Raleway', sans-serif; font-size: 0.63rem; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  border: 1.5px solid #d4cfc9; background: #fff;
-  border-radius: 20px; padding: 0.3rem 0.9rem;
-  cursor: pointer; color: #999; transition: all 0.15s;
-}
-.flash-mode-btn.on { background: var(--gold); border-color: var(--gold); color: #fff; }
-.flash-mode-btn:hover:not(.on) { border-color: var(--gold); color: var(--gold); }
-
-/* ── FLASH ARENA ── */
-.flash-arena {
-  display: flex; flex-direction: column; align-items: center; gap: 1.6rem;
-}
-.flash-progress-wrap {
-  width: 100%; max-width: 520px;
-  display: flex; align-items: center; gap: 0.8rem;
-}
-.flash-progress-bar {
-  flex: 1; height: 3px; background: #ddd; border-radius: 3px; overflow: hidden;
-}
-.flash-progress-fill {
-  height: 100%; background: var(--gold); border-radius: 3px;
-  transition: width 0.4s ease;
-}
-.flash-progress-label {
-  font-family: 'Raleway', sans-serif; font-size: 0.65rem;
-  font-weight: 600; color: #aaa; white-space: nowrap;
-}
-
-/* O card 3D */
-.flash-card-wrap {
-  width: 100%; max-width: 520px; height: 240px;
-  perspective: 1200px; cursor: pointer;
-}
-.flash-card-inner {
-  width: 100%; height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
-}
-.flash-card-wrap.flipped .flash-card-inner { transform: rotateY(180deg); }
-
-.flash-face {
-  position: absolute; inset: 0;
-  background: #fff; border-radius: 20px;
-  border: 1.5px solid #e8e4e0;
-  box-shadow: 0 8px 32px rgba(0,0,0,.08);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 2rem 2.5rem; text-align: center;
-}
-.flash-face.back {
-  transform: rotateY(180deg);
-  background: #1a1a2e;
-}
-
-.flash-face-label {
-  font-family: 'Raleway', sans-serif; font-size: 7.5px; font-weight: 700;
-  letter-spacing: 0.26em; text-transform: uppercase;
-  color: #ccc; margin-bottom: 0.8rem;
-}
-.flash-face.back .flash-face-label { color: rgba(255,255,255,.35); }
-
-.flash-term {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  font-weight: 400; color: #1a1a2e; line-height: 1.2;
-}
-.flash-face.back .flash-term { color: var(--gold-light); }
-
-.flash-exemplo {
-  font-family: 'Raleway', sans-serif; font-size: 0.68rem;
-  color: rgba(255,255,255,.45); font-style: italic;
-  line-height: 1.6; margin-top: 0.8rem;
-  border-top: 1px solid rgba(255,255,255,.1);
-  padding-top: 0.8rem;
-}
-
-.flash-hint {
-  font-family: 'Raleway', sans-serif; font-size: 0.62rem;
-  color: #ccc; letter-spacing: 0.08em; margin-top: 0.5rem;
-  display: flex; align-items: center; gap: 5px;
-}
-.flash-face.back .flash-hint { color: rgba(255,255,255,.25); }
-
-/* Controles */
-.flash-controls {
-  display: flex; align-items: center; gap: 1rem;
-}
-.flash-ctrl-btn {
-  width: 44px; height: 44px; border-radius: 50%;
-  border: 1.5px solid #d4cfc9; background: #fff;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; color: #888; font-size: 18px;
-  transition: all 0.2s;
-}
-.flash-ctrl-btn:hover { border-color: #aaa; color: #555; }
-.flash-ctrl-btn.knew {
-  border-color: #a5d6a7; color: #388e3c; background: #f1f8f1;
-}
-.flash-ctrl-btn.knew:hover { background: #e8f5e9; border-color: #66bb6a; }
-.flash-ctrl-btn.skip {
-  border-color: #ffcc80; color: #f57c00; background: #fffbf0;
-}
-.flash-ctrl-btn.skip:hover { background: #fff8e1; border-color: #ffa726; }
-
-.flash-shuffle-btn {
-  font-family: 'Raleway', sans-serif; font-size: 0.62rem; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  border: 1.5px solid #d4cfc9; background: transparent;
-  border-radius: 20px; padding: 0.4rem 1rem;
-  cursor: pointer; color: #999; transition: all 0.2s;
-  display: flex; align-items: center; gap: 5px;
-}
-.flash-shuffle-btn:hover { border-color: #aaa; color: #555; }
-
-/* Score */
-.flash-score {
-  display: flex; gap: 1.5rem;
-}
-.flash-score-item {
-  text-align: center;
-}
-.flash-score-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem; font-weight: 300; line-height: 1;
-}
-.flash-score-num.green { color: #388e3c; }
-.flash-score-num.orange { color: #f57c00; }
-.flash-score-label {
-  font-family: 'Raleway', sans-serif; font-size: 0.6rem;
-  letter-spacing: 0.1em; text-transform: uppercase; color: #bbb;
-  margin-top: 0.2rem;
-}
-
-/* Empty */
-.flash-empty {
-  text-align: center; padding: 2rem;
-}
-.flash-empty p {
-  font-family: 'Raleway', sans-serif; font-size: 0.75rem; color: #aaa;
-  line-height: 1.7;
-}
-.flash-empty strong { color: #555; font-weight: 600; }
-
-/* Fim de baralho */
-.flash-done {
-  text-align: center; padding: 2rem 1rem;
-}
-.flash-done-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
-.flash-done-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem; font-weight: 300; color: #1a1a2e; margin-bottom: 0.4rem;
-}
-.flash-done-sub {
-  font-family: 'Raleway', sans-serif; font-size: 0.72rem; color: #888;
-  margin-bottom: 1.4rem; line-height: 1.6;
-}
-.flash-restart-btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: #1a1a2e; color: #fff; border: none; border-radius: 20px;
-  padding: 0.6rem 1.4rem; font-family: 'Raleway', sans-serif;
-  font-size: 0.63rem; font-weight: 700; letter-spacing: 0.16em;
-  text-transform: uppercase; cursor: pointer; transition: background 0.2s;
-}
-.flash-restart-btn:hover { background: #163158; }
-
-/* ── PLANNER HANDLE (orelha) ── */
-#planner-handle {
-  position: relative;
-  z-index: 40;
-  background: #F5F2EE;
-  border-top: 1px solid #e8e4df;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-#planner-handle:hover { background: #EDE9E4; }
-.handle-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Raleway', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #888;
-}
-.handle-inner svg { color: #aaa; flex-shrink: 0; transition: transform 0.4s ease; }
-#handle-arrow { margin-left: auto; }
-#planner-handle.open .handle-inner { color: #1a1a2e; }
-#planner-handle.open #handle-arrow { transform: rotate(180deg); }
-#planner-handle.open svg:first-child { color: var(--gold); }
-
-/* Linha decorativa na orelha */
-#planner-handle::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(196,164,90,.4), transparent);
-  transform: scaleX(0);
-  transition: transform 0.4s ease;
-}
-#planner-handle.open::before { transform: scaleX(1); }
-
-/* ── PLANNER DRAWER ── */
-#planner-drawer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-  background: #FDFBF8;
-  border-bottom: 1.5px solid #e8e4df;
-}
-#planner-drawer.open {
-  max-height: 100vh;
-}
-#planner-drawer-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2.5rem 2rem 3rem;
-  opacity: 0;
-  transform: translateY(-16px);
-  transition: opacity 0.35s ease 0.15s, transform 0.35s ease 0.15s;
-}
-#planner-drawer.open #planner-drawer-inner {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 /* ── PLANNER ── */
 .planner-header {
   display: flex; align-items: center; gap: 1rem;
@@ -2800,35 +1324,59 @@ initHero();
 }
 </style>
 
-<!-- GAVETAS LATERAIS -->
-<div id="gv-overlay" onclick="gvClose()"></div>
+<!-- JANELAS FLUTUANTES -->
+<div id="win-overlay" onclick="winMinimize()"></div>
 
-<div id="gv-tab-planner" class="gv-tab" onclick="gvToggle('planner')">
-  <span>Planner</span>
-</div>
-<div id="gv-tab-flash" class="gv-tab" onclick="gvToggle('flash')">
-  <span>Flashcards</span>
-</div>
-
-<div id="gv-planner" class="gv-drawer">
-  <div class="gv-head" id="gv-head-planner">
-    <span>Planner Semanal</span>
-    <button onclick="gvClose()">✕</button>
+<!-- BOTÕES DOCK (ficam fixos na lateral direita) -->
+<div id="win-dock">
+  <div class="dock-btn" id="dock-planner" onclick="winOpen('planner')" title="Planner Semanal">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <span style="writing-mode:vertical-lr;transform:rotate(180deg)">Planner</span>
+    <div class="dock-color-btn" onclick="event.stopPropagation();winOpenCP('planner',this)" title="Cor">●</div>
   </div>
-  <div class="gv-body" id="planner-body"></div>
-</div>
-
-<div id="gv-flash" class="gv-drawer">
-  <div class="gv-head" id="gv-head-flash">
-    <span>Flashcards</span>
-    <button onclick="gvClose()">✕</button>
+  <div class="dock-btn" id="dock-flash" onclick="winOpen('flash')" title="Flashcards">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    <span style="writing-mode:vertical-lr;transform:rotate(180deg)">Flashcards</span>
+    <div class="dock-color-btn" onclick="event.stopPropagation();winOpenCP('flash',this)" title="Cor">●</div>
   </div>
-  <div class="gv-body" id="flash-body"></div>
 </div>
 
-<div id="gv-cp" style="display:none">
-  <div class="gv-cp-title">Cor da aba</div>
-  <div id="gv-cp-swatches"></div>
+<!-- JANELA PLANNER -->
+<div class="win-panel" id="win-planner">
+  <div class="win-titlebar" id="winbar-planner">
+    <div class="win-title">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Planner Semanal
+    </div>
+    <div class="win-controls">
+      <div class="win-btn win-min" onclick="winMinimizeSingle('planner')" title="Minimizar">—</div>
+      <div class="win-btn win-close" onclick="winClose('planner')" title="Fechar">✕</div>
+    </div>
+  </div>
+  <div class="win-body" id="planner-body"></div>
+  <div class="win-resize" id="resize-planner"></div>
+</div>
+
+<!-- JANELA FLASHCARDS -->
+<div class="win-panel" id="win-flash">
+  <div class="win-titlebar" id="winbar-flash">
+    <div class="win-title">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Flashcards
+    </div>
+    <div class="win-controls">
+      <div class="win-btn win-min" onclick="winMinimizeSingle('flash')" title="Minimizar">—</div>
+      <div class="win-btn win-close" onclick="winClose('flash')" title="Fechar">✕</div>
+    </div>
+  </div>
+  <div class="win-body" id="flash-body"></div>
+  <div class="win-resize" id="resize-flash"></div>
+</div>
+
+<!-- Color picker -->
+<div id="win-cp" style="display:none">
+  <div class="win-cp-title">Cor da janela</div>
+  <div id="win-cp-swatches"></div>
 </div>
 
 <!-- CADERNO NAV (sticky) -->
@@ -3457,87 +2005,233 @@ function flashRestart() {
 }
 
 
-// ── GAVETAS ──────────────────────────────────────────────
-const GV_COLORS = {
-  planner: localStorage.getItem('gv_c_planner') || '#7c6ea0',
-  flash:   localStorage.getItem('gv_c_flash')   || '#2196F3',
-};
-const GV_SWATCHES = [
+
+// ═══════════════════════════════════════════
+//  JANELAS FLUTUANTES
+// ═══════════════════════════════════════════
+const WIN_SWATCHES = [
   '#7c6ea0','#2196F3','#C4A45A','#0B1D3A','#E91E63','#4CAF50',
   '#FF5722','#00BCD4','#795548','#607D8B','#9C27B0','#FF9800',
-  '#388E3C','#C62828','#1565C0','#4A148C',
+  '#388E3C','#C62828','#1565C0','#F06292',
 ];
+const WIN_COLORS = {
+  planner: localStorage.getItem('win_color_planner') || '#7c6ea0',
+  flash:   localStorage.getItem('win_color_flash')   || '#2196F3',
+};
+// Posições salvas
+const WIN_POS = {
+  planner: JSON.parse(localStorage.getItem('win_pos_planner') || 'null'),
+  flash:   JSON.parse(localStorage.getItem('win_pos_flash')   || 'null'),
+};
+const WIN_SIZE = {
+  planner: JSON.parse(localStorage.getItem('win_size_planner') || 'null'),
+  flash:   JSON.parse(localStorage.getItem('win_size_flash')   || 'null'),
+};
 
-function gvApplyColor(id, color) {
-  GV_COLORS[id] = color;
-  localStorage.setItem('gv_c_'+id, color);
-  const tab  = document.getElementById('gv-tab-'+id);
-  const head = document.getElementById('gv-head-'+id);
-  if (tab)  tab.style.background  = color;
-  if (head) head.style.background = color;
+function winApplyColor(id, color) {
+  WIN_COLORS[id] = color;
+  localStorage.setItem('win_color_'+id, color);
+  const dock  = document.getElementById('dock-'+id);
+  const panel = document.getElementById('win-'+id);
+  const bar   = panel ? panel.querySelector('.win-titlebar') : null;
+  if (dock)  dock.style.background  = color;
+  if (bar)   bar.style.background   = color;
 }
 
-function gvInitColors() {
-  Object.entries(GV_COLORS).forEach(([id,col]) => gvApplyColor(id,col));
-  // Adicionar botão de cor às abas
-  document.querySelectorAll('.gv-tab').forEach(tab => {
-    const id = tab.id.replace('gv-tab-','');
-    if (!tab.querySelector('.gv-tab-color')) {
-      const btn = document.createElement('button');
-      btn.className = 'gv-tab-color';
-      btn.innerHTML = '●';
-      btn.title = 'Personalizar cor';
-      btn.onclick = e => { e.stopPropagation(); gvOpenCP(id, tab); };
-      tab.appendChild(btn);
-    }
-  });
+function winInitAll() {
+  Object.entries(WIN_COLORS).forEach(([id,col]) => winApplyColor(id,col));
 }
 
-let gvActive = null;
-function gvToggle(id) {
-  if (gvActive === id) { gvClose(); return; }
-  gvClose(false);
-  gvActive = id;
-  document.getElementById('gv-'+id).classList.add('on');
-  document.getElementById('gv-overlay').classList.add('on');
+function winOpen(id) {
+  const panel = document.getElementById('win-'+id);
+  if (panel.classList.contains('on')) {
+    // já aberta — trazer para frente
+    panel.style.zIndex = 660;
+    return;
+  }
+  panel.classList.add('on');
+  panel.classList.remove('minimized');
+  document.getElementById('dock-'+id).classList.add('active');
+
+  // Posição inicial: centro da viewport ou posição salva
+  const pos = WIN_POS[id];
+  const size = WIN_SIZE[id];
+  if (size) {
+    panel.style.width  = size.w + 'px';
+    panel.style.height = size.h + 'px';
+  } else {
+    panel.style.width  = Math.min(580, window.innerWidth * .85) + 'px';
+    panel.style.height = Math.min(620, window.innerHeight * .8) + 'px';
+  }
+  if (pos) {
+    panel.style.left = pos.x + 'px';
+    panel.style.top  = pos.y + 'px';
+  } else {
+    const pw = parseInt(panel.style.width);
+    const ph = parseInt(panel.style.height);
+    panel.style.left = Math.max(20, (window.innerWidth  - pw) / 2) + 'px';
+    panel.style.top  = Math.max(60, (window.innerHeight - ph) / 2 + window.scrollY) + 'px';
+  }
+
   if (id === 'planner') renderPlanner();
   if (id === 'flash')   renderFlash();
 }
-function gvClose(clearActive=true) {
-  document.querySelectorAll('.gv-drawer').forEach(d => d.classList.remove('on'));
-  document.getElementById('gv-overlay').classList.remove('on');
-  gvCPClose();
-  if (clearActive) gvActive = null;
+
+function winClose(id) {
+  const panel = document.getElementById('win-'+id);
+  panel.classList.remove('on','minimized');
+  document.getElementById('dock-'+id).classList.remove('active');
 }
 
-// Color picker
-let gvCPTarget = null;
-function gvOpenCP(id, tabEl) {
-  gvCPTarget = id;
-  const popup = document.getElementById('gv-cp');
-  const rect  = tabEl.getBoundingClientRect();
-  document.getElementById('gv-cp-swatches').innerHTML = GV_SWATCHES.map(col =>
-    `<div class="gv-swatch ${GV_COLORS[id]===col?'on':''}" style="background:${col}"
-      onclick="gvApplyColor('${id}','${col}');gvCPClose()"></div>`
+function winMinimizeSingle(id) {
+  document.getElementById('win-'+id).classList.toggle('minimized');
+}
+function winMinimize() {} // overlay click — não faz nada (deixa janelas abertas)
+
+// ── DRAG ────────────────────────────────────────────────
+(function(){
+  ['planner','flash'].forEach(id => {
+    const panel = document.getElementById('win-'+id);
+    const bar   = document.getElementById('winbar-'+id);
+    let dragging = false, sx, sy, ox, oy;
+
+    bar.addEventListener('mousedown', e => {
+      if (e.target.classList.contains('win-btn')) return;
+      dragging = true;
+      panel.classList.add('dragging');
+      panel.style.zIndex = 660;
+      const r = panel.getBoundingClientRect();
+      sx = e.clientX; sy = e.clientY;
+      ox = r.left;    oy = r.top + window.scrollY;
+      e.preventDefault();
+    });
+
+    // Touch support
+    bar.addEventListener('touchstart', e => {
+      if (e.target.classList.contains('win-btn')) return;
+      dragging = true;
+      panel.classList.add('dragging');
+      const t = e.touches[0];
+      const r = panel.getBoundingClientRect();
+      sx = t.clientX; sy = t.clientY;
+      ox = r.left;    oy = r.top + window.scrollY;
+    }, { passive: true });
+
+    document.addEventListener('mousemove', e => {
+      if (!dragging) return;
+      let nx = ox + e.clientX - sx;
+      let ny = oy + e.clientY - sy;
+      // Limites
+      nx = Math.max(0, Math.min(nx, window.innerWidth  - panel.offsetWidth));
+      ny = Math.max(0, Math.min(ny, window.scrollY + window.innerHeight - 50));
+      panel.style.left = nx + 'px';
+      panel.style.top  = ny + 'px';
+    });
+
+    document.addEventListener('touchmove', e => {
+      if (!dragging) return;
+      const t = e.touches[0];
+      let nx = ox + t.clientX - sx;
+      let ny = oy + t.clientY - sy;
+      nx = Math.max(0, Math.min(nx, window.innerWidth  - panel.offsetWidth));
+      ny = Math.max(0, Math.min(ny, window.scrollY + window.innerHeight - 50));
+      panel.style.left = nx + 'px';
+      panel.style.top  = ny + 'px';
+    }, { passive: true });
+
+    document.addEventListener('mouseup', () => {
+      if (!dragging) return;
+      dragging = false;
+      panel.classList.remove('dragging');
+      // Salvar posição
+      WIN_POS[id] = { x: parseFloat(panel.style.left), y: parseFloat(panel.style.top) };
+      localStorage.setItem('win_pos_'+id, JSON.stringify(WIN_POS[id]));
+    });
+
+    document.addEventListener('touchend', () => {
+      if (!dragging) return;
+      dragging = false;
+      panel.classList.remove('dragging');
+      WIN_POS[id] = { x: parseFloat(panel.style.left), y: parseFloat(panel.style.top) };
+      localStorage.setItem('win_pos_'+id, JSON.stringify(WIN_POS[id]));
+    });
+  });
+})();
+
+// ── RESIZE ──────────────────────────────────────────────
+(function(){
+  ['planner','flash'].forEach(id => {
+    const panel  = document.getElementById('win-'+id);
+    const handle = document.getElementById('resize-'+id);
+    let resizing = false, sx, sy, ow, oh;
+
+    handle.addEventListener('mousedown', e => {
+      resizing = true;
+      sx = e.clientX; sy = e.clientY;
+      ow = panel.offsetWidth; oh = panel.offsetHeight;
+      e.preventDefault(); e.stopPropagation();
+    });
+
+    document.addEventListener('mousemove', e => {
+      if (!resizing) return;
+      const nw = Math.max(300, ow + e.clientX - sx);
+      const nh = Math.max(180, oh + e.clientY - sy);
+      panel.style.width  = nw + 'px';
+      panel.style.height = nh + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (!resizing) return;
+      resizing = false;
+      WIN_SIZE[id] = { w: panel.offsetWidth, h: panel.offsetHeight };
+      localStorage.setItem('win_size_'+id, JSON.stringify(WIN_SIZE[id]));
+    });
+  });
+})();
+
+// ── COLOR PICKER ────────────────────────────────────────
+let winCPTarget = null;
+function winOpenCP(id, el) {
+  winCPTarget = id;
+  const popup = document.getElementById('win-cp');
+  const rect  = el.getBoundingClientRect();
+  document.getElementById('win-cp-swatches').innerHTML = WIN_SWATCHES.map(col =>
+    `<div class="win-swatch ${WIN_COLORS[id]===col?'on':''}" style="background:${col}"
+      onclick="winApplyColor('${id}','${col}');winCPClose()"></div>`
   ).join('');
   popup.style.display = 'block';
-  popup.style.top  = Math.min(rect.top, window.innerHeight-220)+'px';
-  popup.style.left = Math.max(8, rect.left-220)+'px';
+  popup.style.top  = Math.min(rect.bottom + 8, window.innerHeight - 160) + 'px';
+  popup.style.left = Math.max(8, rect.left - 80) + 'px';
 }
-function gvCPClose() {
-  document.getElementById('gv-cp').style.display='none';
-  gvCPTarget = null;
+function winCPClose() {
+  document.getElementById('win-cp').style.display = 'none';
+  winCPTarget = null;
 }
 document.addEventListener('click', e => {
-  const cp = document.getElementById('gv-cp');
-  if (cp.style.display!=='none' && !cp.contains(e.target) && !e.target.closest('.gv-tab-color'))
-    gvCPClose();
+  const cp = document.getElementById('win-cp');
+  if (cp.style.display !== 'none' &&
+      !cp.contains(e.target) &&
+      !e.target.classList.contains('dock-color-btn'))
+    winCPClose();
 });
 
 // ── INIT ──────────────────────────────────
 renderCards();
 initTour();
-gvInitColors();
+winInitAll();
 </script>
+
+<script>
+const IMAGES={"amanhecer-limpo":"1Rk7SnutIEJnS48SbQsh_IkjAzGy3IpYm","amanhecer-chuva":"1ZuEQ4zA-f_f7iApj4YrujNUA9mLLDnGU","dia-ensolarado":"17UO6iLqIaiA5vnYEs7jqkDR3d1jiL35E","dia-nublado":"1NGL3xbDMu4DxcT1Kca20280VfflbjjeX","dia-chuva":"1OXhei11KCLjOLBv1nGzQpw6Sw36X3FTQ","por-do-sol":"1PDwEYdjlZ2eqa1lZcGSReQryNrLqjLqo","noite-limpa":"1SSXCMyE7xw611qr7IukKmFuW8RsdbTkT","noite-chuva":"1AFVaFEdP8AFqQHtExCZUCmlJMCxDWHVo"};
+function driveUrl(id){return"https://drive.google.com/thumbnail?id="+id+"&sz=w1920";}
+function selectImage(c,h){const r=c>=51,cl=c>=1&&c<51;if(h>=5&&h<8)return r?"amanhecer-chuva":"amanhecer-limpo";if(h>=8&&h<17)return r?"dia-chuva":cl?"dia-nublado":"dia-ensolarado";if(h>=17&&h<20)return"por-do-sol";return r?"noite-chuva":"noite-limpa";}
+function greetingText(h){return h>=5&&h<12?"Bom dia,":h>=12&&h<18?"Boa tarde,":"Boa noite,";}
+function weatherDesc(c){return c===0?"Ceu limpo":c<=3?"Parcialmente nublado":c<=48?"Nublado":c<=67?"Chuva":"Tempestade";}
+function startClock(){function tick(){const n=new Date();document.getElementById("clock").textContent=[n.getHours(),n.getMinutes(),n.getSeconds()].map(v=>String(v).padStart(2,"0")).join(":");}tick();setInterval(tick,1000);}
+async function fetchWeather(city){const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:200,system:"Return ONLY valid JSON no markdown. Format: {lat:number,lon:number}",messages:[{role:"user",content:city}]})});const data=await res.json();const text=data.content.filter(b=>b.type==="text").map(b=>b.text).join("");const{lat,lon}=JSON.parse(text.replace(/```json|```/g,"").trim());const w=await fetch("https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&current_weather=true");const wd=await w.json();return{code:wd.current_weather.weathercode,temp:Math.round(wd.current_weather.temperature)};}
+async function initHero(){const name=sessionStorage.getItem("mdtalk_student_name")||"Thaiana";const city=sessionStorage.getItem("mdtalk_student_city")||"Sao Paulo";const hour=new Date().getHours();document.getElementById("greeting-overline").textContent=greetingText(hour);document.getElementById("student-name").textContent=name;document.getElementById("info-city").textContent=city+", SP";startClock();let code=0,temp="--";try{const w=await fetchWeather(city);code=w.code;temp=w.temp;}catch(e){}document.getElementById("info-temp").textContent=temp+"C";document.getElementById("info-condition").textContent=weatherDesc(code);const key=selectImage(code,hour);const bg=document.getElementById("hero-bg");const img=new Image();img.onload=()=>{bg.style.backgroundImage="url('"+driveUrl(IMAGES[key])+"')";bg.classList.add("loaded");};img.onerror=()=>{bg.style.background="radial-gradient(ellipse at 50% 30%,#163158 0%,#050D1A 70%)";bg.classList.add("loaded");};img.src=driveUrl(IMAGES[key]);setTimeout(()=>{document.getElementById("loading-state").classList.add("hidden");document.getElementById("hero-content").classList.add("visible");},600);}
+initHero();
+</script>
+
 </body>
 </html>
