@@ -232,9 +232,9 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .pl-dnum{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:#1a1a2e;margin-bottom:.6rem;}
 .pl-day.today .pl-dnum{color:var(--gold);}
 .pl-acts{display:flex;flex-wrap:wrap;gap:4px;}
-.a-ico{position:relative;width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:transform .15s;background:#F0EDE8;border:1.5px solid #ddd;}
-.a-ico:hover{transform:scale(1.12);}
-.a-ico.done{opacity:.4;}
+.a-ico{position:relative;width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s,box-shadow .15s;background:#F8F6F3;border:1.5px solid #e0dbd4;}
+.a-ico:hover{transform:scale(1.08);box-shadow:0 3px 10px rgba(0,0,0,.1);}
+.a-ico.done{opacity:.35;filter:grayscale(.3);}
 .a-ico.done::after{content:'v';position:absolute;top:-4px;right:-4px;width:14px;height:14px;background:#4caf50;border-radius:50%;font-size:8px;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Raleway',sans-serif;font-weight:700;}
 .a-ico .tip{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;font-family:'Raleway',sans-serif;font-size:.58rem;white-space:nowrap;padding:4px 10px;border-radius:6px;z-index:50;pointer-events:none;}
 .a-ico:hover .tip{display:block;}
@@ -244,16 +244,16 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .a-picker.open{display:block;}
 .p-ttl{font-family:'Raleway',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#aaa;margin-bottom:.6rem;}
 .p-items{display:flex;flex-wrap:wrap;gap:6px;}
-.p-item{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;background:#F0EDE8;border:1.5px solid #ddd;transition:all .15s;position:relative;}
+.p-item{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#F8F6F3;border:1.5px solid #e0dbd4;transition:all .15s;position:relative;}
 .p-item:hover{border-color:var(--gold);transform:scale(1.08);}
 .p-item .tip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;font-family:'Raleway',sans-serif;font-size:.58rem;white-space:nowrap;padding:3px 8px;border-radius:5px;z-index:200;pointer-events:none;}
 .p-item:hover .tip{display:block;}
 .pl-legend{background:#fff;border:1.5px solid #ece8e2;border-radius:12px;padding:1.1rem 1.2rem;}
 .leg-ttl{font-family:'Raleway',sans-serif;font-size:8px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#bbb;margin-bottom:.8rem;}
-.leg-items{display:flex;flex-wrap:wrap;gap:.8rem;}
+.leg-items{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
 .leg-item{display:flex;align-items:center;gap:8px;}
-.leg-ico{width:32px;height:32px;border-radius:9px;background:#F0EDE8;border:1.5px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
-.leg-txt{font-family:'Raleway',sans-serif;font-size:.65rem;color:#555;line-height:1.3;}
+.leg-ico{width:36px;height:36px;border-radius:10px;background:#F8F6F3;border:1.5px solid #e0dbd4;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.leg-txt{font-family:'Raleway',sans-serif;font-size:.65rem;color:#555;line-height:1.3;min-width:0;}
 
 /* FLASHCARDS */
 .fc-cfg{display:flex;align-items:center;gap:1rem;margin-bottom:1.8rem;flex-wrap:wrap;}
@@ -588,15 +588,33 @@ function openCP(id,el){cpT=id;const pop=document.getElementById('win-cp'),rect=e
 function cpClose(){document.getElementById('win-cp').style.display='none';cpT=null;}
 document.addEventListener('click',e=>{const cp=document.getElementById('win-cp');if(cp.style.display!=='none'&&!cp.contains(e.target)&&!e.target.classList.contains('dock-clr'))cpClose();});
 
+
+// SVG icons para as skills
+const SK_ICONS = {
+  'video-sem':   '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="__C__" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="15" height="16" rx="2"/><path d="m17 8 5-3v14l-5-3"/></svg>',
+  'video-leg':   '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="__C__" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="6" y1="10" x2="10" y2="10"/><line x1="6" y1="13" x2="14" y2="13"/></svg>',
+  'cantar':      '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="__C__" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
+  'transcrever': '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="__C__" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+  'infograficos':'<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="__C__" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
+  'leitura':     '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="__C__" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+  'noticia':     '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="__C__" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>',
+};
+function skSvg(id, size, color) {
+  const s = (SK_ICONS[id] || '')
+    .replace(/__S__/g, size)
+    .replace(/__C__/g, color);
+  return s;
+}
+
 // PLANNER
 const SK=[
-  {id:'video-sem',e:'🎬',l:'Video sem legenda',d:'Assista 1 ep. em ingles sem legenda'},
-  {id:'video-leg',e:'📺',l:'Video com legenda EN',d:'Assista com legenda em ingles'},
-  {id:'cantar',e:'🎵',l:'Cantar em ingles',d:'Escolha uma musica e cante em ingles'},
-  {id:'transcrever',e:'✍️',l:'Transcrever musica',d:'Escreva a letra de uma musica ao ouvi-la'},
-  {id:'infograficos',e:'📊',l:'3 Infograficos',d:'Leia e compreenda 3 infograficos em ingles'},
-  {id:'leitura',e:'📖',l:'Leitura de texto',d:'Leia um artigo ou capitulo'},
-  {id:'noticia',e:'📰',l:'Noticia online',d:'Leia uma noticia em ingles na internet'},
+  {id:'video-sem',e:'video-sem',l:'Video sem legenda',d:'Assista 1 ep. em ingles sem legenda'},
+  {id:'video-leg',e:'video-leg',l:'Video com legenda EN',d:'Assista com legenda em ingles'},
+  {id:'cantar',e:'cantar',l:'Cantar em ingles',d:'Escolha uma musica e cante em ingles'},
+  {id:'transcrever',e:'transcrever',l:'Transcrever musica',d:'Escreva a letra de uma musica ao ouvi-la'},
+  {id:'infograficos',e:'infograficos',l:'3 Infograficos',d:'Leia e compreenda 3 infograficos em ingles'},
+  {id:'leitura',e:'leitura',l:'Leitura de texto',d:'Leia um artigo ou capitulo'},
+  {id:'noticia',e:'noticia',l:'Noticia online',d:'Leia uma noticia em ingles na internet'},
 ];
 const SG=['video-sem','leitura','video-leg','noticia','infograficos','cantar','transcrever'];
 const DN=['Dom','Seg','Ter','Qua','Qui','Sex','Sab'];
@@ -614,8 +632,8 @@ function renderPlanner(){
   const dates=pDates(pOff),today=dKey(new Date());
   const fmt=d=>d.getDate()+'/'+(d.getMonth()+1);
   body.innerHTML='<div class="pl-header"><div class="pl-week">Semana de '+fmt(dates[0])+' a '+fmt(dates[6])+(pOff===0?' <small style="font-size:.7rem;color:#aaa">esta semana</small>':'')+'</div><div class="pl-nav"><button class="pl-nav-btn" onclick="plannerWeek(-1)">&#8249;</button><button class="pl-nav-btn" onclick="plannerWeek(1)">&#8250;</button></div><button class="pl-sug" onclick="plannerSuggest()">Sugerir semana</button></div><div class="pl-grid">'+
-  dates.map(d=>{const key=dKey(d),isT=key===today,sks=pData[key]||[],done=pData[key+'__done']||[],pOpen=pPicker===key;return'<div class="pl-day '+(isT?'today':'')+'"><div class="pl-dlbl">'+DN[d.getDay()]+'</div><div class="pl-dnum">'+d.getDate()+'</div><div class="pl-acts">'+sks.map(sid=>{const sk=SK.find(s=>s.id===sid);if(!sk)return'';const isDone=done.includes(sid);return'<div class="a-ico '+(isDone?'done':'')+'" onclick="toggleDone(\''+key+'\',\''+sid+'\')" oncontextmenu="event.preventDefault();remAct(\''+key+'\',\''+sid+'\')">'+sk.e+'<span class="tip">'+sk.l+(isDone?' v':'')+'</span></div>';}).join('')+'<div style="position:relative"><button class="a-add" onclick="togPicker(\''+key+'\')">+</button><div class="a-picker '+(pOpen?'open':'')+'"><div class="p-ttl">Adicionar</div><div class="p-items">'+SK.map(sk=>'<div class="p-item" onclick="addAct(\''+key+'\',\''+sk.id+'\')">'+sk.e+'<span class="tip">'+sk.l+'</span></div>').join('')+'</div></div></div></div></div>';}).join('')+
-  '</div><div class="pl-legend"><div class="leg-ttl">Habilidades</div><div class="leg-items">'+SK.map(sk=>'<div class="leg-item"><div class="leg-ico">'+sk.e+'</div><div class="leg-txt"><strong>'+sk.l+'</strong><br><span style="color:#aaa;font-size:.6rem">'+sk.d+'</span></div></div>').join('')+'</div></div>';
+  dates.map(d=>{const key=dKey(d),isT=key===today,sks=pData[key]||[],done=pData[key+'__done']||[],pOpen=pPicker===key;return'<div class="pl-day '+(isT?'today':'')+'"><div class="pl-dlbl">'+DN[d.getDay()]+'</div><div class="pl-dnum">'+d.getDate()+'</div><div class="pl-acts">'+sks.map(sid=>{const sk=SK.find(s=>s.id===sid);if(!sk)return'';const isDone=done.includes(sid);return'<div class="a-ico '+(isDone?'done':'')+'" onclick="toggleDone(\''+key+'\',\''+sid+'\')" oncontextmenu="event.preventDefault();remAct(\''+key+'\',\''+sid+'\')">'+skSvg(sk.id,18,'#666')+'<span class="tip">'+sk.l+(isDone?' v':'')+'</span></div>';}).join('')+'<div style="position:relative"><button class="a-add" onclick="togPicker(\''+key+'\')">+</button><div class="a-picker '+(pOpen?'open':'')+'"><div class="p-ttl">Adicionar</div><div class="p-items">'+SK.map(sk=>'<div class="p-item" onclick="addAct(\''+key+'\',\''+sk.id+'\')">'+skSvg(sk.id,20,'#555')+'<span class="tip">'+sk.l+'</span></div>').join('')+'</div></div></div></div></div>';}).join('')+
+  '</div><div class="pl-legend"><div class="leg-ttl">Habilidades</div><div class="leg-items">'+SK.map(sk=>'<div class="leg-item"><div class="leg-ico">'+skSvg(sk.id,20,'#777')+'</div><div class="leg-txt"><strong>'+sk.l+'</strong><br><span style="color:#aaa;font-size:.6rem">'+sk.d+'</span></div></div>').join('')+'</div></div>';
 }
 
 // FLASHCARDS
