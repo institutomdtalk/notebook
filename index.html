@@ -49,43 +49,176 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .loading-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;animation:fIO 1.9s ease-in-out infinite;}
 @keyframes fIO{0%,100%{opacity:.15}50%{opacity:.75}}
 
-/* TRADUTOR */
-#translator{position:fixed;z-index:500;width:320px;background:rgba(5,13,26,.88);border:1px solid rgba(0,229,255,.35);border-radius:20px;box-shadow:0 0 40px rgba(0,229,255,.12),0 12px 60px rgba(0,0,0,.7);backdrop-filter:blur(20px);padding:1.2rem 1.4rem 1.4rem;animation:tF 9s ease-in-out infinite;cursor:grab;user-select:none;overflow:hidden;bottom:60px;right:48px;}
-#translator::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,229,255,.8),transparent);animation:scan 3s ease-in-out infinite;}
-@keyframes scan{0%,100%{opacity:.3;transform:scaleX(.4)}50%{opacity:1;transform:scaleX(1)}}
-@keyframes tF{0%{transform:translateY(0) translateX(0)}20%{transform:translateY(-22px) translateX(18px)}40%{transform:translateY(-10px) translateX(36px)}60%{transform:translateY(-30px) translateX(20px)}80%{transform:translateY(-16px) translateX(6px)}100%{transform:translateY(0) translateX(0)}}
-#translator.dragging{animation:none;}
-#translator.minimized{width:52px!important;height:52px!important;padding:0!important;border-radius:50%!important;cursor:pointer!important;display:flex;align-items:center;justify-content:center;box-shadow:0 0 24px rgba(0,229,255,.25);}
-#translator.minimized .trans-body,#translator.minimized .trans-header,#translator.minimized::before{display:none;}
-#trans-icon-min{display:none;color:rgba(0,229,255,.9);}
-#translator.minimized #trans-icon-min{display:flex;align-items:center;justify-content:center;}
-#translator.minimized .pr{position:absolute;inset:-4px;border-radius:50%;border:1.5px solid rgba(0,229,255,.4);animation:pR 2s ease-out infinite;}
-@keyframes pR{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.5);opacity:0}}
-.trans-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
-.trans-title-wrap{display:flex;align-items:center;gap:7px;}
-.trans-icon-wrap{width:22px;height:22px;border-radius:6px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.3);display:flex;align-items:center;justify-content:center;color:rgba(0,229,255,.8);}
-.trans-title{font-family:'Raleway',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);}
-.trans-header-right{display:flex;align-items:center;gap:6px;}
-.trans-dir{display:flex;align-items:center;gap:5px;background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.25);border-radius:30px;padding:4px 10px;cursor:pointer;}
-.trans-dir span{font-family:'Raleway',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;color:var(--gold-pale);}
-.trans-dir .arr{color:var(--gold);font-size:10px;transition:transform .35s;}
-.trans-dir.flipped .arr{transform:rotate(180deg);}
-.trans-min-btn{cursor:pointer;width:20px;height:20px;border-radius:50%;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.25);display:flex;align-items:center;justify-content:center;font-size:9px;color:rgba(0,229,255,.7);}
-#trans-input{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(0,229,255,.2);border-radius:12px;padding:.7rem .9rem;font-family:'Raleway',sans-serif;font-size:.76rem;color:var(--cream);outline:none;resize:none;height:68px;line-height:1.5;margin-bottom:.7rem;transition:border-color .25s,box-shadow .25s;}
-#trans-input:focus{border-color:rgba(0,229,255,.55);box-shadow:0 0 0 3px rgba(0,229,255,.08);}
-#trans-input::placeholder{color:var(--muted);}
-#trans-btn{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold-light));border:none;border-radius:10px;padding:.62rem;font-family:'Raleway',sans-serif;font-size:.63rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--navy-deep);cursor:pointer;margin-bottom:.9rem;}
-#trans-btn:disabled{opacity:.45;}
-#trans-result{display:none;border-top:1px solid rgba(0,229,255,.12);padding-top:.9rem;}
-#trans-result.visible{display:block;}
-.r-label{font-family:'Raleway',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);opacity:.65;margin-bottom:.3rem;}
-.r-trans{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--cream);line-height:1.3;margin-bottom:.85rem;padding:.5rem .7rem;background:rgba(0,229,255,.03);border-radius:8px;border-left:2px solid rgba(0,229,255,.5);}
-.r-block{margin-bottom:.7rem;}
-.r-block p{font-family:'Raleway',sans-serif;font-size:.68rem;color:rgba(255,255,255,.6);line-height:1.65;}
-.t-loading{display:flex;align-items:center;gap:8px;padding:.5rem 0;}
-.t-spinner{width:14px;height:14px;border:1.5px solid rgba(0,229,255,.15);border-top-color:var(--neon);border-radius:50%;animation:spin .75s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg)}}
-.t-loading span{font-family:'Raleway',sans-serif;font-size:.63rem;text-transform:uppercase;color:var(--muted);}
+/* BARRA DE TRADUÇÃO NO HERO */
+#hero-translator {
+  position: absolute;
+  bottom: 3.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  width: min(600px, 90vw);
+  opacity: 0;
+  transition: opacity .8s ease 1.2s;
+}
+#hero-translator.visible { opacity: 1; }
+
+.ht-wrap {
+  display: flex;
+  align-items: center;
+  background: rgba(11,29,58,0.55);
+  border: 1px solid rgba(196,164,90,.3);
+  border-radius: 50px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 6px 6px 6px 20px;
+  gap: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.35), 0 0 0 1px rgba(196,164,90,.08);
+  transition: border-color .25s, box-shadow .25s;
+}
+.ht-wrap:focus-within {
+  border-color: rgba(196,164,90,.6);
+  box-shadow: 0 8px 40px rgba(0,0,0,.4), 0 0 20px rgba(196,164,90,.1);
+}
+
+/* Botão de direção */
+.ht-dir {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 30px;
+  transition: background .2s;
+}
+.ht-dir:hover { background: rgba(196,164,90,.1); }
+.ht-dir-from, .ht-dir-to {
+  font-family: 'Raleway', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold-pale);
+}
+.ht-dir-arrow {
+  color: var(--gold);
+  font-size: 13px;
+  line-height: 1;
+  transition: transform .3s ease;
+}
+.ht-dir.flipped .ht-dir-arrow { transform: rotate(180deg); }
+
+/* Divisor */
+.ht-sep {
+  width: 1px;
+  height: 18px;
+  background: rgba(196,164,90,.2);
+  flex-shrink: 0;
+}
+
+/* Campo de texto */
+#ht-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'Raleway', sans-serif;
+  font-size: .8rem;
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: .03em;
+  min-width: 0;
+}
+#ht-input::placeholder {
+  color: rgba(255,255,255,.32);
+  font-size: .75rem;
+}
+
+/* Botão traduzir */
+.ht-btn {
+  flex-shrink: 0;
+  background: var(--gold);
+  border: none;
+  border-radius: 40px;
+  padding: .55rem 1.3rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--navy-deep);
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+  white-space: nowrap;
+}
+.ht-btn:hover { background: var(--gold-light); transform: scale(1.03); }
+.ht-btn:disabled { opacity: .5; cursor: wait; }
+
+/* Resultado */
+#ht-result {
+  margin-top: 10px;
+  padding: 1rem 1.4rem;
+  background: rgba(5,13,26,.75);
+  border: 1px solid rgba(196,164,90,.2);
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  display: none;
+  animation: htFadeIn .3s ease;
+}
+@keyframes htFadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+#ht-result.visible { display: block; }
+
+.ht-result-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: .5rem;
+  line-height: 1.2;
+}
+.ht-result-alts {
+  font-family: 'Raleway', sans-serif;
+  font-size: .66rem;
+  color: rgba(255,255,255,.45);
+  letter-spacing: .05em;
+}
+.ht-result-alts span {
+  color: var(--gold-pale);
+  opacity: .7;
+}
+.ht-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: .2rem 0;
+}
+.ht-spinner {
+  width: 14px; height: 14px;
+  border: 1.5px solid rgba(196,164,90,.2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: htSpin .7s linear infinite;
+}
+@keyframes htSpin { to { transform: rotate(360deg); } }
+.ht-loading span {
+  font-family: 'Raleway', sans-serif;
+  font-size: .63rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+/* Fechar resultado */
+.ht-close {
+  float: right;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  border: none; color: var(--muted);
+  cursor: pointer; font-size: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-left: 8px; transition: background .2s;
+}
+.ht-close:hover { background: rgba(255,255,255,.18); }
 
 /* DOCK */
 #win-dock{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:400;display:flex;flex-direction:column;gap:6px;}
@@ -317,29 +450,26 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
     <div id="clock">00:00:00</div>
     <div class="clima-label"><span class="clima-dot"></span><span>Clima ao vivo</span></div>
   </div>
+
+  <!-- TRADUTOR NO HERO -->
+  <div id="hero-translator">
+    <div class="ht-wrap">
+      <div class="ht-dir" id="ht-dir" onclick="htToggleDir()">
+        <span class="ht-dir-from" id="ht-from">PT</span>
+        <span class="ht-dir-arrow">⇄</span>
+        <span class="ht-dir-to" id="ht-to">EN</span>
+      </div>
+      <div class="ht-sep"></div>
+      <input type="text" id="ht-input" placeholder="Traduzir um termo médico...">
+      <button class="ht-btn" id="ht-btn" onclick="htTranslate()">Traduzir</button>
+    </div>
+    <div id="ht-result">
+      <button class="ht-close" onclick="htClose()">✕</button>
+      <div id="ht-out"></div>
+    </div>
+  </div>
   <div class="scroll-indicator"><span>Explorar</span><div class="scroll-line"></div></div>
 </section>
-
-<!-- TRADUTOR -->
-<div id="translator" class="minimized">
-  <div class="pr"></div>
-  <span id="trans-icon-min"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg></span>
-  <div class="trans-header">
-    <div class="trans-title-wrap">
-      <div class="trans-icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg></div>
-      <span class="trans-title">Tradutor Medico</span>
-    </div>
-    <div class="trans-header-right">
-      <div class="trans-dir" id="trans-dir" onclick="toggleDir()"><span id="d-from">PT</span><span class="arr">a</span><span id="d-to">EN</span></div>
-      <div class="trans-min-btn" onclick="document.getElementById('translator').classList.add('minimized')">x</div>
-    </div>
-  </div>
-  <div class="trans-body">
-    <textarea id="trans-input" placeholder="Digite um termo ou frase..."></textarea>
-    <button id="trans-btn" onclick="doTranslate()">Traduzir</button>
-    <div id="trans-result"><div class="t-loading" id="t-load" style="display:none"><div class="t-spinner"></div><span>Traduzindo...</span></div><div id="t-out"></div></div>
-  </div>
-</div>
 
 <!-- DOCK -->
 <div id="win-dock">
@@ -479,32 +609,59 @@ async function initHero(){
 }
 initHero();
 
-// TRADUTOR
-let tDir='PT_EN';
-function toggleDir(){tDir=tDir==='PT_EN'?'EN_PT':'PT_EN';document.getElementById('trans-dir').classList.toggle('flipped');document.getElementById('d-from').textContent=tDir==='PT_EN'?'PT':'EN';document.getElementById('d-to').textContent=tDir==='PT_EN'?'EN':'PT';}
-async function doTranslate(){
-  const txt=document.getElementById('trans-input').value.trim();if(!txt)return;
-  const btn=document.getElementById('trans-btn'),res=document.getElementById('trans-result'),ld=document.getElementById('t-load'),out=document.getElementById('t-out');
-  btn.disabled=true;res.classList.add('visible');ld.style.display='flex';out.innerHTML='';
-  const sl=tDir==='PT_EN'?'pt':'en',tl=tDir==='PT_EN'?'en':'pt';
-  try{
-    const r=await fetch("https://translate.googleapis.com/translate_a/single?client=gtx&sl="+sl+"&tl="+tl+"&dt=t&dt=bd&q="+encodeURIComponent(txt));
-    const d=await r.json();
-    const main=d[0].filter(s=>s&&s[0]).map(s=>s[0]).join('');
-    let syns='';
-    if(d[1]&&d[1].length){const sv=[];d[1].forEach(g=>{if(g[2])g[2].forEach(i=>{if(i[0])sv.push(i[0]);});});if(sv.length)syns='<div class="r-block"><div class="r-label">Alternativas</div><p>'+sv.slice(0,6).join(' - ')+'</p></div>';}
-    ld.style.display='none';out.innerHTML='<div class="r-label">Traducao</div><div class="r-trans">'+main+'</div>'+syns;
-  }catch(e){ld.style.display='none';out.innerHTML='<p style="color:rgba(255,255,255,.4);font-size:.7rem;">Erro. Tente novamente.</p>';}
-  btn.disabled=false;
+// TRADUTOR NO HERO
+let htDir = 'PT_EN';
+function htToggleDir() {
+  htDir = htDir === 'PT_EN' ? 'EN_PT' : 'PT_EN';
+  document.getElementById('ht-dir').classList.toggle('flipped');
+  document.getElementById('ht-from').textContent = htDir === 'PT_EN' ? 'PT' : 'EN';
+  document.getElementById('ht-to').textContent   = htDir === 'PT_EN' ? 'EN' : 'PT';
+  document.getElementById('ht-input').placeholder = htDir === 'PT_EN'
+    ? 'Traduzir um termo médico...'
+    : 'Translate a medical term...';
+  htClose();
 }
-document.getElementById('trans-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();doTranslate();}});
-document.getElementById('translator').addEventListener('click',function(e){if(this.classList.contains('minimized')){this.classList.remove('minimized');e.stopPropagation();}});
-(function(){
-  const el=document.getElementById('translator');let drag=false,sx,sy,ox,oy;
-  el.addEventListener('mousedown',e=>{if(e.target.tagName==='TEXTAREA'||e.target.tagName==='BUTTON'||e.target.closest('.trans-dir'))return;drag=true;el.classList.add('dragging');const r=el.getBoundingClientRect();sx=e.clientX;sy=e.clientY;ox=r.left;oy=r.top+window.scrollY;e.preventDefault();});
-  document.addEventListener('mousemove',e=>{if(!drag)return;el.style.left=(ox+e.clientX-sx)+'px';el.style.top=(oy+e.clientY-sy)+'px';el.style.right='auto';el.style.bottom='auto';});
-  document.addEventListener('mouseup',()=>{drag=false;el.classList.remove('dragging');});
-})();
+async function htTranslate() {
+  const txt = document.getElementById('ht-input').value.trim();
+  if (!txt) { document.getElementById('ht-input').focus(); return; }
+  const btn = document.getElementById('ht-btn');
+  const res = document.getElementById('ht-result');
+  const out = document.getElementById('ht-out');
+  btn.disabled = true;
+  res.classList.add('visible');
+  out.innerHTML = '<div class="ht-loading"><div class="ht-spinner"></div><span>Traduzindo...</span></div>';
+  const sl = htDir === 'PT_EN' ? 'pt' : 'en';
+  const tl = htDir === 'PT_EN' ? 'en' : 'pt';
+  try {
+    const r = await fetch(
+      'https://translate.googleapis.com/translate_a/single?client=gtx&sl='+sl+'&tl='+tl+'&dt=t&dt=bd&q='+encodeURIComponent(txt)
+    );
+    const d = await r.json();
+    const main = d[0].filter(s=>s&&s[0]).map(s=>s[0]).join('');
+    let alts = '';
+    if (d[1] && d[1].length) {
+      const sv = [];
+      d[1].forEach(g => { if(g[2]) g[2].forEach(i => { if(i[0]) sv.push(i[0]); }); });
+      if (sv.length) alts = '<div class="ht-result-alts">Também: <span>'+sv.slice(0,5).join('</span> · <span>')+'</span></div>';
+    }
+    out.innerHTML = '<div class="ht-result-main">'+main+'</div>'+alts;
+  } catch(e) {
+    out.innerHTML = '<div class="ht-result-alts" style="color:rgba(255,255,255,.35)">Erro. Tente novamente.</div>';
+  }
+  btn.disabled = false;
+}
+function htClose() {
+  document.getElementById('ht-result').classList.remove('visible');
+  document.getElementById('ht-result').style.display = 'none';
+  setTimeout(() => {
+    document.getElementById('ht-result').style.display = '';
+  }, 10);
+}
+document.getElementById('ht-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); htTranslate(); }
+  if (e.key === 'Escape') htClose();
+});
+// Mostrar barra junto com o hero-content
 
 // CADERNO
 let entradas=[
