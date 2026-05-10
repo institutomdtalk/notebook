@@ -865,344 +865,253 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 /* ═══════════════════════════════════
    PLANNER SEMANAL
 ═══════════════════════════════════ */
-#planner-body { background: #F5F2EE; }
+#planner-body { background: #F5F2EE; min-height: 60vh; }
+.pl-wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 2rem 5rem; }
 
-.pl-wrap {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2.5rem 2rem 4rem;
+/* ── HEADER ── */
+.pl-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;
 }
-
-/* Header */
-.pl-hdr {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2.5rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.pl-hdr-left {}
-.pl-hdr-title {
+.pl-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.7rem;
-  font-weight: 300;
-  color: #1a1a2e;
-  line-height: 1;
+  font-size: 1.7rem; font-weight: 300; color: #1a1a2e; line-height: 1;
 }
-.pl-hdr-title em { font-style: italic; color: var(--gold); }
-.pl-hdr-sub {
+.pl-title em { font-style: italic; color: var(--gold); }
+.pl-subtitle {
   font-family: 'Raleway', sans-serif;
-  font-size: .62rem;
-  color: #bbb;
-  letter-spacing: .08em;
-  margin-top: .3rem;
+  font-size: .62rem; color: #bbb; letter-spacing: .08em; margin-top: .3rem;
 }
-.pl-hdr-actions {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-}
+.pl-nav-row { display: flex; align-items: center; gap: .5rem; }
 .pl-nav-btn {
-  width: 34px; height: 34px;
-  border-radius: 50%;
-  border: 1.5px solid #e8e4e0;
-  background: #fff;
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1.5px solid #e4e0da; background: #fff;
   display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  color: #888;
-  font-size: 1.1rem;
-  transition: all .2s;
+  cursor: pointer; color: #888; transition: all .2s;
 }
 .pl-nav-btn:hover { border-color: #1a1a2e; color: #1a1a2e; }
-.pl-week-label {
-  font-family: 'Raleway', sans-serif;
-  font-size: .68rem;
-  font-weight: 600;
-  letter-spacing: .1em;
-  color: #555;
-  white-space: nowrap;
+.pl-week-range {
+  font-family: 'Raleway', sans-serif; font-size: .68rem;
+  font-weight: 600; color: #555; white-space: nowrap;
 }
+.pl-today-btn {
+  font-family: 'Raleway', sans-serif; font-size: .6rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  border: 1.5px solid #e4e0da; background: #fff;
+  border-radius: 20px; padding: .3rem .85rem; cursor: pointer;
+  color: #aaa; transition: all .2s;
+}
+.pl-today-btn:hover { border-color: var(--gold); color: var(--gold); }
 .pl-suggest-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'Raleway', sans-serif;
-  font-size: .63rem;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  background: #1a1a2e;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  padding: .45rem 1.1rem;
-  cursor: pointer;
-  transition: background .2s;
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'Raleway', sans-serif; font-size: .62rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  background: #1a1a2e; color: #fff; border: none;
+  border-radius: 20px; padding: .4rem 1rem; cursor: pointer; transition: background .2s;
 }
 .pl-suggest-btn:hover { background: #163158; }
 
-/* Grid dos 7 dias */
+/* ── PROGRESS BAR ── */
+.pl-progress {
+  margin-bottom: 1.8rem;
+  background: #fff; border: 1.5px solid #ece8e2;
+  border-radius: 14px; padding: 1rem 1.3rem;
+  display: flex; align-items: center; gap: 1.5rem;
+}
+.pl-prog-stat { text-align: center; }
+.pl-prog-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; font-weight: 300; color: #1a1a2e; line-height: 1;
+}
+.pl-prog-lbl {
+  font-family: 'Raleway', sans-serif; font-size: .58rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: #bbb; margin-top: .15rem;
+}
+.pl-prog-bar-wrap { flex: 1; }
+.pl-prog-bar-top {
+  display: flex; justify-content: space-between; align-items: baseline; margin-bottom: .4rem;
+}
+.pl-prog-bar-label {
+  font-family: 'Raleway', sans-serif; font-size: .62rem; color: #aaa; letter-spacing: .06em;
+}
+.pl-prog-pct {
+  font-family: 'Cormorant Garamond', serif; font-size: .95rem; font-weight: 300; color: #1a1a2e;
+}
+.pl-prog-track {
+  height: 6px; background: #f0ece8; border-radius: 6px; overflow: hidden;
+}
+.pl-prog-fill {
+  height: 100%; border-radius: 6px;
+  background: linear-gradient(to right, #C4A45A, #D4BA7A);
+  transition: width .8s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── GRID DOS 7 DIAS ── */
 .pl-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: .7rem;
-  margin-bottom: 2.5rem;
+  gap: .6rem; margin-bottom: 2rem;
 }
-@media(max-width:760px) { .pl-grid { grid-template-columns: repeat(2,1fr); } }
 
 .pl-day {
-  background: #fff;
-  border: 1.5px solid #ece8e2;
-  border-radius: 16px;
-  padding: .9rem .75rem;
-  min-height: 180px;
-  display: flex;
-  flex-direction: column;
-  gap: .5rem;
+  background: #fff; border: 1.5px solid #ece8e2;
+  border-radius: 14px; padding: .85rem .75rem;
+  min-height: 190px; display: flex; flex-direction: column; gap: .5rem;
   transition: border-color .2s, box-shadow .2s;
-  position: relative;
+  position: relative; overflow: visible;
 }
-.pl-day:hover { border-color: #d4cfc9; }
+.pl-day:hover { border-color: #d4cfc9; box-shadow: 0 4px 16px rgba(0,0,0,.05); }
 .pl-day.today {
   border-color: var(--gold);
-  box-shadow: 0 4px 20px rgba(196,164,90,.14);
+  box-shadow: 0 4px 20px rgba(196,164,90,.13);
 }
+.pl-day.past { opacity: .75; }
 
-.pl-day-head { flex-shrink: 0; }
-.pl-day-lbl {
-  font-family: 'Raleway', sans-serif;
-  font-size: 7px;
-  font-weight: 700;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: #ccc;
-  margin-bottom: .15rem;
+/* Cabeçalho do dia */
+.pl-day-head { margin-bottom: .3rem; }
+.pl-day-weekday {
+  font-family: 'Raleway', sans-serif; font-size: 7.5px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase; color: #ccc;
 }
 .pl-day-num {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem;
-  font-weight: 300;
-  color: #1a1a2e;
-  line-height: 1;
+  font-size: 1.5rem; font-weight: 300; color: #1a1a2e; line-height: 1;
 }
-.pl-day.today .pl-day-lbl { color: var(--gold); opacity: .7; }
-.pl-day.today .pl-day-num { color: var(--gold); }
+.pl-day.today .pl-day-weekday { color: var(--gold); opacity: .8; }
+.pl-day.today .pl-day-num     { color: var(--gold); }
 
-/* Atividades no dia */
-.pl-acts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  flex: 1;
-}
+/* Lista de atividades */
+.pl-acts { flex: 1; display: flex; flex-direction: column; gap: 4px; }
 
-/* Ícone de atividade */
-.pl-act-icon {
-  position: relative;
-  width: 34px; height: 34px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Chip de atividade */
+.pl-act-chip {
+  display: flex; align-items: center; gap: 6px;
+  padding: .32rem .55rem;
+  border-radius: 8px;
+  background: #f8f6f3;
+  border: 1.5px solid #ece8e2;
   cursor: pointer;
-  border: 1.5px solid #e8e4e0;
-  background: #fafafa;
-  color: #888;
+  transition: all .18s;
+  position: relative;
+  user-select: none;
+}
+.pl-act-chip:hover { border-color: #bbb; background: #f2efe9; }
+.pl-act-chip.done {
+  background: #f0faf0; border-color: #c8e6c9;
+}
+.pl-act-chip.done .pl-act-chip-label { color: #888; text-decoration: line-through; }
+.pl-act-chip svg { flex-shrink: 0; color: #999; transition: color .15s; }
+.pl-act-chip.done svg { color: #66bb6a; }
+.pl-act-chip-label {
+  font-family: 'Raleway', sans-serif; font-size: .58rem; font-weight: 600;
+  letter-spacing: .06em; color: #555; flex: 1; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+/* Check visual quando done */
+.pl-act-chip-check {
+  width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+  border: 1.5px solid #ccc; display: flex; align-items: center; justify-content: center;
   transition: all .18s;
 }
-.pl-act-icon:hover {
-  border-color: #1a1a2e;
-  background: #f5f2ee;
-  color: #1a1a2e;
-  transform: scale(1.08);
+.pl-act-chip.done .pl-act-chip-check {
+  background: #66bb6a; border-color: #66bb6a; color: #fff;
 }
-.pl-act-icon.done {
-  background: #1a1a2e;
-  border-color: #1a1a2e;
-  color: rgba(255,255,255,.8);
-  opacity: .75;
-}
-.pl-act-icon.done::after {
-  content: '';
-  position: absolute;
-  top: -3px; right: -3px;
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: #4CAF50;
-  border: 1.5px solid #fff;
-}
-/* Tooltip */
-.pl-act-icon .pl-tip {
-  display: none;
-  position: absolute;
-  bottom: calc(100% + 7px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: #1a1a2e;
-  color: #fff;
-  font-family: 'Raleway', sans-serif;
-  font-size: .58rem;
-  font-weight: 500;
-  white-space: nowrap;
-  padding: 4px 9px;
-  border-radius: 6px;
-  z-index: 50;
-  pointer-events: none;
-}
-.pl-act-icon:hover .pl-tip { display: block; }
 
-/* Botão + adicionar */
-.pl-add-btn {
-  width: 30px; height: 30px;
-  border-radius: 8px;
-  border: 1.5px dashed #d4cfc9;
-  background: transparent;
-  color: #ccc;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all .2s;
-  align-self: flex-end;
-}
-.pl-add-btn:hover { border-color: var(--gold); color: var(--gold); }
-
-/* Picker de atividades */
-.pl-picker {
-  display: none;
-  position: fixed;
-  background: #fff;
-  border: 1.5px solid #e8e4e0;
-  border-radius: 16px;
-  padding: 1rem 1rem .8rem;
-  box-shadow: 0 12px 40px rgba(0,0,0,.14);
-  z-index: 9999;
-  width: 240px;
-}
-.pl-picker.open { display: block; animation: ppIn .2s ease; }
-@keyframes ppIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
-.pl-picker-title {
-  font-family: 'Raleway', sans-serif;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: .24em;
-  text-transform: uppercase;
-  color: #bbb;
-  margin-bottom: .8rem;
-}
-.pl-picker-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: .5rem;
-  margin-bottom: .8rem;
-}
-.pl-picker-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-  padding: .5rem .3rem;
-  border-radius: 10px;
-  border: 1.5px solid #ece8e2;
-  background: #fafafa;
-  color: #888;
+/* Botão remover no chip (hover) */
+.pl-act-remove {
+  width: 14px; height: 14px; border-radius: 50%;
+  display: none; align-items: center; justify-content: center;
+  background: #eee; color: #aaa; font-size: 8px;
+  cursor: pointer; flex-shrink: 0; line-height: 1;
   transition: all .15s;
 }
-.pl-picker-item:hover {
-  border-color: #1a1a2e;
-  background: #f5f2ee;
-  color: #1a1a2e;
-}
-.pl-picker-item span {
-  font-family: 'Raleway', sans-serif;
-  font-size: .52rem;
-  font-weight: 600;
-  letter-spacing: .04em;
-  text-align: center;
-  line-height: 1.2;
-  color: inherit;
-}
-.pl-picker-close {
-  width: 100%;
-  font-family: 'Raleway', sans-serif;
-  font-size: .6rem;
-  font-weight: 600;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: #aaa;
-  background: #f8f5f2;
-  border: none;
-  border-radius: 8px;
-  padding: .4rem;
-  cursor: pointer;
-  transition: background .2s;
-}
-.pl-picker-close:hover { background: #f0ece8; }
+.pl-act-chip:hover .pl-act-remove { display: flex; }
+.pl-act-chip:hover .pl-act-chip-check { display: none; }
+.pl-act-remove:hover { background: #ffebee; color: #ef5350; }
 
-/* Legenda de habilidades */
+/* Botão adicionar atividade */
+.pl-add-wrap { margin-top: auto; padding-top: 4px; }
+.pl-add-btn {
+  width: 100%; display: flex; align-items: center; justify-content: center;
+  gap: 4px; padding: .3rem;
+  border: 1.5px dashed #d4cfc9; border-radius: 8px;
+  background: transparent; color: #ccc; cursor: pointer;
+  font-family: 'Raleway', sans-serif; font-size: .6rem;
+  transition: all .2s;
+}
+.pl-add-btn:hover { border-color: var(--gold); color: var(--gold); background: #fffbf5; }
+
+/* ── PICKER DE ATIVIDADES ── */
+.pl-picker {
+  display: none; position: fixed;
+  background: #fff; border: 1.5px solid #e8e4e0;
+  border-radius: 16px; box-shadow: 0 16px 48px rgba(0,0,0,.14);
+  z-index: 9999; width: 280px; padding: .8rem;
+}
+.pl-picker.open { display: block; animation: ppIn .18s ease; }
+@keyframes ppIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
+.pl-picker-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: .8rem;
+}
+.pl-picker-title {
+  font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 700;
+  letter-spacing: .24em; text-transform: uppercase; color: #bbb;
+}
+.pl-picker-close-btn {
+  width: 22px; height: 22px; border-radius: 50%; border: 1px solid #e4e0da;
+  background: #fafafa; color: #aaa; cursor: pointer; font-size: 9px;
+  display: flex; align-items: center; justify-content: center;
+}
+.pl-picker-close-btn:hover { background: #f0ece8; color: #555; }
+.pl-picker-list { display: flex; flex-direction: column; gap: .3rem; }
+.pl-picker-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: .55rem .7rem; border-radius: 10px; cursor: pointer;
+  border: 1.5px solid transparent; background: #fafafa;
+  transition: all .15s;
+}
+.pl-picker-item:hover { background: #f5f2ee; border-color: #d4cfc9; }
+.pl-picker-item.already { opacity: .4; pointer-events: none; }
+.pl-picker-item svg { color: #888; flex-shrink: 0; }
+.pl-picker-item-info {}
+.pl-picker-item-name {
+  font-family: 'Raleway', sans-serif; font-size: .68rem; font-weight: 600; color: #333;
+}
+.pl-picker-item-desc {
+  font-family: 'Raleway', sans-serif; font-size: .58rem; color: #bbb; margin-top: .1rem;
+}
+
+/* ── LEGENDA ── */
 .pl-legend {
-  background: #fff;
-  border: 1.5px solid #ece8e2;
-  border-radius: 16px;
-  padding: 1.4rem 1.6rem;
+  background: #fff; border: 1.5px solid #ece8e2; border-radius: 16px; padding: 1.3rem 1.5rem;
 }
 .pl-legend-title {
-  font-family: 'Raleway', sans-serif;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: .26em;
-  text-transform: uppercase;
-  color: #bbb;
-  margin-bottom: 1.1rem;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 700;
+  letter-spacing: .26em; text-transform: uppercase; color: #bbb;
+  margin-bottom: 1rem; display: flex; align-items: center; gap: 10px;
 }
-.pl-legend-title::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: #f0ece8;
-}
+.pl-legend-title::after { content:''; flex:1; height:1px; background:#f0ece8; }
 .pl-legend-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: .75rem;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .6rem;
 }
 .pl-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: .6rem .75rem;
-  border-radius: 10px;
-  background: #fafafa;
-  border: 1px solid #f0ece8;
-  transition: border-color .15s;
+  display: flex; align-items: center; gap: 10px;
+  padding: .55rem .75rem; border-radius: 10px;
+  background: #fafafa; border: 1px solid #f0ece8; transition: border-color .15s;
 }
 .pl-legend-item:hover { border-color: #d4cfc9; }
 .pl-legend-icon {
-  width: 32px; height: 32px;
-  border-radius: 9px;
-  background: #f0ece8;
-  border: 1.5px solid #e4e0da;
-  display: flex; align-items: center; justify-content: center;
-  color: #777;
-  flex-shrink: 0;
+  width: 32px; height: 32px; border-radius: 9px; background: #f0ece8;
+  border: 1.5px solid #e4e0da; display: flex; align-items: center;
+  justify-content: center; color: #777; flex-shrink: 0;
 }
-.pl-legend-txt {}
 .pl-legend-name {
-  font-family: 'Raleway', sans-serif;
-  font-size: .67rem;
-  font-weight: 700;
-  color: #333;
-  line-height: 1.2;
+  font-family: 'Raleway', sans-serif; font-size: .67rem; font-weight: 700; color: #333;
 }
 .pl-legend-desc {
-  font-family: 'Raleway', sans-serif;
-  font-size: .58rem;
-  color: #bbb;
-  line-height: 1.3;
-  margin-top: .1rem;
+  font-family: 'Raleway', sans-serif; font-size: .58rem; color: #bbb;
+  line-height: 1.3; margin-top: .1rem;
 }
 
 @media(max-width:700px){.pl-grid{grid-template-columns:repeat(2,1fr);}#caderno-nav .nav-brand{display:none;}#search-input{width:120px;}}
@@ -2036,18 +1945,27 @@ function drawRadar(data) {
 }
 
 // PLANNER SEMANAL
-const SK_DATA = [
-  { id:'video-sem',    l:'Video s/legenda',   d:'Assista 1 episodio em ingles sem legenda',       svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="15" height="16" rx="2"/><path d="m17 8 5-3v14l-5-3"/></svg>' },
-  { id:'video-leg',    l:'Video c/legenda',   d:'Assista com legenda em ingles',                  svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="5" y1="10" x2="11" y2="10"/><line x1="5" y1="13" x2="15" y2="13"/></svg>' },
-  { id:'cantar',       l:'Cantar',            d:'Escolha uma musica e cante acompanhando',        svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>' },
-  { id:'transcrever',  l:'Transcrever',       d:'Ouca e escreva a letra sem olhar',               svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>' },
-  { id:'infograficos', l:'3 Infograficos',    d:'Leia 3 infograficos em ingles',                  svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>' },
-  { id:'leitura',      l:'Leitura',           d:'Leia um artigo ou texto medico',                 svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
-  { id:'noticia',      l:'Noticia online',    d:'Leia uma noticia em ingles na internet',         svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0-2 2zm0 0a2 2 0 0 1-2-2V9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>' },
+// PLANNER
+const SK = [
+  { id:'video-sem',    l:'Video s/legenda',   d:'Assista em ingles sem legenda',
+    svg:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="15" height="16" rx="2"/><path d="m17 8 5-3v14l-5-3"/></svg>' },
+  { id:'video-leg',    l:'Video c/legenda',   d:'Assista com legenda em ingles',
+    svg:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="5" y1="10" x2="11" y2="10"/><line x1="5" y1="13" x2="15" y2="13"/></svg>' },
+  { id:'cantar',       l:'Cantar',            d:'Cante acompanhando uma musica',
+    svg:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>' },
+  { id:'transcrever',  l:'Transcrever',       d:'Escreva a letra ao ouvir',
+    svg:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>' },
+  { id:'infograficos', l:'3 Infograficos',    d:'Leia 3 infograficos em ingles',
+    svg:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>' },
+  { id:'leitura',      l:'Leitura',           d:'Leia um artigo ou texto medico',
+    svg:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
+  { id:'noticia',      l:'Noticia',           d:'Leia uma noticia em ingles',
+    svg:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0-2 2Zm0 0a2 2 0 0 1-2-2V9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>' },
 ];
-const SK_BY_ID  = Object.fromEntries(SK_DATA.map(s => [s.id, s]));
-const SG_WEEK   = ['video-sem','leitura','video-leg','noticia','infograficos','cantar','transcrever'];
-const DAY_NAMES = ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'];
+const SK_MAP  = {};
+SK.forEach(function(s){ SK_MAP[s.id]=s; });
+const SG_WEEK = ['video-sem','leitura','video-leg','noticia','infograficos','cantar','transcrever'];
+const DN      = ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'];
 
 let pOff = 0;
 let pData = {
@@ -2057,418 +1975,407 @@ let pData = {
   '2025-05-08':['leitura','transcrever'], '2025-05-08__done':['leitura'],
   '2025-05-09':['infograficos'],          '2025-05-09__done':['infograficos'],
 };
-let pPickerKey = null;
-let pickerEl   = null;
+let pickerEl = null, pickerKey = null;
 
-function pDates(off) {
-  const t=new Date(), dow=t.getDay(), mon=new Date(t);
+function plDates(off) {
+  var t=new Date(), dow=t.getDay(), mon=new Date(t);
   mon.setDate(t.getDate()-dow+(dow===0?-6:1)+off*7);
-  return Array.from({length:7},(_,i)=>{ const d=new Date(mon); d.setDate(mon.getDate()+i); return d; });
+  return Array.from({length:7},function(_,i){ var d=new Date(mon); d.setDate(mon.getDate()+i); return d; });
 }
-function dKey(d) { return d.toISOString().split('T')[0]; }
-function plannerWeek(dir) { pOff+=dir; renderPlanner(); }
+function dKey(d){ return d.toISOString().split('T')[0]; }
+function plannerWeek(dir){ pOff+=dir; renderPlanner(); }
+function plannerToday(){ pOff=0; renderPlanner(); }
 
 function plannerSuggest() {
-  pDates(pOff).forEach((d,i)=>{
-    const k=dKey(d);
+  plDates(pOff).forEach(function(d,i){
+    var k=dKey(d);
     if(!pData[k]||!pData[k].length) pData[k]=[SG_WEEK[i]];
   });
   renderPlanner();
 }
 
-// Usar event delegation em vez de onclick inline
-function plHandleClick(e) {
-  const actIcon = e.target.closest('.pl-act-icon');
-  const addBtn  = e.target.closest('.pl-add-btn');
-  const pickItem= e.target.closest('.pl-picker-item');
-  const pickClose = e.target.closest('.pl-picker-close');
-  if (actIcon) {
-    const key = actIcon.dataset.key, sid = actIcon.dataset.sid;
-    if (key && sid) pToggleDone(key, sid);
-  }
-  if (addBtn) {
-    e.stopPropagation();
-    openPicker(addBtn.dataset.key, addBtn);
-  }
-  if (pickItem) {
-    const key = pickItem.dataset.key, sid = pickItem.dataset.sid;
-    if (key && sid) pAddAct(key, sid);
-  }
-  if (pickClose) closePicker();
-}
-
-function plHandleRightClick(e) {
-  const actIcon = e.target.closest('.pl-act-icon');
-  if (actIcon) {
-    e.preventDefault();
-    const key = actIcon.dataset.key, sid = actIcon.dataset.sid;
-    if (key && sid) { pData[key]=pData[key].filter(s=>s!==sid); renderPlanner(); }
-  }
-}
-
 function pToggleDone(key,sid) {
-  const dk=key+'__done', done=pData[dk]||[];
-  const i=done.indexOf(sid);
+  var dk=key+'__done', done=pData[dk]||[];
+  var i=done.indexOf(sid);
   if(i===-1) done.push(sid); else done.splice(i,1);
   pData[dk]=done; renderPlanner();
 }
-
+function pRemove(key,sid) {
+  if(pData[key]) pData[key]=pData[key].filter(function(s){return s!==sid;});
+  renderPlanner();
+}
 function pAddAct(key,sid) {
   if(!pData[key]) pData[key]=[];
-  if(!pData[key].includes(sid)) pData[key].push(sid);
-  closePicker(); renderPlanner();
+  if(pData[key].indexOf(sid)===-1) pData[key].push(sid);
+  closePlPicker(); renderPlanner();
 }
 
-function openPicker(key, btnEl) {
-  pPickerKey = key;
+/* Picker */
+function openPlPicker(key, btn) {
+  pickerKey = key;
   if (!pickerEl) {
     pickerEl = document.createElement('div');
     pickerEl.className = 'pl-picker';
     document.body.appendChild(pickerEl);
+    pickerEl.addEventListener('click', function(e){
+      var item = e.target.closest('[data-pl-add]');
+      var cls  = e.target.closest('.pl-picker-close-btn');
+      if (cls)  closePlPicker();
+      if (item) pAddAct(item.dataset.plKey, item.dataset.plAdd);
+    });
   }
-  let html = '<div class="pl-picker-title">Adicionar atividade</div><div class="pl-picker-grid">';
-  SK_DATA.forEach(s => {
-    html += '<div class="pl-picker-item" data-key="'+key+'" data-sid="'+s.id+'">'
-          + s.svg + '<span>'+s.l+'</span></div>';
+  var existing = pData[key]||[];
+  var items = '';
+  SK.forEach(function(s){
+    var has = existing.indexOf(s.id)!==-1;
+    items += '<div class="pl-picker-item'+(has?' already':'')+'" data-pl-add="'+s.id+'" data-pl-key="'+key+'">'
+      + s.svg
+      + '<div class="pl-picker-item-info">'
+        + '<div class="pl-picker-item-name">'+s.l+(has?' <span style="color:#4caf50;font-size:.55rem">&#10003; adicionado</span>':'')+'</div>'
+        + '<div class="pl-picker-item-desc">'+s.d+'</div>'
+      + '</div></div>';
   });
-  html += '</div><button class="pl-picker-close">Fechar</button>';
-  pickerEl.innerHTML = html;
-  pickerEl.addEventListener('click', plHandleClick);
-  const rect = btnEl.getBoundingClientRect();
+  pickerEl.innerHTML =
+    '<div class="pl-picker-hdr">'
+      + '<span class="pl-picker-title">Adicionar atividade</span>'
+      + '<button class="pl-picker-close-btn">&#10005;</button>'
+    + '</div>'
+    + '<div class="pl-picker-list">'+items+'</div>';
+
+  var rect = btn.getBoundingClientRect();
   pickerEl.style.top  = (rect.bottom + 8) + 'px';
-  pickerEl.style.left = Math.min(rect.left, window.innerWidth - 256) + 'px';
+  pickerEl.style.left = Math.min(rect.left, window.innerWidth-290) + 'px';
   pickerEl.classList.add('open');
 }
-function closePicker() {
-  if (pickerEl) pickerEl.classList.remove('open');
-  pPickerKey = null;
+function closePlPicker() {
+  if(pickerEl) pickerEl.classList.remove('open');
+  pickerKey = null;
 }
-document.addEventListener('click', e => {
-  if (pickerEl && pickerEl.classList.contains('open') && !pickerEl.contains(e.target) && !e.target.closest('.pl-add-btn')) closePicker();
+document.addEventListener('click', function(e){
+  if(pickerEl && pickerEl.classList.contains('open')
+     && !pickerEl.contains(e.target)
+     && !e.target.closest('.pl-add-btn')) closePlPicker();
 });
 
+/* Render principal */
 function renderPlanner() {
-  const body = document.getElementById('planner-body');
+  var body = document.getElementById('planner-body');
   if (!body) return;
 
-  const dates = pDates(pOff), today = dKey(new Date());
-  const fmt   = d => d.getDate()+'/'+(d.getMonth()+1);
+  var dates   = plDates(pOff);
+  var today   = dKey(new Date());
+  var fmt     = function(d){ return d.getDate()+'/'+(d.getMonth()+1); };
+  var isThisWeek = pOff===0;
 
-  let totalDone=0, totalPlanned=0;
-  dates.forEach(d => {
-    const k=dKey(d);
-    totalPlanned += (pData[k]||[]).length;
-    totalDone    += (pData[k+'__done']||[]).length;
+  /* Progresso */
+  var totalDone=0, totalPlan=0;
+  dates.forEach(function(d){
+    var k=dKey(d);
+    totalPlan += (pData[k]||[]).length;
+    totalDone += (pData[k+'__done']||[]).length;
   });
-  const pct = totalPlanned>0 ? Math.round(totalDone/totalPlanned*100) : 0;
+  var pct = totalPlan>0 ? Math.round(totalDone/totalPlan*100) : 0;
 
-  // Montar HTML dias
-  let daysHTML = '';
-  dates.forEach(d => {
-    const key=dKey(d), acts=pData[key]||[], done=pData[key+'__done']||[], isT=key===today;
-    let actsHTML = '';
-    acts.forEach(sid => {
-      const sk=SK_BY_ID[sid]; if(!sk) return;
-      const isDone=done.includes(sid);
-      actsHTML += '<div class="pl-act-icon '+(isDone?'done':'')+'" data-key="'+key+'" data-sid="'+sid+'">'
-        +sk.svg+'<span class="pl-tip">'+sk.l+(isDone?' v':'')+'</span></div>';
+  /* HTML dos dias */
+  var daysHtml = '';
+  dates.forEach(function(d){
+    var key    = dKey(d);
+    var acts   = pData[key]||[];
+    var done   = pData[key+'__done']||[];
+    var isT    = key===today;
+    var isPast = d < new Date() && !isT;
+
+    var chipsHtml = '';
+    acts.forEach(function(sid){
+      var sk = SK_MAP[sid]; if(!sk) return;
+      var isDone = done.indexOf(sid)!==-1;
+      var checkSvg = isDone
+        ? '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+        : '';
+      chipsHtml +=
+        '<div class="pl-act-chip'+(isDone?' done':'')+'" data-key="'+key+'" data-sid="'+sid+'">'
+          + sk.svg
+          + '<span class="pl-act-chip-label">'+sk.l+'</span>'
+          + '<div class="pl-act-chip-check">'+checkSvg+'</div>'
+          + '<div class="pl-act-remove" data-remove="1" data-key="'+key+'" data-sid="'+sid+'">&#10005;</div>'
+        + '</div>';
     });
-    daysHTML += '<div class="pl-day '+(isT?'today':'')+'">'
-      +'<div class="pl-day-head"><div class="pl-day-lbl">'+DAY_NAMES[d.getDay()]+'</div>'
-      +'<div class="pl-day-num">'+d.getDate()+'</div></div>'
-      +'<div class="pl-acts">'+actsHTML+'</div>'
-      +'<button class="pl-add-btn" data-key="'+key+'">'
-        +'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
-      +'</button>'
-    +'</div>';
+
+    daysHtml +=
+      '<div class="pl-day'+(isT?' today':'')+(isPast?' past':'')+'">'
+        + '<div class="pl-day-head">'
+          + '<div class="pl-day-weekday">'+DN[d.getDay()]+'</div>'
+          + '<div class="pl-day-num">'+d.getDate()+'</div>'
+        + '</div>'
+        + '<div class="pl-acts">'+chipsHtml+'</div>'
+        + '<div class="pl-add-wrap">'
+          + '<button class="pl-add-btn" data-addkey="'+key+'">'
+            + '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
+            + 'Adicionar'
+          + '</button>'
+        + '</div>'
+      + '</div>';
   });
 
-  // Montar legenda
-  let legHTML = '';
-  SK_DATA.forEach(s => {
-    legHTML += '<div class="pl-legend-item"><div class="pl-legend-icon">'+s.svg+'</div>'
-      +'<div class="pl-legend-txt"><div class="pl-legend-name">'+s.l+'</div>'
-      +'<div class="pl-legend-desc">'+s.d+'</div></div></div>';
+  /* HTML da legenda */
+  var legHtml = '';
+  SK.forEach(function(s){
+    legHtml +=
+      '<div class="pl-legend-item">'
+        + '<div class="pl-legend-icon">'+s.svg+'</div>'
+        + '<div><div class="pl-legend-name">'+s.l+'</div>'
+          + '<div class="pl-legend-desc">'+s.d+'</div></div>'
+      + '</div>';
   });
-
-  // Barra de progresso
-  const progHTML = totalPlanned>0
-    ? '<div style="margin-bottom:2rem">'
-      +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">'
-        +'<span style="font-family:Raleway,sans-serif;font-size:.62rem;color:#bbb;letter-spacing:.08em">Progresso desta semana</span>'
-        +'<span style="font-family:Cormorant Garamond,serif;font-size:1rem;font-weight:300;color:#1a1a2e">'+pct+'%</span>'
-      +'</div>'
-      +'<div style="height:4px;background:#e8e4e0;border-radius:4px;overflow:hidden">'
-        +'<div style="height:100%;width:'+pct+'%;background:linear-gradient(to right,#C4A45A,#D4BA7A);border-radius:4px;transition:width .6s ease"></div>'
-      +'</div></div>'
-    : '';
 
   body.innerHTML =
     '<div class="pl-wrap">'
-    +'<div class="pl-hdr">'
-      +'<div class="pl-hdr-left">'
-        +'<div class="pl-hdr-title">Meu <em>Planner</em></div>'
-        +'<div class="pl-hdr-sub">'+(pOff===0?'Esta semana · '+totalDone+' de '+totalPlanned+' concluidas ('+pct+'%)':'Semana de '+fmt(dates[0])+' a '+fmt(dates[6]))+'</div>'
-      +'</div>'
-      +'<div class="pl-hdr-actions">'
-        +'<button class="pl-nav-btn" onclick="plannerWeek(-1)">'
-          +'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>'
-        +'</button>'
-        +'<span class="pl-week-label">'+fmt(dates[0])+' - '+fmt(dates[6])+'</span>'
-        +'<button class="pl-nav-btn" onclick="plannerWeek(1)">'
-          +'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>'
-        +'</button>'
-        +'<button class="pl-suggest-btn" onclick="plannerSuggest()">'
-          +'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'
-          +'Sugerir semana'
-        +'</button>'
-      +'</div>'
-    +'</div>'
-    +progHTML
-    +'<div class="pl-grid" id="pl-grid-el">'+daysHTML+'</div>'
-    +'<div class="pl-legend"><div class="pl-legend-title">Habilidades</div>'
-      +'<div class="pl-legend-grid">'+legHTML+'</div>'
-    +'</div>'
-    +'</div>';
 
-  // Adicionar event delegation no grid
-  const grid = document.getElementById('pl-grid-el');
-  if (grid) {
-    grid.addEventListener('click', plHandleClick);
-    grid.addEventListener('contextmenu', plHandleRightClick);
-  }
+    /* Header */
+    + '<div class="pl-header">'
+      + '<div>'
+        + '<div class="pl-title">Meu <em>Planner</em></div>'
+        + '<div class="pl-subtitle">'
+          + (isThisWeek ? 'Esta semana' : 'Semana de '+fmt(dates[0])+' a '+fmt(dates[6]))
+          + (totalPlan>0 ? ' &middot; '+totalDone+' de '+totalPlan+' concluidas' : '')
+        + '</div>'
+      + '</div>'
+      + '<div class="pl-nav-row">'
+        + '<button class="pl-nav-btn" data-pl="prev">'
+          + '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>'
+        + '</button>'
+        + '<span class="pl-week-range">'+fmt(dates[0])+'  &ndash;  '+fmt(dates[6])+'</span>'
+        + '<button class="pl-nav-btn" data-pl="next">'
+          + '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>'
+        + '</button>'
+        + (!isThisWeek ? '<button class="pl-today-btn" data-pl="today">Hoje</button>' : '')
+        + '<button class="pl-suggest-btn" data-pl="suggest">'
+          + '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'
+          + 'Sugerir'
+        + '</button>'
+      + '</div>'
+    + '</div>'
+
+    /* Progress */
+    + (totalPlan>0
+      ? '<div class="pl-progress">'
+          + '<div class="pl-prog-stat"><div class="pl-prog-num">'+totalDone+'</div><div class="pl-prog-lbl">Feitas</div></div>'
+          + '<div class="pl-prog-stat"><div class="pl-prog-num">'+totalPlan+'</div><div class="pl-prog-lbl">Planejadas</div></div>'
+          + '<div class="pl-prog-bar-wrap">'
+            + '<div class="pl-prog-bar-top">'
+              + '<span class="pl-prog-bar-label">Progresso da semana</span>'
+              + '<span class="pl-prog-pct">'+pct+'%</span>'
+            + '</div>'
+            + '<div class="pl-prog-track"><div class="pl-prog-fill" style="width:'+pct+'%"></div></div>'
+          + '</div>'
+        + '</div>'
+      : '')
+
+    /* Grid */
+    + '<div class="pl-grid" id="pl-grid">'+daysHtml+'</div>'
+
+    /* Legenda */
+    + '<div class="pl-legend">'
+      + '<div class="pl-legend-title">Habilidades</div>'
+      + '<div class="pl-legend-grid">'+legHtml+'</div>'
+    + '</div>'
+
+    + '</div>';
+
+  /* Event delegation */
+  body.addEventListener('click', function(e){
+    /* Nav botões */
+    var pl = e.target.closest('[data-pl]');
+    if (pl) {
+      var a = pl.dataset.pl;
+      if (a==='prev') plannerWeek(-1);
+      if (a==='next') plannerWeek(1);
+      if (a==='today') plannerToday();
+      if (a==='suggest') plannerSuggest();
+      return;
+    }
+    /* Toggle done */
+    var chip = e.target.closest('.pl-act-chip');
+    var rem  = e.target.closest('[data-remove]');
+    if (rem && chip) {
+      e.stopPropagation();
+      pRemove(rem.dataset.key, rem.dataset.sid);
+      return;
+    }
+    if (chip && !rem) {
+      pToggleDone(chip.dataset.key, chip.dataset.sid);
+      return;
+    }
+    /* Add btn */
+    var addBtn = e.target.closest('[data-addkey]');
+    if (addBtn) { openPlPicker(addBtn.dataset.addkey, addBtn); return; }
+  });
 }
 
 // FLASHCARDS
-
-// ── FLASHCARDS ────────────────────────────────────────────
-let fSecs=['vocabulario','frases','termos','anotacoes'];
-let fMode='termo';
-let fDeck=[], fIdx=0, fKnew=14, fSkip=3, fFlip=false;
-
-// SVGs por seção
-const FC_SEC_SVGS = {
-  vocabulario: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
-  frases:      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
-  termos:      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
-  anotacoes:   '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+const FC_ICONS = {
+  vocabulario: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+  frases:      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+  termos:      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  anotacoes:   '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
 };
-const FC_SEC_LABELS = { vocabulario:'Vocabulário', frases:'Frases', termos:'Termos', anotacoes:'Anotações' };
-const FC_SEC_COLORS = { vocabulario:'#C4A45A', frases:'#00BCD4', termos:'#7c6ea0', anotacoes:'#4CAF50' };
+const FC_LABELS = { vocabulario:'Vocabulario', frases:'Frases', termos:'Termos', anotacoes:'Anotacoes' };
+const FC_ACCENT = { vocabulario:'#C4A45A', frases:'#00BCD4', termos:'#7c6ea0', anotacoes:'#4CAF50' };
+const FC_BG     = { vocabulario:'#FFF9F0', frases:'#E0F7FA', termos:'#F3F0FA', anotacoes:'#F1F8E9' };
 
-// SVGs para controles
-const SVG_SKIP    = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>';
-const SVG_KNEW    = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-const SVG_FLIP    = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>';
-const SVG_SHUFFLE = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>';
+const SVG_SKIP = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>';
+const SVG_KNEW = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+const SVG_FLIP = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>';
+const SVG_SHUF = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>';
+
+let fSecs = ['vocabulario','frases','termos','anotacoes'];
+let fMode = 'termo';
+let fDeck = [], fIdx = 0, fKnew = 14, fSkip = 3, fFlip = false;
 
 function buildDeck() {
-  const pool = entradas.filter(e => fSecs.includes(e.secao) && e.traducao && e.traducao.trim());
-  fDeck = [...pool].sort(() => Math.random() - .5);
+  fDeck = entradas
+    .filter(function(e){ return fSecs.indexOf(e.secao)!==-1 && e.traducao && e.traducao.trim(); })
+    .sort(function(){ return Math.random()-0.5; });
   fIdx=0; fKnew=0; fSkip=0; fFlip=false;
+}
+
+// Evento único delegado para toda a área de flash
+function fcHandleClick(e) {
+  const btn = e.target.closest('[data-fc]');
+  if (!btn) return;
+  const action = btn.dataset.fc;
+  if (action === 'sec')    { fTogSec(btn.dataset.v); }
+  if (action === 'mode')   { fSetMode(btn.dataset.v); }
+  if (action === 'flip')   { doFlip(); }
+  if (action === 'skip')   { fNext(false); }
+  if (action === 'knew')   { fNext(true); }
+  if (action === 'shuf')   { fShuf(); }
+  if (action === 'restart'){ fRestart(); }
+  if (action === 'card')   { doFlip(); }
 }
 
 function renderFlash() {
   const body = document.getElementById('flash-body');
   if (!body) return;
 
-  const avail = [...new Set(entradas.filter(e => e.traducao && e.traducao.trim()).map(e => e.secao))];
+  const avail = [];
+  entradas.forEach(function(e){
+    if (e.traducao && e.traducao.trim() && avail.indexOf(e.secao)===-1) avail.push(e.secao);
+  });
 
-  // Filtros de seção com SVG + cor
-  const secFilters = avail.map(s => `
-    <button class="ff-btn ${fSecs.includes(s)?'on':''}" onclick="fTogSec('${s}')">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="${fSecs.includes(s)?'#fff':FC_SEC_COLORS[s]}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        ${FC_SEC_SVGS[s].replace(/<svg[^>]*>/,'').replace('</svg>','')}
-      </svg>
-      ${FC_SEC_LABELS[s]||s}
-    </button>`).join('');
+  // Filtros de seção
+  let secHTML = '';
+  avail.forEach(function(s){
+    const on = fSecs.indexOf(s)!==-1;
+    secHTML += '<button data-fc="sec" data-v="' + s + '" class="ff-btn' + (on?' on':'') + '">'
+      + (FC_ICONS[s]||'') + ' ' + (FC_LABELS[s]||s) + '</button>';
+  });
 
-  // Botões de modo com SVG
-  const modeData = [
-    { id:'termo',     lbl:'Termo → PT',   svg:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>' },
-    { id:'traducao',  lbl:'PT → Termo',   svg:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>' },
-    { id:'aleatorio', lbl:'Aleatório',    svg:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>' },
-  ];
-  const modeBtns = modeData.map(m => `
-    <button class="fm-btn ${fMode===m.id?'on':''}" onclick="fSetMode('${m.id}')">
-      ${m.svg} ${m.lbl}
-    </button>`).join('');
+  // Modos
+  const modes = [{id:'termo',lbl:'Termo &rarr; PT'},{id:'traducao',lbl:'PT &rarr; Termo'},{id:'aleatorio',lbl:'Aleatorio'}];
+  let modeHTML = '';
+  modes.forEach(function(m){
+    modeHTML += '<button data-fc="mode" data-v="' + m.id + '" class="fm-btn' + (fMode===m.id?' on':'') + '">' + m.lbl + '</button>';
+  });
 
   if (!avail.length) {
-    body.innerHTML = `<div class="flash-wrap"><div class="fc-empty">
-      <div class="fc-empty-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-      <h3>Nenhum flashcard disponível</h3>
-      <p>Adicione termos com tradução no seu caderno para criar flashcards automaticamente.</p>
-    </div></div>`;
+    body.innerHTML = '<div class="flash-wrap"><div class="flash-hdr"><div class="flash-hdr-title">Meus <em>Flashcards</em></div></div>'
+      + '<div class="fc-empty"><div class="fc-empty-icon">' + FC_ICONS.vocabulario + '</div>'
+      + '<h3>Nenhum flashcard disponivel</h3>'
+      + '<p>Adicione termos com traducao no caderno para criar flashcards.</p></div></div>';
+    body.addEventListener('click', fcHandleClick);
     return;
   }
 
   if (!fDeck.length) buildDeck();
 
-  const pct = fDeck.length > 0 ? Math.round(fIdx / fDeck.length * 100) : 0;
+  const totalComTrad = entradas.filter(function(e){ return e.traducao&&e.traducao.trim(); }).length;
+  const pct = fDeck.length>0 ? Math.round(fIdx/fDeck.length*100) : 0;
+  const scoreHTML = '<div class="fp-scores">'
+    + '<div class="fp-score-badge green">' + SVG_KNEW + ' ' + fKnew + ' sabia</div>'
+    + '<div class="fp-score-badge orange">' + SVG_SKIP + ' ' + fSkip + ' revisar</div>'
+    + '</div>';
 
-  const scoreHTML = `
-    <div class="fp-scores">
-      <div class="fp-score-badge green">${SVG_KNEW.replace('20','14').replace('20','14')} ${fKnew} sabia</div>
-      <div class="fp-score-badge orange">${SVG_SKIP.replace('20','14').replace('20','14')} ${fSkip} revisar</div>
-    </div>`;
-
-  let mainHTML;
+  let mainHTML = '';
 
   if (fIdx >= fDeck.length) {
-    // Tela de conclusão
-    const tot = fDeck.length;
-    const perc = tot > 0 ? Math.round(fKnew / tot * 100) : 0;
-    const great = perc >= 70;
-    mainHTML = `
-      <div class="fc-done-screen">
-        <div class="fc-done-icon ${great?'great':'keep'}">
-          ${great
-            ? '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
-            : '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>'
-          }
-        </div>
-        <div class="fc-done-title">${great ? 'Excelente!' : 'Continue praticando!'}</div>
-        <div class="fc-done-sub">${great
-          ? 'Você demonstrou ótimo domínio do vocabulário desta sessão.'
-          : 'Cada repetição fortalece a memória. Tente novamente!'
-        }</div>
-        <div class="fc-done-stats">
-          <div class="fc-ds">
-            <div class="fc-ds-num" style="color:#2e7d32">${fKnew}</div>
-            <div class="fc-ds-lbl">Sabia</div>
-          </div>
-          <div class="fc-ds">
-            <div class="fc-ds-num" style="color:#e65100">${fSkip}</div>
-            <div class="fc-ds-lbl">Revisar</div>
-          </div>
-          <div class="fc-ds">
-            <div class="fc-ds-num" style="color:#1a1a2e">${perc}%</div>
-            <div class="fc-ds-lbl">Acerto</div>
-          </div>
-        </div>
-        <button class="fc-restart-btn" onclick="fRestart()">
-          ${SVG_SHUFFLE} Repetir baralho
-        </button>
-      </div>`;
+    const tot=fDeck.length, perc=tot>0?Math.round(fKnew/tot*100):0, great=perc>=70;
+    const doneIco = great
+      ? '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+      : '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>';
+    mainHTML = '<div class="fc-done-screen">'
+      + '<div class="fc-done-icon ' + (great?'great':'keep') + '">' + doneIco + '</div>'
+      + '<div class="fc-done-title">' + (great?'Excelente!':'Continue praticando!') + '</div>'
+      + '<div class="fc-done-sub">' + (great?'Otimo dominio do vocabulario nesta sessao.':'Cada repeticao fortalece a memoria!') + '</div>'
+      + '<div class="fc-done-stats">'
+        + '<div class="fc-ds"><div class="fc-ds-num" style="color:#2e7d32">' + fKnew + '</div><div class="fc-ds-lbl">Sabia</div></div>'
+        + '<div class="fc-ds"><div class="fc-ds-num" style="color:#e65100">' + fSkip + '</div><div class="fc-ds-lbl">Revisar</div></div>'
+        + '<div class="fc-ds"><div class="fc-ds-num">' + perc + '%</div><div class="fc-ds-lbl">Acerto</div></div>'
+      + '</div>'
+      + '<button data-fc="restart" class="fc-restart-btn">' + SVG_SHUF + ' Repetir baralho</button>'
+      + '</div>';
   } else {
-    // Card atual
     const entry = fDeck[fIdx];
     const sec   = entry.secao;
-    const mode  = fMode === 'aleatorio' ? (entry._m || (entry._m = Math.random()>.5?'termo':'traducao')) : fMode;
-    const front = mode === 'termo' ? entry.termo    : entry.traducao;
-    const back  = mode === 'termo' ? entry.traducao : entry.termo;
-    const frontL = mode === 'termo' ? 'Termo' : 'Tradução';
-    const backL  = mode === 'termo' ? 'Tradução' : 'Termo';
+    const mode  = fMode==='aleatorio' ? (entry._m||(entry._m=Math.random()>.5?'termo':'traducao')) : fMode;
+    const front = mode==='termo' ? entry.termo    : entry.traducao;
+    const back  = mode==='termo' ? entry.traducao : entry.termo;
+    const fL    = mode==='termo' ? 'Termo'        : 'Traducao';
+    const bL    = mode==='termo' ? 'Traducao'     : 'Termo';
+    const acc   = FC_ACCENT[sec]||'#C4A45A';
+    const bg    = FC_BG[sec]||'#FFF9F0';
 
-    mainHTML = `
-      <!-- Card 3D -->
-      <div class="fc-scene ${fFlip?'flipped':''}" id="fc-card" onclick="doFlip()">
-        <div class="fc-inner">
-
-          <!-- Frente -->
-          <div class="fc-face fc-front sec-${sec}">
-            <div class="fc-sec-icon sec-${sec}">
-              ${FC_SEC_SVGS[sec]||''}
-            </div>
-            <div class="fc-face-label">${frontL}</div>
-            <div class="fc-term">${front}</div>
-            <div class="fc-hint">
-              ${SVG_FLIP}
-              Clique para revelar
-            </div>
-          </div>
-
-          <!-- Verso -->
-          <div class="fc-face fc-back">
-            <div class="fc-face-label">${backL}</div>
-            <div class="fc-term">${back}</div>
-            ${entry.exemplo ? '<div class="fc-exemplo">'+entry.exemplo+'</div>' : ''}
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Controles -->
-      <div class="fc-controls">
-        <div class="fc-skip" onclick="fNext(false)">
-          <div class="fc-skip-btn">${SVG_SKIP}</div>
-          <span class="fc-skip-lbl">Revisar</span>
-        </div>
-
-        <div class="fc-flip-btn" onclick="doFlip()">
-          <div class="fc-flip-circle">${SVG_FLIP}</div>
-          <span class="fc-flip-lbl">Virar</span>
-        </div>
-
-        <div class="fc-knew" onclick="fNext(true)">
-          <div class="fc-knew-btn">${SVG_KNEW}</div>
-          <span class="fc-knew-lbl">Sabia!</span>
-        </div>
-      </div>
-
-      <button class="fc-shuffle" onclick="fShuf()">${SVG_SHUFFLE} Embaralhar</button>
-    `;
+    mainHTML =
+      '<div data-fc="card" class="fc-scene' + (fFlip?' flipped':'') + '" id="fc-card">'
+      + '<div class="fc-inner">'
+        + '<div class="fc-face fc-front" style="border-top:3px solid ' + acc + '">'
+          + '<div class="fc-sec-icon" style="background:' + bg + ';border:1.5px solid ' + acc + ';color:' + acc + '">' + (FC_ICONS[sec]||'') + '</div>'
+          + '<div class="fc-face-label">' + fL + '</div>'
+          + '<div class="fc-term">' + front + '</div>'
+          + '<div class="fc-hint">' + SVG_FLIP + ' Clique para revelar</div>'
+        + '</div>'
+        + '<div class="fc-face fc-back">'
+          + '<div class="fc-face-label">' + bL + '</div>'
+          + '<div class="fc-term" style="color:var(--gold-light)">' + back + '</div>'
+          + (entry.exemplo ? '<div class="fc-exemplo">' + entry.exemplo + '</div>' : '')
+        + '</div>'
+      + '</div></div>'
+      + '<div class="fc-controls">'
+        + '<div data-fc="skip" class="fc-skip"><div class="fc-skip-btn">' + SVG_SKIP + '</div><span class="fc-skip-lbl">Revisar</span></div>'
+        + '<div data-fc="flip" class="fc-flip-btn"><div class="fc-flip-circle">' + SVG_FLIP + '</div><span class="fc-flip-lbl">Virar</span></div>'
+        + '<div data-fc="knew" class="fc-knew"><div class="fc-knew-btn">' + SVG_KNEW + '</div><span class="fc-knew-lbl">Sabia!</span></div>'
+      + '</div>'
+      + '<button data-fc="shuf" class="fc-shuffle">' + SVG_SHUF + ' Embaralhar</button>';
   }
 
-  body.innerHTML = `
-    <div class="flash-wrap">
+  body.innerHTML =
+    '<div class="flash-wrap">'
+    + '<div class="flash-hdr">'
+      + '<div class="flash-hdr-left"><div class="flash-hdr-title">Meus <em>Flashcards</em></div>'
+        + '<div class="flash-hdr-sub">' + fDeck.length + ' cards &middot; ' + totalComTrad + ' com traducao</div></div>'
+      + '<div class="flash-modes">' + modeHTML + '</div>'
+    + '</div>'
+    + '<div class="flash-filters" style="margin-bottom:1.8rem"><span class="ff-label">Secoes</span>' + secHTML + '</div>'
+    + (fIdx < fDeck.length
+        ? '<div class="flash-progress"><div class="fp-row"><span class="fp-count">' + (fIdx+1) + ' <span style="color:#ccc;font-size:.8rem">/ ' + fDeck.length + '</span></span><span class="fp-pct">' + pct + '% concluido</span></div><div class="fp-bar"><div class="fp-fill" style="width:' + pct + '%"></div></div>' + scoreHTML + '</div>'
+        : '')
+    + mainHTML
+    + '</div>';
 
-      <!-- Header -->
-      <div class="flash-hdr">
-        <div class="flash-hdr-left">
-          <div class="flash-hdr-title">Meus <em>Flashcards</em></div>
-          <div class="flash-hdr-sub">${fDeck.length} cards disponíveis · ${entradas.filter(e=>e.traducao&&e.traducao.trim()).length} com tradução</div>
-        </div>
-        <div class="flash-modes">${modeBtns}</div>
-      </div>
-
-      <!-- Filtros -->
-      <div class="flash-filters" style="margin-bottom:1.8rem">
-        <span class="ff-label">Seções</span>
-        ${secFilters}
-      </div>
-
-      <!-- Progresso -->
-      ${fIdx < fDeck.length ? `
-      <div class="flash-progress">
-        <div class="fp-row">
-          <span class="fp-count">${fIdx + 1} <span style="color:#ccc;font-size:.8rem">/ ${fDeck.length}</span></span>
-          <span class="fp-pct">${pct}% concluído</span>
-        </div>
-        <div class="fp-bar"><div class="fp-fill" style="width:${pct}%"></div></div>
-        ${scoreHTML}
-      </div>` : ''}
-
-      ${mainHTML}
-    </div>`;
+  body.addEventListener('click', fcHandleClick);
 }
 
 function fTogSec(s) {
-  const i = fSecs.indexOf(s);
+  const i=fSecs.indexOf(s);
   if (i===-1) fSecs.push(s);
-  else if (fSecs.length > 1) fSecs.splice(i,1);
-  buildDeck();
-  renderFlash();
+  else if (fSecs.length>1) fSecs.splice(i,1);
+  buildDeck(); renderFlash();
 }
-function fSetMode(m) { fMode=m; fDeck.forEach(e=>delete e._m); renderFlash(); }
-function doFlip() {
-  fFlip = !fFlip;
-  const card = document.getElementById('fc-card');
-  if (card) card.classList.toggle('flipped');
-}
-function fNext(knew) {
-  if (knew) fKnew++; else fSkip++;
-  fFlip = false;
-  fIdx++;
-  renderFlash();
-}
-function fShuf() {
-  fDeck.sort(() => Math.random()-.5);
-  fIdx=0; fKnew=0; fSkip=0; fFlip=false;
-  renderFlash();
-}
-function fRestart() { buildDeck(); renderFlash(); }
+function fSetMode(m) { fMode=m; fDeck.forEach(function(e){delete e._m;}); renderFlash(); }
+function doFlip()    { fFlip=!fFlip; const c=document.getElementById('fc-card'); if(c) c.classList.toggle('flipped'); }
+function fNext(k)    { if(k) fKnew++; else fSkip++; fFlip=false; fIdx++; renderFlash(); }
+function fShuf()     { fDeck.sort(function(){return Math.random()-.5;}); fIdx=0;fKnew=0;fSkip=0;fFlip=false; renderFlash(); }
+function fRestart()  { buildDeck(); renderFlash(); }
 
 // TOUR
 const TOUR=[
