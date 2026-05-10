@@ -368,7 +368,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 #tour-ov{display:none;position:fixed;inset:0;z-index:9999;background:rgba(26,26,46,.6);backdrop-filter:blur(2px);}
 #tour-ov.on{display:flex;align-items:center;justify-content:center;}
 #tour-card{background:#fff;border-radius:20px;padding:2rem;max-width:340px;width:90%;box-shadow:0 24px 60px rgba(0,0,0,.2);text-align:center;}
-.t-ico{font-size:2.2rem;margin-bottom:.8rem;}
+.t-ico{width:52px;height:52px;margin:0 auto .9rem;display:flex;align-items:center;justify-content:center;background:rgba(196,164,90,.08);border:1.5px solid rgba(196,164,90,.2);border-radius:14px;color:#1a1a2e;}
 .t-step{font-family:'Raleway',sans-serif;font-size:8px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;}
 .t-ttl{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;color:#1a1a2e;margin-bottom:.5rem;}
 .t-desc{font-family:'Raleway',sans-serif;font-size:.72rem;color:#666;line-height:1.65;margin-bottom:1.4rem;}
@@ -590,7 +590,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 </div>
 
 <!-- TOUR -->
-<div id="tour-ov"><div id="tour-card"><div class="t-ico" id="t-ico">👋</div><div class="t-step" id="t-step">Passo 1 de 5</div><div class="t-ttl" id="t-ttl">Bem-vindo</div><div class="t-desc" id="t-desc">Descricao.</div><div class="t-dots" id="t-dots"></div><div class="t-btns"><button class="t-skip" onclick="fecharTour()">Pular</button><button class="t-next" onclick="tourNext()">Proximo</button></div></div></div>
+<div id="tour-ov"><div id="tour-card"><div class="t-ico" id="t-ico"></div><div class="t-step" id="t-step">Passo 1 de 5</div><div class="t-ttl" id="t-ttl">Bem-vindo</div><div class="t-desc" id="t-desc">Descricao.</div><div class="t-dots" id="t-dots"></div><div class="t-btns"><button class="t-skip" onclick="fecharTour()">Pular</button><button class="t-next" onclick="tourNext()">Proximo</button></div></div></div>
 
 <script>
 // HERO
@@ -851,15 +851,15 @@ function fRestart(){buildDeck();renderFlash();}
 
 // TOUR
 const TOUR=[
-  {i:'👋',t:'Bem-vindo ao seu Caderno',d:'Seu espaco pessoal de aprendizado. Registre vocabulario, frases e termos clinicos das suas aulas.'},
-  {i:'✏️',t:'Nova entrada',d:'Clique em "Nova entrada" para adicionar um termo, frase ou anotacao. Traducao e exemplo sao opcionais.'},
-  {i:'🗂️',t:'Secoes',d:'Navegue pelas secoes na barra de cima. Voce pode criar novas secoes personalizadas.'},
-  {i:'📅',t:'Planner e Flashcards',d:'Use as abas na lateral direita para abrir o Planner Semanal ou seus Flashcards. Voce pode arrastar as janelas para qualquer posicao.'},
-  {i:'⬇️',t:'Download',d:'Clique no icone de download para exportar todo o conteudo do caderno.'},
+  {i:"<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2\"/><path d=\"M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2\"/><path d=\"M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8\"/><path d=\"M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15\"/></svg>",t:'Bem-vindo ao seu Caderno',d:'Seu espaco pessoal de aprendizado. Registre vocabulario, frases e termos clinicos das suas aulas.'},
+  {i:"<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 20h9\"/><path d=\"M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z\"/></svg>",t:'Nova entrada',d:'Clique em "Nova entrada" para adicionar um termo, frase ou anotacao. Traducao e exemplo sao opcionais.'},
+  {i:"<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z\"/></svg>",t:'Secoes',d:'Navegue pelas secoes na barra de cima. Voce pode criar novas secoes personalizadas.'},
+  {i:"<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><line x1=\"16\" y1=\"2\" x2=\"16\" y2=\"6\"/><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"6\"/><line x1=\"3\" y1=\"10\" x2=\"21\" y2=\"10\"/></svg>",t:'Planner e Flashcards',d:'Use as abas na lateral direita para abrir o Planner Semanal ou seus Flashcards. Voce pode arrastar as janelas para qualquer posicao.'},
+  {i:"<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><polyline points=\"7 10 12 15 17 10\"/><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"/></svg>",t:'Download',d:'Clique no icone de download para exportar todo o conteudo do caderno.'},
 ];
 let tIdx=0;
 function initTour(){if(localStorage.getItem('mdtalk_tour_ok'))return;setTimeout(()=>{renderTourStep();document.getElementById('tour-ov').classList.add('on');},1200);}
-function renderTourStep(){const s=TOUR[tIdx],n=TOUR.length;document.getElementById('t-ico').textContent=s.i;document.getElementById('t-step').textContent='Passo '+(tIdx+1)+' de '+n;document.getElementById('t-ttl').textContent=s.t;document.getElementById('t-desc').textContent=s.d;document.getElementById('t-dots').innerHTML=TOUR.map((_,i)=>'<div class="t-dot '+(i===tIdx?'on':'')+'"></div>').join('');document.querySelector('.t-next').textContent=tIdx===n-1?'Comecar':'Proximo';}
+function renderTourStep(){const s=TOUR[tIdx],n=TOUR.length;document.getElementById('t-ico').innerHTML=s.i;document.getElementById('t-step').textContent='Passo '+(tIdx+1)+' de '+n;document.getElementById('t-ttl').textContent=s.t;document.getElementById('t-desc').textContent=s.d;document.getElementById('t-dots').innerHTML=TOUR.map((_,i)=>'<div class="t-dot '+(i===tIdx?'on':'')+'"></div>').join('');document.querySelector('.t-next').textContent=tIdx===n-1?'Comecar':'Proximo';}
 function tourNext(){tIdx++;if(tIdx>=TOUR.length)fecharTour();else renderTourStep();}
 function fecharTour(){document.getElementById('tour-ov').classList.remove('on');localStorage.setItem('mdtalk_tour_ok','1');}
 
