@@ -32,7 +32,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 #hero-content{position:relative;z-index:10;text-align:center;padding:2rem 1.5rem;max-width:720px;opacity:0;transform:translateY(28px);transition:opacity 1s ease .5s,transform 1s ease .5s;}
 #hero-content.visible{opacity:1;transform:translateY(0);}
 .overline{font-family:'Raleway',sans-serif;font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;display:block;}
-.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(4.5rem,12vw,9rem);font-weight:400;line-height:.95;color:var(--cream);}
+/* hero-name redefinido em HERO META */
 .hero-divider{width:40px;height:1px;background:rgba(196,164,90,.5);margin:1.4rem auto 1.2rem;}
 .hero-info{font-family:'Raleway',sans-serif;font-size:.7rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:.9rem;}
 .hero-info .sep{width:3px;height:3px;background:var(--gold);border-radius:50%;opacity:.6;}
@@ -48,6 +48,88 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 #loading-state.hidden{opacity:0;pointer-events:none;}
 .loading-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;animation:fIO 1.9s ease-in-out infinite;}
 @keyframes fIO{0%,100%{opacity:.15}50%{opacity:.75}}
+
+/* ── HERO META (canto sup. esq.) ── */
+#hero-meta {
+  position: absolute;
+  top: 2rem;
+  left: 2.5rem;
+  z-index: 20;
+  opacity: 0;
+  animation: htAppear 1s ease 1.2s forwards;
+}
+.m-overline {
+  font-family: 'Raleway', sans-serif;
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: .35rem;
+}
+.m-info {
+  font-family: 'Raleway', sans-serif;
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+}
+.m-sep {
+  display: inline-block;
+  width: 3px; height: 3px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: .5;
+  margin: 0 8px;
+  vertical-align: middle;
+}
+#m-clock {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  letter-spacing: .2em;
+  color: rgba(255,255,255,.7);
+  margin-top: .35rem;
+}
+.m-clima {
+  font-family: 'Raleway', sans-serif;
+  font-size: .55rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: .6;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: .3rem;
+}
+#hero-meta-row { margin-top: .1rem; }
+
+/* ── NOME MENOR ── */
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--cream);
+  letter-spacing: -.01em;
+}
+
+/* hero-content sem overline e sem info */
+#hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  max-width: 600px;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1s ease .5s, transform 1s ease .5s;
+}
+#hero-content.visible { opacity:1; transform:translateY(0); }
 
 /* BARRA DE TRADUÇÃO NO HERO */
 #hero-translator {
@@ -1487,7 +1569,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   box-shadow:0 0 6px 2px var(--dot-glow,rgba(0,0,0,.1));
   animation:orbitDot var(--orbit-dur,3s) linear infinite;
 }
-@keyframes orbitDot { 0%{transform:rotate(0deg) translateX(23px)} 100%{transform:rotate(360deg) translateX(23px)} }
+
 .plr-sk-icon {
   width:38px; height:38px; border-radius:11px;
   display:flex; align-items:center; justify-content:center;
@@ -1693,6 +1775,71 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .fc-instr-text strong { color:#1a1a2e;font-weight:700; }
 .fc-instr-text em { color:var(--gold);font-style:normal;font-weight:600; }
 
+/* ── ÍCONES PLANNER: navy fundo, branco, hover glow ── */
+.plr-act-icon-box {
+  border-radius:13px;
+  background: #0B1D3A;
+  display:flex; align-items:center; justify-content:center;
+  color:#fff;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  cursor:pointer;
+  flex-shrink:0;
+}
+.plr-act-header:hover .plr-act-icon-box {
+  transform: scale(1.1) rotate(-4deg);
+  box-shadow: 0 8px 24px rgba(11,29,58,.35);
+  background: #163158;
+}
+.plr-act-item.done .plr-act-icon-box {
+  background: #4CAF50;
+  box-shadow: 0 4px 14px rgba(76,175,80,.35);
+}
+
+/* Sidebar skill icon */
+.plr-sk-icon {
+  width:40px; height:40px; border-radius:12px;
+  background:#0B1D3A; color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.plr-sk-item:hover .plr-sk-icon {
+  transform: scale(1.12) rotate(-5deg);
+  box-shadow: 0 8px 20px rgba(11,29,58,.3);
+  background: #163158;
+}
+
+/* Picker icon */
+.plr-picker-ico {
+  width:34px; height:34px; border-radius:10px;
+  background:#0B1D3A; color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  transition: transform .2s ease, background .2s ease;
+}
+.plr-picker-item:hover .plr-picker-ico {
+  transform: scale(1.1);
+  background:#163158;
+}
+
+/* Legenda icon */
+.plr-legend-ico-inner {
+  width:36px; height:36px; border-radius:11px;
+  background:#0B1D3A; color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.plr-legend-item:hover .plr-legend-ico-inner {
+  transform: scale(1.12) rotate(-4deg);
+  box-shadow: 0 6px 18px rgba(11,29,58,.28);
+  background: #163158;
+}
+
+/* Remover orbitais */
+.plr-act-orbital, .plr-act-orbital-ring, .plr-sk-orbital, .plr-sk-orbital-ring,
+.plr-legend-ico-ring { display:none !important; }
+
 @media(max-width:700px){.pl-grid{grid-template-columns:repeat(2,1fr);}#caderno-nav .nav-brand{display:none;}#search-input{width:120px;}}
 </style>
 </head>
@@ -1703,13 +1850,24 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   <div id="loading-state"><div style="display:flex;flex-direction:column;align-items:center;gap:14px;"><span class="loading-logo">MD Talk</span><div style="width:40px;height:1px;background:var(--gold);opacity:.3;"></div></div></div>
   <div id="hero-bg"></div><div id="hero-overlay"></div><div id="hero-dots"></div>
   <div class="geo geo-ring"></div><div class="geo geo-ring-2"></div><div class="geo geo-diamond"></div><div class="geo geo-line"></div>
+  <!-- INFO CANTO SUPERIOR ESQUERDO -->
+  <div id="hero-meta">
+    <div id="hero-meta-top">
+      <span id="m-overline" class="m-overline">Boa noite</span>
+    </div>
+    <div id="hero-meta-row">
+      <span id="m-city" class="m-info">Sao Paulo</span>
+      <span class="m-sep"></span>
+      <span id="m-temp" class="m-info">--°C</span>
+      <span class="m-sep"></span>
+      <span id="m-cond" class="m-info">Carregando</span>
+    </div>
+    <div id="m-clock" class="m-clock">00:00:00</div>
+    <div class="m-clima"><span class="clima-dot"></span><span>Clima ao vivo</span></div>
+  </div>
+
   <div id="hero-content">
-    <span class="overline" id="g-overline">Boa noite,</span>
     <h1 class="hero-name" id="s-name">Thaiana</h1>
-    <div class="hero-divider"></div>
-    <div class="hero-info"><span id="i-city">Sao Paulo</span><span class="sep"></span><span id="i-temp">--</span><span class="sep"></span><span id="i-cond">Carregando</span></div>
-    <div id="clock">00:00:00</div>
-    <div class="clima-label"><span class="clima-dot"></span><span>Clima ao vivo</span></div>
   </div>
 
   <!-- TRADUTOR NO HERO -->
@@ -1884,6 +2042,18 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   </div>
 </div>
 
+<!-- PLANNER SIDEBAR -->
+<div id="plr-overlay-static" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.25);backdrop-filter:blur(2px);z-index:550;" onclick="plCloseSidebar()"></div>
+<div id="plr-sidebar-static" class="plr-sidebar">
+  <!-- conteúdo preenchido por renderSidebarStatic() -->
+</div>
+<button id="plr-sidebar-btn" class="plr-sidebar-toggle" onclick="plToggleSidebar()">
+  <div class="hb-line"></div>
+  <div class="hb-line"></div>
+  <div class="hb-line"></div>
+  <span class="hb-label">Habilidades</span>
+</button>
+
 <!-- CADERNO NAV -->
 
 
@@ -1923,7 +2093,7 @@ function dUrl(id){return"https://drive.google.com/thumbnail?id="+id+"&sz=w1920";
 function selImg(c,h){const r=c>=51,cl=c>=1&&c<51;if(h>=5&&h<8)return r?"amanhecer-chuva":"amanhecer-limpo";if(h>=8&&h<17)return r?"dia-chuva":cl?"dia-nublado":"dia-ensolarado";if(h>=17&&h<20)return"por-do-sol";return r?"noite-chuva":"noite-limpa";}
 function greet(h){return h>=5&&h<12?"Bom dia,":h>=12&&h<18?"Boa tarde,":"Boa noite,";}
 function wDesc(c){return c===0?"Ceu limpo":c<=3?"Parcialmente nublado":c<=48?"Nublado":c<=67?"Chuva":"Tempestade";}
-function clock(){function t(){const n=new Date();document.getElementById("clock").textContent=[n.getHours(),n.getMinutes(),n.getSeconds()].map(v=>String(v).padStart(2,"0")).join(":");}t();setInterval(t,1000);}
+function clock(){function t(){const n=new Date();const el=document.getElementById("m-clock");if(!el)return;el.textContent=[n.getHours(),n.getMinutes(),n.getSeconds()].map(v=>String(v).padStart(2,"0")).join(":");}t();setInterval(t,1000);}
 async function getWeather(city){
   const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:200,system:"Return ONLY valid JSON. Format: {\"lat\":number,\"lon\":number}",messages:[{role:"user",content:city}]})});
   const d=await r.json();
@@ -1937,21 +2107,42 @@ async function initHero(){
   const name=sessionStorage.getItem("mdtalk_student_name")||"Thaiana";
   const city=sessionStorage.getItem("mdtalk_student_city")||"Sao Paulo";
   const h=new Date().getHours();
-  document.getElementById("g-overline").textContent=greet(h);
-  document.getElementById("s-name").textContent=name;
-  document.getElementById("i-city").textContent=city;
+  // IDs novos (canto sup. esq.)
+  const setEl=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  setEl("m-overline", greet(h));
+  setEl("s-name", name);
+  setEl("m-city", city);
   clock();
-  let code=0,temp="--";
-  try{const w=await getWeather(city);code=w.code;temp=w.temp;}catch(e){}
-  document.getElementById("i-temp").textContent=temp+"C";
-  document.getElementById("i-cond").textContent=wDesc(code);
-  const key=selImg(code,h);
+  // Carregar imagem ANTES do clima para não bloquear
+  const codeFallback=0;
+  const key=selImg(codeFallback,h);
   const bg=document.getElementById("hero-bg");
   const img=new Image();
   img.onload=()=>{bg.style.backgroundImage="url('"+dUrl(IMG[key])+"')";bg.classList.add("loaded");};
   img.onerror=()=>{bg.style.background="radial-gradient(ellipse at 50% 30%,#163158 0%,#050D1A 70%)";bg.classList.add("loaded");};
   img.src=dUrl(IMG[key]);
-  setTimeout(()=>{document.getElementById("loading-state").classList.add("hidden");document.getElementById("hero-content").classList.add("visible");const ht=document.getElementById("hero-translator");if(ht)ht.classList.add("visible");},600);
+  setTimeout(()=>{
+    document.getElementById("loading-state").classList.add("hidden");
+    document.getElementById("hero-content").classList.add("visible");
+    const hm=document.getElementById("hero-meta");if(hm)hm.style.opacity="1";
+    const ht=document.getElementById("hero-translator");if(ht)ht.classList.add("visible");
+  },600);
+  // Clima em paralelo — atualiza quando chegar
+  try{
+    const w=await getWeather(city);
+    setEl("m-temp", w.temp+"°C");
+    setEl("m-cond", wDesc(w.code));
+    // Atualizar imagem com clima real se diferente
+    const keyReal=selImg(w.code,h);
+    if(keyReal!==key){
+      const img2=new Image();
+      img2.onload=()=>{bg.style.backgroundImage="url('"+dUrl(IMG[keyReal])+"')";};
+      img2.src=dUrl(IMG[keyReal]);
+    }
+  }catch(e){
+    setEl("m-temp","--°C");
+    setEl("m-cond","");
+  }
 }
 initHero();
 
@@ -2626,26 +2817,25 @@ function plDayRange(){
 }
 
 // Orbital HTML helper
-function orbitalHtml(sk, size, ringSize){
-  var s = size||42, r = ringSize||52;
-  return '<div class="plr-act-orbital" style="width:'+r+'px;height:'+r+'px">'
-    +'<div class="plr-act-orbital-ring" style="--dot-color:'+sk.dot+';--dot-glow:'+sk.glow+';--orbit-dur:'+sk.dur+'"></div>'
-    +'<div class="plr-act-icon-box" style="width:'+s+'px;height:'+s+'px;background:'+sk.bg+';color:'+sk.clr+'">'+sk.svg+'</div>'
-    +'</div>';
+function orbitalHtml(sk, size){
+  var s = size||42;
+  return '<div class="plr-act-icon-box" style="width:'+s+'px;height:'+s+'px">'+sk.svg+'</div>';
 }
 
 // Sidebar
 function plToggleSidebar(){
   plSidebarOpen=!plSidebarOpen;
-  var sb=document.getElementById('plr-sidebar');
-  var ov=document.getElementById('plr-overlay');
-  if(sb){ sb.classList.toggle('open',plSidebarOpen); }
-  if(ov){ ov.classList.toggle('on',plSidebarOpen); }
+  var sb=document.getElementById('plr-sidebar-static');
+  var ov=document.getElementById('plr-overlay-static');
+  if(sb){ sb.classList.toggle('open',plSidebarOpen); sb.innerHTML=renderSidebar(); }
+  if(ov){ ov.style.display=plSidebarOpen?'block':'none'; }
 }
 function plCloseSidebar(){
   plSidebarOpen=false;
-  var sb=document.getElementById('plr-sidebar');var ov=document.getElementById('plr-overlay');
-  if(sb) sb.classList.remove('open'); if(ov) ov.classList.remove('on');
+  var sb=document.getElementById('plr-sidebar-static');
+  var ov=document.getElementById('plr-overlay-static');
+  if(sb) sb.classList.remove('open');
+  if(ov) ov.style.display='none';
 }
 
 // Actions
@@ -2693,7 +2883,7 @@ function plOpenPicker(key,btn){
   SKL.forEach(function(s){
     var has=ex.indexOf(s.id)!==-1;
     items+='<div class="plr-picker-item'+(has?' has':'')+'" data-pl-add="'+s.id+'" data-pl-key="'+key+'">'
-      +'<div style="width:32px;height:32px;border-radius:9px;background:'+s.bg+';display:flex;align-items:center;justify-content:center;color:'+s.clr+';flex-shrink:0">'+s.svg+'</div>'
+      +'<div class="plr-picker-ico">'+s.svg+'</div>'
       +'<div><div class="plr-picker-item-name">'+s.l+(has?' <span style="color:#66bb6a;font-size:.58rem">adicionado</span>':'')+'</div>'
         +'<div class="plr-picker-item-tip">'+s.tip+'</div></div>'
       +'</div>';
@@ -2720,12 +2910,7 @@ function renderPlanner(){
     return '<button class="plr-view-btn'+(plView===v?' on':'')+'" data-pl-view="'+v+'">'+l+'</button>';
   }).join('')+'</div>';
 
-  var html='<div id="plr-overlay"></div>'
-    +'<div id="plr-sidebar" class="plr-sidebar'+(plSidebarOpen?' open':'')+'">'+renderSidebar()+'</div>'
-    +'<button class="plr-sidebar-toggle" onclick="plToggleSidebar()">'
-      +'<div class="hb-line"></div><div class="hb-line"></div><div class="hb-line"></div>'
-      +'<span class="hb-label">Habilidades</span>'
-    +'</button>'
+  var html=''
     +'<div class="plr">'
       +'<div class="plr-head">'
         +'<div><div class="plr-title">Meu <em>Planner</em></div>'
@@ -2765,7 +2950,7 @@ function renderSidebar(){
     items+='<div class="plr-sk-item">'
       +'<div class="plr-sk-orbital" style="width:50px;height:50px">'
         +'<div class="plr-sk-orbital-ring" style="--dot-color:'+s.dot+';--dot-glow:'+s.glow+';--orbit-dur:'+s.dur+'"></div>'
-        +'<div class="plr-sk-icon" style="width:38px;height:38px;border-radius:11px;background:'+s.bg+';color:'+s.clr+'">'+s.svg+'</div>'
+        +'<div class="plr-sk-icon">'+s.svg+'</div>'
       +'</div>'
       +'<div class="plr-sk-info"><div class="plr-sk-name">'+s.l+'</div><div class="plr-sk-why">'+s.why+'</div></div>'
       +'</div>';
@@ -2893,10 +3078,7 @@ function renderPlannerCal(view){
 function renderPlannerLegend(){
   var items=SKL.map(function(s){
     return '<div class="plr-legend-item">'
-      +'<div class="plr-legend-ico" style="width:46px;height:46px">'
-        +'<div class="plr-legend-ico-ring" style="--dot-color:'+s.dot+';--dot-glow:'+s.glow+';--orbit-dur:'+s.dur+'"></div>'
-        +'<div class="plr-legend-ico-inner" style="background:'+s.bg+';color:'+s.clr+'">'+s.svg+'</div>'
-      +'</div>'
+      +'<div class="plr-legend-ico-inner">'+s.svg+'</div>'
       +'<div><div class="plr-legend-name">'+s.l+'</div><div class="plr-legend-desc">'+s.tip+'</div></div>'
     +'</div>';
   }).join('');
