@@ -368,27 +368,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 
 /* Curvas nas laterais da aba ativa */
 .ctab::before,
-.ctab::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  width: 16px;
-  height: 16px;
-  pointer-events: none;
-  z-index: 4;
-}
-.ctab::before {
-  left: -15px;
-  background: radial-gradient(circle at 100% 0%, transparent 69%, #F5F2EE 70%);
-  opacity: 0;
-}
-.ctab::after {
-  right: -15px;
-  background: radial-gradient(circle at 0% 0%, transparent 69%, #F5F2EE 70%);
-  opacity: 0;
-}
-.ctab.active::before,
-.ctab.active::after { opacity: 1; }
+.ctab::after { display: none; }
 
 /* Favicon */
 .ctab-fav {
