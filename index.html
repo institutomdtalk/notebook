@@ -141,7 +141,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   background: rgba(196,164,90,.15);
   border: 1px solid rgba(196,164,90,.3);
   border-radius: 40px;
-  padding: .45rem 1.1rem .45rem .9rem;
+  padding: .45rem 1.2rem;
   font-family: 'Raleway', sans-serif;
   font-size: .6rem;
   font-weight: 600;
@@ -151,51 +151,35 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   cursor: pointer;
   transition: background .2s, border-color .2s;
   white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  overflow: visible;
 }
 .ht-btn:hover { background: rgba(196,164,90,.28); border-color: rgba(196,164,90,.55); }
 .ht-btn:disabled { opacity: .4; cursor: wait; }
 
-/* Anel giratório */
+/* Ponto orbital */
 .ht-btn-ring {
-  position: relative;
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
+  position: absolute;
+  inset: -5px;
+  border-radius: 40px;
+  pointer-events: none;
+  animation: htOrbit 2.4s linear infinite;
 }
-.ht-btn-ring::before,
 .ht-btn-ring::after {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 50%;
+  left: 0;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
+  background: var(--gold);
+  transform: translateY(-50%);
+  box-shadow: 0 0 6px 2px rgba(196,164,90,.5);
 }
-/* Anel base — estático */
-.ht-btn-ring::before {
-  border: 1.5px solid rgba(196,164,90,.25);
-}
-/* Anel girante */
-.ht-btn-ring::after {
-  border: 1.5px solid transparent;
-  border-top-color: var(--gold);
-  border-right-color: rgba(196,164,90,.4);
-  animation: htRingSpin 1.8s linear infinite;
-}
-@keyframes htRingSpin {
+@keyframes htOrbit {
   0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
-/* Ao traduzir — anel acelera */
-.ht-btn.loading .ht-btn-ring::after {
-  border-top-color: var(--gold-light);
-  border-right-color: var(--gold);
-  animation-duration: .6s;
-}
-
+.ht-btn.loading .ht-btn-ring { animation-duration: .8s; }
 .ht-btn-txt { line-height: 1; }
 
 /* Resultado */
@@ -507,7 +491,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
       <input type="text" id="ht-input" placeholder="Traduzir um termo médico...">
       <button class="ht-btn" id="ht-btn" onclick="htTranslate()">
         <span class="ht-btn-ring"></span>
-        <span class="ht-btn-txt">Traduzir</span>
+        Traduzir
       </button>
     </div>
     <div id="ht-result">
