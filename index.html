@@ -760,8 +760,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 @media(max-width:800px){ .dash-bottom-grid { grid-template-columns: 1fr; } }
 
 /* CADERNO NAV */
-#panel-caderno #caderno-nav { position: sticky; top: 0; z-index: 50; }
-#caderno-nav{position:sticky;top:0;z-index:100;background:rgba(245,242,238,.96);backdrop-filter:blur(12px);border-bottom:1.5px solid #e8e4df;padding:0 2rem;}
+#caderno-nav{position:sticky;top:0;z-index:100;display:none;background:rgba(245,242,238,.96);backdrop-filter:blur(12px);border-bottom:1.5px solid #e8e4df;padding:0 2rem;}
 .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:1rem;height:60px;}
 .nav-brand{display:none;}
 .nav-brand em{font-style:italic;color:var(--gold);}
@@ -783,7 +782,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .btn-dl:hover{border-color:var(--gold);color:var(--gold);}
 
 /* CADERNO BODY */
-#caderno{background:#F5F2EE;min-height:100vh;}
+#caderno{background:#F5F2EE;min-height:100vh;display:none;}
 #caderno-body{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 6rem;}
 .ec{font-family:'Raleway',sans-serif;font-size:.68rem;color:#bbb;margin-bottom:1.5rem;}
 .ec strong{color:#888;}
@@ -1262,13 +1261,26 @@ function musicToggle() {
 
 // CADERNO
 let entradas=[
-  {id:1,secao:'vocabulario',termo:'Dyspnea on exertion',traducao:'Dispneia aos esforcos',exemplo:'The patient reports dyspnea on exertion, worsening over the past two weeks.',data:'2025-05-01'},
-  {id:2,secao:'vocabulario',termo:'Tachycardia',traducao:'Taquicardia',exemplo:'On examination, the patient presented with tachycardia at 112 bpm.',data:'2025-05-01'},
-  {id:3,secao:'frases',termo:'The patient denies any history of...',traducao:'O paciente nega qualquer historico de...',exemplo:'The patient denies any history of chest pain or previous cardiac events.',data:'2025-05-03'},
-  {id:4,secao:'frases',termo:'On further questioning...',traducao:'Ao aprofundar o interrogatorio...',exemplo:'On further questioning, she admitted to occasional palpitations.',data:'2025-05-03'},
-  {id:5,secao:'termos',termo:'Myocardial infarction',traducao:'Infarto agudo do miocardio',exemplo:'The ECG findings were consistent with an acute myocardial infarction.',data:'2025-05-05'},
-  {id:6,secao:'termos',termo:'Pulmonary embolism',traducao:'Embolia pulmonar',exemplo:'',data:'2025-05-06'},
-  {id:7,secao:'anotacoes',termo:'Diferenca: complaint vs. chief complaint',traducao:'',exemplo:'"Chief complaint" e o motivo principal da consulta.',data:'2025-05-07'}
+  {id:1, secao:'vocabulario', termo:'Dyspnea on exertion',          traducao:'Dispneia aos esforços',            exemplo:'The patient reports dyspnea on exertion, worsening over the past two weeks.',                    data:'2025-04-10'},
+  {id:2, secao:'vocabulario', termo:'Tachycardia',                  traducao:'Taquicardia',                      exemplo:'On examination, the patient presented with tachycardia at 112 bpm.',                           data:'2025-04-10'},
+  {id:3, secao:'vocabulario', termo:'Bradycardia',                  traducao:'Bradicardia',                      exemplo:'The Holter monitor revealed episodes of nocturnal bradycardia.',                              data:'2025-04-12'},
+  {id:4, secao:'vocabulario', termo:'Hypoxemia',                    traducao:'Hipoxemia',                        exemplo:'Severe hypoxemia required immediate supplemental oxygen therapy.',                            data:'2025-04-14'},
+  {id:5, secao:'vocabulario', termo:'Diaphoresis',                  traducao:'Diaforese',                        exemplo:'The patient presented with chest pain and profuse diaphoresis.',                              data:'2025-04-15'},
+  {id:6, secao:'vocabulario', termo:'Edema',                        traducao:'Edema',                            exemplo:'Bilateral pitting edema was noted up to the mid-calf.',                                      data:'2025-04-17'},
+  {id:7, secao:'frases',      termo:'The patient denies any history of...',  traducao:'O paciente nega qualquer histórico de...',  exemplo:'The patient denies any history of chest pain or previous cardiac events.', data:'2025-04-18'},
+  {id:8, secao:'frases',      termo:'On further questioning...',    traducao:'Ao aprofundar o interrogatório...', exemplo:'On further questioning, she admitted to occasional palpitations.',                           data:'2025-04-18'},
+  {id:9, secao:'frases',      termo:'The physical examination revealed...', traducao:'O exame físico revelou...', exemplo:'The physical examination revealed diminished breath sounds at the left base.',               data:'2025-04-20'},
+  {id:10,secao:'frases',      termo:'The patient was started on...', traducao:'Foi iniciado o tratamento com...', exemplo:'The patient was started on anticoagulation therapy with low molecular weight heparin.',       data:'2025-04-22'},
+  {id:11,secao:'frases',      termo:'We will follow up in...',      traducao:'Faremos acompanhamento em...',      exemplo:'We will follow up in two weeks to reassess the treatment response.',                          data:'2025-04-25'},
+  {id:12,secao:'termos',      termo:'Myocardial infarction',        traducao:'Infarto agudo do miocárdio',       exemplo:'The ECG findings were consistent with an acute myocardial infarction.',                       data:'2025-04-28'},
+  {id:13,secao:'termos',      termo:'Pulmonary embolism',           traducao:'Embolia pulmonar',                 exemplo:'A CT pulmonary angiography confirmed bilateral pulmonary embolism.',                         data:'2025-04-28'},
+  {id:14,secao:'termos',      termo:'Atrial fibrillation',          traducao:'Fibrilação atrial',                exemplo:'The patient has a history of paroxysmal atrial fibrillation managed with rate control.',       data:'2025-04-30'},
+  {id:15,secao:'termos',      termo:'Heart failure',                traducao:'Insuficiência cardíaca',           exemplo:'Echocardiography showed reduced ejection fraction consistent with heart failure.',             data:'2025-05-01'},
+  {id:16,secao:'termos',      termo:'Pneumothorax',                 traducao:'Pneumotórax',                      exemplo:'Chest X-ray demonstrated a right-sided pneumothorax requiring urgent drainage.',               data:'2025-05-02'},
+  {id:17,secao:'termos',      termo:'Sepsis',                       traducao:'Sepse',                            exemplo:'The patient met SIRS criteria and was diagnosed with sepsis secondary to UTI.',                data:'2025-05-03'},
+  {id:18,secao:'anotacoes',   termo:'Diferença: complaint vs. chief complaint', traducao:'', exemplo:'"Chief complaint" é o motivo principal da consulta. "Complaint" pode ser qualquer queixa adicional.',         data:'2025-05-04'},
+  {id:19,secao:'anotacoes',   termo:'Uso de "denies" em anamnese',  traducao:'',                                 exemplo:'Usar "denies" é mais formal e clínico do que "does not have". Ex: She denies fever or chills.',data:'2025-05-05'},
+  {id:20,secao:'anotacoes',   termo:'Pronúncia: "dyspnea" = DISP-nee-ah', traducao:'',                           exemplo:'Atenção: não pronunciar o "p". Enfatizar a primeira sílaba: DISP-nee-ah.',                    data:'2025-05-07'},
 ];
 let tabAtiva='todos',secoes=['vocabulario','frases','termos','anotacoes'],editId=null;
 const TL={vocabulario:'Vocabulario',frases:'Frase',termos:'Termo Clinico',anotacoes:'Anotacao'};
@@ -1295,14 +1307,11 @@ document.getElementById('search-input').addEventListener('input',renderCards);
 
 // ABAS CHROME
 
-// ATIVAR ABA CADERNO — move nav + section para dentro do painel
+// ATIVAR ABA CADERNO
 function activateCaderno() {
-  const wrap = document.getElementById('caderno-nav-wrap');
-  const wrap2 = document.getElementById('caderno-body-wrap');
-  const nav  = document.getElementById('caderno-nav');
-  const body = document.getElementById('caderno');
-  if (nav  && !wrap.contains(nav))  wrap.appendChild(nav);
-  if (body && !wrap2.contains(body)) wrap2.appendChild(body);
+  document.getElementById('caderno-nav').style.display = '';
+  document.getElementById('caderno').style.display = '';
+  renderCards();
 }
 let activeTab = 'dash';
 
@@ -1316,7 +1325,12 @@ function switchTab(id) {
   document.getElementById('ctab-'+id).classList.add('active');
   document.getElementById('panel-'+id).classList.add('active');
   document.getElementById('tab-panels').style.display = 'block';
-renderDash();
+setTimeout(renderDash, 100);
+  // Esconder nav/caderno se não for aba caderno
+  ['caderno-nav','caderno'].forEach(eid => {
+    const el = document.getElementById(eid);
+    if (el) el.style.display = id === 'caderno' ? '' : 'none';
+  });
   if (id === 'planner')   renderPlanner();
   if (id === 'flash')     renderFlash();
   if (id === 'dash')      renderDash();
@@ -1335,7 +1349,7 @@ function closeTab(id) {
 
 // Dashboard abre por padrão
 document.getElementById('tab-panels').style.display = 'block';
-renderDash();
+setTimeout(renderDash, 100);
 
 // DASHBOARD
 function greetTime() {
@@ -1631,7 +1645,18 @@ const SK=[
 ];
 const SG=['video-sem','leitura','video-leg','noticia','infograficos','cantar','transcrever'];
 const DN=['Dom','Seg','Ter','Qua','Qui','Sex','Sab'];
-let pOff=0,pData={},pPicker=null;
+let pOff=0,pData={
+  '2025-05-05':['video-sem','leitura'],
+  '2025-05-05__done':['video-sem'],
+  '2025-05-06':['noticia','infograficos'],
+  '2025-05-06__done':['noticia','infograficos'],
+  '2025-05-07':['video-leg','cantar'],
+  '2025-05-07__done':['video-leg'],
+  '2025-05-08':['leitura','transcrever'],
+  '2025-05-08__done':['leitura'],
+  '2025-05-09':['infograficos'],
+  '2025-05-09__done':['infograficos'],
+},pPicker=null;
 function pDates(off){const t=new Date(),dow=t.getDay(),mon=new Date(t);mon.setDate(t.getDate()-dow+(dow===0?-6:1)+off*7);return Array.from({length:7},(_,i)=>{const d=new Date(mon);d.setDate(mon.getDate()+i);return d;});}
 function dKey(d){return d.toISOString().split('T')[0];}
 function plannerWeek(dir){pOff+=dir;renderPlanner();}
@@ -1650,7 +1675,7 @@ function renderPlanner(){
 }
 
 // FLASHCARDS
-let fSecs=['vocabulario','frases','termos','anotacoes'],fMode='termo',fDeck=[],fIdx=0,fKnew=0,fSkip=0,fFlip=false;
+let fSecs=['vocabulario','frases','termos','anotacoes'],fMode='termo',fDeck=[],fIdx=0,fKnew=14,fSkip=3,fFlip=false;
 function buildDeck(){const pool=entradas.filter(e=>fSecs.includes(e.secao)&&e.traducao&&e.traducao.trim());fDeck=[...pool].sort(()=>Math.random()-.5);fIdx=0;fKnew=0;fSkip=0;fFlip=false;}
 function renderFlash(){
   const body=document.getElementById('flash-body');if(!body)return;
