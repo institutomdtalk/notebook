@@ -1114,6 +1114,253 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   line-height: 1.3; margin-top: .1rem;
 }
 
+/* ── FLASHCARDS ── */
+#flash-body { background: #F5F2EE; min-height: 60vh; }
+.fc-wrap { max-width: 720px; margin: 0 auto; padding: 2rem 2rem 5rem; }
+
+/* Header */
+.fc-header { margin-bottom: 2rem; }
+.fc-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7rem; font-weight: 300; color: #1a1a2e; line-height: 1;
+}
+.fc-title em { font-style: italic; color: var(--gold); }
+.fc-subtitle {
+  font-family: 'Raleway', sans-serif;
+  font-size: .62rem; color: #bbb; letter-spacing: .08em; margin-top: .3rem;
+}
+
+/* Toolbar: seções + modo */
+.fc-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.8rem; flex-wrap: wrap;
+}
+.fc-sec-pills { display: flex; gap: .4rem; flex-wrap: wrap; }
+.fc-sec-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'Raleway', sans-serif; font-size: .6rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  border: 1.5px solid #e0dbd4; background: #fff; border-radius: 20px;
+  padding: .3rem .85rem .3rem .6rem; cursor: pointer; color: #aaa;
+  transition: all .18s;
+}
+.fc-sec-pill svg { color: #ccc; transition: color .18s; }
+.fc-sec-pill.on { background: #1a1a2e; border-color: #1a1a2e; color: #fff; }
+.fc-sec-pill.on svg { color: rgba(255,255,255,.7); }
+.fc-sec-pill:not(.on):hover { border-color: #999; color: #555; }
+.fc-mode-seg {
+  display: flex; background: #fff; border: 1.5px solid #e8e4e0;
+  border-radius: 20px; padding: 3px; gap: 2px; flex-shrink: 0;
+}
+.fc-mode-btn {
+  font-family: 'Raleway', sans-serif; font-size: .58rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  border: none; background: transparent; border-radius: 14px;
+  padding: .3rem .85rem; cursor: pointer; color: #aaa; transition: all .2s;
+  white-space: nowrap;
+}
+.fc-mode-btn.on { background: #1a1a2e; color: #fff; }
+
+/* Progresso */
+.fc-progress { margin-bottom: 2rem; }
+.fc-prog-row {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: .5rem;
+}
+.fc-prog-count {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; font-weight: 300; color: #1a1a2e;
+}
+.fc-prog-count span { font-size: .75rem; color: #ccc; }
+.fc-prog-pct {
+  font-family: 'Raleway', sans-serif; font-size: .6rem; font-weight: 700; color: #bbb;
+}
+.fc-prog-track {
+  height: 5px; background: #e8e4e0; border-radius: 5px; overflow: hidden;
+}
+.fc-prog-fill {
+  height: 100%; background: linear-gradient(to right, #C4A45A, #D4BA7A);
+  border-radius: 5px; transition: width .5s ease;
+}
+.fc-prog-scores {
+  display: flex; gap: .6rem; margin-top: .7rem;
+}
+.fc-score-badge {
+  display: flex; align-items: center; gap: 5px;
+  font-family: 'Raleway', sans-serif; font-size: .62rem; font-weight: 700;
+  padding: .28rem .8rem; border-radius: 20px;
+}
+.fc-score-badge.green { background: #e8f5e9; color: #2e7d32; }
+.fc-score-badge.orange { background: #fff3e0; color: #e65100; }
+
+/* ── CARD 3D ── */
+.fc-scene {
+  width: 100%; height: 240px;
+  perspective: 1400px; cursor: pointer; margin-bottom: 2rem;
+}
+.fc-card-inner {
+  width: 100%; height: 100%; position: relative;
+  transform-style: preserve-3d;
+  transition: transform .55s cubic-bezier(.4,0,.2,1);
+}
+.fc-scene.flipped .fc-card-inner { transform: rotateY(180deg); }
+.fc-face {
+  position: absolute; inset: 0; border-radius: 20px;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 2rem 2.5rem; text-align: center; overflow: hidden;
+}
+/* Frente */
+.fc-face-front {
+  background: #fff;
+  border: 1.5px solid #ece8e2;
+  box-shadow: 0 8px 40px rgba(0,0,0,.07), 0 2px 8px rgba(0,0,0,.04);
+}
+.fc-face-front::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(196,164,90,.05) 1px, transparent 1px);
+  background-size: 22px 22px; pointer-events: none;
+}
+/* Verso */
+.fc-face-back {
+  background: linear-gradient(135deg, #0B1D3A 0%, #163158 100%);
+  border: 1.5px solid rgba(196,164,90,.2);
+  box-shadow: 0 8px 40px rgba(0,0,0,.2);
+  transform: rotateY(180deg);
+}
+.fc-face-back::after {
+  content: ''; position: absolute;
+  top: -60px; right: -60px; width: 200px; height: 200px;
+  border-radius: 50%; border: 1px solid rgba(196,164,90,.08); pointer-events: none;
+}
+/* Seção ícone */
+.fc-sec-badge {
+  width: 42px; height: 42px; border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: .9rem; flex-shrink: 0;
+  background: #f8f6f3; border: 1.5px solid #ece8e2; color: #888;
+}
+/* Labels e termos */
+.fc-face-lbl {
+  font-family: 'Raleway', sans-serif; font-size: 8px; font-weight: 700;
+  letter-spacing: .3em; text-transform: uppercase; color: #ccc;
+  margin-bottom: .6rem; position: relative; z-index: 1;
+}
+.fc-face-back .fc-face-lbl { color: rgba(255,255,255,.25); }
+.fc-term {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 400;
+  line-height: 1.15; position: relative; z-index: 1;
+}
+.fc-face-front .fc-term { color: #1a1a2e; }
+.fc-face-back  .fc-term { color: var(--gold-light); }
+.fc-exemplo {
+  font-family: 'Raleway', sans-serif; font-size: .66rem;
+  color: rgba(255,255,255,.35); font-style: italic; line-height: 1.6;
+  margin-top: .8rem; border-top: 1px solid rgba(255,255,255,.08);
+  padding-top: .75rem; position: relative; z-index: 1; max-width: 480px;
+}
+.fc-flip-hint {
+  display: flex; align-items: center; gap: 5px;
+  font-family: 'Raleway', sans-serif; font-size: .58rem;
+  color: #ccc; margin-top: .8rem;
+  position: relative; z-index: 1;
+  animation: hintBreathe 2.5s ease-in-out infinite;
+}
+@keyframes hintBreathe { 0%,100%{opacity:.35} 50%{opacity:.8} }
+
+/* ── CONTROLES ── */
+.fc-controls {
+  display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+.fc-ctrl-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer;
+}
+.fc-ctrl-circle {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid #e0dbd4; background: #fff;
+  transition: all .2s; color: #888;
+}
+.fc-ctrl-circle:hover { transform: scale(1.08); }
+.fc-ctrl-circle.skip  { border-color: #ffe0b2; background: #fffbf5; color: #bf6900; }
+.fc-ctrl-circle.flip  { border-color: #e0dbd4; background: #fafafa; color: #777; }
+.fc-ctrl-circle.knew  { border-color: #c8e6c9; background: #f9fcf9; color: #2e7d32; }
+.fc-ctrl-circle.skip:hover { border-color: #ffb74d; background: #fff3e0; }
+.fc-ctrl-circle.flip:hover { border-color: #1a1a2e; color: #1a1a2e; }
+.fc-ctrl-circle.knew:hover { border-color: #81c784; background: #e8f5e9; }
+.fc-ctrl-lbl {
+  font-family: 'Raleway', sans-serif; font-size: .55rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: #bbb;
+}
+.fc-ctrl-btn.skip .fc-ctrl-lbl { color: #bf6900; }
+.fc-ctrl-btn.knew .fc-ctrl-lbl { color: #2e7d32; }
+
+/* Embaralhar */
+.fc-shuffle-row { display: flex; justify-content: center; }
+.fc-shuffle-btn {
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'Raleway', sans-serif; font-size: .6rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  border: 1.5px solid #e0dbd4; background: #fff; border-radius: 20px;
+  padding: .4rem 1.1rem; cursor: pointer; color: #aaa; transition: all .2s;
+}
+.fc-shuffle-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ── TELA DE FIM ── */
+.fc-done {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 3rem 1rem;
+}
+.fc-done-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 1.4rem;
+}
+.fc-done-icon.great { background: #e8f5e9; color: #2e7d32; }
+.fc-done-icon.keep  { background: #fff3e0; color: #bf6900; }
+.fc-done-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300;
+  color: #1a1a2e; margin-bottom: .35rem;
+}
+.fc-done-sub {
+  font-family: 'Raleway', sans-serif; font-size: .7rem; color: #aaa;
+  line-height: 1.7; margin-bottom: 1.8rem; max-width: 280px;
+}
+.fc-done-stats { display: flex; gap: 2.5rem; margin-bottom: 2rem; }
+.fc-ds { text-align: center; }
+.fc-ds-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem; font-weight: 300; line-height: 1;
+}
+.fc-ds-lbl {
+  font-family: 'Raleway', sans-serif; font-size: .58rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: #bbb; margin-top: .3rem;
+}
+.fc-restart-btn {
+  display: flex; align-items: center; gap: 7px;
+  font-family: 'Raleway', sans-serif; font-size: .63rem; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  background: #1a1a2e; color: #fff; border: none;
+  border-radius: 20px; padding: .65rem 1.6rem; cursor: pointer; transition: background .2s;
+}
+.fc-restart-btn:hover { background: #163158; }
+
+/* Empty */
+.fc-empty {
+  text-align: center; padding: 5rem 2rem;
+}
+.fc-empty-icon {
+  width: 64px; height: 64px; border-radius: 50%; background: #ece8e2;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.2rem; color: #ccc;
+}
+.fc-empty h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;
+  font-weight: 300; color: #555; margin-bottom: .4rem;
+}
+.fc-empty p { font-family: 'Raleway', sans-serif; font-size: .72rem; color: #aaa; line-height: 1.7; }
+
 @media(max-width:700px){.pl-grid{grid-template-columns:repeat(2,1fr);}#caderno-nav .nav-brand{display:none;}#search-input{width:120px;}}
 </style>
 </head>
@@ -2213,169 +2460,192 @@ function renderPlanner() {
 }
 
 // FLASHCARDS
-const FC_ICONS = {
-  vocabulario: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
-  frases:      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
-  termos:      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
-  anotacoes:   '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+const FC_SVGS = {
+  vocabulario: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+  frases:      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+  termos:      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  anotacoes:   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
 };
 const FC_LABELS = { vocabulario:'Vocabulario', frases:'Frases', termos:'Termos', anotacoes:'Anotacoes' };
-const FC_ACCENT = { vocabulario:'#C4A45A', frases:'#00BCD4', termos:'#7c6ea0', anotacoes:'#4CAF50' };
-const FC_BG     = { vocabulario:'#FFF9F0', frases:'#E0F7FA', termos:'#F3F0FA', anotacoes:'#F1F8E9' };
 
-const SVG_SKIP = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>';
-const SVG_KNEW = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-const SVG_FLIP = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>';
-const SVG_SHUF = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>';
+var SVG_CHECK  = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+var SVG_SKIP   = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>';
+var SVG_FLIP2  = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>';
+var SVG_SHUF2  = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>';
+var SVG_HINT   = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>';
+var SVG_GREAT  = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+var SVG_KEEP   = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>';
 
-let fSecs = ['vocabulario','frases','termos','anotacoes'];
-let fMode = 'termo';
-let fDeck = [], fIdx = 0, fKnew = 14, fSkip = 3, fFlip = false;
+var fSecs  = ['vocabulario','frases','termos','anotacoes'];
+var fMode  = 'termo';
+var fDeck  = [], fIdx = 0, fKnew = 0, fSkip = 0, fFlip = false;
 
-function buildDeck() {
+function fcBuildDeck() {
   fDeck = entradas
     .filter(function(e){ return fSecs.indexOf(e.secao)!==-1 && e.traducao && e.traducao.trim(); })
     .sort(function(){ return Math.random()-0.5; });
   fIdx=0; fKnew=0; fSkip=0; fFlip=false;
 }
 
-// Evento único delegado para toda a área de flash
 function fcHandleClick(e) {
-  const btn = e.target.closest('[data-fc]');
-  if (!btn) return;
-  const action = btn.dataset.fc;
-  if (action === 'sec')    { fTogSec(btn.dataset.v); }
-  if (action === 'mode')   { fSetMode(btn.dataset.v); }
-  if (action === 'flip')   { doFlip(); }
-  if (action === 'skip')   { fNext(false); }
-  if (action === 'knew')   { fNext(true); }
-  if (action === 'shuf')   { fShuf(); }
-  if (action === 'restart'){ fRestart(); }
-  if (action === 'card')   { doFlip(); }
+  var t = e.target.closest('[data-fc]');
+  if (!t) return;
+  var a = t.dataset.fc;
+  if (a==='sec')     fcToggleSec(t.dataset.v);
+  if (a==='mode')    fcSetMode(t.dataset.v);
+  if (a==='card')    fcFlip();
+  if (a==='flip')    fcFlip();
+  if (a==='skip')    fcNext(false);
+  if (a==='knew')    fcNext(true);
+  if (a==='shuf')    fcShuf();
+  if (a==='restart') fcRestart();
 }
 
 function renderFlash() {
-  const body = document.getElementById('flash-body');
+  var body = document.getElementById('flash-body');
   if (!body) return;
 
-  const avail = [];
+  var avail = [];
   entradas.forEach(function(e){
     if (e.traducao && e.traducao.trim() && avail.indexOf(e.secao)===-1) avail.push(e.secao);
   });
 
-  // Filtros de seção
-  let secHTML = '';
+  /* Seção pills */
+  var secHtml = '';
   avail.forEach(function(s){
-    const on = fSecs.indexOf(s)!==-1;
-    secHTML += '<button data-fc="sec" data-v="' + s + '" class="ff-btn' + (on?' on':'') + '">'
-      + (FC_ICONS[s]||'') + ' ' + (FC_LABELS[s]||s) + '</button>';
+    var on = fSecs.indexOf(s)!==-1;
+    secHtml += '<button data-fc="sec" data-v="'+s+'" class="fc-sec-pill'+(on?' on':'') +'">'
+      +(FC_SVGS[s]||'')+' '+(FC_LABELS[s]||s)+'</button>';
   });
 
-  // Modos
-  const modes = [{id:'termo',lbl:'Termo &rarr; PT'},{id:'traducao',lbl:'PT &rarr; Termo'},{id:'aleatorio',lbl:'Aleatorio'}];
-  let modeHTML = '';
+  /* Modo segmented */
+  var modes = [{id:'termo',lbl:'Termo &rarr; PT'},{id:'traducao',lbl:'PT &rarr; Termo'},{id:'aleatorio',lbl:'Aleatorio'}];
+  var modeHtml = '';
   modes.forEach(function(m){
-    modeHTML += '<button data-fc="mode" data-v="' + m.id + '" class="fm-btn' + (fMode===m.id?' on':'') + '">' + m.lbl + '</button>';
+    modeHtml += '<button data-fc="mode" data-v="'+m.id+'" class="fc-mode-btn'+(fMode===m.id?' on':'')+'">'
+      +m.lbl+'</button>';
   });
 
   if (!avail.length) {
-    body.innerHTML = '<div class="flash-wrap"><div class="flash-hdr"><div class="flash-hdr-title">Meus <em>Flashcards</em></div></div>'
-      + '<div class="fc-empty"><div class="fc-empty-icon">' + FC_ICONS.vocabulario + '</div>'
-      + '<h3>Nenhum flashcard disponivel</h3>'
-      + '<p>Adicione termos com traducao no caderno para criar flashcards.</p></div></div>';
+    body.innerHTML = '<div class="fc-wrap"><div class="fc-header"><div class="fc-title">Meus <em>Flashcards</em></div></div>'
+      +'<div class="fc-empty"><div class="fc-empty-icon">'+(FC_SVGS.vocabulario||'')+'</div>'
+      +'<h3>Nenhum card disponivel</h3>'
+      +'<p>Adicione termos com traducao no caderno para gerar flashcards automaticamente.</p>'
+      +'</div></div>';
     body.addEventListener('click', fcHandleClick);
     return;
   }
 
-  if (!fDeck.length) buildDeck();
+  if (!fDeck.length) fcBuildDeck();
 
-  const totalComTrad = entradas.filter(function(e){ return e.traducao&&e.traducao.trim(); }).length;
-  const pct = fDeck.length>0 ? Math.round(fIdx/fDeck.length*100) : 0;
-  const scoreHTML = '<div class="fp-scores">'
-    + '<div class="fp-score-badge green">' + SVG_KNEW + ' ' + fKnew + ' sabia</div>'
-    + '<div class="fp-score-badge orange">' + SVG_SKIP + ' ' + fSkip + ' revisar</div>'
-    + '</div>';
+  var total = entradas.filter(function(e){ return e.traducao&&e.traducao.trim(); }).length;
+  var pct   = fDeck.length>0 ? Math.round(fIdx/fDeck.length*100) : 0;
 
-  let mainHTML = '';
+  var scoreHtml = '<div class="fc-prog-scores">'
+    +'<div class="fc-score-badge green">'+SVG_CHECK+' '+fKnew+' sabia</div>'
+    +'<div class="fc-score-badge orange">'+SVG_SKIP+' '+fSkip+' revisar</div>'
+    +'</div>';
+
+  var progHtml = fIdx < fDeck.length
+    ? '<div class="fc-progress">'
+        +'<div class="fc-prog-row">'
+          +'<span class="fc-prog-count">'+(fIdx+1)+' <span>/ '+fDeck.length+'</span></span>'
+          +'<span class="fc-prog-pct">'+pct+'% concluido</span>'
+        +'</div>'
+        +'<div class="fc-prog-track"><div class="fc-prog-fill" style="width:'+pct+'%"></div></div>'
+        +scoreHtml
+      +'</div>'
+    : '';
+
+  var mainHtml = '';
 
   if (fIdx >= fDeck.length) {
-    const tot=fDeck.length, perc=tot>0?Math.round(fKnew/tot*100):0, great=perc>=70;
-    const doneIco = great
-      ? '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
-      : '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>';
-    mainHTML = '<div class="fc-done-screen">'
-      + '<div class="fc-done-icon ' + (great?'great':'keep') + '">' + doneIco + '</div>'
-      + '<div class="fc-done-title">' + (great?'Excelente!':'Continue praticando!') + '</div>'
-      + '<div class="fc-done-sub">' + (great?'Otimo dominio do vocabulario nesta sessao.':'Cada repeticao fortalece a memoria!') + '</div>'
-      + '<div class="fc-done-stats">'
-        + '<div class="fc-ds"><div class="fc-ds-num" style="color:#2e7d32">' + fKnew + '</div><div class="fc-ds-lbl">Sabia</div></div>'
-        + '<div class="fc-ds"><div class="fc-ds-num" style="color:#e65100">' + fSkip + '</div><div class="fc-ds-lbl">Revisar</div></div>'
-        + '<div class="fc-ds"><div class="fc-ds-num">' + perc + '%</div><div class="fc-ds-lbl">Acerto</div></div>'
-      + '</div>'
-      + '<button data-fc="restart" class="fc-restart-btn">' + SVG_SHUF + ' Repetir baralho</button>'
-      + '</div>';
+    var tot=fDeck.length, perc=tot>0?Math.round(fKnew/tot*100):0, great=perc>=70;
+    mainHtml = '<div class="fc-done">'
+      +'<div class="fc-done-icon '+(great?'great':'keep')+'">'+(great?SVG_GREAT:SVG_KEEP)+'</div>'
+      +'<div class="fc-done-title">'+(great?'Excelente!':'Continue praticando!')+'</div>'
+      +'<div class="fc-done-sub">'+(great?'Voce dominou bem o vocabulario desta sessao.':'Repita para fixar. Cada sessao fica mais facil.')+'</div>'
+      +'<div class="fc-done-stats">'
+        +'<div class="fc-ds"><div class="fc-ds-num" style="color:#2e7d32">'+fKnew+'</div><div class="fc-ds-lbl">Sabia</div></div>'
+        +'<div class="fc-ds"><div class="fc-ds-num" style="color:#e65100">'+fSkip+'</div><div class="fc-ds-lbl">Revisar</div></div>'
+        +'<div class="fc-ds"><div class="fc-ds-num" style="color:#1a1a2e">'+perc+'%</div><div class="fc-ds-lbl">Acerto</div></div>'
+      +'</div>'
+      +'<button data-fc="restart" class="fc-restart-btn">'+SVG_SHUF2+' Repetir baralho</button>'
+      +'</div>';
   } else {
-    const entry = fDeck[fIdx];
-    const sec   = entry.secao;
-    const mode  = fMode==='aleatorio' ? (entry._m||(entry._m=Math.random()>.5?'termo':'traducao')) : fMode;
-    const front = mode==='termo' ? entry.termo    : entry.traducao;
-    const back  = mode==='termo' ? entry.traducao : entry.termo;
-    const fL    = mode==='termo' ? 'Termo'        : 'Traducao';
-    const bL    = mode==='termo' ? 'Traducao'     : 'Termo';
-    const acc   = FC_ACCENT[sec]||'#C4A45A';
-    const bg    = FC_BG[sec]||'#FFF9F0';
+    var entry = fDeck[fIdx];
+    var sec   = entry.secao;
+    var mode  = fMode==='aleatorio'?(entry._m||(entry._m=Math.random()>.5?'termo':'traducao')):fMode;
+    var front = mode==='termo' ? entry.termo    : entry.traducao;
+    var back  = mode==='termo' ? entry.traducao : entry.termo;
+    var fLbl  = mode==='termo' ? 'Termo'        : 'Traducao';
+    var bLbl  = mode==='termo' ? 'Traducao'     : 'Termo';
 
-    mainHTML =
-      '<div data-fc="card" class="fc-scene' + (fFlip?' flipped':'') + '" id="fc-card">'
-      + '<div class="fc-inner">'
-        + '<div class="fc-face fc-front" style="border-top:3px solid ' + acc + '">'
-          + '<div class="fc-sec-icon" style="background:' + bg + ';border:1.5px solid ' + acc + ';color:' + acc + '">' + (FC_ICONS[sec]||'') + '</div>'
-          + '<div class="fc-face-label">' + fL + '</div>'
-          + '<div class="fc-term">' + front + '</div>'
-          + '<div class="fc-hint">' + SVG_FLIP + ' Clique para revelar</div>'
-        + '</div>'
-        + '<div class="fc-face fc-back">'
-          + '<div class="fc-face-label">' + bL + '</div>'
-          + '<div class="fc-term" style="color:var(--gold-light)">' + back + '</div>'
-          + (entry.exemplo ? '<div class="fc-exemplo">' + entry.exemplo + '</div>' : '')
-        + '</div>'
-      + '</div></div>'
-      + '<div class="fc-controls">'
-        + '<div data-fc="skip" class="fc-skip"><div class="fc-skip-btn">' + SVG_SKIP + '</div><span class="fc-skip-lbl">Revisar</span></div>'
-        + '<div data-fc="flip" class="fc-flip-btn"><div class="fc-flip-circle">' + SVG_FLIP + '</div><span class="fc-flip-lbl">Virar</span></div>'
-        + '<div data-fc="knew" class="fc-knew"><div class="fc-knew-btn">' + SVG_KNEW + '</div><span class="fc-knew-lbl">Sabia!</span></div>'
-      + '</div>'
-      + '<button data-fc="shuf" class="fc-shuffle">' + SVG_SHUF + ' Embaralhar</button>';
+    mainHtml =
+      /* Card */
+      '<div data-fc="card" class="fc-scene'+(fFlip?' flipped':'')+'" id="fc-card">'
+        +'<div class="fc-card-inner">'
+          /* Frente */
+          +'<div class="fc-face fc-face-front">'
+            +'<div class="fc-sec-badge">'+(FC_SVGS[sec]||'')+'</div>'
+            +'<div class="fc-face-lbl">'+fLbl+'</div>'
+            +'<div class="fc-term">'+front+'</div>'
+            +'<div class="fc-flip-hint">'+SVG_HINT+' Clique para revelar</div>'
+          +'</div>'
+          /* Verso */
+          +'<div class="fc-face fc-face-back">'
+            +'<div class="fc-face-lbl">'+bLbl+'</div>'
+            +'<div class="fc-term">'+back+'</div>'
+            +(entry.exemplo?'<div class="fc-exemplo">'+entry.exemplo+'</div>':'')
+          +'</div>'
+        +'</div>'
+      +'</div>'
+      /* Controles */
+      +'<div class="fc-controls">'
+        +'<div data-fc="skip" class="fc-ctrl-btn skip"><div class="fc-ctrl-circle skip">'+SVG_SKIP+'</div><span class="fc-ctrl-lbl">Revisar</span></div>'
+        +'<div data-fc="flip" class="fc-ctrl-btn"><div class="fc-ctrl-circle flip">'+SVG_FLIP2+'</div><span class="fc-ctrl-lbl">Virar</span></div>'
+        +'<div data-fc="knew" class="fc-ctrl-btn knew"><div class="fc-ctrl-circle knew">'+SVG_CHECK+'</div><span class="fc-ctrl-lbl">Sabia!</span></div>'
+      +'</div>'
+      +'<div class="fc-shuffle-row"><button data-fc="shuf" class="fc-shuffle-btn">'+SVG_SHUF2+' Embaralhar</button></div>';
   }
 
   body.innerHTML =
-    '<div class="flash-wrap">'
-    + '<div class="flash-hdr">'
-      + '<div class="flash-hdr-left"><div class="flash-hdr-title">Meus <em>Flashcards</em></div>'
-        + '<div class="flash-hdr-sub">' + fDeck.length + ' cards &middot; ' + totalComTrad + ' com traducao</div></div>'
-      + '<div class="flash-modes">' + modeHTML + '</div>'
-    + '</div>'
-    + '<div class="flash-filters" style="margin-bottom:1.8rem"><span class="ff-label">Secoes</span>' + secHTML + '</div>'
-    + (fIdx < fDeck.length
-        ? '<div class="flash-progress"><div class="fp-row"><span class="fp-count">' + (fIdx+1) + ' <span style="color:#ccc;font-size:.8rem">/ ' + fDeck.length + '</span></span><span class="fp-pct">' + pct + '% concluido</span></div><div class="fp-bar"><div class="fp-fill" style="width:' + pct + '%"></div></div>' + scoreHTML + '</div>'
-        : '')
-    + mainHTML
-    + '</div>';
+    '<div class="fc-wrap">'
+    +'<div class="fc-header">'
+      +'<div class="fc-title">Meus <em>Flashcards</em></div>'
+      +'<div class="fc-subtitle">'+fDeck.length+' cards &middot; '+total+' entradas com traducao</div>'
+    +'</div>'
+    +'<div class="fc-toolbar">'
+      +'<div class="fc-sec-pills">'+secHtml+'</div>'
+      +'<div class="fc-mode-seg">'+modeHtml+'</div>'
+    +'</div>'
+    +progHtml
+    +mainHtml
+    +'</div>';
 
   body.addEventListener('click', fcHandleClick);
 }
 
-function fTogSec(s) {
-  const i=fSecs.indexOf(s);
-  if (i===-1) fSecs.push(s);
-  else if (fSecs.length>1) fSecs.splice(i,1);
-  buildDeck(); renderFlash();
+function fcToggleSec(s) {
+  var i=fSecs.indexOf(s);
+  if(i===-1) fSecs.push(s);
+  else if(fSecs.length>1) fSecs.splice(i,1);
+  fcBuildDeck(); renderFlash();
 }
-function fSetMode(m) { fMode=m; fDeck.forEach(function(e){delete e._m;}); renderFlash(); }
-function doFlip()    { fFlip=!fFlip; const c=document.getElementById('fc-card'); if(c) c.classList.toggle('flipped'); }
-function fNext(k)    { if(k) fKnew++; else fSkip++; fFlip=false; fIdx++; renderFlash(); }
-function fShuf()     { fDeck.sort(function(){return Math.random()-.5;}); fIdx=0;fKnew=0;fSkip=0;fFlip=false; renderFlash(); }
-function fRestart()  { buildDeck(); renderFlash(); }
+function fcSetMode(m) { fMode=m; fDeck.forEach(function(e){delete e._m;}); renderFlash(); }
+function fcFlip() {
+  fFlip=!fFlip;
+  var card=document.getElementById('fc-card');
+  if(card) card.classList.toggle('flipped');
+}
+function fcNext(knew) { if(knew)fKnew++;else fSkip++; fFlip=false; fIdx++; renderFlash(); }
+function fcShuf() { fDeck.sort(function(){return Math.random()-.5;}); fIdx=0;fKnew=0;fSkip=0;fFlip=false; renderFlash(); }
+function fcRestart() { fcBuildDeck(); renderFlash(); }
+
+/* Manter compatibilidade com nomes antigos */
+var fTogSec=fcToggleSec, fSetMode=fcSetMode, doFlip=fcFlip, fNext=fcNext, fShuf=fcShuf, fRestart=fcRestart;
+function buildDeck(){fcBuildDeck();}
+function renderFlash2(){renderFlash();}
 
 // TOUR
 const TOUR=[
