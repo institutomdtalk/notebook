@@ -888,49 +888,538 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .leg-ico{width:36px;height:36px;border-radius:10px;background:#F8F6F3;border:1.5px solid #e0dbd4;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .leg-txt{font-family:'Raleway',sans-serif;font-size:.65rem;color:#555;line-height:1.3;min-width:0;}
 
-/* FLASHCARDS */
-.fc-cfg{display:flex;align-items:center;gap:1rem;margin-bottom:1.8rem;flex-wrap:wrap;}
-.fc-lbl{font-family:'Raleway',sans-serif;font-size:8px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#999;white-space:nowrap;}
-.fc-secs{display:flex;gap:.4rem;flex-wrap:wrap;}
-.fc-sb{font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border:1.5px solid #d4cfc9;background:#fff;border-radius:20px;padding:.3rem .8rem;cursor:pointer;color:#999;transition:all .15s;}
-.fc-sb.on{background:#1a1a2e;border-color:#1a1a2e;color:#fff;}
-.fc-modes{display:flex;gap:.4rem;margin-left:auto;}
-.fc-mb{font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid #d4cfc9;background:#fff;border-radius:20px;padding:.3rem .8rem;cursor:pointer;color:#999;transition:all .15s;}
-.fc-mb.on{background:var(--gold);border-color:var(--gold);color:#fff;}
-.fc-arena{display:flex;flex-direction:column;align-items:center;gap:1.4rem;}
-.fc-prog{width:100%;display:flex;align-items:center;gap:.8rem;}
-.fc-pb{flex:1;height:3px;background:#ddd;border-radius:3px;overflow:hidden;}
-.fc-pf{height:100%;background:var(--gold);border-radius:3px;transition:width .4s ease;}
-.fc-pl{font-family:'Raleway',sans-serif;font-size:.62rem;font-weight:600;color:#aaa;white-space:nowrap;}
-.fc-wrap{width:100%;height:200px;perspective:1200px;cursor:pointer;}
-.fc-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1);}
-.fc-wrap.flipped .fc-inner{transform:rotateY(180deg);}
-.fc-face{position:absolute;inset:0;background:#fff;border-radius:16px;border:1.5px solid #e8e4e0;box-shadow:0 8px 32px rgba(0,0,0,.08);backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem 2rem;text-align:center;}
-.fc-face.back{transform:rotateY(180deg);background:#1a1a2e;}
-.fc-flbl{font-family:'Raleway',sans-serif;font-size:7.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#ccc;margin-bottom:.7rem;}
-.fc-face.back .fc-flbl{color:rgba(255,255,255,.35);}
-.fc-term{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,3vw,1.8rem);font-weight:400;color:#1a1a2e;line-height:1.2;}
-.fc-face.back .fc-term{color:var(--gold-light);}
-.fc-ex{font-family:'Raleway',sans-serif;font-size:.65rem;color:rgba(255,255,255,.4);font-style:italic;line-height:1.6;margin-top:.7rem;border-top:1px solid rgba(255,255,255,.1);padding-top:.7rem;}
-.fc-hint{font-family:'Raleway',sans-serif;font-size:.6rem;color:#ccc;margin-top:.5rem;display:flex;align-items:center;gap:4px;}
-.fc-ctrls{display:flex;align-items:center;gap:1rem;}
-.fc-ctrl{width:42px;height:42px;border-radius:50%;border:1.5px solid #d4cfc9;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
-.fc-ctrl.knew{border-color:#a5d6a7;color:#388e3c;background:#f1f8f1;}
-.fc-ctrl.skip{border-color:#ffcc80;color:#f57c00;background:#fffbf0;}
-.fc-shuf{font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;border:1.5px solid #d4cfc9;background:transparent;border-radius:20px;padding:.4rem .9rem;cursor:pointer;color:#999;transition:all .2s;display:flex;align-items:center;gap:4px;}
-.fc-score{display:flex;gap:1.5rem;}
-.fc-si{text-align:center;}
-.fc-sn{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;line-height:1;}
-.fc-sn.g{color:#388e3c;}
-.fc-sn.o{color:#f57c00;}
-.fc-sl{font-family:'Raleway',sans-serif;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:#bbb;margin-top:.2rem;}
-.fc-empty{text-align:center;padding:2rem;}
-.fc-empty p{font-family:'Raleway',sans-serif;font-size:.72rem;color:#aaa;line-height:1.7;}
-.fc-done{text-align:center;padding:1.5rem 1rem;}
-.fc-done-i{font-size:2.5rem;margin-bottom:.8rem;}
-.fc-done-t{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:#1a1a2e;margin-bottom:.4rem;}
-.fc-done-s{font-family:'Raleway',sans-serif;font-size:.7rem;color:#888;margin-bottom:1.4rem;line-height:1.6;}
-.fc-restart{display:inline-flex;align-items:center;gap:6px;background:#1a1a2e;color:#fff;border:none;border-radius:20px;padding:.55rem 1.3rem;font-family:'Raleway',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;}
+/* ═══════════════════════════════════
+   FLASHCARDS
+═══════════════════════════════════ */
+
+/* Layout geral */
+#flash-body {
+  background: #F5F2EE;
+  min-height: 60vh;
+}
+.flash-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+}
+
+/* Header */
+.flash-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.flash-hdr-left {}
+.flash-hdr-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: #1a1a2e;
+  line-height: 1;
+}
+.flash-hdr-title em { font-style: italic; color: var(--gold); }
+.flash-hdr-sub {
+  font-family: 'Raleway', sans-serif;
+  font-size: .62rem;
+  color: #bbb;
+  letter-spacing: .08em;
+  margin-top: .3rem;
+}
+
+/* Filtros de seção */
+.flash-filters {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+.ff-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #ccc;
+  margin-right: .3rem;
+}
+.ff-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Raleway', sans-serif;
+  font-size: .62rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  border: 1.5px solid #e0dbd4;
+  background: #fff;
+  border-radius: 20px;
+  padding: .3rem .85rem .3rem .6rem;
+  cursor: pointer;
+  color: #aaa;
+  transition: all .2s;
+}
+.ff-btn svg { flex-shrink: 0; transition: color .2s; }
+.ff-btn.on { background: #1a1a2e; border-color: #1a1a2e; color: #fff; }
+.ff-btn.on svg { color: #fff; }
+.ff-btn:hover:not(.on) { border-color: #aaa; color: #555; }
+
+/* Modo de estudo */
+.flash-modes {
+  display: flex;
+  gap: .4rem;
+  background: #fff;
+  border: 1.5px solid #e8e4e0;
+  border-radius: 20px;
+  padding: 3px;
+}
+.fm-btn {
+  font-family: 'Raleway', sans-serif;
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: none;
+  background: transparent;
+  border-radius: 16px;
+  padding: .32rem .9rem;
+  cursor: pointer;
+  color: #aaa;
+  transition: all .2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.fm-btn.on {
+  background: #1a1a2e;
+  color: #fff;
+}
+.fm-btn svg { flex-shrink: 0; }
+
+/* Progresso */
+.flash-progress {
+  margin-bottom: 1.8rem;
+}
+.fp-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: .5rem;
+}
+.fp-count {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: #1a1a2e;
+}
+.fp-pct {
+  font-family: 'Raleway', sans-serif;
+  font-size: .62rem;
+  font-weight: 600;
+  color: #bbb;
+}
+.fp-bar {
+  height: 4px;
+  background: #e8e4e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.fp-fill {
+  height: 100%;
+  background: linear-gradient(to right, #C4A45A, #D4BA7A);
+  border-radius: 4px;
+  transition: width .5s ease;
+}
+
+/* Score badges */
+.fp-scores {
+  display: flex;
+  gap: .6rem;
+  margin-top: .7rem;
+}
+.fp-score-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: .28rem .75rem;
+  border-radius: 20px;
+  font-family: 'Raleway', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+}
+.fp-score-badge.green { background: #e8f5e9; color: #388e3c; }
+.fp-score-badge.orange { background: #fff3e0; color: #e65100; }
+.fp-score-badge svg { flex-shrink: 0; }
+
+/* CARD 3D */
+.fc-scene {
+  width: 100%;
+  height: 260px;
+  perspective: 1400px;
+  margin-bottom: 1.8rem;
+  cursor: pointer;
+}
+.fc-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .6s cubic-bezier(.4,0,.2,1);
+}
+.fc-scene.flipped .fc-inner {
+  transform: rotateY(180deg);
+}
+
+/* Face base */
+.fc-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 2.5rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Frente — branca com detalhe */
+.fc-front {
+  background: #fff;
+  border: 1.5px solid #ece8e2;
+  box-shadow: 0 8px 40px rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.04);
+}
+/* Padrão de pontos sutil na frente */
+.fc-front::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(196,164,90,.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+/* Verso — navy rico */
+.fc-back {
+  background: linear-gradient(135deg, #0B1D3A 0%, #163158 100%);
+  border: 1.5px solid rgba(196,164,90,.2);
+  box-shadow: 0 8px 40px rgba(0,0,0,.22), 0 2px 8px rgba(0,0,0,.1);
+  transform: rotateY(180deg);
+}
+/* Detalhe geométrico no verso */
+.fc-back::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  border: 1px solid rgba(196,164,90,.12);
+  pointer-events: none;
+}
+.fc-back::after {
+  content: '';
+  position: absolute;
+  bottom: -30px; left: -30px;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  border: 1px solid rgba(196,164,90,.08);
+  pointer-events: none;
+}
+
+/* Ícone da seção no card */
+.fc-sec-icon {
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+/* Label de face */
+.fc-face-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: #ccc;
+  margin-bottom: .6rem;
+  position: relative;
+  z-index: 1;
+}
+.fc-back .fc-face-label { color: rgba(255,255,255,.3); }
+
+/* Termo principal */
+.fc-term {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 400;
+  color: #1a1a2e;
+  line-height: 1.15;
+  position: relative;
+  z-index: 1;
+}
+.fc-back .fc-term {
+  color: var(--gold-light);
+}
+
+/* Exemplo */
+.fc-exemplo {
+  font-family: 'Raleway', sans-serif;
+  font-size: .68rem;
+  color: rgba(255,255,255,.45);
+  font-style: italic;
+  line-height: 1.65;
+  margin-top: .9rem;
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding-top: .8rem;
+  position: relative;
+  z-index: 1;
+  max-width: 500px;
+}
+
+/* Dica de clique */
+.fc-hint {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Raleway', sans-serif;
+  font-size: .6rem;
+  color: #ccc;
+  margin-top: .7rem;
+  position: relative;
+  z-index: 1;
+  animation: hintPulse 2.5s ease-in-out infinite;
+}
+@keyframes hintPulse { 0%,100%{opacity:.4} 50%{opacity:.9} }
+.fc-back .fc-hint { display: none; }
+
+/* Controles */
+.fc-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+/* Botão skip — laranja */
+.fc-skip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.fc-skip-btn {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 2px solid #ffe0b2;
+  background: #fff8f0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+  color: #e65100;
+}
+.fc-skip-btn:hover { background: #fff3e0; border-color: #ffb74d; transform: scale(1.08); }
+.fc-skip-lbl {
+  font-family: 'Raleway', sans-serif;
+  font-size: .55rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #e65100;
+  opacity: .7;
+}
+
+/* Botão virar */
+.fc-flip-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.fc-flip-circle {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid #e8e4e0;
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  color: #aaa;
+  transition: all .2s;
+}
+.fc-flip-circle:hover { border-color: var(--gold); color: var(--gold); transform: rotate(15deg); }
+.fc-flip-lbl {
+  font-family: 'Raleway', sans-serif;
+  font-size: .55rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #bbb;
+}
+
+/* Botão sabia — verde */
+.fc-knew {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.fc-knew-btn {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 2px solid #c8e6c9;
+  background: #f1f8e9;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+  color: #2e7d32;
+}
+.fc-knew-btn:hover { background: #e8f5e9; border-color: #81c784; transform: scale(1.08); }
+.fc-knew-lbl {
+  font-family: 'Raleway', sans-serif;
+  font-size: .55rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #2e7d32;
+  opacity: .7;
+}
+
+/* Embaralhar */
+.fc-shuffle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Raleway', sans-serif;
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #bbb;
+  border: 1.5px solid #e8e4e0;
+  background: #fff;
+  border-radius: 20px;
+  padding: .4rem 1rem;
+  cursor: pointer;
+  transition: all .2s;
+  margin-top: 1rem;
+}
+.fc-shuffle:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Tela de fim */
+.fc-done-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 1rem;
+}
+.fc-done-icon {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.4rem;
+}
+.fc-done-icon.great { background: linear-gradient(135deg,#e8f5e9,#c8e6c9); color: #2e7d32; }
+.fc-done-icon.keep  { background: linear-gradient(135deg,#fff3e0,#ffe0b2); color: #e65100; }
+.fc-done-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  color: #1a1a2e;
+  margin-bottom: .4rem;
+}
+.fc-done-sub {
+  font-family: 'Raleway', sans-serif;
+  font-size: .72rem;
+  color: #aaa;
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+  max-width: 300px;
+}
+.fc-done-stats {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.fc-ds {
+  text-align: center;
+}
+.fc-ds-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  font-weight: 300;
+  line-height: 1;
+}
+.fc-ds-lbl {
+  font-family: 'Raleway', sans-serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #bbb;
+  margin-top: .3rem;
+}
+.fc-restart-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #1a1a2e;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: .7rem 1.6rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s;
+}
+.fc-restart-btn:hover { background: #163158; }
+
+/* Empty */
+.fc-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+.fc-empty-icon {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: #ece8e2;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.2rem;
+  color: #ccc;
+}
+.fc-empty h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #555;
+  margin-bottom: .4rem;
+}
+.fc-empty p {
+  font-family: 'Raleway', sans-serif;
+  font-size: .72rem;
+  color: #aaa;
+  line-height: 1.7;
+}
+
+/* Cores dos cards por seção */
+.fc-front.sec-vocabulario { border-top: 3px solid #C4A45A; }
+.fc-front.sec-frases       { border-top: 3px solid #00BCD4; }
+.fc-front.sec-termos       { border-top: 3px solid #7c6ea0; }
+.fc-front.sec-anotacoes    { border-top: 3px solid #4CAF50; }
+.fc-sec-icon.sec-vocabulario { background: linear-gradient(135deg,#FFF3DC,#F0C860); color: #9A7B2E; }
+.fc-sec-icon.sec-frases      { background: linear-gradient(135deg,#E0F7FA,#00ACC1); color: #006064; }
+.fc-sec-icon.sec-termos      { background: linear-gradient(135deg,#EDE7F6,#9C27B0); color: #4A148C; }
+.fc-sec-icon.sec-anotacoes   { background: linear-gradient(135deg,#F1F8E9,#8BC34A); color: #33691E; }
 
 @media(max-width:700px){.pl-grid{grid-template-columns:repeat(2,1fr);}#caderno-nav .nav-brand{display:none;}#search-input{width:120px;}}
 </style>
@@ -1675,27 +2164,235 @@ function renderPlanner(){
 }
 
 // FLASHCARDS
-let fSecs=['vocabulario','frases','termos','anotacoes'],fMode='termo',fDeck=[],fIdx=0,fKnew=14,fSkip=3,fFlip=false;
-function buildDeck(){const pool=entradas.filter(e=>fSecs.includes(e.secao)&&e.traducao&&e.traducao.trim());fDeck=[...pool].sort(()=>Math.random()-.5);fIdx=0;fKnew=0;fSkip=0;fFlip=false;}
-function renderFlash(){
-  const body=document.getElementById('flash-body');if(!body)return;
-  const avail=[...new Set(entradas.filter(e=>e.traducao&&e.traducao.trim()).map(e=>e.secao))];
-  const sL={vocabulario:'Vocabulario',frases:'Frases',termos:'Termos',anotacoes:'Anotacoes'};
-  const sBtns=avail.map(s=>'<button class="fc-sb '+(fSecs.includes(s)?'on':'')+'" onclick="fTogSec(\''+s+'\')">'+(sL[s]||s)+'</button>').join('');
-  const mBtns=[{id:'termo',l:'Termo > PT'},{id:'traducao',l:'PT > Termo'},{id:'aleatorio',l:'Aleatorio'}].map(m=>'<button class="fc-mb '+(fMode===m.id?'on':'')+'" onclick="fSetMode(\''+m.id+'\')">'+m.l+'</button>').join('');
-  if(avail.length===0){body.innerHTML='<div class="fc-cfg"><span class="fc-lbl">Secoes</span><div class="fc-secs">'+sBtns+'</div><div class="fc-modes">'+mBtns+'</div></div><div class="fc-empty"><p>Nenhuma entrada com traducao.<br>Adicione termos com traducao no caderno.</p></div>';return;}
-  if(fDeck.length===0)buildDeck();
-  let arena;
-  if(fIdx>=fDeck.length){const tot=fDeck.length,pct=tot>0?Math.round(fKnew/tot*100):0;arena='<div class="fc-done"><div class="fc-done-i">'+(pct>=70?'🎉':'💪')+'</div><div class="fc-done-t">'+(pct>=70?'Muito bem!':'Continue praticando!')+'</div><div class="fc-done-s">Voce acertou <strong>'+fKnew+'</strong> de <strong>'+tot+'</strong> cards ('+pct+'%).</div><button class="fc-restart" onclick="fRestart()">Repetir</button></div>';}
-  else{const entry=fDeck[fIdx];const mode=fMode==='aleatorio'?(entry._m||(entry._m=Math.random()>.5?'termo':'traducao')):fMode;const front=mode==='termo'?entry.termo:entry.traducao,back=mode==='termo'?entry.traducao:entry.termo;const fL=mode==='termo'?'Termo':'Traducao',bL=mode==='termo'?'Traducao':'Termo';const pct=fDeck.length>0?(fIdx/fDeck.length*100):0;arena='<div class="fc-arena"><div class="fc-prog"><div class="fc-pb"><div class="fc-pf" style="width:'+pct+'%"></div></div><span class="fc-pl">'+(fIdx+1)+' / '+fDeck.length+'</span></div><div class="fc-wrap '+(fFlip?'flipped':'')+'" id="fc-card" onclick="doFlip()"><div class="fc-inner"><div class="fc-face front"><div class="fc-flbl">'+fL+'</div><div class="fc-term">'+front+'</div><div class="fc-hint">Clique para revelar</div></div><div class="fc-face back"><div class="fc-flbl">'+bL+'</div><div class="fc-term">'+back+'</div>'+(entry.exemplo?'<div class="fc-ex">'+entry.exemplo+'</div>':'')+'</div></div></div><div class="fc-ctrls"><button class="fc-ctrl skip" onclick="fNext(false)" title="Revisar depois"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg></button><button class="fc-shuf" onclick="fShuf()">Embaralhar</button><button class="fc-ctrl knew" onclick="fNext(true)" title="Sabia!"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></button></div><div class="fc-score"><div class="fc-si"><div class="fc-sn g">'+fKnew+'</div><div class="fc-sl">Sabia</div></div><div class="fc-si"><div class="fc-sn o">'+fSkip+'</div><div class="fc-sl">Revisar</div></div></div></div>';}
-  body.innerHTML='<div class="fc-cfg"><span class="fc-lbl">Secoes</span><div class="fc-secs">'+sBtns+'</div><div class="fc-modes">'+mBtns+'</div></div>'+arena;
+
+// ── FLASHCARDS ────────────────────────────────────────────
+let fSecs=['vocabulario','frases','termos','anotacoes'];
+let fMode='termo';
+let fDeck=[], fIdx=0, fKnew=14, fSkip=3, fFlip=false;
+
+// SVGs por seção
+const FC_SEC_SVGS = {
+  vocabulario: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+  frases:      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+  termos:      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  anotacoes:   '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+};
+const FC_SEC_LABELS = { vocabulario:'Vocabulário', frases:'Frases', termos:'Termos', anotacoes:'Anotações' };
+const FC_SEC_COLORS = { vocabulario:'#C4A45A', frases:'#00BCD4', termos:'#7c6ea0', anotacoes:'#4CAF50' };
+
+// SVGs para controles
+const SVG_SKIP    = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>';
+const SVG_KNEW    = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+const SVG_FLIP    = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>';
+const SVG_SHUFFLE = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>';
+
+function buildDeck() {
+  const pool = entradas.filter(e => fSecs.includes(e.secao) && e.traducao && e.traducao.trim());
+  fDeck = [...pool].sort(() => Math.random() - .5);
+  fIdx=0; fKnew=0; fSkip=0; fFlip=false;
 }
-function fTogSec(s){const i=fSecs.indexOf(s);if(i===-1)fSecs.push(s);else if(fSecs.length>1)fSecs.splice(i,1);buildDeck();renderFlash();}
-function fSetMode(m){fMode=m;fDeck.forEach(e=>delete e._m);renderFlash();}
-function doFlip(){fFlip=!fFlip;const c=document.getElementById('fc-card');if(c)c.classList.toggle('flipped');}
-function fNext(k){if(k)fKnew++;else fSkip++;fFlip=false;fIdx++;renderFlash();}
-function fShuf(){fDeck.sort(()=>Math.random()-.5);fIdx=0;fKnew=0;fSkip=0;fFlip=false;renderFlash();}
-function fRestart(){buildDeck();renderFlash();}
+
+function renderFlash() {
+  const body = document.getElementById('flash-body');
+  if (!body) return;
+
+  const avail = [...new Set(entradas.filter(e => e.traducao && e.traducao.trim()).map(e => e.secao))];
+
+  // Filtros de seção com SVG + cor
+  const secFilters = avail.map(s => `
+    <button class="ff-btn ${fSecs.includes(s)?'on':''}" onclick="fTogSec('${s}')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="${fSecs.includes(s)?'#fff':FC_SEC_COLORS[s]}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        ${FC_SEC_SVGS[s].replace(/<svg[^>]*>/,'').replace('</svg>','')}
+      </svg>
+      ${FC_SEC_LABELS[s]||s}
+    </button>`).join('');
+
+  // Botões de modo com SVG
+  const modeData = [
+    { id:'termo',     lbl:'Termo → PT',   svg:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>' },
+    { id:'traducao',  lbl:'PT → Termo',   svg:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>' },
+    { id:'aleatorio', lbl:'Aleatório',    svg:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>' },
+  ];
+  const modeBtns = modeData.map(m => `
+    <button class="fm-btn ${fMode===m.id?'on':''}" onclick="fSetMode('${m.id}')">
+      ${m.svg} ${m.lbl}
+    </button>`).join('');
+
+  if (!avail.length) {
+    body.innerHTML = `<div class="flash-wrap"><div class="fc-empty">
+      <div class="fc-empty-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <h3>Nenhum flashcard disponível</h3>
+      <p>Adicione termos com tradução no seu caderno para criar flashcards automaticamente.</p>
+    </div></div>`;
+    return;
+  }
+
+  if (!fDeck.length) buildDeck();
+
+  const pct = fDeck.length > 0 ? Math.round(fIdx / fDeck.length * 100) : 0;
+
+  const scoreHTML = `
+    <div class="fp-scores">
+      <div class="fp-score-badge green">${SVG_KNEW.replace('20','14').replace('20','14')} ${fKnew} sabia</div>
+      <div class="fp-score-badge orange">${SVG_SKIP.replace('20','14').replace('20','14')} ${fSkip} revisar</div>
+    </div>`;
+
+  let mainHTML;
+
+  if (fIdx >= fDeck.length) {
+    // Tela de conclusão
+    const tot = fDeck.length;
+    const perc = tot > 0 ? Math.round(fKnew / tot * 100) : 0;
+    const great = perc >= 70;
+    mainHTML = `
+      <div class="fc-done-screen">
+        <div class="fc-done-icon ${great?'great':'keep'}">
+          ${great
+            ? '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+            : '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>'
+          }
+        </div>
+        <div class="fc-done-title">${great ? 'Excelente!' : 'Continue praticando!'}</div>
+        <div class="fc-done-sub">${great
+          ? 'Você demonstrou ótimo domínio do vocabulário desta sessão.'
+          : 'Cada repetição fortalece a memória. Tente novamente!'
+        }</div>
+        <div class="fc-done-stats">
+          <div class="fc-ds">
+            <div class="fc-ds-num" style="color:#2e7d32">${fKnew}</div>
+            <div class="fc-ds-lbl">Sabia</div>
+          </div>
+          <div class="fc-ds">
+            <div class="fc-ds-num" style="color:#e65100">${fSkip}</div>
+            <div class="fc-ds-lbl">Revisar</div>
+          </div>
+          <div class="fc-ds">
+            <div class="fc-ds-num" style="color:#1a1a2e">${perc}%</div>
+            <div class="fc-ds-lbl">Acerto</div>
+          </div>
+        </div>
+        <button class="fc-restart-btn" onclick="fRestart()">
+          ${SVG_SHUFFLE} Repetir baralho
+        </button>
+      </div>`;
+  } else {
+    // Card atual
+    const entry = fDeck[fIdx];
+    const sec   = entry.secao;
+    const mode  = fMode === 'aleatorio' ? (entry._m || (entry._m = Math.random()>.5?'termo':'traducao')) : fMode;
+    const front = mode === 'termo' ? entry.termo    : entry.traducao;
+    const back  = mode === 'termo' ? entry.traducao : entry.termo;
+    const frontL = mode === 'termo' ? 'Termo' : 'Tradução';
+    const backL  = mode === 'termo' ? 'Tradução' : 'Termo';
+
+    mainHTML = `
+      <!-- Card 3D -->
+      <div class="fc-scene ${fFlip?'flipped':''}" id="fc-card" onclick="doFlip()">
+        <div class="fc-inner">
+
+          <!-- Frente -->
+          <div class="fc-face fc-front sec-${sec}">
+            <div class="fc-sec-icon sec-${sec}">
+              ${FC_SEC_SVGS[sec]||''}
+            </div>
+            <div class="fc-face-label">${frontL}</div>
+            <div class="fc-term">${front}</div>
+            <div class="fc-hint">
+              ${SVG_FLIP}
+              Clique para revelar
+            </div>
+          </div>
+
+          <!-- Verso -->
+          <div class="fc-face fc-back">
+            <div class="fc-face-label">${backL}</div>
+            <div class="fc-term">${back}</div>
+            ${entry.exemplo ? '<div class="fc-exemplo">'+entry.exemplo+'</div>' : ''}
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Controles -->
+      <div class="fc-controls">
+        <div class="fc-skip" onclick="fNext(false)">
+          <div class="fc-skip-btn">${SVG_SKIP}</div>
+          <span class="fc-skip-lbl">Revisar</span>
+        </div>
+
+        <div class="fc-flip-btn" onclick="doFlip()">
+          <div class="fc-flip-circle">${SVG_FLIP}</div>
+          <span class="fc-flip-lbl">Virar</span>
+        </div>
+
+        <div class="fc-knew" onclick="fNext(true)">
+          <div class="fc-knew-btn">${SVG_KNEW}</div>
+          <span class="fc-knew-lbl">Sabia!</span>
+        </div>
+      </div>
+
+      <button class="fc-shuffle" onclick="fShuf()">${SVG_SHUFFLE} Embaralhar</button>
+    `;
+  }
+
+  body.innerHTML = `
+    <div class="flash-wrap">
+
+      <!-- Header -->
+      <div class="flash-hdr">
+        <div class="flash-hdr-left">
+          <div class="flash-hdr-title">Meus <em>Flashcards</em></div>
+          <div class="flash-hdr-sub">${fDeck.length} cards disponíveis · ${entradas.filter(e=>e.traducao&&e.traducao.trim()).length} com tradução</div>
+        </div>
+        <div class="flash-modes">${modeBtns}</div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="flash-filters" style="margin-bottom:1.8rem">
+        <span class="ff-label">Seções</span>
+        ${secFilters}
+      </div>
+
+      <!-- Progresso -->
+      ${fIdx < fDeck.length ? `
+      <div class="flash-progress">
+        <div class="fp-row">
+          <span class="fp-count">${fIdx + 1} <span style="color:#ccc;font-size:.8rem">/ ${fDeck.length}</span></span>
+          <span class="fp-pct">${pct}% concluído</span>
+        </div>
+        <div class="fp-bar"><div class="fp-fill" style="width:${pct}%"></div></div>
+        ${scoreHTML}
+      </div>` : ''}
+
+      ${mainHTML}
+    </div>`;
+}
+
+function fTogSec(s) {
+  const i = fSecs.indexOf(s);
+  if (i===-1) fSecs.push(s);
+  else if (fSecs.length > 1) fSecs.splice(i,1);
+  buildDeck();
+  renderFlash();
+}
+function fSetMode(m) { fMode=m; fDeck.forEach(e=>delete e._m); renderFlash(); }
+function doFlip() {
+  fFlip = !fFlip;
+  const card = document.getElementById('fc-card');
+  if (card) card.classList.toggle('flipped');
+}
+function fNext(knew) {
+  if (knew) fKnew++; else fSkip++;
+  fFlip = false;
+  fIdx++;
+  renderFlash();
+}
+function fShuf() {
+  fDeck.sort(() => Math.random()-.5);
+  fIdx=0; fKnew=0; fSkip=0; fFlip=false;
+  renderFlash();
+}
+function fRestart() { buildDeck(); renderFlash(); }
 
 // TOUR
 const TOUR=[
