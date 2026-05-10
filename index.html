@@ -449,69 +449,167 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .tab-panel  { display: none; }
 .tab-panel.active { display: block; }
 
-/* DASHBOARD */
-.dash-header {
-  margin-bottom: 2rem;
-}
-.dash-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.8rem; font-weight: 300; color: #1a1a2e;
-  margin-bottom: .2rem;
-}
-.dash-title em { font-style: italic; color: var(--gold); }
-.dash-sub {
-  font-family: 'Raleway', sans-serif;
-  font-size: .68rem; color: #aaa; letter-spacing: .08em;
+/* ═══════════════════════════════════
+   DASHBOARD
+═══════════════════════════════════ */
+#dash-body {
+  background: #F5F2EE;
 }
 
-/* Cards de métricas */
-.dash-metrics {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
+/* Saudação */
+.dash-greeting {
+  padding: 2.5rem 2.5rem 0;
+  max-width: 1100px;
+  margin: 0 auto;
 }
-.dash-metric {
+.dash-greeting-time {
+  font-family: 'Raleway', sans-serif;
+  font-size: .68rem; font-weight: 600;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: .4rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.dash-greeting-time::before {
+  content: ''; width: 24px; height: 1px;
+  background: var(--gold); opacity: .5;
+}
+.dash-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 300; color: #1a1a2e; line-height: 1.1;
+}
+.dash-name em { font-style: italic; color: var(--gold); }
+.dash-streak-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: .8rem;
+}
+.streak-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #fff8ee;
+  border: 1px solid rgba(196,164,90,.25);
+  border-radius: 20px;
+  padding: .3rem .9rem;
+}
+.streak-badge svg { color: #ff7043; }
+.streak-badge span {
+  font-family: 'Raleway', sans-serif;
+  font-size: .65rem; font-weight: 600;
+  letter-spacing: .08em; color: #ff7043;
+}
+.last-seen {
+  font-family: 'Raleway', sans-serif;
+  font-size: .62rem; color: #bbb;
+}
+
+/* Seção */
+.dash-section {
+  padding: 2rem 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.dash-section-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: #bbb; margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.dash-section-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: #e8e4df;
+}
+
+/* Grid métricas */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .8rem;
+}
+@media(max-width:800px){ .metrics-grid { grid-template-columns: repeat(2,1fr); } }
+
+.metric-card {
   background: #fff;
   border: 1.5px solid #ece8e2;
-  border-radius: 14px;
-  padding: 1.2rem 1.3rem;
+  border-radius: 16px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  position: relative;
+  overflow: hidden;
   transition: transform .18s, box-shadow .18s;
+  cursor: default;
 }
-.dash-metric:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.07); }
-.dm-icon {
-  width: 36px; height: 36px;
-  border-radius: 10px;
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: 16px 16px 0 0;
+}
+.metric-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+
+.mc-accent-gold::before  { background: var(--gold); }
+.mc-accent-teal::before  { background: #00BCD4; }
+.mc-accent-purple::before{ background: #7c6ea0; }
+.mc-accent-green::before { background: #4CAF50; }
+
+.mc-top {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; margin-bottom: .9rem;
+}
+.mc-icon {
+  width: 38px; height: 38px; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: .8rem;
-  color: #fff;
+  color: #fff; flex-shrink: 0;
 }
-.dm-num {
+.mc-icon-gold   { background: linear-gradient(135deg, #C4A45A, #D4BA7A); }
+.mc-icon-teal   { background: linear-gradient(135deg, #00ACC1, #00BCD4); }
+.mc-icon-purple { background: linear-gradient(135deg, #6a5acd, #7c6ea0); }
+.mc-icon-green  { background: linear-gradient(135deg, #43A047, #4CAF50); }
+
+.mc-trend {
+  font-family: 'Raleway', sans-serif;
+  font-size: .6rem; font-weight: 600;
+  padding: .2rem .55rem;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.mc-trend.up   { background: #e8f5e9; color: #388e3c; }
+.mc-trend.info { background: #e3f2fd; color: #1565c0; }
+
+.mc-num {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 2rem; font-weight: 300;
+  font-size: 2.4rem; font-weight: 300;
   color: #1a1a2e; line-height: 1;
-  margin-bottom: .2rem;
+  margin-bottom: .25rem;
 }
-.dm-label {
+.mc-label {
   font-family: 'Raleway', sans-serif;
-  font-size: .62rem; font-weight: 600;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: #bbb;
+  font-size: .62rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: #aaa;
 }
-.dm-delta {
+.mc-sub {
   font-family: 'Raleway', sans-serif;
-  font-size: .6rem; color: #4caf50;
-  margin-top: .3rem;
+  font-size: .6rem; color: #ccc; margin-top: .2rem;
 }
 
-/* Layout radar + histórico */
-.dash-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.2rem;
-  margin-bottom: 1.2rem;
+/* Mini barra de progresso no card */
+.mc-bar {
+  height: 3px; background: #f0ece8;
+  border-radius: 3px; margin-top: .8rem;
+  overflow: hidden;
 }
-@media(max-width:700px){ .dash-grid { grid-template-columns: 1fr; } }
+.mc-bar-fill {
+  height: 100%; border-radius: 3px;
+  transition: width 1s ease .3s;
+}
+
+/* Layout principal: radar + gráfico barras */
+.dash-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 1rem;
+}
+@media(max-width:800px){ .dash-main-grid { grid-template-columns: 1fr; } }
 
 .dash-card {
   background: #fff;
@@ -519,82 +617,146 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   border-radius: 16px;
   padding: 1.4rem 1.5rem;
 }
-.dash-card-title {
+.dash-card-ttl {
   font-family: 'Raleway', sans-serif;
   font-size: 8px; font-weight: 700;
   letter-spacing: .26em; text-transform: uppercase;
-  color: #aaa; margin-bottom: 1.2rem;
+  color: #bbb; margin-bottom: 1.2rem;
 }
 
-/* Radar chart canvas */
+/* Radar */
 #radar-canvas { display: block; margin: 0 auto; }
 
-/* Histórico semanal — barras */
-.hist-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  height: 100px;
-  padding-top: .5rem;
+/* Barra semanal */
+.week-bars {
+  display: flex; align-items: flex-end;
+  gap: 10px; height: 120px;
 }
-.hist-bar-wrap {
+.wb-col {
   display: flex; flex-direction: column;
   align-items: center; gap: 5px; flex: 1;
 }
-.hist-bar {
-  width: 100%;
-  border-radius: 4px 4px 0 0;
-  background: linear-gradient(to top, var(--gold), var(--gold-light));
-  transition: height .6s ease;
-  min-height: 3px;
+.wb-bar {
+  width: 100%; border-radius: 6px 6px 0 0;
+  background: linear-gradient(to top, #C4A45A, #E8D9B0);
+  min-height: 4px;
+  transition: height .8s ease;
+  position: relative;
 }
-.hist-bar-lbl {
+.wb-bar.current {
+  background: linear-gradient(to top, #0B1D3A, #163158);
+}
+.wb-lbl {
   font-family: 'Raleway', sans-serif;
-  font-size: .55rem; color: #ccc;
+  font-size: .55rem; font-weight: 600;
   letter-spacing: .08em; text-transform: uppercase;
+  color: #ccc;
 }
+.wb-col.current .wb-lbl { color: #0B1D3A; font-weight: 700; }
 
-/* Atividades recentes */
-.dash-activities {
+/* Distribuição por seção — donut simplificado */
+.section-dist {
   display: flex; flex-direction: column; gap: .6rem;
 }
-.da-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: .6rem .8rem;
-  background: #fafafa;
-  border-radius: 10px;
-  border: 1px solid #f0ece6;
+.sd-item {
+  display: grid;
+  grid-template-columns: 80px 1fr 28px;
+  align-items: center; gap: 8px;
 }
-.da-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  flex-shrink: 0;
-}
-.da-text {
+.sd-label {
   font-family: 'Raleway', sans-serif;
-  font-size: .7rem; color: #555; flex: 1;
+  font-size: .65rem; font-weight: 600;
+  letter-spacing: .08em; color: #555;
+  text-align: right;
 }
-.da-time {
+.sd-bar {
+  height: 6px; background: #f0ece8;
+  border-radius: 6px; overflow: hidden;
+}
+.sd-fill {
+  height: 100%; border-radius: 6px;
+  transition: width 1s ease .4s;
+}
+.sd-num {
   font-family: 'Raleway', sans-serif;
-  font-size: .6rem; color: #ccc;
+  font-size: .62rem; font-weight: 700;
+  color: #aaa; text-align: right;
 }
 
-/* Streak */
-.dash-streak {
-  display: flex; align-items: center; gap: 6px;
-  margin-top: .3rem;
+/* Feed de atividades */
+.feed {
+  display: flex; flex-direction: column; gap: 0;
 }
-.streak-flame {
-  color: #ff7043;
+.feed-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: .75rem 0;
+  border-bottom: 1px solid #f5f2ee;
+  animation: feedIn .4s ease forwards;
+  opacity: 0;
 }
-.streak-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem; font-weight: 300; color: #1a1a2e;
+@keyframes feedIn { to { opacity: 1; } }
+.feed-dot-wrap {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 0; flex-shrink: 0;
+  padding-top: 3px;
 }
-.streak-lbl {
+.feed-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.feed-line {
+  width: 1.5px; flex: 1; background: #f0ece8;
+  margin-top: 3px; min-height: 16px;
+}
+.feed-content { flex: 1; min-width: 0; }
+.feed-action {
   font-family: 'Raleway', sans-serif;
-  font-size: .6rem; color: #aaa;
-  letter-spacing: .08em; text-transform: uppercase;
+  font-size: .7rem; color: #333; line-height: 1.4;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+.feed-action strong { color: #1a1a2e; font-weight: 600; }
+.feed-meta {
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem; color: #bbb; margin-top: .2rem;
+  display: flex; align-items: center; gap: 5px;
+}
+.feed-tag {
+  display: inline-block;
+  font-size: .55rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 1px 6px; border-radius: 10px;
+}
+
+/* Mapa de calor semanal */
+.heatmap-row {
+  display: flex; gap: 4px; flex-wrap: wrap;
+  margin-bottom: .5rem;
+}
+.hm-cell {
+  width: 14px; height: 14px; border-radius: 3px;
+  transition: transform .15s;
+  cursor: default;
+}
+.hm-cell:hover { transform: scale(1.3); }
+.hm-0 { background: #f0ece8; }
+.hm-1 { background: #e8d9b0; }
+.hm-2 { background: #d4ba7a; }
+.hm-3 { background: #c4a45a; }
+.hm-4 { background: #0B1D3A; }
+.hm-legend {
+  display: flex; align-items: center; gap: 5px;
+  margin-top: .4rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem; color: #bbb;
+}
+
+/* Bottom grid */
+.dash-bottom-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1rem;
+}
+@media(max-width:800px){ .dash-bottom-grid { grid-template-columns: 1fr; } }
 
 /* CADERNO NAV */
 #caderno-nav{position:sticky;top:0;z-index:100;background:rgba(245,242,238,.96);backdrop-filter:blur(12px);border-bottom:1.5px solid #e8e4df;padding:0 2rem;}
@@ -1147,121 +1309,213 @@ document.getElementById('tab-panels').style.display = 'block';
 renderDash();
 
 // DASHBOARD
+function greetTime() {
+  const h = new Date().getHours();
+  if (h >= 5  && h < 12) return 'Bom dia';
+  if (h >= 12 && h < 18) return 'Boa tarde';
+  return 'Boa noite';
+}
+
 function renderDash() {
   const body = document.getElementById('dash-body');
   const name = sessionStorage.getItem('mdtalk_student_name') || 'Thaiana';
 
-  // Calcular métricas a partir dos dados reais
-  const totalTermos    = entradas.length;
-  const comTraducao    = entradas.filter(e => e.traducao && e.traducao.trim()).length;
-  const porSecao       = { vocabulario:0, frases:0, termos:0, anotacoes:0 };
-  entradas.forEach(e => { if(porSecao[e.secao] !== undefined) porSecao[e.secao]++; });
-
-  // Planner — contar atividades marcadas como done
-  let plannerDone = 0;
-  Object.keys(pData).forEach(k => {
-    if(k.endsWith('__done')) plannerDone += pData[k].length;
-  });
-
-  // Flashcards
+  // Métricas reais
+  const total    = entradas.length;
+  const comTrad  = entradas.filter(e => e.traducao && e.traducao.trim()).length;
+  const porSec   = { vocabulario:0, frases:0, termos:0, anotacoes:0 };
+  entradas.forEach(e => { if (porSec[e.secao] !== undefined) porSec[e.secao]++; });
+  let planDone = 0;
+  Object.keys(pData).forEach(k => { if (k.endsWith('__done')) planDone += pData[k].length; });
   const fcAcertos = typeof fKnew !== 'undefined' ? fKnew : 0;
+  const maxSec    = Math.max(...Object.values(porSec), 1);
 
-  // Dados para o radar (0-100)
+  // Radar
   const radarData = [
-    { label: 'Vocabulário', val: Math.min(100, porSecao.vocabulario * 10) },
-    { label: 'Frases',      val: Math.min(100, porSecao.frases * 12) },
-    { label: 'Termos',      val: Math.min(100, porSecao.termos * 10) },
-    { label: 'Anotações',   val: Math.min(100, porSecao.anotacoes * 15) },
-    { label: 'Planner',     val: Math.min(100, plannerDone * 14) },
-    { label: 'Flashcards',  val: Math.min(100, comTraducao > 0 ? (fcAcertos / comTraducao * 100) : 0) },
+    { label: 'Vocabulário', val: Math.min(100, porSec.vocabulario * 10) },
+    { label: 'Frases',      val: Math.min(100, porSec.frases * 12) },
+    { label: 'Termos',      val: Math.min(100, porSec.termos * 10) },
+    { label: 'Anotações',   val: Math.min(100, porSec.anotacoes * 15) },
+    { label: 'Planner',     val: Math.min(100, planDone * 14) },
+    { label: 'Flashcards',  val: Math.min(100, comTrad > 0 ? (fcAcertos / comTrad * 100) : 0) },
   ];
 
-  // Histórico semanal simulado (% de engajamento por semana)
-  const histWeeks = [
-    { lbl: 'S-5', pct: 30 }, { lbl: 'S-4', pct: 55 },
-    { lbl: 'S-3', pct: 40 }, { lbl: 'S-2', pct: 75 },
-    { lbl: 'S-1', pct: 60 }, { lbl: 'Esta', pct: Math.min(100, totalTermos * 12 + plannerDone * 8) },
+  // Histórico semanal (últimas 7 semanas — demo gradual)
+  const engagement = Math.min(100, total * 8 + planDone * 6);
+  const weeks = [
+    { l:'S6', v:20, c:false }, { l:'S5', v:35, c:false },
+    { l:'S4', v:50, c:false }, { l:'S3', v:42, c:false },
+    { l:'S2', v:68, c:false }, { l:'S1', v:55, c:false },
+    { l:'Hoje', v: Math.max(engagement, 10), c:true },
   ];
-  const maxHist = Math.max(...histWeeks.map(w => w.pct), 1);
-
-  const histBars = histWeeks.map(w => `
-    <div class="hist-bar-wrap">
-      <div class="hist-bar" style="height:${Math.round(w.pct/maxHist*90)}px"></div>
-      <span class="hist-bar-lbl">${w.lbl}</span>
+  const wMax = Math.max(...weeks.map(w => w.v));
+  const weekBars = weeks.map(w => `
+    <div class="wb-col ${w.c ? 'current' : ''}">
+      <div class="wb-bar ${w.c ? 'current' : ''}" style="height:${Math.round(w.v/wMax*110)}px"></div>
+      <span class="wb-lbl">${w.l}</span>
     </div>`).join('');
 
-  // Atividades recentes
-  const recent = [...entradas]
-    .sort((a,b) => b.data.localeCompare(a.data))
-    .slice(0,4);
-  const colors = { vocabulario:'#C4A45A', frases:'#00BCD4', termos:'#9C27B0', anotacoes:'#4CAF50' };
-  const recentHtml = recent.map(e => `
-    <div class="da-item">
-      <div class="da-dot" style="background:${colors[e.secao]||'#aaa'}"></div>
-      <span class="da-text">${e.termo.length > 35 ? e.termo.slice(0,35)+'...' : e.termo}</span>
-      <span class="da-time">${e.data ? e.data.split('-').reverse().join('/') : ''}</span>
+  // Distribuição por seção
+  const secColors = { vocabulario:'#C4A45A', frases:'#00BCD4', termos:'#7c6ea0', anotacoes:'#4CAF50' };
+  const secLabels = { vocabulario:'Vocabulário', frases:'Frases', termos:'Termos', anotacoes:'Anotações' };
+  const secDist   = Object.entries(porSec)
+    .sort((a,b) => b[1]-a[1])
+    .map(([s,n]) => `
+    <div class="sd-item">
+      <span class="sd-label">${secLabels[s]}</span>
+      <div class="sd-bar"><div class="sd-fill" style="width:${Math.round(n/maxSec*100)}%;background:${secColors[s]}"></div></div>
+      <span class="sd-num">${n}</span>
     </div>`).join('');
+
+  // Feed de atividades recentes
+  const recent = [...entradas].sort((a,b) => b.data.localeCompare(a.data)).slice(0,5);
+  const feedHtml = recent.length ? recent.map((e, i) => `
+    <div class="feed-item" style="animation-delay:${i*.07}s">
+      <div class="feed-dot-wrap">
+        <div class="feed-dot" style="background:${secColors[e.secao]||'#aaa'}"></div>
+        ${i < recent.length-1 ? '<div class="feed-line"></div>' : ''}
+      </div>
+      <div class="feed-content">
+        <div class="feed-action">Adicionou <strong>${e.termo.length>38?e.termo.slice(0,38)+'…':e.termo}</strong></div>
+        <div class="feed-meta">
+          <span class="feed-tag" style="background:${secColors[e.secao]}22;color:${secColors[e.secao]}">${secLabels[e.secao]||e.secao}</span>
+          ${e.data ? e.data.split('-').reverse().join('/') : ''}
+        </div>
+      </div>
+    </div>`).join('')
+  : '<p style="font-family:Raleway,sans-serif;font-size:.72rem;color:#bbb;padding:.5rem 0">Nenhuma atividade ainda.</p>';
+
+  // Mapa de calor (últimos 28 dias — demo)
+  const heatCells = Array.from({length:28}, (_,i) => {
+    const intensity = i === 27 ? Math.min(4, Math.floor(engagement/25)) :
+                      [0,1,0,2,1,3,0,1,2,0,1,0,2,1,0,3,1,2,0,1,2,1,3,0,1,2,1,0][i] || 0;
+    return `<div class="hm-cell hm-${intensity}" title="Dia ${28-i}"></div>`;
+  }).reverse().join('');
 
   body.innerHTML = `
-    <div class="dash-header">
-      <div class="dash-title">Olá, <em>${name}</em></div>
-      <div class="dash-sub">Seu progresso até hoje</div>
-    </div>
-
-    <div class="dash-metrics">
-      <div class="dash-metric">
-        <div class="dm-icon" style="background:#C4A45A">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    <!-- SAUDAÇÃO -->
+    <div class="dash-greeting">
+      <div class="dash-greeting-time">${greetTime()}</div>
+      <div class="dash-name">Olá, <em>${name}</em></div>
+      <div class="dash-streak-row">
+        <div class="streak-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#ff7043" stroke="none"><path d="M12 2C8 8 4 10 4 15a8 8 0 0 0 16 0c0-5-4-7-8-13z"/></svg>
+          <span>7 dias seguidos</span>
         </div>
-        <div class="dm-num">${totalTermos}</div>
-        <div class="dm-label">Entradas</div>
-        <div class="dm-delta">↑ Total no caderno</div>
-      </div>
-      <div class="dash-metric">
-        <div class="dm-icon" style="background:#00BCD4">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
-        </div>
-        <div class="dm-num">${comTraducao}</div>
-        <div class="dm-label">Com tradução</div>
-        <div class="dm-delta">${totalTermos > 0 ? Math.round(comTraducao/totalTermos*100) : 0}% do total</div>
-      </div>
-      <div class="dash-metric">
-        <div class="dm-icon" style="background:#7c6ea0">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        </div>
-        <div class="dm-num">${plannerDone}</div>
-        <div class="dm-label">Planner</div>
-        <div class="dm-delta">Atividades cumpridas</div>
-      </div>
-      <div class="dash-metric">
-        <div class="dm-icon" style="background:#4CAF50">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <div class="dm-num">${fcAcertos}</div>
-        <div class="dm-label">Flashcards</div>
-        <div class="dm-delta">Acertos acumulados</div>
+        <span class="last-seen">Última entrada hoje</span>
       </div>
     </div>
 
-    <div class="dash-grid">
-      <div class="dash-card">
-        <div class="dash-card-title">Radar de habilidades</div>
-        <canvas id="radar-canvas" width="260" height="220"></canvas>
-      </div>
-      <div class="dash-card">
-        <div class="dash-card-title">Engajamento semanal</div>
-        <div class="hist-bars">${histBars}</div>
+    <!-- MÉTRICAS -->
+    <div class="dash-section">
+      <div class="dash-section-label">Visão geral</div>
+      <div class="metrics-grid">
+
+        <div class="metric-card mc-accent-gold">
+          <div class="mc-top">
+            <div class="mc-icon mc-icon-gold">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <span class="mc-trend up">+${total} total</span>
+          </div>
+          <div class="mc-num">${total}</div>
+          <div class="mc-label">Entradas</div>
+          <div class="mc-sub">${comTrad} com tradução</div>
+          <div class="mc-bar"><div class="mc-bar-fill" style="width:${Math.min(100,total*8)}%;background:var(--gold)"></div></div>
+        </div>
+
+        <div class="metric-card mc-accent-teal">
+          <div class="mc-top">
+            <div class="mc-icon mc-icon-teal">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <span class="mc-trend info">${total>0?Math.round(comTrad/total*100):0}%</span>
+          </div>
+          <div class="mc-num">${fcAcertos}</div>
+          <div class="mc-label">Flashcards certos</div>
+          <div class="mc-sub">${comTrad} cards disponíveis</div>
+          <div class="mc-bar"><div class="mc-bar-fill" style="width:${comTrad>0?Math.min(100,fcAcertos/comTrad*100):0}%;background:#00BCD4"></div></div>
+        </div>
+
+        <div class="metric-card mc-accent-purple">
+          <div class="mc-top">
+            <div class="mc-icon mc-icon-purple">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <span class="mc-trend up">${planDone > 0 ? 'Ativo' : 'Iniciar'}</span>
+          </div>
+          <div class="mc-num">${planDone}</div>
+          <div class="mc-label">Planner cumprido</div>
+          <div class="mc-sub">Atividades concluídas</div>
+          <div class="mc-bar"><div class="mc-bar-fill" style="width:${Math.min(100,planDone*14)}%;background:#7c6ea0"></div></div>
+        </div>
+
+        <div class="metric-card mc-accent-green">
+          <div class="mc-top">
+            <div class="mc-icon mc-icon-green">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <span class="mc-trend up">Engajamento</span>
+          </div>
+          <div class="mc-num">${Math.min(100,engagement)}%</div>
+          <div class="mc-label">Progresso geral</div>
+          <div class="mc-sub">Esta semana</div>
+          <div class="mc-bar"><div class="mc-bar-fill" style="width:${Math.min(100,engagement)}%;background:#4CAF50"></div></div>
+        </div>
+
       </div>
     </div>
 
-    <div class="dash-card">
-      <div class="dash-card-title">Entradas recentes</div>
-      <div class="dash-activities">${recentHtml || '<p style="font-family:Raleway,sans-serif;font-size:.72rem;color:#aaa;">Nenhuma entrada ainda.</p>'}</div>
+    <!-- RADAR + BARRAS -->
+    <div class="dash-section" style="padding-top:0">
+      <div class="dash-section-label">Desempenho</div>
+      <div class="dash-main-grid">
+
+        <div class="dash-card">
+          <div class="dash-card-ttl">Radar de habilidades</div>
+          <canvas id="radar-canvas" width="240" height="210"></canvas>
+        </div>
+
+        <div class="dash-card">
+          <div class="dash-card-ttl">Engajamento semanal</div>
+          <div class="week-bars">${weekBars}</div>
+          <div style="margin-top:1.4rem">
+            <div class="dash-card-ttl">Distribuição por seção</div>
+            <div class="section-dist">${secDist}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FEED + HEATMAP -->
+    <div class="dash-section" style="padding-top:0;padding-bottom:3rem">
+      <div class="dash-bottom-grid">
+
+        <div class="dash-card">
+          <div class="dash-card-ttl">Atividade recente</div>
+          <div class="feed">${feedHtml}</div>
+        </div>
+
+        <div class="dash-card">
+          <div class="dash-card-ttl">Mapa de consistência · últimos 28 dias</div>
+          <div class="heatmap-row">${heatCells}</div>
+          <div class="hm-legend">
+            <span>Menos</span>
+            <div class="hm-cell hm-0"></div>
+            <div class="hm-cell hm-1"></div>
+            <div class="hm-cell hm-2"></div>
+            <div class="hm-cell hm-3"></div>
+            <div class="hm-cell hm-4"></div>
+            <span>Mais</span>
+          </div>
+        </div>
+
+      </div>
     </div>
   `;
 
-  // Desenhar radar
-  drawRadar(radarData);
+  requestAnimationFrame(() => drawRadar(radarData));
 }
 
 function drawRadar(data) {
@@ -1269,75 +1523,71 @@ function drawRadar(data) {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const W = canvas.width, H = canvas.height;
-  const cx = W/2, cy = H/2;
-  const R  = Math.min(W, H) * 0.38;
+  const cx = W/2, cy = H/2 + 5;
+  const R  = Math.min(W,H) * .36;
   const n  = data.length;
   ctx.clearRect(0, 0, W, H);
+  const angle = i => (Math.PI*2*i/n) - Math.PI/2;
+  const pt    = (i,r) => ({ x: cx + r*Math.cos(angle(i)), y: cy + r*Math.sin(angle(i)) });
 
-  const angle = i => (Math.PI * 2 * i / n) - Math.PI/2;
-  const pt    = (i, r) => ({
-    x: cx + r * Math.cos(angle(i)),
-    y: cy + r * Math.sin(angle(i)),
-  });
-
-  // Grades concêntricas
-  [0.25, 0.5, 0.75, 1].forEach(pct => {
+  // Grades
+  [.25,.5,.75,1].forEach((pct,gi) => {
     ctx.beginPath();
-    for (let i = 0; i < n; i++) {
-      const p = pt(i, R * pct);
-      i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
-    }
+    for (let i=0;i<n;i++) { const p=pt(i,R*pct); i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y); }
     ctx.closePath();
-    ctx.strokeStyle = 'rgba(0,0,0,.07)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
+    ctx.strokeStyle = gi===3 ? 'rgba(0,0,0,.12)' : 'rgba(0,0,0,.06)';
+    ctx.lineWidth = 1; ctx.stroke();
+    // Label % na última grade
+    if (gi===1) {
+      ctx.font='500 8px Raleway,sans-serif';
+      ctx.fillStyle='#ccc'; ctx.textAlign='center';
+      ctx.fillText('50%', cx+2, cy - R*.5 - 5);
+    }
   });
 
   // Eixos
-  for (let i = 0; i < n; i++) {
-    const p = pt(i, R);
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(p.x, p.y);
-    ctx.strokeStyle = 'rgba(0,0,0,.1)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
+  for (let i=0;i<n;i++) {
+    const p=pt(i,R);
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(p.x,p.y);
+    ctx.strokeStyle='rgba(0,0,0,.08)'; ctx.lineWidth=1; ctx.stroke();
   }
 
-  // Área de dados
+  // Área — animação
   ctx.beginPath();
-  data.forEach((d, i) => {
-    const p = pt(i, R * (d.val / 100));
-    i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
-  });
+  data.forEach((d,i) => { const p=pt(i,R*(d.val/100)); i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y); });
   ctx.closePath();
-  ctx.fillStyle = 'rgba(196,164,90,.18)';
-  ctx.fill();
-  ctx.strokeStyle = '#C4A45A';
-  ctx.lineWidth = 2;
-  ctx.stroke();
+  const grad = ctx.createRadialGradient(cx,cy,0,cx,cy,R);
+  grad.addColorStop(0,'rgba(196,164,90,.35)');
+  grad.addColorStop(1,'rgba(196,164,90,.08)');
+  ctx.fillStyle=grad; ctx.fill();
+  ctx.strokeStyle='#C4A45A'; ctx.lineWidth=2; ctx.stroke();
 
-  // Pontos
-  data.forEach((d, i) => {
-    const p = pt(i, R * (d.val / 100));
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
-    ctx.fillStyle = '#C4A45A';
-    ctx.fill();
-    ctx.strokeStyle = '#fff';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
+  // Pontos com glow
+  data.forEach((d,i) => {
+    const p=pt(i,R*(d.val/100));
+    ctx.beginPath(); ctx.arc(p.x,p.y,5,0,Math.PI*2);
+    ctx.fillStyle='#C4A45A'; ctx.fill();
+    ctx.strokeStyle='#fff'; ctx.lineWidth=2; ctx.stroke();
+    // Glow
+    ctx.beginPath(); ctx.arc(p.x,p.y,8,0,Math.PI*2);
+    ctx.fillStyle='rgba(196,164,90,.15)'; ctx.fill();
   });
 
   // Labels
-  ctx.font = '500 10px Raleway, sans-serif';
-  ctx.fillStyle = '#888';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  data.forEach((d, i) => {
-    const p = pt(i, R * 1.22);
+  data.forEach((d,i) => {
+    const p=pt(i,R*1.25);
+    ctx.font='600 9px Raleway,sans-serif';
+    ctx.fillStyle= d.val > 50 ? '#555' : '#aaa';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
     ctx.fillText(d.label, p.x, p.y);
   });
+
+  // Valor central
+  const avg = Math.round(data.reduce((s,d)=>s+d.val,0)/data.length);
+  ctx.font='300 22px Cormorant Garamond,serif'; ctx.fillStyle='#1a1a2e'; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(avg+'%', cx, cy);
+  ctx.font='600 8px Raleway,sans-serif'; ctx.fillStyle='#bbb'; ctx.textBaseline='top';
+  ctx.fillText('SCORE', cx, cy+14);
 }
 
 // PLANNER
