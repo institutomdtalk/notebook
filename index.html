@@ -1377,282 +1377,269 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 }
 
 /* ══════════════════════════════════════
-   PLANNER — NOVO DESIGN
+   PLANNER — REDESIGN
 ══════════════════════════════════════ */
-#planner-body { background: #F5F2EE; min-height: 60vh; }
-.plr { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+#planner-body { background:#F5F2EE; min-height:60vh; }
+.plr { max-width:1000px; margin:0 auto; padding:2rem 1.5rem 5rem; position:relative; }
 
 /* Header */
 .plr-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.8rem; flex-wrap:wrap; gap:.8rem; }
-.plr-title { font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:300; color:#1a1a2e; }
+.plr-title { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; color:#1a1a2e; }
 .plr-title em { font-style:italic; color:var(--gold); }
-.plr-sub { font-family:'Raleway',sans-serif; font-size:.62rem; color:#bbb; letter-spacing:.08em; margin-top:.25rem; }
+.plr-sub { font-family:'Raleway',sans-serif; font-size:.72rem; color:#bbb; letter-spacing:.08em; margin-top:.3rem; }
 
 /* View toggle */
 .plr-views { display:flex; background:#fff; border:1.5px solid #e8e4e0; border-radius:20px; padding:3px; gap:2px; }
-.plr-view-btn {
-  font-family:'Raleway',sans-serif; font-size:.58rem; font-weight:700;
-  letter-spacing:.12em; text-transform:uppercase;
-  border:none; background:transparent; border-radius:14px;
-  padding:.32rem .9rem; cursor:pointer; color:#aaa; transition:all .2s;
-}
+.plr-view-btn { font-family:'Raleway',sans-serif; font-size:.65rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; border:none; background:transparent; border-radius:14px; padding:.38rem 1rem; cursor:pointer; color:#aaa; transition:all .2s; }
 .plr-view-btn.on { background:#1a1a2e; color:#fff; }
 
-/* ── CARROSSEL (view diária) ── */
-.plr-carousel-wrap { position:relative; margin-bottom:2rem; overflow:hidden; }
-
-/* Faixa de cards */
-.plr-track {
-  display:flex; gap:1rem; align-items:center;
-  transition:transform .45s cubic-bezier(.4,0,.2,1);
-  will-change:transform;
-  padding:1.5rem 0;
-}
-
-/* Card de dia */
-.plr-day-card {
-  flex-shrink:0;
-  background:#fff;
-  border:1.5px solid #ece8e2;
-  border-radius:18px;
-  box-shadow:0 2px 12px rgba(0,0,0,.05);
-  transition:all .45s cubic-bezier(.4,0,.2,1);
-  overflow:hidden;
+/* ── MENU HAMBURGER LATERAL ── */
+.plr-sidebar-toggle {
+  position:fixed; right:0; top:50%; transform:translateY(-50%);
+  z-index:500;
+  width:44px; height:120px;
+  background:#1a1a2e;
+  border-radius:12px 0 0 12px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
   cursor:pointer;
+  box-shadow:-4px 0 20px rgba(0,0,0,.15);
+  transition:transform .2s, background .2s;
 }
-/* Card lateral (não ativo) */
-.plr-day-card.side {
-  width:200px; min-height:160px;
-  opacity:.55; transform:scale(.92);
-  pointer-events:auto;
+.plr-sidebar-toggle:hover { background:#163158; transform:translateY(-50%) translateX(-3px); }
+.plr-sidebar-toggle .hb-line {
+  width:18px; height:2px; background:rgba(255,255,255,.7); border-radius:2px; transition:all .3s;
 }
-/* Card central (ativo) */
-.plr-day-card.center {
-  width:420px; min-height:420px;
-  opacity:1; transform:scale(1);
-  box-shadow:0 12px 40px rgba(0,0,0,.12);
-  border-color:#d4cfc9; cursor:default;
-}
-.plr-day-card.today.center {
-  border-color:var(--gold);
-  box-shadow:0 12px 48px rgba(196,164,90,.18);
+.plr-sidebar-toggle .hb-label {
+  font-family:'Raleway',sans-serif; font-size:7px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(255,255,255,.5); writing-mode:vertical-lr; transform:rotate(180deg); margin-top:4px;
 }
 
-/* Topo do card */
-.plr-card-top {
-  padding:1rem 1.2rem .7rem;
-  display:flex; align-items:center; justify-content:space-between;
-  border-bottom:1px solid #f5f2ee;
+/* Sidebar */
+.plr-sidebar {
+  position:fixed; right:0; top:0; bottom:0; width:340px;
+  background:#fff; z-index:600;
+  box-shadow:-8px 0 48px rgba(0,0,0,.18);
+  transform:translateX(100%);
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+  display:flex; flex-direction:column;
+  overflow:hidden;
 }
-.plr-card-weekday { font-family:'Raleway',sans-serif; font-size:9px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:#bbb; }
-.plr-card-date { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; color:#1a1a2e; line-height:1; }
-.plr-card-today-badge {
-  font-family:'Raleway',sans-serif; font-size:.65rem; font-weight:700;
-  letter-spacing:.12em; text-transform:uppercase;
-  background:var(--gold); color:#fff; border-radius:20px; padding:.25rem .85rem;
-}
-.plr-card-month { font-family:'Raleway',sans-serif; font-size:.62rem; color:#bbb; }
+.plr-sidebar.open { transform:translateX(0); }
 
-/* Atividades no card central */
-.plr-card-body { padding:.9rem 1.2rem 1.2rem; }
-.plr-card-empty {
-  text-align:center; padding:1.5rem 1rem;
-  font-family:'Raleway',sans-serif; font-size:.68rem; color:#ccc;
-  line-height:1.6;
+.plr-sidebar-head {
+  background:#1a1a2e; padding:1.4rem 1.5rem 1.2rem;
+  display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
 }
-.plr-card-empty svg { display:block; margin:0 auto .6rem; color:#ddd; }
+.plr-sidebar-title {
+  font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:300; color:#fff; line-height:1.1;
+}
+.plr-sidebar-title em { font-style:italic; color:var(--gold); }
+.plr-sidebar-close {
+  width:30px; height:30px; border-radius:50%; border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.08); color:rgba(255,255,255,.6); cursor:pointer; font-size:12px;
+  display:flex; align-items:center; justify-content:center; transition:all .2s;
+}
+.plr-sidebar-close:hover { background:rgba(255,255,255,.2); color:#fff; }
+
+/* Botão "Crie pra mim" */
+.plr-auto-btn {
+  margin:1rem 1.2rem .8rem;
+  display:flex; align-items:center; gap:10px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  border:none; border-radius:12px; padding:.85rem 1.2rem;
+  cursor:pointer; transition:all .2s; width:calc(100% - 2.4rem);
+}
+.plr-auto-btn:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(196,164,90,.35); }
+.plr-auto-btn svg { color:var(--navy-deep); flex-shrink:0; }
+.plr-auto-btn-text { text-align:left; }
+.plr-auto-btn-title { font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--navy-deep); }
+.plr-auto-btn-sub { font-family:'Raleway',sans-serif; font-size:.62rem; color:rgba(11,29,58,.6); margin-top:.1rem; }
+
+.plr-sidebar-divider { height:1px; background:#f0ece8; margin:.2rem 1.2rem .8rem; flex-shrink:0; }
+.plr-sidebar-section-label { font-family:'Raleway',sans-serif; font-size:8px; font-weight:700; letter-spacing:.26em; text-transform:uppercase; color:#bbb; padding:0 1.2rem .6rem; }
+
+/* Lista de skills no sidebar */
+.plr-sidebar-list { flex:1; overflow-y:auto; padding:0 .8rem 2rem; scrollbar-width:thin; scrollbar-color:#ddd transparent; }
+.plr-sk-item {
+  display:flex; align-items:center; gap:12px;
+  padding:.85rem .9rem; border-radius:12px; margin-bottom:.4rem;
+  cursor:pointer; border:1.5px solid #f0ece8; background:#fafafa;
+  transition:all .18s; user-select:none;
+}
+.plr-sk-item:hover { border-color:#d4cfc9; background:#f5f2ee; }
+.plr-sk-item.dragging { opacity:.4; }
+
+/* Ícone orbital no sidebar */
+.plr-sk-orbital {
+  position:relative; width:46px; height:46px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+}
+.plr-sk-orbital-ring {
+  position:absolute; inset:0; border-radius:50%;
+  border:2px solid transparent; pointer-events:none;
+}
+.plr-sk-orbital-ring::after {
+  content:''; position:absolute;
+  width:7px; height:7px; border-radius:50%;
+  top:50%; left:0;
+  transform:translateY(-50%);
+  background:var(--dot-color,#ccc);
+  box-shadow:0 0 6px 2px var(--dot-glow,rgba(0,0,0,.1));
+  animation:orbitDot var(--orbit-dur,3s) linear infinite;
+}
+@keyframes orbitDot { 0%{transform:rotate(0deg) translateX(23px)} 100%{transform:rotate(360deg) translateX(23px)} }
+.plr-sk-icon {
+  width:38px; height:38px; border-radius:11px;
+  display:flex; align-items:center; justify-content:center;
+  position:relative; z-index:1;
+}
+.plr-sk-info { flex:1; min-width:0; }
+.plr-sk-name { font-family:'Raleway',sans-serif; font-size:.75rem; font-weight:700; color:#1a1a2e; }
+.plr-sk-why { font-family:'Raleway',sans-serif; font-size:.63rem; color:#999; line-height:1.35; margin-top:.15rem; }
+
+/* ── ORBITAL NOS CARDS DO DIA ── */
+.plr-act-orbital {
+  position:relative; width:52px; height:52px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+}
+.plr-act-orbital-ring {
+  position:absolute; inset:0; border-radius:50%;
+  pointer-events:none;
+}
+.plr-act-orbital-ring::after {
+  content:''; position:absolute;
+  width:8px; height:8px; border-radius:50%;
+  top:50%; left:0;
+  background:var(--dot-color,#ccc);
+  box-shadow:0 0 8px 3px var(--dot-glow,rgba(0,0,0,.1));
+  animation:orbitDot var(--orbit-dur,3s) linear infinite;
+}
+.plr-act-icon-box {
+  width:42px; height:42px; border-radius:13px;
+  display:flex; align-items:center; justify-content:center;
+  position:relative; z-index:1;
+  border:2px solid rgba(255,255,255,.6);
+}
+
+/* ── CARD CENTRAL ── */
+.plr-day-card { flex-shrink:0; background:#fff; border:1.5px solid #ece8e2; border-radius:22px; box-shadow:0 2px 12px rgba(0,0,0,.05); transition:all .45s cubic-bezier(.4,0,.2,1); overflow:hidden; cursor:pointer; }
+.plr-day-card.side { width:200px; min-height:180px; opacity:.5; transform:scale(.9); pointer-events:auto; }
+.plr-day-card.center { width:440px; min-height:440px; opacity:1; transform:scale(1); box-shadow:0 16px 48px rgba(0,0,0,.1); border-color:#d4cfc9; cursor:default; }
+.plr-day-card.today.center { border-color:var(--gold); box-shadow:0 16px 56px rgba(196,164,90,.2); }
+
+.plr-card-top { padding:1.2rem 1.4rem .9rem; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f5f2ee; }
+.plr-card-weekday { font-family:'Raleway',sans-serif; font-size:10px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#bbb; }
+.plr-card-date { font-family:'Cormorant Garamond',serif; font-size:2.4rem; font-weight:300; color:#1a1a2e; line-height:1; }
+.plr-card-today-badge { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; background:var(--gold); color:#fff; border-radius:20px; padding:.3rem .9rem; }
+.plr-card-month { font-family:'Raleway',sans-serif; font-size:.72rem; color:#bbb; }
+
+.plr-card-body { padding:1.1rem 1.4rem 1.4rem; }
+.plr-card-empty { text-align:center; padding:2rem 1rem; font-family:'Raleway',sans-serif; font-size:.78rem; color:#ccc; line-height:1.7; }
+.plr-card-empty svg { display:block; margin:0 auto .8rem; color:#ddd; }
+.plr-card-empty small { font-size:.68rem; }
 
 /* Item de atividade no card central */
-.plr-act-item {
-  border:1.5px solid #ece8e2; border-radius:12px;
-  margin-bottom:.7rem; overflow:hidden;
-  transition:border-color .2s;
-}
+.plr-act-item { border:1.5px solid #ece8e2; border-radius:14px; margin-bottom:.85rem; overflow:hidden; transition:border-color .2s, box-shadow .2s; }
 .plr-act-item:last-child { margin-bottom:0; }
-.plr-act-item.done { border-color:#c8e6c9; }
-
-.plr-act-header {
-  display:flex; align-items:center; gap:10px;
-  padding:.8rem 1rem;
-  cursor:pointer; background:#fafafa;
-  transition:background .15s;
-}
+.plr-act-item.done { border-color:#c8e6c9; box-shadow:0 2px 10px rgba(102,187,106,.1); }
+.plr-act-header { display:flex; align-items:center; gap:12px; padding:.95rem 1.1rem; cursor:pointer; background:#fafafa; transition:background .15s; }
 .plr-act-header:hover { background:#f5f2ee; }
 .plr-act-item.done .plr-act-header { background:#f0faf0; }
-
-.plr-act-icon-wrap {
-  width:38px; height:38px; border-radius:11px;
-  background:#f0ece8; border:1.5px solid #e4e0da;
-  display:flex; align-items:center; justify-content:center;
-  flex-shrink:0; color:#777;
-}
-.plr-act-item.done .plr-act-icon-wrap { background:#e8f5e9; border-color:#c8e6c9; color:#2e7d32; }
-
 .plr-act-info { flex:1; min-width:0; }
-.plr-act-name { font-family:'Raleway',sans-serif; font-size:.82rem; font-weight:700; color:#333; }
-.plr-act-tip { font-family:'Raleway',sans-serif; font-size:.7rem; color:#888; margin-top:.2rem; line-height:1.4; }
-
-.plr-act-check {
-  width:22px; height:22px; border-radius:50%;
-  border:1.5px solid #ddd; display:flex; align-items:center; justify-content:center;
-  flex-shrink:0; color:transparent; background:#fff;
-  transition:all .2s;
-}
+.plr-act-name { font-family:'Raleway',sans-serif; font-size:.9rem; font-weight:700; color:#1a1a2e; }
+.plr-act-tip { font-family:'Raleway',sans-serif; font-size:.72rem; color:#888; margin-top:.2rem; line-height:1.4; }
+.plr-act-check { width:26px; height:26px; border-radius:50%; border:2px solid #ddd; display:flex; align-items:center; justify-content:center; color:transparent; background:#fff; transition:all .2s; flex-shrink:0; }
 .plr-act-item.done .plr-act-check { border-color:#66bb6a; background:#66bb6a; color:#fff; }
 
-/* Input de atividade (campo livre do aluno) */
-.plr-act-input-wrap {
-  padding:.5rem .85rem .75rem;
-  background:#fff;
-  border-top:1px solid #f0ece8;
-  display:none;
-}
-.plr-act-item.done .plr-act-input-wrap { display:block; }
-.plr-act-input-wrap.open { display:block; }
-
-.plr-act-input-label {
-  font-family:'Raleway',sans-serif; font-size:9px; font-weight:700;
-  letter-spacing:.18em; text-transform:uppercase; color:#aaa; margin-bottom:.4rem;
-  display:flex; align-items:center; gap:5px;
-}
-.plr-act-input-label svg { color:#ccc; }
-.plr-act-textarea {
-  width:100%; background:#fafafa; border:1.5px solid #e8e4e0;
-  border-radius:8px; padding:.6rem .85rem;
-  font-family:'Raleway',sans-serif; font-size:.76rem; color:#333;
-  line-height:1.6; resize:none; outline:none;
-  transition:border-color .2s, box-shadow .2s;
-  min-height:64px;
-}
-.plr-act-textarea:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(196,164,90,.08); background:#fff; }
+.plr-act-input-wrap { padding:.6rem 1.1rem .9rem; background:#fff; border-top:1px solid #f0ece8; display:none; }
+.plr-act-input-wrap.open, .plr-act-item.done .plr-act-input-wrap { display:block; }
+.plr-act-input-label { font-family:'Raleway',sans-serif; font-size:9px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#aaa; margin-bottom:.4rem; display:flex; align-items:center; gap:5px; }
+.plr-act-textarea { width:100%; background:#fafafa; border:1.5px solid #e8e4e0; border-radius:10px; padding:.65rem .9rem; font-family:'Raleway',sans-serif; font-size:.78rem; color:#333; line-height:1.6; resize:none; outline:none; transition:border-color .2s; min-height:66px; }
+.plr-act-textarea:focus { border-color:var(--gold); background:#fff; }
 .plr-act-textarea::placeholder { color:#ccc; font-style:italic; }
 .plr-act-save-row { display:flex; justify-content:flex-end; margin-top:.4rem; }
-.plr-act-save-btn {
-  font-family:'Raleway',sans-serif; font-size:.65rem; font-weight:700;
-  letter-spacing:.12em; text-transform:uppercase;
-  background:#1a1a2e; color:#fff; border:none; border-radius:20px;
-  padding:.4rem 1rem; cursor:pointer; transition:background .2s;
-  display:flex; align-items:center; gap:5px;
-}
+.plr-act-save-btn { font-family:'Raleway',sans-serif; font-size:.67rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; background:#1a1a2e; color:#fff; border:none; border-radius:20px; padding:.42rem 1.1rem; cursor:pointer; transition:background .2s; display:flex; align-items:center; gap:5px; }
 .plr-act-save-btn:hover { background:#163158; }
-
-/* Botão adicionar atividade no card central */
-.plr-add-row { margin-top:.8rem; }
-.plr-add-act-btn {
-  width:100%; display:flex; align-items:center; justify-content:center; gap:6px;
-  padding:.55rem; border:1.5px dashed #d4cfc9; border-radius:10px;
-  background:transparent; color:#bbb; cursor:pointer;
-  font-family:'Raleway',sans-serif; font-size:.72rem;
-  transition:all .2s;
-}
+.plr-add-row { margin-top:.9rem; }
+.plr-add-act-btn { width:100%; display:flex; align-items:center; justify-content:center; gap:6px; padding:.6rem; border:1.5px dashed #d4cfc9; border-radius:12px; background:transparent; color:#bbb; cursor:pointer; font-family:'Raleway',sans-serif; font-size:.74rem; transition:all .2s; }
 .plr-add-act-btn:hover { border-color:var(--gold); color:var(--gold); background:#fffbf5; }
 
-/* Card lateral (mini) */
-.plr-card-side-body { padding:.6rem .9rem; }
-.plr-side-acts { display:flex; flex-direction:column; gap:3px; margin-top:.3rem; }
-.plr-side-chip {
-  display:flex; align-items:center; gap:5px;
-  font-family:'Raleway',sans-serif; font-size:.55rem; color:#aaa;
-}
+/* Card lateral mini */
+.plr-card-side-body { padding:.7rem 1rem; }
+.plr-side-acts { display:flex; flex-direction:column; gap:4px; margin-top:.3rem; }
+.plr-side-chip { display:flex; align-items:center; gap:6px; font-family:'Raleway',sans-serif; font-size:.62rem; color:#aaa; }
 .plr-side-chip.done { color:#66bb6a; }
-.plr-side-chip svg { flex-shrink:0; }
 
-/* Setas de navegação */
-.plr-arrows {
-  display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:1.5rem;
-}
-.plr-arrow {
-  width:40px; height:40px; border-radius:50%;
-  border:1.5px solid #e4e0da; background:#fff;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; color:#888; transition:all .2s;
-  box-shadow:0 2px 8px rgba(0,0,0,.06);
-}
+/* Setas + dots */
+.plr-carousel-wrap { position:relative; overflow:hidden; margin-bottom:1.5rem; }
+.plr-track { display:flex; gap:1rem; align-items:center; transition:transform .45s cubic-bezier(.4,0,.2,1); will-change:transform; padding:1.5rem 0; }
+.plr-arrows { display:flex; align-items:center; justify-content:center; gap:1.2rem; margin-bottom:1.5rem; }
+.plr-arrow { width:44px; height:44px; border-radius:50%; border:1.5px solid #e4e0da; background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#888; transition:all .2s; box-shadow:0 2px 8px rgba(0,0,0,.06); }
 .plr-arrow:hover { border-color:#1a1a2e; color:#1a1a2e; box-shadow:0 4px 16px rgba(0,0,0,.1); }
 .plr-dot-row { display:flex; gap:5px; }
-.plr-dot {
-  width:6px; height:6px; border-radius:50%; background:#ddd;
-  transition:all .3s; cursor:pointer;
-}
-.plr-dot.on { background:#1a1a2e; width:18px; border-radius:3px; }
-
-/* Botão sugerir + hoje */
+.plr-dot { width:7px; height:7px; border-radius:50%; background:#ddd; transition:all .3s; cursor:pointer; }
+.plr-dot.on { background:#1a1a2e; width:20px; border-radius:4px; }
+.plr-kb-hint { display:flex; align-items:center; justify-content:center; gap:8px; font-family:'Raleway',sans-serif; font-size:.62rem; color:#bbb; margin-bottom:.8rem; }
+.plr-kb-key { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:5px; border:1.5px solid #ddd; background:#f8f6f3; font-size:.65rem; color:#888; font-weight:700; box-shadow:0 2px 0 #ddd; }
 .plr-actions { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1.5rem; }
-.plr-action-btn {
-  display:flex; align-items:center; gap:5px;
-  font-family:'Raleway',sans-serif; font-size:.62rem; font-weight:700;
-  letter-spacing:.12em; text-transform:uppercase;
-  border:1.5px solid #e4e0da; background:#fff;
-  border-radius:20px; padding:.4rem 1rem; cursor:pointer; color:#888;
-  transition:all .2s;
-}
+.plr-action-btn { display:flex; align-items:center; gap:6px; font-family:'Raleway',sans-serif; font-size:.65rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; border:1.5px solid #e4e0da; background:#fff; border-radius:20px; padding:.45rem 1.1rem; cursor:pointer; color:#888; transition:all .2s; }
 .plr-action-btn:hover { border-color:#1a1a2e; color:#1a1a2e; }
 .plr-action-btn.primary { background:#1a1a2e; color:#fff; border-color:#1a1a2e; }
 .plr-action-btn.primary:hover { background:#163158; }
 
-/* ── PICKER ── */
-.plr-picker {
-  display:none; position:fixed;
-  background:#fff; border:1.5px solid #e8e4e0;
-  border-radius:16px; box-shadow:0 16px 48px rgba(0,0,0,.14);
-  z-index:9999; width:300px; padding:.8rem;
-}
+/* Picker */
+.plr-picker { display:none; position:fixed; background:#fff; border:1.5px solid #e8e4e0; border-radius:18px; box-shadow:0 16px 48px rgba(0,0,0,.14); z-index:9999; width:310px; padding:.9rem; }
 .plr-picker.open { display:block; animation:ppIn .18s ease; }
 @keyframes ppIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
 .plr-picker-hdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:.7rem; }
-.plr-picker-title { font-family:'Raleway',sans-serif; font-size:8px; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:#bbb; }
-.plr-picker-x { width:22px; height:22px; border-radius:50%; border:1px solid #e4e0da; background:#fafafa; color:#aaa; cursor:pointer; font-size:9px; display:flex; align-items:center; justify-content:center; }
-.plr-picker-list { display:flex; flex-direction:column; gap:.3rem; }
-.plr-picker-item { display:flex; align-items:center; gap:10px; padding:.6rem .75rem; border-radius:10px; cursor:pointer; border:1.5px solid transparent; background:#fafafa; transition:all .15s; }
+.plr-picker-title { font-family:'Raleway',sans-serif; font-size:9px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:#bbb; }
+.plr-picker-x { width:24px; height:24px; border-radius:50%; border:1px solid #e4e0da; background:#fafafa; color:#aaa; cursor:pointer; font-size:10px; display:flex; align-items:center; justify-content:center; }
+.plr-picker-list { display:flex; flex-direction:column; gap:.3rem; max-height:340px; overflow-y:auto; }
+.plr-picker-item { display:flex; align-items:center; gap:12px; padding:.65rem .8rem; border-radius:11px; cursor:pointer; border:1.5px solid transparent; background:#fafafa; transition:all .15s; }
 .plr-picker-item:hover { background:#f5f2ee; border-color:#d4cfc9; }
-.plr-picker-item.has { opacity:.45; pointer-events:none; }
-.plr-picker-item svg { color:#888; flex-shrink:0; }
-.plr-picker-item-name { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700; color:#333; }
-.plr-picker-item-tip { font-family:'Raleway',sans-serif; font-size:.58rem; color:#bbb; margin-top:.1rem; }
+.plr-picker-item.has { opacity:.4; pointer-events:none; }
+.plr-picker-item svg { flex-shrink:0; }
+.plr-picker-item-name { font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:700; color:#333; }
+.plr-picker-item-tip { font-family:'Raleway',sans-serif; font-size:.62rem; color:#bbb; margin-top:.1rem; }
 
-/* ── CALENDÁRIO (semana / mês) ── */
+/* Cal */
 .plr-cal-wrap { margin-bottom:2rem; }
 .plr-cal-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; }
-.plr-cal-label { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:300; color:#1a1a2e; }
+.plr-cal-label { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:300; color:#1a1a2e; }
 .plr-cal-arrows { display:flex; gap:.4rem; }
-.plr-cal-arrow { width:30px; height:30px; border-radius:50%; border:1.5px solid #e4e0da; background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#888; transition:all .2s; }
+.plr-cal-arrow { width:32px; height:32px; border-radius:50%; border:1.5px solid #e4e0da; background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#888; transition:all .2s; }
 .plr-cal-arrow:hover { border-color:#1a1a2e; color:#1a1a2e; }
-
-/* Grid semana */
-.plr-week-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:.5rem; }
-/* Grid mês */
-.plr-month-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:.4rem; }
-.plr-cal-header { font-family:'Raleway',sans-serif; font-size:7.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#ccc; text-align:center; padding:.3rem 0; }
-
-.plr-cal-cell {
-  border:1.5px solid #ece8e2; border-radius:10px;
-  padding:.5rem; min-height:80px;
-  background:#fff; cursor:pointer;
-  transition:border-color .18s, box-shadow .18s;
-  position:relative; overflow:hidden;
-}
+.plr-week-grid, .plr-month-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:.5rem; }
+.plr-cal-header { font-family:'Raleway',sans-serif; font-size:8px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#ccc; text-align:center; padding:.3rem 0; }
+.plr-cal-cell { border:1.5px solid #ece8e2; border-radius:11px; padding:.55rem; min-height:82px; background:#fff; cursor:pointer; transition:border-color .18s,box-shadow .18s; position:relative; overflow:hidden; }
 .plr-cal-cell:hover { border-color:#d4cfc9; box-shadow:0 3px 12px rgba(0,0,0,.06); }
-.plr-cal-cell.today { border-color:var(--gold); box-shadow:0 3px 14px rgba(196,164,90,.14); }
+.plr-cal-cell.today { border-color:var(--gold); box-shadow:0 3px 16px rgba(196,164,90,.16); }
 .plr-cal-cell.other-month { opacity:.4; }
 .plr-cal-cell.empty { background:transparent; border-color:transparent; cursor:default; }
-
-.plr-cal-day-num { font-family:'Cormorant Garamond',serif; font-size:1rem; font-weight:300; color:#1a1a2e; line-height:1; margin-bottom:.3rem; }
+.plr-cal-day-num { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:300; color:#1a1a2e; line-height:1; margin-bottom:.3rem; }
 .plr-cal-cell.today .plr-cal-day-num { color:var(--gold); font-weight:400; }
 .plr-cal-dots { display:flex; flex-wrap:wrap; gap:3px; }
-.plr-cal-dot { width:6px; height:6px; border-radius:50%; background:#ddd; }
+.plr-cal-dot { width:7px; height:7px; border-radius:50%; }
 .plr-cal-dot.done { background:#66bb6a; }
 .plr-cal-dot.pending { background:#d4cfc9; }
 
 /* Legenda */
-.plr-legend { background:#fff; border:1.5px solid #ece8e2; border-radius:16px; padding:1.3rem 1.5rem; margin-top:1.5rem; }
-.plr-legend-title { font-family:'Raleway',sans-serif; font-size:8px; font-weight:700; letter-spacing:.26em; text-transform:uppercase; color:#bbb; margin-bottom:1rem; display:flex; align-items:center; gap:10px; }
+.plr-legend { background:#fff; border:1.5px solid #ece8e2; border-radius:18px; padding:1.4rem 1.6rem; margin-top:1.5rem; }
+.plr-legend-title { font-family:'Raleway',sans-serif; font-size:9px; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:#bbb; margin-bottom:1rem; display:flex; align-items:center; gap:10px; }
 .plr-legend-title::after { content:''; flex:1; height:1px; background:#f0ece8; }
-.plr-legend-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:.6rem; }
-.plr-legend-item { display:flex; align-items:center; gap:10px; padding:.55rem .75rem; border-radius:10px; background:#fafafa; border:1px solid #f0ece8; transition:border-color .15s; }
+.plr-legend-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:.65rem; }
+.plr-legend-item { display:flex; align-items:center; gap:12px; padding:.65rem .85rem; border-radius:12px; background:#fafafa; border:1px solid #f0ece8; transition:border-color .15s; }
 .plr-legend-item:hover { border-color:#d4cfc9; }
-.plr-legend-ico { width:30px; height:30px; border-radius:9px; background:#f0ece8; border:1.5px solid #e4e0da; display:flex; align-items:center; justify-content:center; color:#777; flex-shrink:0; }
-.plr-legend-name { font-family:'Raleway',sans-serif; font-size:.67rem; font-weight:700; color:#333; }
-.plr-legend-desc { font-family:'Raleway',sans-serif; font-size:.58rem; color:#bbb; margin-top:.1rem; line-height:1.3; }
+.plr-legend-ico { position:relative; width:38px; height:38px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.plr-legend-ico-inner { width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; position:relative; z-index:1; }
+.plr-legend-ico-ring { position:absolute; inset:0; border-radius:50%; pointer-events:none; }
+.plr-legend-ico-ring::after { content:''; position:absolute; width:5px; height:5px; border-radius:50%; top:50%; left:0; background:var(--dot-color,#ccc); box-shadow:0 0 4px 1px var(--dot-glow,rgba(0,0,0,.1)); animation:orbitDot var(--orbit-dur,4s) linear infinite; }
+.plr-legend-name { font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:700; color:#1a1a2e; }
+.plr-legend-desc { font-family:'Raleway',sans-serif; font-size:.62rem; color:#aaa; margin-top:.15rem; line-height:1.35; }
+
+/* Overlay sidebar */
+#plr-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.25); backdrop-filter:blur(2px); z-index:550; }
+#plr-overlay.on { display:block; }
 
 /* ── PLANNER: ícones animados e coloridos ── */
 @keyframes plFloat  { 0%,100%{transform:translateY(0) rotate(0deg)} 40%{transform:translateY(-5px) rotate(-4deg)} }
@@ -2540,166 +2527,174 @@ function drawRadar(data) {
 // PLANNER
 // PLANNER
 const SKL = [
-  { id:'video-sem',    l:'Video s/legenda',
-    tip:'Melhora a compreensao auditiva natural',
-    ph:"Ex: Grey's Anatomy S02E04, 22min. Entendi ~70%. Palavra nova: prognosis.",
-    why:"A exposicao sem legenda treina o cerebro a processar o ingles nativo sem apoio visual.",
-    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="15" height="16" rx="2"/><path d="m17 8 5-3v14l-5-3"/></svg>' },
-  { id:'video-leg',    l:'Video c/legenda',
-    tip:'Associa sons a palavras escritas',
-    ph:"Ex: TED Talk Body language 18min. Expressoes anotadas: convey confidence, power pose.",
+  { id:'video-sem',    l:'Video s/legenda',     tip:'Melhora a compreensao auditiva natural',
+    ph:"Ex: Grey's Anatomy S02E04, 22min. Entendi ~70%. Palavra: prognosis.",
+    why:"Treina o cerebro a processar ingles nativo sem apoio visual.",
+    clr:'#1565C0', bg:'#E3F2FD', dot:'#90CAF9', glow:'rgba(21,101,192,.35)', dur:'2.8s',
+    svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="15" height="16" rx="2"/><path d="m17 8 5-3v14l-5-3"/></svg>' },
+  { id:'video-leg',    l:'Video c/legenda',     tip:'Associa sons a palavras escritas',
+    ph:"Ex: TED Talk Body language 18min. Expressoes: convey confidence, power pose.",
     why:"Ver a palavra escrita enquanto ouve cria associacoes neurologicas mais fortes.",
-    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="5" y1="10" x2="11" y2="10"/><line x1="5" y1="13" x2="15" y2="13"/></svg>' },
-  { id:'cantar',       l:'Cantar',
-    tip:'Melhora a diccao e a memoria sonora',
-    ph:"Ex: Bohemian Rhapsody 3x. Trava-lingua em magnificent. Gravei e ouvi depois.",
-    why:"Cantar ativa a memoria muscular da boca e fixa pronuncia de forma ludica e emocional.",
-    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>' },
-  { id:'transcrever',  l:'Transcrever musica',
-    tip:'Aguca a escuta seletiva e a ortografia',
-    ph:"Ex: Lose Yourself intro. Acertei 18/24 versos. Reouvir trecho com spaghetti.",
-    why:"Transcrever exige concentracao ativa e treina o ouvido para cada detalhe sonoro.",
-    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>' },
-  { id:'infograficos', l:'3 Infograficos',
-    tip:'Expande vocabulario visual e tecnico',
-    ph:"Ex: Cardiac anatomy Pinterest. Termos: myocardium, pericardium, tricuspid valve.",
-    why:"Infograficos associam vocabulario a imagens, otimizando a retencao de termos tecnicos.",
-    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>' },
-  { id:'leitura',      l:'Leitura',
-    tip:'Desenvolve fluencia e vocabulario contextual',
-    ph:"Ex: NEJM Sepsis 2024, 4 pags. 8 termos no dicionario. Resumo em 3 frases proprias.",
-    why:"Ler textos autenticos expoe a estruturas gramaticais e vocabulario real de uso clinico.",
-    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
-  { id:'noticia',      l:'Noticia online',
-    tip:'Treina leitura rapida e vocabulario atual',
-    ph:"Ex: BBC Health - Alzheimer drug approved. 3 paragrafos. Resumo: breakthrough therapy.",
-    why:"Noticias trazem vocabulario contemporaneo e estruturas jornalisticas autenticas.",
-    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0-2 2Zm0 0a2 2 0 0 1-2-2V9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>' },
-  { id:'podcast',      l:'Podcast em ingles',
-    tip:'Imersao passiva durante o dia a dia',
-    ph:"Ex: The Doctor Kitchen ep.42, 35min no carro. Tema: anti-inflammatory diet. 5 termos.",
-    why:"Podcasts permitem imersao continua sem parar a rotina: no carro, na academia, caminhando.",
-    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="11" r="3"/><path d="M6.67 15a6 6 0 0 1 0-8"/><path d="M17.33 15a6 6 0 0 0 0-8"/><path d="M3.33 18a10 10 0 0 1 0-14"/><path d="M20.67 18a10 10 0 0 0 0-14"/><line x1="12" y1="14" x2="12" y2="21"/></svg>' },
-  { id:'shadowing',    l:'Shadowing',
-    tip:'Sincronia de ritmo e entonacao nativa',
-    ph:"Ex: Shadowing Dr. Mike video 10min. Frase trabalhada: the prognosis is uncertain.",
-    why:"Repetir em voz alta junto ao falante nativo calibra o ritmo, acento e musicalidade do ingles.",
-    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' },
-  { id:'diario',       l:'Diario em ingles',
-    tip:'Consolida gramatica e vocabulario na escrita',
-    ph:"Ex: Today I saw a patient with dyspnea on exertion. I explained the diagnosis clearly.",
-    why:"Escrever obriga a recuperar ativamente o vocabulario e organizar o pensamento em ingles.",
-    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="12" y1="6" x2="16" y2="6"/><line x1="12" y1="10" x2="16" y2="10"/><line x1="12" y1="14" x2="16" y2="14"/></svg>' },
-  { id:'anki',         l:'Revisao Anki',
-    tip:'Repeticao espacada: maximo retencao, minimo tempo',
-    ph:"Ex: 25 cards revisados, 3 novos adicionados. Deck: Medical Vocabulary B2. Taxa: 88%.",
-    why:"O algoritmo de repeticao espacada maximiza a retencao com o minimo de tempo diario.",
-    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h10M7 12h6"/></svg>' },
-  { id:'pronuncia',    l:'Pratica de pronuncia',
-    tip:'Elimina interferencia do portugues e ganha confianca oral',
-    ph:"Ex: Minimal pairs ship/sheep, think/sink. Elsa Speak 15min. Score: 78%. Foco: th sound.",
-    why:"Treinar pares minimos e sons especificos do ingles elimina a interferencia do portugues.",
-    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>' },
-]
+    clr:'#283593', bg:'#E8EAF6', dot:'#9FA8DA', glow:'rgba(40,53,147,.3)', dur:'3.2s',
+    svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="5" y1="10" x2="11" y2="10"/><line x1="5" y1="13" x2="15" y2="13"/></svg>' },
+  { id:'cantar',       l:'Cantar',              tip:'Melhora a diccao e a memoria sonora',
+    ph:"Ex: Bohemian Rhapsody 3x. Trava-lingua: magnificent. Gravei e ouvi.",
+    why:"Ativa a memoria muscular da boca e fixa pronuncia de forma ludica.",
+    clr:'#880E4F', bg:'#FCE4EC', dot:'#F48FB1', glow:'rgba(136,14,79,.35)', dur:'1.8s',
+    svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>' },
+  { id:'transcrever',  l:'Transcrever musica',  tip:'Aguca a escuta seletiva e ortografia',
+    ph:"Ex: Lose Yourself intro. Acertei 18/24 versos. Dificuldade: spaghetti.",
+    why:"Exige concentracao ativa e treina o ouvido para cada detalhe sonoro.",
+    clr:'#1B5E20', bg:'#E8F5E9', dot:'#A5D6A7', glow:'rgba(27,94,32,.35)', dur:'2.5s',
+    svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>' },
+  { id:'infograficos', l:'3 Infograficos',      tip:'Expande vocabulario visual e tecnico',
+    ph:"Ex: Cardiac anatomy Pinterest. Termos: myocardium, pericardium, tricuspid.",
+    why:"Associa vocabulario a imagens, otimizando retencao de termos clinicos.",
+    clr:'#E65100', bg:'#FFF3E0', dot:'#FFCC80', glow:'rgba(230,81,0,.35)', dur:'3.5s',
+    svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>' },
+  { id:'leitura',      l:'Leitura',             tip:'Fluencia e vocabulario contextual',
+    ph:"Ex: NEJM Sepsis 2024, 4 pags. 8 termos. Resumo em 3 frases proprias.",
+    why:"Expoe a estruturas gramaticais e vocabulario autentico de uso clinico.",
+    clr:'#4A148C', bg:'#F3E5F5', dot:'#CE93D8', glow:'rgba(74,20,140,.35)', dur:'4s',
+    svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
+  { id:'noticia',      l:'Noticia online',      tip:'Leitura rapida e vocabulario atual',
+    ph:"Ex: BBC Health - Alzheimer drug. 3 paragrafos. Destaque: breakthrough therapy.",
+    why:"Vocabulario contemporaneo e estruturas jornalisticas autenticas.",
+    clr:'#006064', bg:'#E0F7FA', dot:'#80DEEA', glow:'rgba(0,96,100,.35)', dur:'3s',
+    svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0-2 2Zm0 0a2 2 0 0 1-2-2V9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>' },
+  { id:'podcast',      l:'Podcast em ingles',   tip:'Imersao passiva durante o dia',
+    ph:"Ex: The Doctor Kitchen ep.42, 35min no carro. Tema: anti-inflammatory diet.",
+    why:"Imersao continua sem parar a rotina: carro, academia, caminhada.",
+    clr:'#F57F17', bg:'#FFF8E1', dot:'#FFE082', glow:'rgba(245,127,23,.35)', dur:'2.2s',
+    svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="11" r="3"/><path d="M6.67 15a6 6 0 0 1 0-8"/><path d="M17.33 15a6 6 0 0 0 0-8"/><path d="M3.33 18a10 10 0 0 1 0-14"/><path d="M20.67 18a10 10 0 0 0 0-14"/><line x1="12" y1="14" x2="12" y2="21"/></svg>' },
+  { id:'shadowing',    l:'Shadowing',           tip:'Sincronia de ritmo e entonacao nativa',
+    ph:"Ex: Shadowing Dr. Mike 10min. Frase trabalhada: the prognosis is uncertain.",
+    why:"Calibra ritmo, acento e musicalidade repetindo junto ao falante nativo.",
+    clr:'#1B5E20', bg:'#E8F5E9', dot:'#81C784', glow:'rgba(27,94,32,.3)', dur:'2.6s',
+    svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>' },
+  { id:'diario',       l:'Diario em ingles',    tip:'Consolida gramatica na escrita',
+    ph:"Ex: Today I saw a patient with dyspnea on exertion. Explained diagnosis clearly.",
+    why:"Escrever obriga a recuperar vocabulario e organizar o pensamento em ingles.",
+    clr:'#BF360C', bg:'#FBE9E7', dot:'#FFAB91', glow:'rgba(191,54,12,.35)', dur:'3.8s',
+    svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="12" y1="6" x2="16" y2="6"/><line x1="12" y1="10" x2="16" y2="10"/><line x1="12" y1="14" x2="16" y2="14"/></svg>' },
+  { id:'flashcards',   l:'Revisao Flashcards',  tip:'Repeticao espacada dos seus proprios termos',
+    ph:"Ex: 25 cards revisados, 3 novos. Taxa: 88%. Foco: vocabulario cardiologico.",
+    why:"Usa seus proprios termos do caderno com repeticao espacada para maxima retencao.",
+    clr:'#0D47A1', bg:'#E3F2FD', dot:'#90CAF9', glow:'rgba(13,71,161,.35)', dur:'2.4s',
+    svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h10M7 12h6"/></svg>' },
+  { id:'pronuncia',    l:'Pratica de pronuncia', tip:'Elimina interferencia do portugues',
+    ph:"Ex: Minimal pairs ship/sheep, think/sink. Elsa Speak 15min. Score 78%.",
+    why:"Treina sons especificos do ingles e elimina interferencia do portugues.",
+    clr:'#827717', bg:'#F9FBE7', dot:'#DCE775', glow:'rgba(130,119,23,.35)', dur:'2s',
+    svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>' },
+];
 const SKL_MAP = {};
 SKL.forEach(function(s){ SKL_MAP[s.id]=s; });
-const SG_WEEK = ['video-sem','leitura','video-leg','noticia','infograficos','cantar','transcrever'];
-const MONTHS  = ['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-const DN_FULL = ['Domingo','Segunda','Terca','Quarta','Quinta','Sexta','Sabado'];
-const DN_SHORT= ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'];
+var SG_WEEK = ['video-sem','podcast','leitura','shadowing','video-leg','noticia','diario'];
+var MONTHS   = ['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+var DN_FULL  = ['Domingo','Segunda','Terca','Quarta','Quinta','Sexta','Sabado'];
+var DN_SHORT = ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'];
 
 var pData = {
   '2025-05-05':['video-sem','leitura'],   '2025-05-05__done':['video-sem'],
-  '2025-05-05__notes':{'video-sem':'Grey\'s Anatomy S01E01 - 22min. Entendi ~65%.','leitura':''},
+  '2025-05-05__notes':{'video-sem':"Grey's Anatomy S01E01 22min. Entendi 65%.",'leitura':""},
   '2025-05-06':['noticia','infograficos'], '2025-05-06__done':['noticia','infograficos'],
-  '2025-05-06__notes':{'noticia':'BBC Health - New cancer screening. 2 paragrafos entendidos.','infograficos':'Pinterest anatomy - 8 termos novos.'},
+  '2025-05-06__notes':{'noticia':"BBC Health Alzheimer. 3 paragrafos.",'infograficos':"Cardiac Pinterest - 8 termos."},
   '2025-05-07':['video-leg','cantar'],    '2025-05-07__done':['video-leg'],
-  '2025-05-07__notes':{'video-leg':'TED Talk body language - 18min.','cantar':''},
+  '2025-05-07__notes':{'video-leg':"TED Talk body language 18min.",'cantar':""},
   '2025-05-08':['leitura','transcrever'], '2025-05-08__done':['leitura'],
-  '2025-05-08__notes':{'leitura':'NEJM Sepsis 2024 - 3 pags.','transcrever':''},
-  '2025-05-09':['infograficos'],          '2025-05-09__done':['infograficos'],
-  '2025-05-09__notes':{'infograficos':'Cardiac anatomy infographic - salvo 10 termos.'},
+  '2025-05-08__notes':{'leitura':"NEJM Sepsis 3 pags.",'transcrever':""},
+  '2025-05-09':['flashcards'],            '2025-05-09__done':['flashcards'],
+  '2025-05-09__notes':{'flashcards':"25 cards. Taxa 88%."},
 };
+
+var plView     = 'day';
+var plDayIdx   = 0;
+var plMonthOff = 0;
+var plWeekOff  = 0;
+var plPickerEl = null;
+var plPickerKey= null;
+var plSidebarOpen = false;
 
 function dKey(d){ return d.toISOString().split('T')[0]; }
 function today(){ return dKey(new Date()); }
 
-// Estado
-var plView     = 'day';    // 'day' | 'week' | 'month'
-var plDayIdx   = 0;        // índice no array de 30 dias centrado hoje
-var plMonthOff = 0;        // offset de mês
-var plWeekOff  = 0;        // offset de semana
-var plPickerKey= null;
-var plPickerEl = null;
-
-// Gera array de 30 dias: 14 antes de hoje, hoje, 15 depois
-function plDayRange() {
+function plDayRange(){
   var arr=[], base=new Date();
-  for(var i=-14;i<=15;i++){
-    var d=new Date(base); d.setDate(base.getDate()+i);
-    arr.push(d);
-  }
+  for(var i=-14;i<=15;i++){var d=new Date(base);d.setDate(base.getDate()+i);arr.push(d);}
   return arr;
 }
 
-// ── TOGGLE DONE ────────────────────────────────────────
+// Orbital HTML helper
+function orbitalHtml(sk, size, ringSize){
+  var s = size||42, r = ringSize||52;
+  return '<div class="plr-act-orbital" style="width:'+r+'px;height:'+r+'px">'
+    +'<div class="plr-act-orbital-ring" style="--dot-color:'+sk.dot+';--dot-glow:'+sk.glow+';--orbit-dur:'+sk.dur+'"></div>'
+    +'<div class="plr-act-icon-box" style="width:'+s+'px;height:'+s+'px;background:'+sk.bg+';color:'+sk.clr+'">'+sk.svg+'</div>'
+    +'</div>';
+}
+
+// Sidebar
+function plToggleSidebar(){
+  plSidebarOpen=!plSidebarOpen;
+  var sb=document.getElementById('plr-sidebar');
+  var ov=document.getElementById('plr-overlay');
+  if(sb){ sb.classList.toggle('open',plSidebarOpen); }
+  if(ov){ ov.classList.toggle('on',plSidebarOpen); }
+}
+function plCloseSidebar(){
+  plSidebarOpen=false;
+  var sb=document.getElementById('plr-sidebar');var ov=document.getElementById('plr-overlay');
+  if(sb) sb.classList.remove('open'); if(ov) ov.classList.remove('on');
+}
+
+// Actions
 function plToggleDone(key,sid){
-  var dk=key+'__done', done=pData[dk]||[];
-  var i=done.indexOf(sid);
-  if(i===-1) done.push(sid); else done.splice(i,1);
-  pData[dk]=done;
-  // abrir/fechar input
-  renderPlanner();
+  var dk=key+'__done',done=pData[dk]||[];
+  var i=done.indexOf(sid);if(i===-1)done.push(sid);else done.splice(i,1);
+  pData[dk]=done; renderPlanner();
 }
 function plRemove(key,sid){
-  if(pData[key]) pData[key]=pData[key].filter(function(s){return s!==sid;});
-  var nk=key+'__notes'; if(pData[nk]) delete pData[nk][sid];
+  if(pData[key])pData[key]=pData[key].filter(function(s){return s!==sid;});
+  var nk=key+'__notes';if(pData[nk])delete pData[nk][sid];
   renderPlanner();
 }
 function plSaveNote(key,sid){
-  var ta=document.getElementById('plr-ta-'+key+'-'+sid);
-  if(!ta) return;
-  if(!pData[key+'__notes']) pData[key+'__notes']={};
+  var ta=document.getElementById('plr-ta-'+key+'-'+sid); if(!ta)return;
+  if(!pData[key+'__notes'])pData[key+'__notes']={};
   pData[key+'__notes'][sid]=ta.value;
-  // feedback visual
   var btn=ta.parentElement.querySelector('.plr-act-save-btn');
-  if(btn){ var orig=btn.innerHTML; btn.innerHTML='Salvo!'; setTimeout(function(){btn.innerHTML=orig;},1200); }
+  if(btn){var o=btn.innerHTML;btn.innerHTML='Salvo!';setTimeout(function(){btn.innerHTML=o;},1200);}
 }
 function plAddAct(key,sid){
-  if(!pData[key]) pData[key]=[];
-  if(pData[key].indexOf(sid)===-1) pData[key].push(sid);
-  plClosePicker(); renderPlanner();
+  if(!pData[key])pData[key]=[];
+  if(pData[key].indexOf(sid)===-1)pData[key].push(sid);
+  plClosePicker();renderPlanner();
 }
 function plSuggest(){
   var days=plDayRange();
-  for(var i=0;i<7;i++){
-    var k=dKey(days[14+i]); // hoje + i
-    if(!pData[k]||!pData[k].length) pData[k]=[SG_WEEK[i]];
-  }
-  renderPlanner();
+  for(var i=0;i<7;i++){var k=dKey(days[14+i]);if(!pData[k]||!pData[k].length)pData[k]=[SG_WEEK[i]];}
+  plCloseSidebar();renderPlanner();
 }
+function plannerWeek(dir){plDayIdx=Math.max(-14,Math.min(15,plDayIdx+dir));renderPlanner();}
+function plannerToday(){plDayIdx=0;renderPlanner();}
 
-// ── PICKER ─────────────────────────────────────────────
+// Picker
 function plOpenPicker(key,btn){
   plPickerKey=key;
-  if(!plPickerEl){
-    plPickerEl=document.createElement('div');
-    plPickerEl.className='plr-picker';
-    document.body.appendChild(plPickerEl);
+  if(!plPickerEl){plPickerEl=document.createElement('div');plPickerEl.className='plr-picker';document.body.appendChild(plPickerEl);
     plPickerEl.addEventListener('click',function(e){
-      var item=e.target.closest('[data-pl-add]');
-      var x=e.target.closest('.plr-picker-x');
-      if(x) plClosePicker();
-      if(item) plAddAct(item.dataset.plKey, item.dataset.plAdd);
+      var it=e.target.closest('[data-pl-add]');var x=e.target.closest('.plr-picker-x');
+      if(x)plClosePicker();if(it)plAddAct(it.dataset.plKey,it.dataset.plAdd);
     });
   }
-  var existing=pData[key]||[];
+  var ex=pData[key]||[];
   var items='';
   SKL.forEach(function(s){
-    var has=existing.indexOf(s.id)!==-1;
+    var has=ex.indexOf(s.id)!==-1;
     items+='<div class="plr-picker-item'+(has?' has':'')+'" data-pl-add="'+s.id+'" data-pl-key="'+key+'">'
-      +s.svg
-      +'<div><div class="plr-picker-item-name">'+s.l+(has?' <span style="color:#66bb6a;font-size:.55rem">adicionado</span>':'')+'</div>'
+      +'<div style="width:32px;height:32px;border-radius:9px;background:'+s.bg+';display:flex;align-items:center;justify-content:center;color:'+s.clr+';flex-shrink:0">'+s.svg+'</div>'
+      +'<div><div class="plr-picker-item-name">'+s.l+(has?' <span style="color:#66bb6a;font-size:.58rem">adicionado</span>':'')+'</div>'
         +'<div class="plr-picker-item-tip">'+s.tip+'</div></div>'
       +'</div>';
   });
@@ -2708,279 +2703,188 @@ function plOpenPicker(key,btn){
     +'<div class="plr-picker-list">'+items+'</div>';
   var rect=btn.getBoundingClientRect();
   plPickerEl.style.top=(rect.bottom+8)+'px';
-  plPickerEl.style.left=Math.min(rect.left,window.innerWidth-310)+'px';
+  plPickerEl.style.left=Math.min(rect.left,window.innerWidth-320)+'px';
   plPickerEl.classList.add('open');
 }
-function plClosePicker(){ if(plPickerEl) plPickerEl.classList.remove('open'); plPickerKey=null; }
+function plClosePicker(){if(plPickerEl)plPickerEl.classList.remove('open');plPickerKey=null;}
 document.addEventListener('click',function(e){
-  if(plPickerEl&&plPickerEl.classList.contains('open')
-     &&!plPickerEl.contains(e.target)&&!e.target.closest('.plr-add-act-btn')) plClosePicker();
+  if(plPickerEl&&plPickerEl.classList.contains('open')&&!plPickerEl.contains(e.target)&&!e.target.closest('.plr-add-act-btn'))plClosePicker();
+  var sb=document.getElementById('plr-sidebar');
+  if(sb&&sb.classList.contains('open')&&!sb.contains(e.target)&&!e.target.closest('.plr-sidebar-toggle'))plCloseSidebar();
 });
 
-// ── RENDER PRINCIPAL ───────────────────────────────────
 function renderPlanner(){
-  var body=document.getElementById('planner-body');
-  if(!body) return;
+  var body=document.getElementById('planner-body');if(!body)return;
+  var vBtns='<div class="plr-views">'+['day','week','month'].map(function(v){
+    var l={day:'Diario',week:'Semana',month:'Mes'}[v];
+    return '<button class="plr-view-btn'+(plView===v?' on':'')+'" data-pl-view="'+v+'">'+l+'</button>';
+  }).join('')+'</div>';
 
-  var viewBtns='<div class="plr-views">'
-    +['day','week','month'].map(function(v){
-      var lbl={day:'Diario',week:'Semana',month:'Mes'}[v];
-      return '<button class="plr-view-btn'+(plView===v?' on':'')+'" data-pl-view="'+v+'">'+lbl+'</button>';
-    }).join('')
-    +'</div>';
-
-  var html='<div class="plr">'
-    +'<div class="plr-head">'
-      +'<div><div class="plr-title">Meu <em>Planner</em></div>'
-        +'<div class="plr-sub">Registre o que praticou em cada dia</div></div>'
-      +viewBtns
-    +'</div>';
+  var html='<div id="plr-overlay"></div>'
+    +'<div id="plr-sidebar" class="plr-sidebar'+(plSidebarOpen?' open':'')+'">'+renderSidebar()+'</div>'
+    +'<button class="plr-sidebar-toggle" onclick="plToggleSidebar()">'
+      +'<div class="hb-line"></div><div class="hb-line"></div><div class="hb-line"></div>'
+      +'<span class="hb-label">Habilidades</span>'
+    +'</button>'
+    +'<div class="plr">'
+      +'<div class="plr-head">'
+        +'<div><div class="plr-title">Meu <em>Planner</em></div>'
+          +'<div class="plr-sub">Registre o que praticou em cada dia</div></div>'
+        +vBtns
+      +'</div>';
 
   if(plView==='day')   html+=renderPlannerDay();
   if(plView==='week')  html+=renderPlannerCal('week');
   if(plView==='month') html+=renderPlannerCal('month');
-
   html+=renderPlannerLegend()+'</div>';
+
   body.innerHTML=html;
 
   // Event delegation
   body.addEventListener('click',function(e){
-    // View toggle
-    var vb=e.target.closest('[data-pl-view]');
-    if(vb){ plView=vb.dataset.plView; renderPlanner(); return; }
-    // Setas carrossel
-    var arr=e.target.closest('[data-pl-arr]');
-    if(arr){
-      plDayIdx=parseInt(arr.dataset.plArr);
-      renderPlanner(); return;
-    }
-    // Dot
-    var dot=e.target.closest('[data-pl-dot]');
-    if(dot){ plDayIdx=parseInt(dot.dataset.plDot); renderPlanner(); return; }
-    // Toggle done
-    var td=e.target.closest('[data-pl-done]');
-    if(td){ plToggleDone(td.dataset.plKey,td.dataset.plSid); return; }
-    // Remove
-    var rm=e.target.closest('[data-pl-rm]');
-    if(rm){ e.stopPropagation(); plRemove(rm.dataset.plKey,rm.dataset.plSid); return; }
-    // Add btn
-    var ab=e.target.closest('[data-pl-addbtn]');
-    if(ab){ plOpenPicker(ab.dataset.plAddbtn,ab); return; }
-    // Save note
-    var sv=e.target.closest('[data-pl-save]');
-    if(sv){ plSaveNote(sv.dataset.plKey,sv.dataset.plSid); return; }
-    // Hoje
-    var hj=e.target.closest('[data-pl-today]');
-    if(hj){ plDayIdx=0; renderPlanner(); return; }
-    // Suggest
-    var sg=e.target.closest('[data-pl-suggest]');
-    if(sg){ plSuggest(); return; }
-    // Cal arrows
-    var ca=e.target.closest('[data-pl-cal]');
-    if(ca){
-      var dir=parseInt(ca.dataset.plCal);
-      if(plView==='week') plWeekOff+=dir;
-      if(plView==='month') plMonthOff+=dir;
-      renderPlanner(); return;
-    }
-    // Cal cell click -> ir pro dia
-    var cc=e.target.closest('[data-pl-calday]');
-    if(cc){ plView='day'; var td2=new Date(); var diff=parseInt(cc.dataset.plCalday); plDayIdx=diff; renderPlanner(); return; }
+    var vb=e.target.closest('[data-pl-view]');if(vb){plView=vb.dataset.plView;renderPlanner();return;}
+    var arr=e.target.closest('[data-pl-arr]');if(arr){plDayIdx=parseInt(arr.dataset.plArr);renderPlanner();return;}
+    var dot=e.target.closest('[data-pl-dot]');if(dot){plDayIdx=parseInt(dot.dataset.plDot);renderPlanner();return;}
+    var td=e.target.closest('[data-pl-done]');if(td){plToggleDone(td.dataset.plKey,td.dataset.plSid);return;}
+    var rm=e.target.closest('[data-pl-rm]');if(rm){e.stopPropagation();plRemove(rm.dataset.plKey,rm.dataset.plSid);return;}
+    var ab=e.target.closest('[data-pl-addbtn]');if(ab){plOpenPicker(ab.dataset.plAddbtn,ab);return;}
+    var sv=e.target.closest('[data-pl-save]');if(sv){plSaveNote(sv.dataset.plKey,sv.dataset.plSid);return;}
+    var hj=e.target.closest('[data-pl-today]');if(hj){plDayIdx=0;renderPlanner();return;}
+    var sg=e.target.closest('[data-pl-suggest]');if(sg){plSuggest();return;}
+    var ca=e.target.closest('[data-pl-cal]');if(ca){var d=parseInt(ca.dataset.plCal);if(plView==='week')plWeekOff+=d;if(plView==='month')plMonthOff+=d;renderPlanner();return;}
+    var cc=e.target.closest('[data-pl-calday]');if(cc){plView='day';plDayIdx=parseInt(cc.dataset.plCalday);renderPlanner();return;}
+    var ov=e.target.closest('#plr-overlay');if(ov){plCloseSidebar();return;}
+    var sbBtn=e.target.closest('[data-sb-close]');if(sbBtn){plCloseSidebar();return;}
+    var sbSug=e.target.closest('[data-sb-suggest]');if(sbSug){plSuggest();return;}
   });
 }
 
-// ── VIEW: DIÁRIA (carrossel) ───────────────────────────
-function renderPlannerDay(){
-  var days=plDayRange();   // 30 dias: idx 0..29, hoje = 14
-  var centerAbs=14+plDayIdx; // índice absoluto no array
-  if(centerAbs<0) centerAbs=0;
-  if(centerAbs>29) centerAbs=29;
-  plDayIdx=centerAbs-14;
+function renderSidebar(){
+  var items='';
+  SKL.forEach(function(s){
+    items+='<div class="plr-sk-item">'
+      +'<div class="plr-sk-orbital" style="width:50px;height:50px">'
+        +'<div class="plr-sk-orbital-ring" style="--dot-color:'+s.dot+';--dot-glow:'+s.glow+';--orbit-dur:'+s.dur+'"></div>'
+        +'<div class="plr-sk-icon" style="width:38px;height:38px;border-radius:11px;background:'+s.bg+';color:'+s.clr+'">'+s.svg+'</div>'
+      +'</div>'
+      +'<div class="plr-sk-info"><div class="plr-sk-name">'+s.l+'</div><div class="plr-sk-why">'+s.why+'</div></div>'
+      +'</div>';
+  });
+  return '<div class="plr-sidebar-head">'
+      +'<div class="plr-sidebar-title">Monte o seu <em>Planner</em></div>'
+      +'<button class="plr-sidebar-close" data-sb-close>x</button>'
+    +'</div>'
+    +'<button class="plr-auto-btn" data-sb-suggest>'
+      +'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'
+      +'<div class="plr-auto-btn-text"><div class="plr-auto-btn-title">Crie pra mim</div><div class="plr-auto-btn-sub">Sugestao automatica para a semana</div></div>'
+    +'</button>'
+    +'<div class="plr-sidebar-divider"></div>'
+    +'<div class="plr-sidebar-section-label">Arraste para o dia que deseja</div>'
+    +'<div class="plr-sidebar-list">'+items+'</div>';
+}
 
-  // Mostrar: center-1, center, center+1 (com fallback nas bordas)
-  var slots=[-1,0,1];
-  var cards='';
+function renderPlannerDay(){
+  var days=plDayRange();
+  var centerAbs=14+plDayIdx;
+  if(centerAbs<0)centerAbs=0;if(centerAbs>29)centerAbs=29;
+  plDayIdx=centerAbs-14;
+  var slots=[-1,0,1];var cards='';
   slots.forEach(function(offset){
     var idx=centerAbs+offset;
-    if(idx<0||idx>=days.length){ cards+='<div style="width:200px;flex-shrink:0"></div>'; return; }
-    var d=days[idx], key=dKey(d), isCenter=offset===0, isTod=key===today();
-    var acts=pData[key]||[], done=pData[key+'__done']||[], notes=pData[key+'__notes']||{};
-
+    if(idx<0||idx>=days.length){cards+='<div style="width:200px;flex-shrink:0"></div>';return;}
+    var d=days[idx],key=dKey(d),isCenter=offset===0,isTod=key===today();
+    var acts=pData[key]||[],done=pData[key+'__done']||[],notes=pData[key+'__notes']||{};
     if(isCenter){
-      // Card central: completo com inputs
       var actsHtml='';
       if(!acts.length){
         actsHtml='<div class="plr-card-empty">'
-          +'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
-          +'Nenhuma atividade planejada<br>para este dia.<br>'
-          +'<small style="font-size:.55rem">Use o botao abaixo para adicionar.</small>'
+          +'<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
+          +'Nenhuma atividade para este dia.<br><small>Use o botao abaixo ou o menu lateral.</small>'
           +'</div>';
       } else {
+        var svgCheck='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
         acts.forEach(function(sid){
-          var sk=SKL_MAP[sid]; if(!sk) return;
-          var isDone=done.indexOf(sid)!==-1;
-          var note=notes[sid]||'';
-          var svgCheck='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-          actsHtml+=
-            '<div class="plr-act-item'+(isDone?' done':'')+'">'
-              +'<div class="plr-act-header" data-pl-done data-pl-key="'+key+'" data-pl-sid="'+sid+'">'
-                +'<div class="plr-act-icon-wrap" data-sk="'+sid+'">'+sk.svg+'</div>'
-                +'<div class="plr-act-info">'
-                  +'<div class="plr-act-name">'+sk.l+'</div>'
-                  +'<div class="plr-act-tip">'+sk.why+'</div>'
-                +'</div>'
-                +'<div class="plr-act-check">'+(isDone?svgCheck:'')+'</div>'
+          var sk=SKL_MAP[sid];if(!sk)return;
+          var isDone=done.indexOf(sid)!==-1,note=notes[sid]||'';
+          actsHtml+='<div class="plr-act-item'+(isDone?' done':'')+'">'
+            +'<div class="plr-act-header" data-pl-done data-pl-key="'+key+'" data-pl-sid="'+sid+'">'
+              +orbitalHtml(sk,38,50)
+              +'<div class="plr-act-info"><div class="plr-act-name">'+sk.l+'</div><div class="plr-act-tip">'+sk.why+'</div></div>'
+              +'<div class="plr-act-check">'+(isDone?svgCheck:'')+'</div>'
+            +'</div>'
+            +'<div class="plr-act-input-wrap'+(isDone?' open':'')+'">'
+              +'<div class="plr-act-input-label">'
+                +'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>'
+                +'Registre sua pratica'
               +'</div>'
-              +'<div class="plr-act-input-wrap'+(isDone?' open':'')+'">'
-                +'<div class="plr-act-input-label">'
-                  +'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>'
-                  +'Registre sua pratica'
-                +'</div>'
-                +'<textarea id="plr-ta-'+key+'-'+sid+'" class="plr-act-textarea" placeholder="'+sk.ph+'">'+(note)+'</textarea>'
-                +'<div class="plr-act-save-row">'
-                  +'<button class="plr-act-save-btn" data-pl-save data-pl-key="'+key+'" data-pl-sid="'+sid+'">'
-                    +'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
-                    +'Salvar'
-                  +'</button>'
-                +'</div>'
+              +'<textarea id="plr-ta-'+key+'-'+sid+'" class="plr-act-textarea" placeholder="'+sk.ph+'">'+note+'</textarea>'
+              +'<div class="plr-act-save-row">'
+                +'<button class="plr-act-save-btn" data-pl-save data-pl-key="'+key+'" data-pl-sid="'+sid+'">'
+                  +'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Salvar'
+                +'</button>'
               +'</div>'
+            +'</div>'
             +'</div>';
         });
       }
-      cards+=
-        '<div class="plr-day-card center'+(isTod?' today':'')+'">'
-          +'<div class="plr-card-top">'
-            +'<div>'
-              +'<div class="plr-card-weekday">'+DN_FULL[d.getDay()]+'</div>'
-              +'<div class="plr-card-date">'+d.getDate()+'</div>'
-            +'</div>'
-            +(isTod?'<div class="plr-card-today-badge">Hoje</div>'
-              :'<div class="plr-card-month">'+MONTHS[d.getMonth()]+'</div>')
-          +'</div>'
-          +'<div class="plr-card-body">'
-            +actsHtml
-            +'<div class="plr-add-row">'
-              +'<button class="plr-add-act-btn" data-pl-addbtn="'+key+'">'
-                +'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
-                +'Adicionar atividade'
-              +'</button>'
-            +'</div>'
-          +'</div>'
+      cards+='<div class="plr-day-card center'+(isTod?' today':'')+'">'
+        +'<div class="plr-card-top">'
+          +'<div><div class="plr-card-weekday">'+DN_FULL[d.getDay()]+'</div><div class="plr-card-date">'+d.getDate()+'</div></div>'
+          +(isTod?'<div class="plr-card-today-badge">Hoje</div>':'<div class="plr-card-month">'+MONTHS[d.getMonth()]+'</div>')
+        +'</div>'
+        +'<div class="plr-card-body">'+actsHtml
+          +'<div class="plr-add-row"><button class="plr-add-act-btn" data-pl-addbtn="'+key+'">'
+            +'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Adicionar atividade'
+          +'</button></div>'
+        +'</div>'
         +'</div>';
     } else {
-      // Card lateral: mini
       var miniActs='';
-      acts.forEach(function(sid){
-        var sk=SKL_MAP[sid]; if(!sk) return;
-        var isDone=done.indexOf(sid)!==-1;
-        miniActs+='<div class="plr-side-chip'+(isDone?' done':'')+'">'
-          +sk.svg
-          +'<span>'+sk.l+'</span>'
-        +'</div>';
-      });
-      cards+=
-        '<div class="plr-day-card side'+(isTod?' today':'')+'" data-pl-arr="'+plDayIdx+offset+'">'
-          +'<div class="plr-card-top">'
-            +'<div>'
-              +'<div class="plr-card-weekday">'+DN_SHORT[d.getDay()]+'</div>'
-              +'<div class="plr-card-date" style="font-size:1.1rem">'+d.getDate()+'</div>'
-            +'</div>'
-            +(isTod?'<div class="plr-card-today-badge" style="font-size:.45rem">Hoje</div>':'')
-          +'</div>'
-          +'<div class="plr-card-side-body"><div class="plr-side-acts">'+miniActs+'</div></div>'
+      acts.forEach(function(sid){var sk=SKL_MAP[sid];if(!sk)return;var isDone=done.indexOf(sid)!==-1;miniActs+='<div class="plr-side-chip'+(isDone?' done':'')+'"><div style="width:14px;height:14px;color:'+(isDone?'#66bb6a':'#bbb')+'">'+sk.svg+'</div><span>'+sk.l+'</span></div>';});
+      cards+='<div class="plr-day-card side'+(isTod?' today':'')+'" data-pl-arr="'+(plDayIdx+offset)+'">'
+        +'<div class="plr-card-top"><div><div class="plr-card-weekday">'+DN_SHORT[d.getDay()]+'</div><div class="plr-card-date" style="font-size:1.3rem">'+d.getDate()+'</div></div>'+(isTod?'<div class="plr-card-today-badge" style="font-size:.5rem">Hoje</div>':'')+'</div>'
+        +'<div class="plr-card-side-body"><div class="plr-side-acts">'+miniActs+'</div></div>'
         +'</div>';
     }
   });
-
-  // Dots de navegação (7 dias visíveis ao redor do centro)
-  var dots=''; var dotRange=[-3,-2,-1,0,1,2,3];
-  dotRange.forEach(function(i){
-    var abs=14+plDayIdx+i;
-    if(abs>=0&&abs<days.length){
-      dots+='<div class="plr-dot'+(i===0?' on':'')+'" data-pl-dot="'+(plDayIdx+i)+'"></div>';
-    }
-  });
-
-  var isAtToday=plDayIdx===0;
+  var dots='';[-3,-2,-1,0,1,2,3].forEach(function(i){var abs=14+plDayIdx+i;if(abs>=0&&abs<days.length)dots+='<div class="plr-dot'+(i===0?' on':'')+'" data-pl-dot="'+(plDayIdx+i)+'"></div>';});
   return '<div class="plr-actions">'
-    +(isAtToday?'':'<button class="plr-action-btn" data-pl-today><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Hoje</button>')
-    +'<button class="plr-action-btn primary" data-pl-suggest><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Sugerir semana</button>'
+    +(plDayIdx!==0?'<button class="plr-action-btn" data-pl-today><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Hoje</button>':'')
+    +'<button class="plr-action-btn" onclick="plToggleSidebar()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg> Habilidades</button>'
     +'</div>'
-    +'<div class="plr-carousel-wrap">'
-      +'<div class="plr-track">'+cards+'</div>'
-    +'</div>'
-    +'<div class="plr-kb-hint"><span class="plr-kb-key">&larr;</span>&nbsp;navegar&nbsp;<span class="plr-kb-key">&rarr;</span></div>'+'<div class="plr-arrows">'
-      +'<button class="plr-arrow" data-pl-arr="'+(plDayIdx-1)+'">'
-        +'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>'
-      +'</button>'
+    +'<div class="plr-kb-hint"><span class="plr-kb-key">&larr;</span>&nbsp;navegar&nbsp;<span class="plr-kb-key">&rarr;</span></div>'
+    +'<div class="plr-carousel-wrap"><div class="plr-track">'+cards+'</div></div>'
+    +'<div class="plr-arrows">'
+      +'<button class="plr-arrow" data-pl-arr="'+(plDayIdx-1)+'"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>'
       +'<div class="plr-dot-row">'+dots+'</div>'
-      +'<button class="plr-arrow" data-pl-arr="'+(plDayIdx+1)+'">'
-        +'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>'
-      +'</button>'
+      +'<button class="plr-arrow" data-pl-arr="'+(plDayIdx+1)+'"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>'
     +'</div>';
 }
 
-// ── VIEW: CALENDÁRIO ───────────────────────────────────
 function renderPlannerCal(view){
-  var now=new Date(), html='';
+  var now=new Date(),html='';
   if(view==='week'){
-    var base=new Date(now); base.setDate(now.getDate()-now.getDay()+1+plWeekOff*7);
+    var base=new Date(now);base.setDate(now.getDate()-now.getDay()+1+plWeekOff*7);
     var label='Semana de '+base.getDate()+'/'+(base.getMonth()+1);
-    html+='<div class="plr-cal-wrap">'
-      +'<div class="plr-cal-nav">'
-        +'<span class="plr-cal-label">'+label+'</span>'
-        +'<div class="plr-cal-arrows">'
-          +'<button class="plr-cal-arrow" data-pl-cal="-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>'
-          +'<button class="plr-cal-arrow" data-pl-cal="1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>'
-        +'</div>'
-      +'</div>'
+    html='<div class="plr-cal-wrap"><div class="plr-cal-nav"><span class="plr-cal-label">'+label+'</span>'
+      +'<div class="plr-cal-arrows"><button class="plr-cal-arrow" data-pl-cal="-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>'
+      +'<button class="plr-cal-arrow" data-pl-cal="1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></div></div>'
       +'<div class="plr-week-grid">';
-    DN_SHORT.forEach(function(d){ html+='<div class="plr-cal-header">'+d+'</div>'; });
-    for(var i=0;i<7;i++){
-      var d=new Date(base); d.setDate(base.getDate()+i);
-      var key=dKey(d), isT=key===today();
-      var acts=pData[key]||[], done=pData[key+'__done']||[];
-      var diff=Math.round((d-now)/(1000*60*60*24));
-      var dots=acts.map(function(sid){
-        var isDone=done.indexOf(sid)!==-1;
-        return '<div class="plr-cal-dot '+(isDone?'done':'pending')+'"></div>';
-      }).join('');
-      html+='<div class="plr-cal-cell'+(isT?' today':'')+'" data-pl-calday="'+diff+'">'
-        +'<div class="plr-cal-day-num">'+d.getDate()+'</div>'
-        +'<div class="plr-cal-dots">'+dots+'</div>'
-      +'</div>';
-    }
+    DN_SHORT.forEach(function(d){html+='<div class="plr-cal-header">'+d+'</div>';});
+    for(var i=0;i<7;i++){var d=new Date(base);d.setDate(base.getDate()+i);var key=dKey(d),isT=key===today();var acts=pData[key]||[],done=pData[key+'__done']||[];var diff=Math.round((d-now)/(1000*60*60*24));var dots=acts.map(function(sid){return'<div class="plr-cal-dot '+(done.indexOf(sid)!==-1?'done':'pending')+'"></div>';}).join('');html+='<div class="plr-cal-cell'+(isT?' today':'')+'" data-pl-calday="'+diff+'"><div class="plr-cal-day-num">'+d.getDate()+'</div><div class="plr-cal-dots">'+dots+'</div></div>';}
     html+='</div></div>';
   } else {
-    // Month
-    var y=now.getFullYear(), m=now.getMonth()+plMonthOff;
-    while(m>11){m-=12;y++;} while(m<0){m+=12;y--;}
-    var firstDay=new Date(y,m,1), lastDay=new Date(y,m+1,0);
-    var label2=MONTHS[m]+' '+y;
-    html+='<div class="plr-cal-wrap">'
-      +'<div class="plr-cal-nav">'
-        +'<span class="plr-cal-label">'+label2+'</span>'
-        +'<div class="plr-cal-arrows">'
-          +'<button class="plr-cal-arrow" data-pl-cal="-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>'
-          +'<button class="plr-cal-arrow" data-pl-cal="1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>'
-        +'</div>'
-      +'</div>'
+    var y=now.getFullYear(),m=now.getMonth()+plMonthOff;
+    while(m>11){m-=12;y++;}while(m<0){m+=12;y--;}
+    var firstDay=new Date(y,m,1),lastDay=new Date(y,m+1,0);
+    html='<div class="plr-cal-wrap"><div class="plr-cal-nav"><span class="plr-cal-label">'+MONTHS[m]+' '+y+'</span>'
+      +'<div class="plr-cal-arrows"><button class="plr-cal-arrow" data-pl-cal="-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>'
+      +'<button class="plr-cal-arrow" data-pl-cal="1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></div></div>'
       +'<div class="plr-month-grid">';
-    DN_SHORT.forEach(function(d){ html+='<div class="plr-cal-header">'+d+'</div>'; });
+    DN_SHORT.forEach(function(d){html+='<div class="plr-cal-header">'+d+'</div>';});
     var startDow=(firstDay.getDay()+6)%7;
-    for(var i=0;i<startDow;i++) html+='<div class="plr-cal-cell empty"></div>';
-    for(var day=1;day<=lastDay.getDate();day++){
-      var d2=new Date(y,m,day), key2=dKey(d2), isT2=key2===today();
-      var acts2=pData[key2]||[], done2=pData[key2+'__done']||[];
-      var diff2=Math.round((d2-now)/(1000*60*60*24));
-      var dots2=acts2.map(function(sid){
-        return '<div class="plr-cal-dot '+(done2.indexOf(sid)!==-1?'done':'pending')+'"></div>';
-      }).join('');
-      html+='<div class="plr-cal-cell'+(isT2?' today':'')+'" data-pl-calday="'+diff2+'">'
-        +'<div class="plr-cal-day-num">'+day+'</div>'
-        +'<div class="plr-cal-dots">'+dots2+'</div>'
-      +'</div>';
-    }
+    for(var i=0;i<startDow;i++)html+='<div class="plr-cal-cell empty"></div>';
+    for(var day=1;day<=lastDay.getDate();day++){var d2=new Date(y,m,day),key2=dKey(d2),isT2=key2===today();var acts2=pData[key2]||[],done2=pData[key2+'__done']||[];var diff2=Math.round((d2-now)/(1000*60*60*24));var dots2=acts2.map(function(sid){return'<div class="plr-cal-dot '+(done2.indexOf(sid)!==-1?'done':'pending')+'"></div>';}).join('');html+='<div class="plr-cal-cell'+(isT2?' today':'')+'" data-pl-calday="'+diff2+'"><div class="plr-cal-day-num">'+day+'</div><div class="plr-cal-dots">'+dots2+'</div></div>';}
     html+='</div></div>';
   }
   return html;
@@ -2989,17 +2893,14 @@ function renderPlannerCal(view){
 function renderPlannerLegend(){
   var items=SKL.map(function(s){
     return '<div class="plr-legend-item">'
-      +'<div class="plr-legend-ico" data-sk="'+s.id+'">'+s.svg+'</div>'
-      +'<div>'
-        +'<div class="plr-legend-name">'+s.l+'</div>'
-        +'<div class="plr-legend-desc">'+s.tip+'</div>'
+      +'<div class="plr-legend-ico" style="width:46px;height:46px">'
+        +'<div class="plr-legend-ico-ring" style="--dot-color:'+s.dot+';--dot-glow:'+s.glow+';--orbit-dur:'+s.dur+'"></div>'
+        +'<div class="plr-legend-ico-inner" style="background:'+s.bg+';color:'+s.clr+'">'+s.svg+'</div>'
       +'</div>'
+      +'<div><div class="plr-legend-name">'+s.l+'</div><div class="plr-legend-desc">'+s.tip+'</div></div>'
     +'</div>';
   }).join('');
-  return '<div class="plr-legend">'
-    +'<div class="plr-legend-title">Habilidades</div>'
-    +'<div class="plr-legend-grid">'+items+'</div>'
-  +'</div>';
+  return '<div class="plr-legend"><div class="plr-legend-title">Habilidades</div><div class="plr-legend-grid">'+items+'</div></div>';
 }
 
 // FLASHCARDS
