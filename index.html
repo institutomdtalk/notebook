@@ -1273,7 +1273,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 <!-- ABAS ESTILO CHROME -->
 <div id="chrome-tabbar">
 
-  <div class="ctab active" id="ctab-dash" onclick="switchTab('dash')">
+  <div class="ctab active" id="ctab-dash" class="ctab active" onclick="switchTab('dash')">
     <span class="ctab-fav">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
@@ -1324,7 +1324,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 
 <!-- PAINÉIS -->
 <div id="tab-panels">
-  <div class="tab-panel active" id="panel-dash">
+  <div class="tab-panel active" id="panel-dash" class="tab-panel active">
     <div id="dash-body" style="max-width:1100px;margin:0 auto;padding:2.5rem 2rem 4rem;"></div>
   </div>
 
@@ -1734,8 +1734,6 @@ function switchTab(id) {
   document.getElementById('ctab-'+id).classList.add('active');
   document.getElementById('panel-'+id).classList.add('active');
   document.getElementById('tab-panels').style.display = 'block';
-setTimeout(renderDash, 100);
-
   if (id === 'planner')   renderPlanner();
   if (id === 'flash')     renderFlash();
   if (id === 'dash')      renderDash();
@@ -1754,7 +1752,6 @@ function closeTab(id) {
 
 // Dashboard abre por padrão
 document.getElementById('tab-panels').style.display = 'block';
-setTimeout(renderDash, 100);
 
 // DASHBOARD
 function greetTime() {
@@ -2038,49 +2035,38 @@ function drawRadar(data) {
   ctx.fillText('SCORE', cx, cy+14);
 }
 
-// PLANNER
-
 // PLANNER SEMANAL
 const SK_DATA = [
-  { id:'video-sem',    l:'Vídeo s/ legenda',    d:'Assista 1 episódio em inglês sem legenda',
-    svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="15" height="16" rx="2"/><path d="m17 8 5-3v14l-5-3"/></svg>' },
-  { id:'video-leg',    l:'Vídeo c/ legenda',    d:'Assista com legenda em inglês para absorver vocabulário',
-    svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="5" y1="10" x2="11" y2="10"/><line x1="5" y1="13" x2="15" y2="13"/></svg>' },
-  { id:'cantar',       l:'Cantar em inglês',    d:'Escolha uma música e cante acompanhando a letra',
-    svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>' },
-  { id:'transcrever',  l:'Transcrever música',  d:'Ouça e escreva a letra sem olhar',
-    svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>' },
-  { id:'infograficos', l:'3 Infográficos',      d:'Leia e compreenda 3 infográficos em inglês',
-    svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>' },
-  { id:'leitura',      l:'Leitura de texto',    d:'Leia um artigo, texto médico ou capítulo',
-    svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
-  { id:'noticia',      l:'Notícia online',      d:'Leia uma notícia em inglês na internet',
-    svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0-2 2zm0 0a2 2 0 0 1-2-2V9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>' },
+  { id:'video-sem',    l:'Video s/legenda',   d:'Assista 1 episodio em ingles sem legenda',       svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="15" height="16" rx="2"/><path d="m17 8 5-3v14l-5-3"/></svg>' },
+  { id:'video-leg',    l:'Video c/legenda',   d:'Assista com legenda em ingles',                  svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="5" y1="10" x2="11" y2="10"/><line x1="5" y1="13" x2="15" y2="13"/></svg>' },
+  { id:'cantar',       l:'Cantar',            d:'Escolha uma musica e cante acompanhando',        svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>' },
+  { id:'transcrever',  l:'Transcrever',       d:'Ouca e escreva a letra sem olhar',               svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>' },
+  { id:'infograficos', l:'3 Infograficos',    d:'Leia 3 infograficos em ingles',                  svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>' },
+  { id:'leitura',      l:'Leitura',           d:'Leia um artigo ou texto medico',                 svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
+  { id:'noticia',      l:'Noticia online',    d:'Leia uma noticia em ingles na internet',         svg:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0-2 2zm0 0a2 2 0 0 1-2-2V9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>' },
 ];
-const SK_BY_ID = Object.fromEntries(SK_DATA.map(s => [s.id, s]));
-const SG_WEEK  = ['video-sem','leitura','video-leg','noticia','infograficos','cantar','transcrever'];
-const DAY_NAMES = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+const SK_BY_ID  = Object.fromEntries(SK_DATA.map(s => [s.id, s]));
+const SG_WEEK   = ['video-sem','leitura','video-leg','noticia','infograficos','cantar','transcrever'];
+const DAY_NAMES = ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'];
 
-let pOff=0, pData={
-  '2025-05-05':['video-sem','leitura'],
-  '2025-05-05__done':['video-sem'],
-  '2025-05-06':['noticia','infograficos'],
-  '2025-05-06__done':['noticia','infograficos'],
-  '2025-05-07':['video-leg','cantar'],
-  '2025-05-07__done':['video-leg'],
-  '2025-05-08':['leitura','transcrever'],
-  '2025-05-08__done':['leitura'],
-  '2025-05-09':['infograficos'],
-  '2025-05-09__done':['infograficos'],
-}, pPickerKey=null;
+let pOff = 0;
+let pData = {
+  '2025-05-05':['video-sem','leitura'],   '2025-05-05__done':['video-sem'],
+  '2025-05-06':['noticia','infograficos'], '2025-05-06__done':['noticia','infograficos'],
+  '2025-05-07':['video-leg','cantar'],    '2025-05-07__done':['video-leg'],
+  '2025-05-08':['leitura','transcrever'], '2025-05-08__done':['leitura'],
+  '2025-05-09':['infograficos'],          '2025-05-09__done':['infograficos'],
+};
+let pPickerKey = null;
+let pickerEl   = null;
 
 function pDates(off) {
   const t=new Date(), dow=t.getDay(), mon=new Date(t);
   mon.setDate(t.getDate()-dow+(dow===0?-6:1)+off*7);
   return Array.from({length:7},(_,i)=>{ const d=new Date(mon); d.setDate(mon.getDate()+i); return d; });
 }
-function dKey(d){ return d.toISOString().split('T')[0]; }
-function plannerWeek(dir){ pOff+=dir; renderPlanner(); }
+function dKey(d) { return d.toISOString().split('T')[0]; }
+function plannerWeek(dir) { pOff+=dir; renderPlanner(); }
 
 function plannerSuggest() {
   pDates(pOff).forEach((d,i)=>{
@@ -2090,40 +2076,64 @@ function plannerSuggest() {
   renderPlanner();
 }
 
+// Usar event delegation em vez de onclick inline
+function plHandleClick(e) {
+  const actIcon = e.target.closest('.pl-act-icon');
+  const addBtn  = e.target.closest('.pl-add-btn');
+  const pickItem= e.target.closest('.pl-picker-item');
+  const pickClose = e.target.closest('.pl-picker-close');
+  if (actIcon) {
+    const key = actIcon.dataset.key, sid = actIcon.dataset.sid;
+    if (key && sid) pToggleDone(key, sid);
+  }
+  if (addBtn) {
+    e.stopPropagation();
+    openPicker(addBtn.dataset.key, addBtn);
+  }
+  if (pickItem) {
+    const key = pickItem.dataset.key, sid = pickItem.dataset.sid;
+    if (key && sid) pAddAct(key, sid);
+  }
+  if (pickClose) closePicker();
+}
+
+function plHandleRightClick(e) {
+  const actIcon = e.target.closest('.pl-act-icon');
+  if (actIcon) {
+    e.preventDefault();
+    const key = actIcon.dataset.key, sid = actIcon.dataset.sid;
+    if (key && sid) { pData[key]=pData[key].filter(s=>s!==sid); renderPlanner(); }
+  }
+}
+
 function pToggleDone(key,sid) {
   const dk=key+'__done', done=pData[dk]||[];
   const i=done.indexOf(sid);
   if(i===-1) done.push(sid); else done.splice(i,1);
   pData[dk]=done; renderPlanner();
 }
-function pRemAct(key,sid) {
-  if(pData[key]) pData[key]=pData[key].filter(s=>s!==sid); renderPlanner();
-}
+
 function pAddAct(key,sid) {
   if(!pData[key]) pData[key]=[];
   if(!pData[key].includes(sid)) pData[key].push(sid);
-  pPickerKey=null; closePicker(); renderPlanner();
+  closePicker(); renderPlanner();
 }
 
-// Picker global (position:fixed)
-let pickerEl = null;
 function openPicker(key, btnEl) {
   pPickerKey = key;
   if (!pickerEl) {
     pickerEl = document.createElement('div');
-    pickerEl.id = 'pl-global-picker';
     pickerEl.className = 'pl-picker';
     document.body.appendChild(pickerEl);
   }
-  const grid = SK_DATA.map(s =>
-    '<div class="pl-picker-item" onclick="pAddAct(''+key+'',''+s.id+'')">'
-    +s.svg+'<span>'+s.l+'</span></div>'
-  ).join('');
-  pickerEl.innerHTML =
-    '<div class="pl-picker-title">Adicionar atividade</div>'
-    +'<div class="pl-picker-grid">'+grid+'</div>'
-    +'<button class="pl-picker-close" onclick="closePicker()">Fechar</button>';
-
+  let html = '<div class="pl-picker-title">Adicionar atividade</div><div class="pl-picker-grid">';
+  SK_DATA.forEach(s => {
+    html += '<div class="pl-picker-item" data-key="'+key+'" data-sid="'+s.id+'">'
+          + s.svg + '<span>'+s.l+'</span></div>';
+  });
+  html += '</div><button class="pl-picker-close">Fechar</button>';
+  pickerEl.innerHTML = html;
+  pickerEl.addEventListener('click', plHandleClick);
   const rect = btnEl.getBoundingClientRect();
   pickerEl.style.top  = (rect.bottom + 8) + 'px';
   pickerEl.style.left = Math.min(rect.left, window.innerWidth - 256) + 'px';
@@ -2134,87 +2144,78 @@ function closePicker() {
   pPickerKey = null;
 }
 document.addEventListener('click', e => {
-  if (pickerEl && pickerEl.classList.contains('open') &&
-      !pickerEl.contains(e.target) && !e.target.closest('.pl-add-btn')) {
-    closePicker();
-  }
+  if (pickerEl && pickerEl.classList.contains('open') && !pickerEl.contains(e.target) && !e.target.closest('.pl-add-btn')) closePicker();
 });
 
 function renderPlanner() {
   const body = document.getElementById('planner-body');
   if (!body) return;
 
-  const dates   = pDates(pOff);
-  const today   = dKey(new Date());
-  const fmt     = d => d.getDate()+'/'+(d.getMonth()+1);
-  const thisWk  = pOff === 0;
+  const dates = pDates(pOff), today = dKey(new Date());
+  const fmt   = d => d.getDate()+'/'+(d.getMonth()+1);
 
-  // Contagem de atividades cumpridas nesta semana
-  let totalDone = 0, totalPlanned = 0;
+  let totalDone=0, totalPlanned=0;
   dates.forEach(d => {
-    const k = dKey(d);
+    const k=dKey(d);
     totalPlanned += (pData[k]||[]).length;
     totalDone    += (pData[k+'__done']||[]).length;
   });
-  const pct = totalPlanned > 0 ? Math.round(totalDone/totalPlanned*100) : 0;
+  const pct = totalPlanned>0 ? Math.round(totalDone/totalPlanned*100) : 0;
 
-  // Dias
-  const daysHTML = dates.map(d => {
-    const key   = dKey(d);
-    const acts  = pData[key] || [];
-    const done  = pData[key+'__done'] || [];
-    const isT   = key === today;
-
-    const actsHTML = acts.map(sid => {
-      const sk = SK_BY_ID[sid]; if (!sk) return '';
-      const isDone = done.includes(sid);
-      return '<div class="pl-act-icon '+(isDone?'done':'')+'"'
-        +' onclick="pToggleDone(''+key+'',''+sid+'')"'
-        +' oncontextmenu="event.preventDefault();pRemAct(''+key+'',''+sid+'')">'
-        +sk.svg
-        +'<span class="pl-tip">'+sk.l+(isDone?' ✓':'')+'</span>'
-        +'</div>';
-    }).join('');
-
-    return '<div class="pl-day '+(isT?'today':'')+'">'
-      +'<div class="pl-day-head">'
-        +'<div class="pl-day-lbl">'+DAY_NAMES[d.getDay()]+'</div>'
-        +'<div class="pl-day-num">'+d.getDate()+'</div>'
-      +'</div>'
+  // Montar HTML dias
+  let daysHTML = '';
+  dates.forEach(d => {
+    const key=dKey(d), acts=pData[key]||[], done=pData[key+'__done']||[], isT=key===today;
+    let actsHTML = '';
+    acts.forEach(sid => {
+      const sk=SK_BY_ID[sid]; if(!sk) return;
+      const isDone=done.includes(sid);
+      actsHTML += '<div class="pl-act-icon '+(isDone?'done':'')+'" data-key="'+key+'" data-sid="'+sid+'">'
+        +sk.svg+'<span class="pl-tip">'+sk.l+(isDone?' v':'')+'</span></div>';
+    });
+    daysHTML += '<div class="pl-day '+(isT?'today':'')+'">'
+      +'<div class="pl-day-head"><div class="pl-day-lbl">'+DAY_NAMES[d.getDay()]+'</div>'
+      +'<div class="pl-day-num">'+d.getDate()+'</div></div>'
       +'<div class="pl-acts">'+actsHTML+'</div>'
-      +'<button class="pl-add-btn" onclick="event.stopPropagation();openPicker(''+key+'',this)">'
+      +'<button class="pl-add-btn" data-key="'+key+'">'
         +'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
       +'</button>'
     +'</div>';
-  }).join('');
+  });
 
-  // Legenda
-  const legendHTML = SK_DATA.map(s =>
-    '<div class="pl-legend-item">'
-    +'<div class="pl-legend-icon">'+s.svg+'</div>'
-    +'<div class="pl-legend-txt">'
-      +'<div class="pl-legend-name">'+s.l+'</div>'
-      +'<div class="pl-legend-desc">'+s.d+'</div>'
-    +'</div>'
-    +'</div>'
-  ).join('');
+  // Montar legenda
+  let legHTML = '';
+  SK_DATA.forEach(s => {
+    legHTML += '<div class="pl-legend-item"><div class="pl-legend-icon">'+s.svg+'</div>'
+      +'<div class="pl-legend-txt"><div class="pl-legend-name">'+s.l+'</div>'
+      +'<div class="pl-legend-desc">'+s.d+'</div></div></div>';
+  });
 
-  body.innerHTML = '<div class="pl-wrap">'
+  // Barra de progresso
+  const progHTML = totalPlanned>0
+    ? '<div style="margin-bottom:2rem">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">'
+        +'<span style="font-family:Raleway,sans-serif;font-size:.62rem;color:#bbb;letter-spacing:.08em">Progresso desta semana</span>'
+        +'<span style="font-family:Cormorant Garamond,serif;font-size:1rem;font-weight:300;color:#1a1a2e">'+pct+'%</span>'
+      +'</div>'
+      +'<div style="height:4px;background:#e8e4e0;border-radius:4px;overflow:hidden">'
+        +'<div style="height:100%;width:'+pct+'%;background:linear-gradient(to right,#C4A45A,#D4BA7A);border-radius:4px;transition:width .6s ease"></div>'
+      +'</div></div>'
+    : '';
 
-    // Header
+  body.innerHTML =
+    '<div class="pl-wrap">'
     +'<div class="pl-hdr">'
       +'<div class="pl-hdr-left">'
         +'<div class="pl-hdr-title">Meu <em>Planner</em></div>'
-        +'<div class="pl-hdr-sub">'
-          +(thisWk ? 'Esta semana · '+totalDone+' de '+totalPlanned+' atividades concluídas ('+pct+'%)' : 'Semana de '+fmt(dates[0])+' a '+fmt(dates[6]))
-        +'</div>'
+        +'<div class="pl-hdr-sub">'+(pOff===0?'Esta semana · '+totalDone+' de '+totalPlanned+' concluidas ('+pct+'%)':'Semana de '+fmt(dates[0])+' a '+fmt(dates[6]))+'</div>'
       +'</div>'
       +'<div class="pl-hdr-actions">'
-        +'<button class="pl-nav-btn" onclick="plannerWeek(-1)" title="Semana anterior">'
+        +'<button class="pl-nav-btn" onclick="plannerWeek(-1)">'
           +'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>'
         +'</button>'
-        +'<span class="pl-week-label">'+fmt(dates[0])+' — '+fmt(dates[6])+'</span>'
-        +'<button class="pl-nav-btn" onclick="plannerWeek(1)" title="Próxima semana">'
+        +'<span class="pl-week-label">'+fmt(dates[0])+' - '+fmt(dates[6])+'</span>'
+        +'<button class="pl-nav-btn" onclick="plannerWeek(1)">'
           +'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>'
         +'</button>'
         +'<button class="pl-suggest-btn" onclick="plannerSuggest()">'
@@ -2223,28 +2224,19 @@ function renderPlanner() {
         +'</button>'
       +'</div>'
     +'</div>'
-
-    // Barra de progresso semanal
-    +(totalPlanned > 0 ? '<div style="margin-bottom:2rem">'
-      +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">'
-        +'<span style="font-family:Raleway,sans-serif;font-size:.62rem;color:#bbb;letter-spacing:.08em">Progresso desta semana</span>'
-        +'<span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;color:#1a1a2e">'+pct+'%</span>'
-      +'</div>'
-      +'<div style="height:4px;background:#e8e4e0;border-radius:4px;overflow:hidden">'
-        +'<div style="height:100%;width:'+pct+'%;background:linear-gradient(to right,#C4A45A,#D4BA7A);border-radius:4px;transition:width .6s ease"></div>'
-      +'</div>'
-    +'</div>' : '')
-
-    // Grid
-    +'<div class="pl-grid">'+daysHTML+'</div>'
-
-    // Legenda
-    +'<div class="pl-legend">'
-      +'<div class="pl-legend-title">Habilidades disponíveis</div>'
-      +'<div class="pl-legend-grid">'+legendHTML+'</div>'
+    +progHTML
+    +'<div class="pl-grid" id="pl-grid-el">'+daysHTML+'</div>'
+    +'<div class="pl-legend"><div class="pl-legend-title">Habilidades</div>'
+      +'<div class="pl-legend-grid">'+legHTML+'</div>'
     +'</div>'
+    +'</div>';
 
-  +'</div>';
+  // Adicionar event delegation no grid
+  const grid = document.getElementById('pl-grid-el');
+  if (grid) {
+    grid.addEventListener('click', plHandleClick);
+    grid.addEventListener('contextmenu', plHandleRightClick);
+  }
 }
 
 // FLASHCARDS
@@ -2492,12 +2484,12 @@ function renderTourStep(){const s=TOUR[tIdx],n=TOUR.length;document.getElementBy
 function tourNext(){tIdx++;if(tIdx>=TOUR.length)fecharTour();else renderTourStep();}
 function fecharTour(){document.getElementById('tour-ov').classList.remove('on');localStorage.setItem('mdtalk_tour_ok','1');}
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){fecharModal();fecharTour();cpClose();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){fecharModal();fecharTour();nbDropOpen=false;const d=document.getElementById('nb-dropdown');if(d)d.classList.remove('open');const b=document.getElementById('nb-filter-btn');if(b)b.classList.remove('open');closePicker();}});
 
 // INIT
 renderCards();
 initTour();
-initWC();
+setTimeout(renderDash, 150);
 </script>
 </body>
 </html>
