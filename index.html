@@ -587,12 +587,8 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   transition: background .2s, border-color .2s;
   color: rgba(255,255,255,.6);
 }
-#music-btn:hover {
-  background: rgba(5,13,26,.5);
-  border-color: rgba(196,164,90,.4);
-  color: var(--gold-pale);
-}
-#music-btn.playing { border-color: rgba(196,164,90,.35); color: var(--gold-pale); }
+#music-btn:hover { background: rgba(255,255,255,.15); border-color: rgba(196,164,90,.35); color: var(--gold-pale); }
+#music-btn.playing { border-color: rgba(196,164,90,.4); color: var(--gold-pale); }
 
 /* Barras de equalizer animadas */
 .eq-bars {
@@ -620,15 +616,15 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 
 #music-label {
   font-family: 'Raleway', sans-serif;
-  font-size: .58rem;
+  font-size: .55rem;
   font-weight: 500;
-  letter-spacing: .12em;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.35);
-  transition: color .3s;
+  color: rgba(255,255,255,.3);
   white-space: nowrap;
+  transition: color .3s;
 }
-#music-player.playing #music-label { color: rgba(196,164,90,.6); }
+#music-player.playing #music-label { color: rgba(196,164,90,.55); }
 
 /* YouTube iframe escondido */
 #yt-frame { display: none; }
@@ -2077,6 +2073,288 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .plr-act-orbital, .plr-act-orbital-ring, .plr-sk-orbital, .plr-sk-orbital-ring,
 .plr-legend-ico-ring { display:none !important; }
 
+/* ══════════════════════════════════════
+   HERO BOTTOM: métricas + heatmap + dia
+══════════════════════════════════════ */
+#hero-bottom {
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  width: min(980px, 94vw);
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  gap: 1.2rem;
+  align-items: end;
+  opacity: 0;
+  animation: htAppear 1.2s ease 1.5s forwards;
+}
+
+/* ── MÉTRICAS GRANDES ── */
+#hero-stats {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  background: rgba(5,13,26,.38);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 1.2rem 1.4rem;
+}
+.hs-item { text-align: center; flex: 1; }
+.hs-num {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1;
+  letter-spacing: -.02em;
+  transition: transform .3s ease;
+}
+.hs-num.hs-gold { color: var(--gold-light); }
+.hs-item:hover .hs-num { transform: scale(1.08); }
+.hs-label {
+  display: block;
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.38);
+  margin-top: .3rem;
+}
+.hs-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,.1);
+  flex-shrink: 0;
+}
+
+/* ── HEATMAP ── */
+#hero-heatmap {
+  background: rgba(5,13,26,.38);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 1.1rem 1.3rem 1rem;
+}
+.hh-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  margin-bottom: .7rem;
+}
+.hh-grid {
+  display: grid;
+  grid-template-columns: repeat(28, 1fr);
+  gap: 3px;
+  margin-bottom: .55rem;
+}
+.hh-cell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  transition: transform .15s ease, opacity .15s ease;
+  cursor: default;
+}
+.hh-cell:hover { transform: scale(1.6); z-index: 2; position: relative; }
+.hh-0 { background: rgba(255,255,255,.07); }
+.hh-1 { background: rgba(196,164,90,.25); }
+.hh-2 { background: rgba(196,164,90,.5); }
+.hh-3 { background: rgba(196,164,90,.78); }
+.hh-4 { background: var(--gold); box-shadow: 0 0 6px rgba(196,164,90,.6); }
+
+/* Animação de entrada do heatmap — células aparecem em cascata */
+@keyframes cellAppear {
+  from { opacity: 0; transform: scale(0); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.hh-cell { opacity: 0; animation: cellAppear .4s ease forwards; }
+
+.hh-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.hh-legend-lbl {
+  font-family: 'Raleway', sans-serif;
+  font-size: .52rem;
+  color: rgba(255,255,255,.3);
+  letter-spacing: .08em;
+}
+.hh-legend .hh-cell {
+  width: 9px; height: 9px;
+  animation: none; opacity: 1;
+}
+
+/* ── ATIVIDADE DO DIA ── */
+#hero-today {
+  background: rgba(5,13,26,.38);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 1.1rem 1.2rem;
+  min-height: 90px;
+}
+.ht-day-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  margin-bottom: .6rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ht-day-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold);
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.ht-act-row {
+  display: flex; align-items: center; gap: 7px;
+  margin-bottom: .4rem;
+}
+.ht-act-row:last-child { margin-bottom: 0; }
+.ht-act-ico {
+  width: 22px; height: 22px; border-radius: 7px;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.75); flex-shrink: 0;
+  transition: background .2s;
+}
+.ht-act-row.done .ht-act-ico {
+  background: rgba(76,175,80,.25);
+  border-color: rgba(76,175,80,.4);
+  color: #81C784;
+}
+.ht-act-name {
+  font-family: 'Raleway', sans-serif;
+  font-size: .66rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.8);
+  flex: 1;
+}
+.ht-act-row.done .ht-act-name {
+  color: rgba(255,255,255,.35);
+  text-decoration: line-through;
+}
+.ht-no-act {
+  font-family: 'Raleway', sans-serif;
+  font-size: .64rem;
+  color: rgba(255,255,255,.35);
+  line-height: 1.55;
+  margin-bottom: .6rem;
+}
+.ht-suggest-btn {
+  width: 100%;
+  background: rgba(196,164,90,.15);
+  border: 1px solid rgba(196,164,90,.3);
+  border-radius: 9px;
+  padding: .38rem .6rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold-pale);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  transition: background .2s, border-color .2s;
+}
+.ht-suggest-btn:hover {
+  background: rgba(196,164,90,.28);
+  border-color: rgba(196,164,90,.6);
+}
+
+/* ── BARRA DE ENGAJAMENTO ── */
+#hero-engage {
+  position: absolute;
+  bottom: 2.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  width: min(980px, 94vw);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  animation: htAppear 1s ease 2s forwards;
+}
+.he-bar-track {
+  flex: 1;
+  height: 2px;
+  background: rgba(255,255,255,.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.he-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--gold), var(--gold-light));
+  border-radius: 2px;
+  width: 0%;
+  transition: width 1.5s cubic-bezier(.4,0,.2,1);
+}
+.he-bar-pct {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--gold-light);
+  flex-shrink: 0;
+}
+.he-bar-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  flex-shrink: 0;
+}
+
+/* ── HERO CONTENT: saudação + nome ── */
+#hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 0 1.5rem;
+  max-width: 700px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1s ease .5s, transform 1s ease .5s;
+}
+#hero-content.visible { opacity:1; transform:translateY(0); }
+.hero-greeting {
+  display: block;
+  font-family: 'Raleway', sans-serif;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .38em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: .9;
+  margin-bottom: 1rem;
+}
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--cream);
+  letter-spacing: .02em;
+}
+
 @media(max-width:700px){.pl-grid{grid-template-columns:repeat(2,1fr);}#caderno-nav .nav-brand{display:none;}#search-input{width:120px;}}
 </style>
 </head>
@@ -2085,9 +2363,11 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 <!-- HERO -->
 <section id="hero">
   <div id="loading-state"><div style="display:flex;flex-direction:column;align-items:center;gap:14px;"><span class="loading-logo">MD Talk</span><div style="width:40px;height:1px;background:var(--gold);opacity:.3;"></div></div></div>
-  <div id="hero-bg"></div><div id="hero-overlay"></div><div id="hero-dots"></div>
-  
-  <!-- INFO CANTO SUPERIOR ESQUERDO -->
+  <div id="hero-bg"></div>
+  <div id="hero-overlay"></div>
+  <div id="hero-dots"></div>
+
+  <!-- CANTO SUP. ESQ: cidade + clima + relógio -->
   <div id="hero-meta">
     <div id="hero-meta-row">
       <span id="m-city" class="m-info">Sao Paulo</span>
@@ -2097,28 +2377,27 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
       <span id="m-cond" class="m-info">Carregando</span>
     </div>
     <div id="m-clock" class="m-clock">00:00:00</div>
-    
+    <!-- MUSIC PLAYER integrado ao meta -->
+    <div id="music-player">
+      <div id="music-btn" onclick="musicToggle()" title="Música ambiente">
+        <svg id="icon-muted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        <div class="eq-bars" id="icon-playing" style="display:none">
+          <div class="eq-bar"></div><div class="eq-bar"></div>
+          <div class="eq-bar"></div><div class="eq-bar"></div>
+        </div>
+      </div>
+      <span id="music-label">Sem som</span>
+    </div>
   </div>
+  <iframe id="yt-frame" src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=0&loop=1&playlist=jfKfPfyJRdk&controls=0&mute=1" allow="autoplay" frameborder="0"></iframe>
 
+  <!-- CENTRO: saudação + nome -->
   <div id="hero-content">
-    <span class="hero-greeting" id="m-overline-center">Boa noite</span>
+    <span class="hero-greeting" id="m-overline-center">Boa noite,</span>
     <h1 class="hero-name" id="s-name">Thaiana</h1>
   </div>
 
-  <!-- PROGRESSO NO HERO -->
-  <div id="hero-progress">
-    <div class="hp-divider"></div>
-    <div class="hp-grid" id="hp-grid">
-      <!-- preenchido por updateHeroProgress() -->
-    </div>
-    <div class="hp-bar-wrap">
-      <div class="hp-bar-track"><div class="hp-bar-fill" id="hp-bar-fill"></div></div>
-      <span class="hp-bar-label" id="hp-bar-label">Carregando...</span>
-    </div>
-  </div>
-
-
-  <!-- TRADUTOR NO HERO -->
+  <!-- TRADUTOR: topo centro -->
   <div id="hero-translator">
     <div class="ht-wrap">
       <div class="ht-dir" id="ht-dir" onclick="htToggleDir()">
@@ -2136,31 +2415,62 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
     </div>
   </div>
 
-  <!-- MUSIC PLAYER -->
-  <div id="music-player">
-    <div id="music-btn" onclick="musicToggle()" title="Música ambiente">
-      <!-- Ícone mudo (padrão) -->
-      <svg id="icon-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-        <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
-      </svg>
-      <!-- Barras de equalizer (playing) -->
-      <div class="eq-bars" id="icon-playing" style="display:none">
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
-        <div class="eq-bar"></div>
+  <!-- PAINEL INFERIOR: métricas + heatmap -->
+  <div id="hero-bottom">
+
+    <!-- Coluna esq: métricas grandes -->
+    <div id="hero-stats">
+      <div class="hs-item" id="hs-today">
+        <span class="hs-num" id="hp-today">0</span>
+        <span class="hs-label">Hoje</span>
+      </div>
+      <div class="hs-divider"></div>
+      <div class="hs-item">
+        <span class="hs-num" id="hp-week">0</span>
+        <span class="hs-label">Semana</span>
+      </div>
+      <div class="hs-divider"></div>
+      <div class="hs-item">
+        <span class="hs-num" id="hp-month">0</span>
+        <span class="hs-label">Mês</span>
+      </div>
+      <div class="hs-divider"></div>
+      <div class="hs-item">
+        <span class="hs-num hs-gold" id="hp-total">0</span>
+        <span class="hs-label">Total</span>
       </div>
     </div>
-    <span id="music-label">Sem som</span>
+
+    <!-- Coluna centro: heatmap -->
+    <div id="hero-heatmap">
+      <div class="hh-label">Consistência — últimos 28 dias</div>
+      <div class="hh-grid" id="hh-grid"></div>
+      <div class="hh-legend">
+        <span class="hh-legend-lbl">Menos</span>
+        <div class="hh-cell hh-0"></div>
+        <div class="hh-cell hh-1"></div>
+        <div class="hh-cell hh-2"></div>
+        <div class="hh-cell hh-3"></div>
+        <div class="hh-cell hh-4"></div>
+        <span class="hh-legend-lbl">Mais</span>
+      </div>
+    </div>
+
+    <!-- Coluna dir: atividade do dia -->
+    <div id="hero-today">
+      <div class="ht-day-label" id="ht-day-label">Para hoje</div>
+      <div id="ht-day-acts"></div>
+    </div>
+
   </div>
 
-  <!-- YouTube embed oculto -->
-  <iframe id="yt-frame"
-    src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=0&loop=1&playlist=jfKfPfyJRdk&controls=0&mute=1"
-    allow="autoplay"
-    frameborder="0">
-  </iframe>
+  <!-- Barra de engajamento -->
+  <div id="hero-engage">
+    <div class="he-bar-track"><div class="he-bar-fill" id="he-bar-fill"></div></div>
+    <span class="he-bar-pct" id="he-bar-pct">0%</span>
+    <span class="he-bar-label">engajamento</span>
+  </div>
+
   <div class="scroll-indicator"><span>Explorar</span><div class="scroll-line"></div></div>
 </section>
 
@@ -3725,11 +4035,119 @@ function updateHeroProgress() {
   if (label) { label.textContent = p.engagement + '% engajamento'; }
 }
 
+// HERO STATS + HEATMAP + ATIVIDADE DO DIA
+function updateHeroProgress() {
+  var now    = new Date();
+  var todayK = now.toISOString().split('T')[0];
+  var startWeek  = new Date(now); startWeek.setDate(now.getDate()-now.getDay()+(now.getDay()===0?-6:1)); startWeek.setHours(0,0,0,0);
+  var startMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+  // Caderno
+  var tot = entradas.length;
+  var hj  = entradas.filter(function(e){return e.data===todayK;}).length;
+  var sw  = entradas.filter(function(e){return e.data&&new Date(e.data)>=startWeek;}).length;
+  var sm  = entradas.filter(function(e){return e.data&&new Date(e.data)>=startMonth;}).length;
+
+  // Planner
+  var pTot=0,pHj=0,pSw=0,pSm=0;
+  Object.keys(pData).forEach(function(k){
+    if(!k.endsWith('__done'))return;
+    var dk=k.replace('__done',''), d=new Date(dk), cnt=(pData[k]||[]).length;
+    pTot+=cnt; if(dk===todayK)pHj+=cnt; if(d>=startWeek)pSw+=cnt; if(d>=startMonth)pSm+=cnt;
+  });
+
+  var fcAc = typeof fKnew!=='undefined' ? fKnew : 0;
+
+  var hoje   = hj + pHj;
+  var semana = sw + pSw;
+  var mes    = sm + pSm;
+  var total  = tot + pTot + fcAc;
+  var engage = Math.min(100, Math.round((tot*4 + pTot*6 + fcAc*3)/2));
+
+  // Atualizar números
+  function setEl(id,v){var el=document.getElementById(id);if(el)el.textContent=v;}
+  setEl('hp-today', hoje);
+  setEl('hp-week',  semana);
+  setEl('hp-month', mes);
+  setEl('hp-total', total);
+
+  // Barra engajamento
+  var fill = document.getElementById('he-bar-fill');
+  var pct  = document.getElementById('he-bar-pct');
+  if(fill) setTimeout(function(){fill.style.width=engage+'%';},300);
+  if(pct)  pct.textContent=engage+'%';
+
+  // Heatmap
+  renderHeroHeatmap();
+
+  // Atividade do dia
+  renderHeroDayActivity(todayK);
+}
+
+function renderHeroHeatmap() {
+  var grid = document.getElementById('hh-grid'); if(!grid) return;
+  var now  = new Date();
+
+  // Calcular intensidade por dia (últimos 28 dias)
+  var html = '';
+  for(var i=27; i>=0; i--) {
+    var d = new Date(now); d.setDate(now.getDate()-i);
+    var k = d.toISOString().split('T')[0];
+    var acts  = (pData[k]||[]).length;
+    var done  = (pData[k+'__done']||[]).length;
+    var cadEnt= entradas.filter(function(e){return e.data===k;}).length;
+    var score = done + cadEnt;
+    var lvl   = score===0 ? 0 : score<=1 ? 1 : score<=3 ? 2 : score<=5 ? 3 : 4;
+    var delay = (27-i)*0.018; // cascata da esq pra dir
+    html += '<div class="hh-cell hh-'+lvl+'" style="animation-delay:'+delay+'s" title="'+k+': '+score+' atividades"></div>';
+  }
+  grid.innerHTML = html;
+}
+
+function renderHeroDayActivity(todayK) {
+  var el   = document.getElementById('ht-day-acts');
+  var lbl  = document.getElementById('ht-day-label');
+  if(!el) return;
+
+  var acts = pData[todayK]||[];
+  var done = pData[todayK+'__done']||[];
+  var allDone = acts.length>0 && done.length>=acts.length;
+
+  if(lbl) {
+    lbl.innerHTML = '<span class="ht-day-dot"></span>' + (allDone ? 'Hoje completo!' : 'Para hoje');
+  }
+
+  if(acts.length===0) {
+    var svgZap='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>';
+    el.innerHTML = '<div class="ht-no-act">Nenhuma atividade<br>planejada para hoje.</div>'
+      +'<button class="ht-suggest-btn" id="hd-suggest-btn">'+svgZap+' Sugerir para hoje</button>';
+    var btn=document.getElementById('hd-suggest-btn');
+    if(btn) btn.addEventListener('click', function(){
+      var counts={};
+      if(typeof SKL!=='undefined') SKL.forEach(function(s){counts[s.id]=0;});
+      Object.keys(pData).forEach(function(k){if(k.indexOf('__')!==-1)return;(pData[k]||[]).forEach(function(sid){if(counts[sid]!==undefined)counts[sid]++;});});
+      var pick=typeof SKL!=='undefined'?SKL.slice().sort(function(a,b){return counts[a.id]-counts[b.id];})[0]:null;
+      if(pick){plAddAct(todayK,pick.id);updateHeroProgress();}
+    });
+    return;
+  }
+
+  var svgChk='<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  el.innerHTML = acts.slice(0,4).map(function(sid){
+    var sk=typeof SKL_MAP!=='undefined'?SKL_MAP[sid]:null; if(!sk)return'';
+    var isDone=done.indexOf(sid)!==-1;
+    return '<div class="ht-act-row'+(isDone?' done':'')+'">'
+      +'<div class="ht-act-ico">'+(isDone?svgChk:sk.svg.replace(/width="20" height="20"/g,'width="11" height="11"'))+'</div>'
+      +'<span class="ht-act-name">'+sk.l+'</span>'
+    +'</div>';
+  }).join('');
+}
+
 // INIT
 renderCards();
 initTour();
 setTimeout(renderDash, 150);
-setTimeout(updateHeroProgress, 800);
+setTimeout(updateHeroProgress, 900);
 </script>
 </body>
 </html>
