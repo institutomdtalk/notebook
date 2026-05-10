@@ -52,57 +52,56 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 /* BARRA DE TRADUÇÃO NO HERO */
 #hero-translator {
   position: absolute;
-  bottom: 3.5rem;
+  top: 2rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 20;
-  width: min(600px, 90vw);
+  width: min(520px, 88vw);
   opacity: 0;
-  transition: opacity .8s ease 1.2s;
+  animation: htAppear 1s ease 1.4s forwards;
 }
-#hero-translator.visible { opacity: 1; }
+@keyframes htAppear { to { opacity: 1; } }
+#hero-translator.visible { opacity: 1; animation: none; }
 
 .ht-wrap {
   display: flex;
   align-items: center;
-  background: rgba(11,29,58,0.55);
-  border: 1px solid rgba(196,164,90,.3);
+  background: rgba(5,13,26,0.28);
+  border: 1px solid rgba(255,255,255,.12);
   border-radius: 50px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  padding: 6px 6px 6px 20px;
-  gap: 10px;
-  box-shadow: 0 8px 32px rgba(0,0,0,.35), 0 0 0 1px rgba(196,164,90,.08);
-  transition: border-color .25s, box-shadow .25s;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 5px 5px 5px 18px;
+  gap: 8px;
+  transition: border-color .3s, background .3s;
 }
 .ht-wrap:focus-within {
-  border-color: rgba(196,164,90,.6);
-  box-shadow: 0 8px 40px rgba(0,0,0,.4), 0 0 20px rgba(196,164,90,.1);
+  border-color: rgba(196,164,90,.4);
+  background: rgba(5,13,26,0.42);
 }
 
 /* Botão de direção */
 .ht-dir {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   flex-shrink: 0;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 30px;
-  transition: background .2s;
+  opacity: .65;
+  transition: opacity .2s;
 }
-.ht-dir:hover { background: rgba(196,164,90,.1); }
+.ht-dir:hover { opacity: 1; }
 .ht-dir-from, .ht-dir-to {
   font-family: 'Raleway', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .12em;
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--gold-pale);
+  color: var(--cream);
 }
 .ht-dir-arrow {
-  color: var(--gold);
-  font-size: 13px;
+  color: rgba(255,255,255,.5);
+  font-size: 11px;
   line-height: 1;
   transition: transform .3s ease;
 }
@@ -111,8 +110,8 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 /* Divisor */
 .ht-sep {
   width: 1px;
-  height: 18px;
-  background: rgba(196,164,90,.2);
+  height: 14px;
+  background: rgba(255,255,255,.12);
   flex-shrink: 0;
 }
 
@@ -123,45 +122,90 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   border: none;
   outline: none;
   font-family: 'Raleway', sans-serif;
-  font-size: .8rem;
-  font-weight: 400;
+  font-size: .76rem;
+  font-weight: 300;
   color: var(--cream);
-  letter-spacing: .03em;
+  letter-spacing: .04em;
   min-width: 0;
 }
 #ht-input::placeholder {
-  color: rgba(255,255,255,.32);
-  font-size: .75rem;
+  color: rgba(255,255,255,.25);
+  font-style: italic;
+  font-size: .72rem;
 }
 
 /* Botão traduzir */
 .ht-btn {
   flex-shrink: 0;
-  background: var(--gold);
-  border: none;
+  position: relative;
+  background: rgba(196,164,90,.15);
+  border: 1px solid rgba(196,164,90,.3);
   border-radius: 40px;
-  padding: .55rem 1.3rem;
+  padding: .45rem 1.1rem .45rem .9rem;
   font-family: 'Raleway', sans-serif;
-  font-size: .62rem;
-  font-weight: 700;
-  letter-spacing: .18em;
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--navy-deep);
+  color: var(--gold-pale);
   cursor: pointer;
-  transition: background .2s, transform .15s;
+  transition: background .2s, border-color .2s;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  overflow: visible;
 }
-.ht-btn:hover { background: var(--gold-light); transform: scale(1.03); }
-.ht-btn:disabled { opacity: .5; cursor: wait; }
+.ht-btn:hover { background: rgba(196,164,90,.28); border-color: rgba(196,164,90,.55); }
+.ht-btn:disabled { opacity: .4; cursor: wait; }
+
+/* Anel giratório */
+.ht-btn-ring {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+.ht-btn-ring::before,
+.ht-btn-ring::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+/* Anel base — estático */
+.ht-btn-ring::before {
+  border: 1.5px solid rgba(196,164,90,.25);
+}
+/* Anel girante */
+.ht-btn-ring::after {
+  border: 1.5px solid transparent;
+  border-top-color: var(--gold);
+  border-right-color: rgba(196,164,90,.4);
+  animation: htRingSpin 1.8s linear infinite;
+}
+@keyframes htRingSpin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Ao traduzir — anel acelera */
+.ht-btn.loading .ht-btn-ring::after {
+  border-top-color: var(--gold-light);
+  border-right-color: var(--gold);
+  animation-duration: .6s;
+}
+
+.ht-btn-txt { line-height: 1; }
 
 /* Resultado */
 #ht-result {
-  margin-top: 10px;
-  padding: 1rem 1.4rem;
-  background: rgba(5,13,26,.75);
-  border: 1px solid rgba(196,164,90,.2);
-  border-radius: 16px;
-  backdrop-filter: blur(16px);
+  margin-top: 8px;
+  padding: .85rem 1.2rem;
+  background: rgba(5,13,26,.6);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 14px;
+  backdrop-filter: blur(14px);
   display: none;
   animation: htFadeIn .3s ease;
 }
@@ -461,7 +505,10 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
       </div>
       <div class="ht-sep"></div>
       <input type="text" id="ht-input" placeholder="Traduzir um termo médico...">
-      <button class="ht-btn" id="ht-btn" onclick="htTranslate()">Traduzir</button>
+      <button class="ht-btn" id="ht-btn" onclick="htTranslate()">
+        <span class="ht-btn-ring"></span>
+        <span class="ht-btn-txt">Traduzir</span>
+      </button>
     </div>
     <div id="ht-result">
       <button class="ht-close" onclick="htClose()">✕</button>
@@ -605,7 +652,7 @@ async function initHero(){
   img.onload=()=>{bg.style.backgroundImage="url('"+dUrl(IMG[key])+"')";bg.classList.add("loaded");};
   img.onerror=()=>{bg.style.background="radial-gradient(ellipse at 50% 30%,#163158 0%,#050D1A 70%)";bg.classList.add("loaded");};
   img.src=dUrl(IMG[key]);
-  setTimeout(()=>{document.getElementById("loading-state").classList.add("hidden");document.getElementById("hero-content").classList.add("visible");},600);
+  setTimeout(()=>{document.getElementById("loading-state").classList.add("hidden");document.getElementById("hero-content").classList.add("visible");const ht=document.getElementById("hero-translator");if(ht)ht.classList.add("visible");},600);
 }
 initHero();
 
@@ -628,6 +675,7 @@ async function htTranslate() {
   const res = document.getElementById('ht-result');
   const out = document.getElementById('ht-out');
   btn.disabled = true;
+  btn.classList.add('loading');
   res.classList.add('visible');
   out.innerHTML = '<div class="ht-loading"><div class="ht-spinner"></div><span>Traduzindo...</span></div>';
   const sl = htDir === 'PT_EN' ? 'pt' : 'en';
@@ -649,6 +697,7 @@ async function htTranslate() {
     out.innerHTML = '<div class="ht-result-alts" style="color:rgba(255,255,255,.35)">Erro. Tente novamente.</div>';
   }
   btn.disabled = false;
+  btn.classList.remove('loading');
 }
 function htClose() {
   document.getElementById('ht-result').classList.remove('visible');
