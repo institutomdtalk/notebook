@@ -322,44 +322,131 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 /* YouTube iframe escondido */
 #yt-frame { display: none; }
 
-/* DOCK */
-#win-dock{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:400;display:flex;flex-direction:column;gap:6px;}
-.dock-btn{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px 12px;border-radius:12px 0 0 12px;cursor:pointer;box-shadow:-3px 0 14px rgba(0,0,0,.18);transition:transform .2s,box-shadow .2s;user-select:none;}
-.dock-btn:hover,.dock-btn.active{transform:translateX(-5px);box-shadow:-6px 0 20px rgba(0,0,0,.22);}
-#dock-planner{background:#7c6ea0;}
-#dock-flash{background:#2196F3;}
-.dock-lbl{writing-mode:vertical-lr;transform:rotate(180deg);font-family:'Raleway',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.92);}
-.dock-btn svg{color:rgba(255,255,255,.75);}
-.dock-clr{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.3);border:none;color:#fff;font-size:7px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-top:2px;line-height:1;}
-.dock-clr:hover{background:rgba(255,255,255,.55);}
+/* ABAS ESTILO CHROME */
+#chrome-tabbar {
+  background: #E8E4DF;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px 12px 0;
+  gap: 2px;
+  min-height: 44px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  position: relative;
+  z-index: 90;
+}
+#chrome-tabbar::-webkit-scrollbar { display: none; }
 
-/* JANELAS */
-.win-panel{display:none;position:fixed;z-index:450;background:#FDFBF8;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.22);min-width:320px;min-height:200px;max-width:90vw;max-height:85vh;overflow:hidden;flex-direction:column;border:1px solid rgba(0,0,0,.08);}
-.win-panel.on{display:flex;}
-.win-panel.dragging{box-shadow:0 32px 80px rgba(0,0,0,.32)!important;user-select:none;}
-.win-panel.minimized .win-body,.win-panel.minimized .win-resize{display:none;}
-.win-bar{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;cursor:grab;flex-shrink:0;border-radius:14px 14px 0 0;}
-.win-bar:active{cursor:grabbing;}
-.win-title{font-family:'Raleway',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.95);display:flex;align-items:center;gap:7px;}
-.win-title svg{color:rgba(255,255,255,.7);}
-.win-ctrls{display:flex;gap:5px;}
-.win-btn{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;cursor:pointer;}
-.win-min-btn{background:rgba(255,255,255,.2);color:rgba(255,255,255,.8);}
-.win-close-btn{background:rgba(255,80,80,.4);color:rgba(255,255,255,.9);}
-.win-min-btn:hover{background:rgba(255,255,255,.35);}
-.win-close-btn:hover{background:rgba(255,80,80,.65);}
-.win-body{flex:1;overflow-y:auto;padding:1.4rem 1.4rem 1.8rem;scrollbar-width:thin;scrollbar-color:#ddd transparent;}
-.win-body::-webkit-scrollbar{width:4px;}
-.win-body::-webkit-scrollbar-thumb{background:#ddd;border-radius:4px;}
-.win-resize{position:absolute;bottom:0;right:0;width:18px;height:18px;cursor:se-resize;background:linear-gradient(135deg,transparent 50%,rgba(0,0,0,.12) 50%);border-radius:0 0 14px 0;}
+/* Cada aba */
+.ctab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  min-width: 150px;
+  max-width: 230px;
+  padding: 0 10px 0 12px;
+  border-radius: 8px 8px 0 0;
+  background: #D0CBC4;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background .15s, box-shadow .15s;
+  z-index: 1;
+}
+.ctab:hover {
+  background: #DEDAD4;
+  box-shadow: 0 -2px 8px rgba(0,0,0,.1);
+}
+.ctab.active {
+  background: #F5F2EE;
+  z-index: 3;
+  box-shadow:
+    -3px -3px 8px rgba(0,0,0,.12),
+    3px -3px 8px rgba(0,0,0,.08);
+}
 
-/* COLOR PICKER */
-#win-cp{position:fixed;z-index:600;background:#fff;border:1.5px solid #e8e4e0;border-radius:14px;padding:1rem 1.1rem;box-shadow:0 12px 40px rgba(0,0,0,.15);width:210px;}
-.cp-title{font-family:'Raleway',sans-serif;font-size:8px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#aaa;margin-bottom:.7rem;}
-#win-cp-sw{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
-.w-sw{aspect-ratio:1;border-radius:7px;border:2px solid transparent;cursor:pointer;transition:transform .15s;}
-.w-sw:hover{transform:scale(1.12);}
-.w-sw.on{border-color:#1a1a2e;}
+/* Curvas nas laterais da aba ativa */
+.ctab::before,
+.ctab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  z-index: 4;
+}
+.ctab::before {
+  left: -15px;
+  background: radial-gradient(circle at 100% 0%, transparent 69%, #F5F2EE 70%);
+  opacity: 0;
+}
+.ctab::after {
+  right: -15px;
+  background: radial-gradient(circle at 0% 0%, transparent 69%, #F5F2EE 70%);
+  opacity: 0;
+}
+.ctab.active::before,
+.ctab.active::after { opacity: 1; }
+
+/* Favicon */
+.ctab-fav {
+  width: 16px; height: 16px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(0,0,0,.35);
+}
+.ctab.active .ctab-fav          { color: #888; }
+#ctab-planner.active .ctab-fav  { color: #7c6ea0; }
+#ctab-flash.active   .ctab-fav  { color: #2196F3; }
+
+/* Título */
+.ctab-title {
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  font-size: .76rem;
+  font-weight: 400;
+  color: rgba(0,0,0,.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+  line-height: 1;
+}
+.ctab.active .ctab-title { color: #1a1a1a; font-weight: 500; }
+
+/* Botão fechar */
+.ctab-x {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: transparent;
+  font-size: 10px;
+  transition: background .15s, color .15s;
+  line-height: 1;
+}
+.ctab:hover .ctab-x { color: rgba(0,0,0,.4); }
+.ctab:hover .ctab-x:hover { background: rgba(0,0,0,.1); color: rgba(0,0,0,.7); }
+.ctab.active:hover .ctab-x { color: rgba(0,0,0,.45); }
+.ctab.active:hover .ctab-x:hover { background: rgba(0,0,0,.1); color: rgba(0,0,0,.8); }
+
+/* Linha que funde a aba ativa com o painel */
+#chrome-tabbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: #F5F2EE;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Painel */
+#tab-panels { background: #F5F2EE; }
+.tab-panel  { display: none; }
+.tab-panel.active { display: block; }
 
 /* CADERNO NAV */
 #caderno-nav{position:sticky;top:0;z-index:100;background:rgba(245,242,238,.96);backdrop-filter:blur(12px);border-bottom:1.5px solid #e8e4df;padding:0 2rem;}
@@ -602,48 +689,49 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   <div class="scroll-indicator"><span>Explorar</span><div class="scroll-line"></div></div>
 </section>
 
-<!-- DOCK -->
-<div id="win-dock">
-  <div class="dock-btn" id="dock-planner" onclick="winOpen('planner')">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-    <span class="dock-lbl">Planner</span>
-    <button class="dock-clr" onclick="event.stopPropagation();openCP('planner',this)">o</button>
+<!-- ABAS ESTILO CHROME -->
+<div id="chrome-tabbar">
+
+  <div class="ctab" id="ctab-planner" onclick="switchTab('planner')">
+    <span class="ctab-fav">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+    </span>
+    <span class="ctab-title">Planner Semanal</span>
+    <span class="ctab-x" onclick="event.stopPropagation();closeTab('planner')">✕</span>
   </div>
-  <div class="dock-btn" id="dock-flash" onclick="winOpen('flash')">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-    <span class="dock-lbl">Flashcards</span>
-    <button class="dock-clr" onclick="event.stopPropagation();openCP('flash',this)">o</button>
+
+  <div class="ctab" id="ctab-flash" onclick="switchTab('flash')">
+    <span class="ctab-fav">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2"/>
+        <line x1="8" y1="21" x2="16" y2="21"/>
+        <line x1="12" y1="17" x2="12" y2="21"/>
+      </svg>
+    </span>
+    <span class="ctab-title">Flashcards</span>
+    <span class="ctab-x" onclick="event.stopPropagation();closeTab('flash')">✕</span>
   </div>
+
 </div>
 
-<!-- JANELA PLANNER -->
-<div class="win-panel" id="win-planner">
-  <div class="win-bar" id="wbar-planner">
-    <div class="win-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Planner Semanal</div>
-    <div class="win-ctrls">
-      <div class="win-btn win-min-btn" onclick="document.getElementById('win-planner').classList.toggle('minimized')">-</div>
-      <div class="win-btn win-close-btn" onclick="winClose('planner')">x</div>
+<!-- PAINÉIS -->
+<div id="tab-panels">
+  <div class="tab-panel" id="panel-planner">
+    <div style="max-width:1100px;margin:0 auto;padding:2rem 2rem 3rem;">
+      <div id="planner-body"></div>
     </div>
   </div>
-  <div class="win-body" id="planner-body"></div>
-  <div class="win-resize" id="resize-planner"></div>
-</div>
-
-<!-- JANELA FLASH -->
-<div class="win-panel" id="win-flash">
-  <div class="win-bar" id="wbar-flash">
-    <div class="win-title"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Flashcards</div>
-    <div class="win-ctrls">
-      <div class="win-btn win-min-btn" onclick="document.getElementById('win-flash').classList.toggle('minimized')">-</div>
-      <div class="win-btn win-close-btn" onclick="winClose('flash')">x</div>
+  <div class="tab-panel" id="panel-flash">
+    <div style="max-width:900px;margin:0 auto;padding:2rem 2rem 3rem;">
+      <div id="flash-body"></div>
     </div>
   </div>
-  <div class="win-body" id="flash-body"></div>
-  <div class="win-resize" id="resize-flash"></div>
 </div>
-
-<!-- COLOR PICKER -->
-<div id="win-cp" style="display:none"><div class="cp-title">Cor da janela</div><div id="win-cp-sw"></div></div>
 
 <!-- CADERNO NAV -->
 <nav id="caderno-nav">
@@ -862,72 +950,36 @@ function deletarEntrada(id){if(!confirm('Excluir?'))return;entradas=entradas.fil
 function dlCaderno(){const n=sessionStorage.getItem('mdtalk_student_name')||'Aluno',hoje=new Date().toLocaleDateString('pt-BR');const ag={};entradas.forEach(e=>{const s=TL[e.secao]||e.secao;if(!ag[s])ag[s]=[];ag[s].push(e);});let txt='MD TALK - CADERNO DE '+n.toUpperCase()+'\nGerado em '+hoje+'\n'+'='.repeat(50)+'\n';Object.entries(ag).forEach(([s,items])=>{txt+='\n-- '+s.toUpperCase()+' --\n\n';items.forEach(e=>{txt+='- '+e.termo+'\n';if(e.traducao)txt+='  > '+e.traducao+'\n';if(e.exemplo)txt+='  "'+e.exemplo+'"\n';txt+='  ['+fmtD(e.data)+']\n\n';});});const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain;charset=utf-8'}));a.download='caderno-mdtalk.txt';a.click();}
 document.getElementById('search-input').addEventListener('input',renderCards);
 
-// JANELAS
-const WC={planner:localStorage.getItem('wc_p')||'#7c6ea0',flash:localStorage.getItem('wc_f')||'#2196F3'};
-const WP={planner:JSON.parse(localStorage.getItem('wp_p')||'null'),flash:JSON.parse(localStorage.getItem('wp_f')||'null')};
-const WS={planner:JSON.parse(localStorage.getItem('ws_p')||'null'),flash:JSON.parse(localStorage.getItem('ws_f')||'null')};
-const SW=['#7c6ea0','#2196F3','#C4A45A','#0B1D3A','#E91E63','#4CAF50','#FF5722','#00BCD4','#795548','#607D8B','#9C27B0','#FF9800','#388E3C','#C62828','#1565C0','#F06292'];
+// ABAS CHROME
+let activeTab = null;
 
-function applyWC(id,color){WC[id]=color;localStorage.setItem('wc_'+id[0],color);const dk=document.getElementById('dock-'+id);const bar=document.querySelector('#wbar-'+id);if(dk)dk.style.background=color;if(bar)bar.style.background=color;}
-function initWC(){Object.entries(WC).forEach(([id,c])=>applyWC(id,c));}
-
-function winOpen(id){
-  const p=document.getElementById('win-'+id);
-  if(p.classList.contains('on')){p.style.zIndex=460;return;}
-  p.classList.add('on');p.classList.remove('minimized');
-  document.getElementById('dock-'+id).classList.add('active');
-  const sz=WS[id],pos=WP[id];
-  p.style.width=(sz?sz.w:Math.min(580,window.innerWidth*.85))+'px';
-  p.style.height=(sz?sz.h:Math.min(620,window.innerHeight*.8))+'px';
-  if(pos){p.style.left=pos.x+'px';p.style.top=pos.y+'px';}
-  else{const pw=parseInt(p.style.width),ph=parseInt(p.style.height);p.style.left=Math.max(20,(window.innerWidth-pw)/2)+'px';p.style.top=Math.max(60,(window.innerHeight-ph)/2+window.scrollY)+'px';}
-  if(id==='planner')renderPlanner();
-  if(id==='flash')renderFlash();
+function switchTab(id) {
+  if (activeTab === id) return; // já ativa
+  // Desativar anterior
+  if (activeTab) {
+    document.getElementById('ctab-'+activeTab).classList.remove('active');
+    document.getElementById('panel-'+activeTab).classList.remove('active');
+  }
+  // Ativar nova
+  activeTab = id;
+  document.getElementById('ctab-'+id).classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+  document.getElementById('tab-panels').style.display = 'block';
+  if (id === 'planner') renderPlanner();
+  if (id === 'flash')   renderFlash();
+  document.getElementById('chrome-tabbar').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
-function winClose(id){const p=document.getElementById('win-'+id);p.classList.remove('on','minimized');document.getElementById('dock-'+id).classList.remove('active');}
 
-['planner','flash'].forEach(id=>{
-  const p=document.getElementById('win-'+id),bar=document.getElementById('wbar-'+id);
-  let drag=false,sx,sy,ox,oy;
-  bar.addEventListener('mousedown',e=>{if(e.target.classList.contains('win-btn'))return;drag=true;p.classList.add('dragging');p.style.zIndex=460;const r=p.getBoundingClientRect();sx=e.clientX;sy=e.clientY;ox=r.left;oy=r.top+window.scrollY;e.preventDefault();});
-  bar.addEventListener('touchstart',e=>{if(e.target.classList.contains('win-btn'))return;drag=true;p.classList.add('dragging');const t=e.touches[0],r=p.getBoundingClientRect();sx=t.clientX;sy=t.clientY;ox=r.left;oy=r.top+window.scrollY;},{passive:true});
-  const mv=(cx,cy)=>{if(!drag)return;p.style.left=Math.max(0,Math.min(ox+cx-sx,window.innerWidth-p.offsetWidth))+'px';p.style.top=Math.max(0,Math.min(oy+cy-sy,window.scrollY+window.innerHeight-50))+'px';};
-  document.addEventListener('mousemove',e=>mv(e.clientX,e.clientY));
-  document.addEventListener('touchmove',e=>mv(e.touches[0].clientX,e.touches[0].clientY),{passive:true});
-  const up=()=>{if(!drag)return;drag=false;p.classList.remove('dragging');WP[id]={x:parseFloat(p.style.left),y:parseFloat(p.style.top)};localStorage.setItem('wp_'+id[0],JSON.stringify(WP[id]));};
-  document.addEventListener('mouseup',up);document.addEventListener('touchend',up);
-});
-
-['planner','flash'].forEach(id=>{
-  const p=document.getElementById('win-'+id),h=document.getElementById('resize-'+id);
-  let r=false,sx,sy,ow,oh;
-  h.addEventListener('mousedown',e=>{r=true;sx=e.clientX;sy=e.clientY;ow=p.offsetWidth;oh=p.offsetHeight;e.preventDefault();e.stopPropagation();});
-  document.addEventListener('mousemove',e=>{if(!r)return;p.style.width=Math.max(300,ow+e.clientX-sx)+'px';p.style.height=Math.max(180,oh+e.clientY-sy)+'px';});
-  document.addEventListener('mouseup',()=>{if(!r)return;r=false;WS[id]={w:p.offsetWidth,h:p.offsetHeight};localStorage.setItem('ws_'+id[0],JSON.stringify(WS[id]));});
-});
-
-let cpT=null;
-function openCP(id,el){cpT=id;const pop=document.getElementById('win-cp'),rect=el.getBoundingClientRect();document.getElementById('win-cp-sw').innerHTML=SW.map(c=>'<div class="w-sw '+(WC[id]===c?'on':'')+'" style="background:'+c+'" onclick="applyWC(\''+id+'\',\''+c+'\');cpClose()"></div>').join('');pop.style.display='block';pop.style.top=Math.min(rect.bottom+8,window.innerHeight-160)+'px';pop.style.left=Math.max(8,rect.left-80)+'px';}
-function cpClose(){document.getElementById('win-cp').style.display='none';cpT=null;}
-document.addEventListener('click',e=>{const cp=document.getElementById('win-cp');if(cp.style.display!=='none'&&!cp.contains(e.target)&&!e.target.classList.contains('dock-clr'))cpClose();});
-
-
-// SVG icons para as skills
-const SK_ICONS = {
-  'video-sem':   '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="__C__" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="15" height="16" rx="2"/><path d="m17 8 5-3v14l-5-3"/></svg>',
-  'video-leg':   '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="__C__" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="6" y1="10" x2="10" y2="10"/><line x1="6" y1="13" x2="14" y2="13"/></svg>',
-  'cantar':      '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="__C__" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
-  'transcrever': '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="__C__" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
-  'infograficos':'<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="__C__" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
-  'leitura':     '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="__C__" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
-  'noticia':     '<svg width="__S__" height="__S__" viewBox="0 0 24 24" fill="none" stroke="__C__" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>',
-};
-function skSvg(id, size, color) {
-  const s = (SK_ICONS[id] || '')
-    .replace(/__S__/g, size)
-    .replace(/__C__/g, color);
-  return s;
+function closeTab(id) {
+  document.getElementById('ctab-'+id).classList.remove('active');
+  document.getElementById('panel-'+id).classList.remove('active');
+  if (activeTab === id) {
+    activeTab = null;
+    document.getElementById('tab-panels').style.display = 'none';
+  }
 }
+
+document.getElementById('tab-panels').style.display = 'none';
 
 // PLANNER
 const SK=[
