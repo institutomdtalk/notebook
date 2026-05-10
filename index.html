@@ -138,49 +138,41 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .ht-btn {
   flex-shrink: 0;
   position: relative;
-  background: rgba(196,164,90,.15);
-  border: 1px solid rgba(196,164,90,.3);
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
   border-radius: 40px;
-  padding: .45rem 1.2rem;
+  padding: .48rem 1.2rem;
   font-family: 'Raleway', sans-serif;
   font-size: .6rem;
   font-weight: 600;
   letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--gold-pale);
+  color: rgba(255,255,255,.75);
   cursor: pointer;
-  transition: background .2s, border-color .2s;
+  transition: background .25s, border-color .25s, color .25s, transform .2s;
   white-space: nowrap;
+  overflow: hidden;
 }
-.ht-btn:hover { background: rgba(196,164,90,.28); border-color: rgba(196,164,90,.55); }
-.ht-btn:disabled { opacity: .4; cursor: wait; }
-
-/* Ponto orbital */
-.ht-btn-ring {
-  position: absolute;
-  inset: -5px;
-  border-radius: 40px;
-  pointer-events: none;
-  animation: htOrbit 2.4s linear infinite;
-}
-.ht-btn-ring::after {
+/* Shimmer ao passar o mouse */
+.ht-btn::before {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 0;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--gold);
-  transform: translateY(-50%);
-  box-shadow: 0 0 6px 2px rgba(196,164,90,.5);
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+  transition: left .4s ease;
+  pointer-events: none;
 }
-@keyframes htOrbit {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.ht-btn:hover::before { left: 160%; }
+.ht-btn:hover {
+  background: rgba(196,164,90,.25);
+  border-color: rgba(196,164,90,.6);
+  color: var(--gold-pale);
+  transform: translateY(-1px);
 }
-.ht-btn.loading .ht-btn-ring { animation-duration: .8s; }
-.ht-btn-txt { line-height: 1; }
+.ht-btn:disabled { opacity: .4; cursor: wait; transform: none; }
+.ht-btn-ring { display: none; }
 
 /* Resultado */
 #ht-result {
@@ -1430,10 +1422,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
       </div>
       <div class="ht-sep"></div>
       <input type="text" id="ht-input" placeholder="Traduzir um termo médico...">
-      <button class="ht-btn" id="ht-btn" onclick="htTranslate()">
-        <span class="ht-btn-ring"></span>
-        Traduzir
-      </button>
+      <button class="ht-btn" id="ht-btn" onclick="htTranslate()">Traduzir</button>
     </div>
     <div id="ht-result">
       <button class="ht-close" onclick="htClose()">✕</button>
