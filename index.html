@@ -760,7 +760,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 @media(max-width:800px){ .dash-bottom-grid { grid-template-columns: 1fr; } }
 
 /* CADERNO NAV */
-#caderno-nav{position:sticky;top:0;z-index:100;display:none;background:rgba(245,242,238,.96);backdrop-filter:blur(12px);border-bottom:1.5px solid #e8e4df;padding:0 2rem;}
+#caderno-nav{position:sticky;top:0;z-index:50;background:rgba(245,242,238,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1.5px solid #e4e0da;}
 .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:1rem;height:60px;}
 .nav-brand{display:none;}
 .nav-brand em{font-style:italic;color:var(--gold);}
@@ -782,18 +782,18 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .btn-dl:hover{border-color:var(--gold);color:var(--gold);}
 
 /* CADERNO BODY */
-#caderno{background:#F5F2EE;min-height:100vh;display:none;}
-#caderno-body{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 6rem;}
+#caderno{background:#F5F2EE;min-height:100vh;}
+#caderno-body{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 6rem;min-height:60vh;}
 .ec{font-family:'Raleway',sans-serif;font-size:.68rem;color:#bbb;margin-bottom:1.5rem;}
 .ec strong{color:#888;}
 
 /* CARDS */
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
-.card{background:#fff;border:1.5px solid #ece8e2;border-radius:16px;padding:1.2rem 1.3rem 1rem;position:relative;animation:cR .35s ease forwards;opacity:0;transform:translateY(8px);box-shadow:0 1px 4px rgba(0,0,0,.04);transition:transform .18s,border-color .18s,box-shadow .18s;}
+.card{background:#fff;border:1.5px solid #ece8e2;border-radius:16px;padding:1.3rem 1.4rem 1.1rem;position:relative;animation:cR .4s ease forwards;opacity:0;transform:translateY(10px);box-shadow:0 2px 8px rgba(0,0,0,.05);transition:transform .2s,border-color .2s,box-shadow .2s;}
 @keyframes cR{to{opacity:1;transform:translateY(0)}}
-.card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 8px 24px rgba(196,164,90,.12);}
+.card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 12px 32px rgba(196,164,90,.14);}
 .card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.6rem;}
-.ctag{display:inline-block;font-family:'Raleway',sans-serif;font-size:7px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border-radius:20px;padding:2px 9px;}
+.ctag{display:inline-flex;align-items:center;gap:4px;font-family:'Raleway',sans-serif;font-size:7px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-radius:20px;padding:3px 9px;}
 .ctag.vocabulario{background:#FFF3DC;color:#9A7B2E;}
 .ctag.frases{background:#E0F7FA;color:#00838F;}
 .ctag.termos{background:#EDE7F6;color:#6A3FA0;}
@@ -809,7 +809,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .c-trad::before{content:'';width:10px;height:1px;background:var(--gold);opacity:.5;flex-shrink:0;}
 .c-ex{font-family:'Raleway',sans-serif;font-size:.67rem;color:#999;font-style:italic;line-height:1.6;border-top:1px solid #f0ece6;padding-top:.5rem;margin-top:.25rem;}
 .c-date{font-family:'Raleway',sans-serif;font-size:.58rem;color:#ccc;margin-top:.65rem;}
-.empty-st{grid-column:1/-1;text-align:center;padding:5rem 2rem;}
+.empty-st{grid-column:1/-1;text-align:center;padding:6rem 2rem;}
 .empty-ic{width:72px;height:72px;border-radius:50%;background:#ece8e2;margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;color:#ccc;}
 .empty-st h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:#555;margin-bottom:.4rem;}
 .empty-st p{font-family:'Raleway',sans-serif;font-size:.72rem;color:#aaa;}
@@ -1548,24 +1548,6 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   </div>
 
   <div class="tab-panel" id="panel-caderno">
-    <!-- Nav do caderno e corpo ficam aqui -->
-    <div id="caderno-nav-wrap"></div>
-    <div id="caderno-body-wrap"></div>
-  </div>
-
-  <div class="tab-panel" id="panel-planner">
-    <div style="max-width:1100px;margin:0 auto;padding:2rem 2rem 3rem;">
-      <div id="planner-body"></div>
-    </div>
-  </div>
-  <div class="tab-panel" id="panel-flash">
-    <div style="max-width:900px;margin:0 auto;padding:2rem 2rem 3rem;">
-      <div id="flash-body"></div>
-    </div>
-  </div>
-</div>
-
-<!-- CADERNO NAV -->
 <nav id="caderno-nav">
   <div class="nav-inner">
     <div class="nav-tabs" id="tabs-wrap">
@@ -1583,13 +1565,28 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
     </div>
   </div>
 </nav>
-
 <section id="caderno">
   <div id="caderno-body">
     <div class="ec" id="ec"></div>
     <div class="cards-grid" id="cards-grid"></div>
   </div>
 </section>
+  </div>
+
+  <div class="tab-panel" id="panel-planner">
+    <div style="max-width:1100px;margin:0 auto;padding:2rem 2rem 3rem;">
+      <div id="planner-body"></div>
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-flash">
+    <div style="max-width:900px;margin:0 auto;padding:2rem 2rem 3rem;">
+      <div id="flash-body"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CADERNO NAV -->
+
 
 <!-- MODAL -->
 <div class="modal-bd" id="modal" onclick="if(event.target===this)fecharModal()">
@@ -1776,12 +1773,50 @@ const TL={vocabulario:'Vocabulario',frases:'Frase',termos:'Termo Clinico',anotac
 function fmtD(d){if(!d)return'';const[y,m,dd]=d.split('-');return dd+'/'+m+'/'+y;}
 
 function renderCards(){
-  const grid=document.getElementById('cards-grid'),ec=document.getElementById('ec');
-  const busca=(document.getElementById('search-input').value||'').toLowerCase();
-  let f=entradas.filter(e=>{const mt=tabAtiva==='todos'||e.secao===tabAtiva;const mb=!busca||e.termo.toLowerCase().includes(busca)||(e.traducao&&e.traducao.toLowerCase().includes(busca))||(e.exemplo&&e.exemplo.toLowerCase().includes(busca));return mt&&mb;});
-  if(ec)ec.innerHTML='<strong>'+f.length+'</strong> '+(f.length===1?'entrada':'entradas');
-  if(!f.length){grid.innerHTML='<div class="empty-st"><div class="empty-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>Nenhuma entrada ainda</h3><p>Comece registrando um termo ou frase.</p><button class="empty-cta" onclick="abrirModal()">Nova entrada</button></div>';return;}
-  grid.innerHTML=f.map((e,i)=>'<div class="card" style="animation-delay:'+i*.04+'s"><div class="card-top"><span class="ctag '+e.secao+'">'+(TL[e.secao]||e.secao)+'</span><div class="card-acts"><div class="cbtn" onclick="editarEntrada('+e.id+')" title="Editar"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div><div class="cbtn del" onclick="deletarEntrada('+e.id+')" title="Excluir"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></div></div></div><div class="c-termo">'+e.termo+'</div>'+(e.traducao?'<div class="c-trad">'+e.traducao+'</div>':'')+(e.exemplo?'<div class="c-ex">'+e.exemplo+'</div>':'')+'<div class="c-date">'+fmtD(e.data)+'</div></div>').join('');
+  const grid = document.getElementById('cards-grid');
+  const ec   = document.getElementById('ec');
+  const sinput = document.getElementById('search-input');
+  const busca  = sinput ? sinput.value.toLowerCase() : '';
+
+  let f = entradas.filter(e => {
+    const mt = tabAtiva === 'todos' || e.secao === tabAtiva;
+    const mb = !busca
+      || e.termo.toLowerCase().includes(busca)
+      || (e.traducao && e.traducao.toLowerCase().includes(busca))
+      || (e.exemplo  && e.exemplo.toLowerCase().includes(busca));
+    return mt && mb;
+  });
+
+  if (ec) ec.innerHTML = '<strong>' + f.length + '</strong> '
+    + (f.length===1?'entrada':'entradas')
+    + (busca ? ' encontradas' : tabAtiva!=='todos' ? ' em ' + (TL[tabAtiva]||tabAtiva) : '');
+
+  const SICO = {
+    vocabulario:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+    frases:     '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+    termos:     '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+    anotacoes:  '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+  };
+
+  if (!f.length) {
+    grid.innerHTML = '<div class="empty-st"><div class="empty-ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg></div><h3>'+(busca?'Nada encontrado':'Nenhuma entrada ainda')+'</h3><p>'+(busca?'Tente outro termo.':'Comece registrando vocabulário, frases ou termos clínicos.')+'</p>'+(busca?'':'<button class="empty-cta" onclick="abrirModal()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Nova entrada</button>')+'</div>';
+    return;
+  }
+
+  grid.innerHTML = f.map((e,i) =>
+    '<div class="card" style="animation-delay:'+i*.05+'s">'
+    +'<div class="card-top">'
+    +'<span class="ctag '+e.secao+'">'+(SICO[e.secao]||'')+(TL[e.secao]||e.secao)+'</span>'
+    +'<div class="card-acts">'
+    +'<div class="cbtn" onclick="editarEntrada('+e.id+')" title="Editar"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>'
+    +'<div class="cbtn del" onclick="deletarEntrada('+e.id+')" title="Excluir"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></div>'
+    +'</div></div>'
+    +'<div class="c-termo">'+e.termo+'</div>'
+    +(e.traducao?'<div class="c-trad">'+e.traducao+'</div>':'')
+    +(e.exemplo ?'<div class="c-ex">'+e.exemplo+'</div>':'')
+    +'<div class="c-date">'+fmtD(e.data)+'</div>'
+    +'</div>'
+  ).join('');
 }
 
 function setTab(tab,el){tabAtiva=tab;document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderCards();}
@@ -1798,8 +1833,6 @@ document.getElementById('search-input').addEventListener('input',renderCards);
 
 // ATIVAR ABA CADERNO
 function activateCaderno() {
-  document.getElementById('caderno-nav').style.display = '';
-  document.getElementById('caderno').style.display = '';
   renderCards();
 }
 let activeTab = 'dash';
@@ -1815,11 +1848,7 @@ function switchTab(id) {
   document.getElementById('panel-'+id).classList.add('active');
   document.getElementById('tab-panels').style.display = 'block';
 setTimeout(renderDash, 100);
-  // Esconder nav/caderno se não for aba caderno
-  ['caderno-nav','caderno'].forEach(eid => {
-    const el = document.getElementById(eid);
-    if (el) el.style.display = id === 'caderno' ? '' : 'none';
-  });
+
   if (id === 'planner')   renderPlanner();
   if (id === 'flash')     renderFlash();
   if (id === 'dash')      renderDash();
