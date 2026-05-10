@@ -22,13 +22,13 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 #hero-bg.loaded{opacity:1;}
 #hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,13,26,.80) 0%,rgba(5,13,26,.68) 40%,rgba(5,13,26,.88) 100%);}
 #hero-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(196,164,90,.07) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;}
-.geo{position:absolute;pointer-events:none;}
-.geo-ring{width:340px;height:340px;border:1px solid rgba(196,164,90,.13);border-radius:50%;top:-80px;right:-90px;animation:geoFloat 11s ease-in-out infinite;}
-.geo-ring-2{width:200px;height:200px;border:1px solid rgba(196,164,90,.09);border-radius:50%;bottom:100px;left:-50px;animation:geoFloat 14s ease-in-out infinite;animation-delay:-5s;}
-.geo-diamond{width:56px;height:56px;border:1px solid rgba(196,164,90,.22);bottom:180px;right:140px;animation:geoFloatD 8s ease-in-out infinite;animation-delay:-3s;}
-.geo-line{width:1px;height:110px;background:linear-gradient(to bottom,transparent,rgba(196,164,90,.28),transparent);top:32%;left:72px;animation:geoFloat 10s ease-in-out infinite;animation-delay:-7s;}
-@keyframes geoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
-@keyframes geoFloatD{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(-12px)}}
+
+
+
+
+
+
+
 #hero-content{position:relative;z-index:10;text-align:center;padding:2rem 1.5rem;max-width:720px;opacity:0;transform:translateY(28px);transition:opacity 1s ease .5s,transform 1s ease .5s;}
 #hero-content.visible{opacity:1;transform:translateY(0);}
 .overline{font-family:'Raleway',sans-serif;font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;display:block;}
@@ -130,6 +130,106 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   transition: opacity 1s ease .5s, transform 1s ease .5s;
 }
 #hero-content.visible { opacity:1; transform:translateY(0); }
+
+/* ── HERO PROGRESS ── */
+#hero-progress {
+  position: absolute;
+  bottom: 5.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  width: min(680px, 88vw);
+  opacity: 0;
+  animation: htAppear 1s ease 1.6s forwards;
+}
+
+.hp-divider {
+  width: 40px; height: 1px;
+  background: rgba(196,164,90,.4);
+  margin: 0 auto 1.2rem;
+}
+
+/* Grid de 4 métricas */
+.hp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .6rem;
+  margin-bottom: 1rem;
+}
+.hp-stat {
+  text-align: center;
+  background: rgba(5,13,26,.35);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  padding: .7rem .5rem .6rem;
+  backdrop-filter: blur(10px);
+  transition: background .2s, border-color .2s, transform .2s;
+}
+.hp-stat:hover {
+  background: rgba(5,13,26,.55);
+  border-color: rgba(196,164,90,.3);
+  transform: translateY(-2px);
+}
+.hp-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1;
+  display: block;
+}
+.hp-stat-num em {
+  font-style: normal;
+  color: var(--gold-light);
+}
+.hp-stat-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: .54rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  display: block;
+  margin-top: .3rem;
+}
+.hp-stat-sub {
+  font-family: 'Raleway', sans-serif;
+  font-size: .56rem;
+  color: rgba(255,255,255,.28);
+  display: block;
+  margin-top: .1rem;
+}
+
+/* Barra de progresso geral */
+.hp-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hp-bar-track {
+  flex: 1;
+  height: 3px;
+  background: rgba(255,255,255,.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.hp-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--gold), var(--gold-light));
+  border-radius: 3px;
+  transition: width 1.2s cubic-bezier(.4,0,.2,1);
+  width: 0%;
+}
+.hp-bar-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 
 /* BARRA DE TRADUÇÃO NO HERO */
 #hero-translator {
@@ -1849,7 +1949,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 <section id="hero">
   <div id="loading-state"><div style="display:flex;flex-direction:column;align-items:center;gap:14px;"><span class="loading-logo">MD Talk</span><div style="width:40px;height:1px;background:var(--gold);opacity:.3;"></div></div></div>
   <div id="hero-bg"></div><div id="hero-overlay"></div><div id="hero-dots"></div>
-  <div class="geo geo-ring"></div><div class="geo geo-ring-2"></div><div class="geo geo-diamond"></div><div class="geo geo-line"></div>
+  
   <!-- INFO CANTO SUPERIOR ESQUERDO -->
   <div id="hero-meta">
     <div id="hero-meta-top">
@@ -1863,11 +1963,23 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
       <span id="m-cond" class="m-info">Carregando</span>
     </div>
     <div id="m-clock" class="m-clock">00:00:00</div>
-    <div class="m-clima"><span class="clima-dot"></span><span>Clima ao vivo</span></div>
+    
   </div>
 
   <div id="hero-content">
     <h1 class="hero-name" id="s-name">Thaiana</h1>
+  </div>
+
+  <!-- PROGRESSO NO HERO -->
+  <div id="hero-progress">
+    <div class="hp-divider"></div>
+    <div class="hp-grid" id="hp-grid">
+      <!-- preenchido por updateHeroProgress() -->
+    </div>
+    <div class="hp-bar-wrap">
+      <div class="hp-bar-track"><div class="hp-bar-fill" id="hp-bar-fill"></div></div>
+      <span class="hp-bar-label" id="hp-bar-label">Carregando...</span>
+    </div>
   </div>
 
   <!-- TRADUTOR NO HERO -->
@@ -3348,10 +3460,94 @@ setTimeout(function() {
   animateSvgs(document.getElementById('caderno-nav'));
 }, 200);
 
+// HERO PROGRESS
+function calcHeroProgress() {
+  var now    = new Date();
+  var todayK = now.toISOString().split('T')[0];
+
+  // Períodos
+  var startOfWeek = new Date(now);
+  startOfWeek.setDate(now.getDate() - now.getDay() + (now.getDay()===0?-6:1));
+  startOfWeek.setHours(0,0,0,0);
+
+  var startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+  // ── Caderno ──
+  var totalEntradas  = entradas.length;
+  var hojeEntradas   = entradas.filter(function(e){ return e.data === todayK; }).length;
+  var semanaEntradas = entradas.filter(function(e){ return e.data && new Date(e.data) >= startOfWeek; }).length;
+  var mesEntradas    = entradas.filter(function(e){ return e.data && new Date(e.data) >= startOfMonth; }).length;
+
+  // ── Planner ──
+  var totalPlanDone = 0, hojePlanDone = 0, semanaPlanDone = 0, mesPlanDone = 0;
+  Object.keys(pData).forEach(function(k){
+    if (!k.endsWith('__done')) return;
+    var dateKey = k.replace('__done','');
+    var d = new Date(dateKey);
+    var cnt = pData[k].length;
+    totalPlanDone += cnt;
+    if (dateKey === todayK)    hojePlanDone   += cnt;
+    if (d >= startOfWeek)      semanaPlanDone += cnt;
+    if (d >= startOfMonth)     mesPlanDone    += cnt;
+  });
+
+  // ── Flashcards ──
+  var fcTotal = typeof fKnew !== 'undefined' ? fKnew : 0;
+
+  // ── Totais combinados ──
+  var hoje   = hojeEntradas   + hojePlanDone;
+  var semana = semanaEntradas + semanaPlanDone;
+  var mes    = mesEntradas    + mesPlanDone;
+  var total  = totalEntradas  + totalPlanDone + fcTotal;
+
+  // Engajamento geral (0-100)
+  var engagement = Math.min(100, Math.round(
+    (totalEntradas * 4 + totalPlanDone * 6 + fcTotal * 3) / 2
+  ));
+
+  return { hoje:hoje, semana:semana, mes:mes, total:total, engagement:engagement,
+           entradas:totalEntradas, planner:totalPlanDone, fc:fcTotal };
+}
+
+function updateHeroProgress() {
+  var grid  = document.getElementById('hp-grid');
+  var fill  = document.getElementById('hp-bar-fill');
+  var label = document.getElementById('hp-bar-label');
+  if (!grid) return;
+
+  var p = calcHeroProgress();
+
+  grid.innerHTML =
+    '<div class="hp-stat">'
+      +'<span class="hp-stat-num">'+p.hoje+'</span>'
+      +'<span class="hp-stat-label">Hoje</span>'
+      +'<span class="hp-stat-sub">atividades</span>'
+    +'</div>'
+    +'<div class="hp-stat">'
+      +'<span class="hp-stat-num">'+p.semana+'</span>'
+      +'<span class="hp-stat-label">Semana</span>'
+      +'<span class="hp-stat-sub">acumulado</span>'
+    +'</div>'
+    +'<div class="hp-stat">'
+      +'<span class="hp-stat-num">'+p.mes+'</span>'
+      +'<span class="hp-stat-label">Mes</span>'
+      +'<span class="hp-stat-sub">acumulado</span>'
+    +'</div>'
+    +'<div class="hp-stat">'
+      +'<span class="hp-stat-num"><em>'+p.total+'</em></span>'
+      +'<span class="hp-stat-label">Total</span>'
+      +'<span class="hp-stat-sub">'+p.entradas+' vocab · '+p.planner+' planner · '+p.fc+' cards</span>'
+    +'</div>';
+
+  if (fill)  { setTimeout(function(){ fill.style.width = p.engagement + '%'; }, 200); }
+  if (label) { label.textContent = p.engagement + '% engajamento'; }
+}
+
 // INIT
 renderCards();
 initTour();
 setTimeout(renderDash, 150);
+setTimeout(updateHeroProgress, 800);
 </script>
 </body>
 </html>
