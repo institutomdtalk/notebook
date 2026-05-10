@@ -563,88 +563,8 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .ht-close:hover { background: rgba(255,255,255,.18); }
 
 /* MUSIC PLAYER */
-#music-player {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
-  animation: htAppear 1s ease 1.8s forwards;
-}
 
-#music-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(5,13,26,.3);
-  border: 1px solid rgba(255,255,255,.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background .2s, border-color .2s;
-  color: rgba(255,255,255,.6);
-}
-#music-btn:hover { background: rgba(255,255,255,.15); border-color: rgba(196,164,90,.35); color: var(--gold-pale); }
-#music-btn.playing { border-color: rgba(196,164,90,.4); color: var(--gold-pale); }
 
-/* Barras de equalizer animadas */
-.eq-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  height: 12px;
-}
-.eq-bar {
-  width: 3px;
-  border-radius: 2px;
-  background: var(--gold);
-  opacity: 0;
-  transition: opacity .3s;
-}
-#music-btn.playing .eq-bar { opacity: 1; }
-.eq-bar:nth-child(1) { animation: eqAnim 1.1s ease-in-out infinite; }
-.eq-bar:nth-child(2) { animation: eqAnim  .8s ease-in-out infinite .15s; }
-.eq-bar:nth-child(3) { animation: eqAnim  .9s ease-in-out infinite .05s; }
-.eq-bar:nth-child(4) { animation: eqAnim 1.2s ease-in-out infinite .25s; }
-@keyframes eqAnim {
-  0%,100% { height: 3px; }
-  50%      { height: 12px; }
-}
-
-#music-label {
-  font-family: 'Raleway', sans-serif;
-  font-size: .55rem;
-  font-weight: 500;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.3);
-  white-space: nowrap;
-  transition: color .3s;
-}
-#music-player.playing #music-label { color: rgba(196,164,90,.55); }
-
-/* YouTube iframe escondido */
-#yt-frame { display: none; }
-
-/* ABAS ESTILO CHROME */
-#chrome-tabbar {
-  background: #E8E4DF;
-  display: flex;
-  align-items: flex-end;
-  padding: 10px 12px 0;
-  gap: 2px;
-  min-height: 44px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  position: relative;
-  z-index: 90;
-}
 #chrome-tabbar::-webkit-scrollbar { display: none; }
 
 /* Cada aba */
@@ -2358,6 +2278,92 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   letter-spacing: .02em;
 }
 
+/* ── TOOLTIPS NOS STATS DO HERO ── */
+.hs-item {
+  position: relative;
+}
+.hs-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(5,13,26,.92);
+  border: 1px solid rgba(196,164,90,.25);
+  border-radius: 10px;
+  backdrop-filter: blur(16px);
+  padding: .6rem .85rem;
+  width: 180px;
+  z-index: 100;
+  pointer-events: none;
+  animation: ttFadeIn .18s ease;
+}
+@keyframes ttFadeIn {
+  from { opacity:0; transform:translateX(-50%) translateY(4px); }
+  to   { opacity:1; transform:translateX(-50%) translateY(0); }
+}
+.hs-item:hover .hs-tooltip { display: block; }
+
+/* Seta do tooltip */
+.hs-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(196,164,90,.25);
+}
+.hs-tt-title {
+  font-family: 'Raleway', sans-serif;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: .35rem;
+}
+.hs-tt-body {
+  font-family: 'Raleway', sans-serif;
+  font-size: .64rem;
+  color: rgba(255,255,255,.55);
+  line-height: 1.55;
+}
+.hs-tt-detail {
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem;
+  color: rgba(196,164,90,.5);
+  margin-top: .3rem;
+  line-height: 1.4;
+}
+
+/* Heatmap tooltip */
+.hh-cell { position: relative; }
+
+/* Tooltip no painel atividade do dia */
+.ht-act-row { position: relative; }
+.ht-act-row .hs-tooltip {
+  width: 160px;
+  bottom: calc(100% + 8px);
+  left: 0;
+  transform: translateX(0);
+}
+.ht-act-row:hover .hs-tooltip { display: block; }
+.ht-act-row .hs-tooltip::after {
+  left: 20px;
+  transform: none;
+}
+
+/* Barra de engajamento tooltip */
+#hero-engage { position: absolute; cursor: default; }
+#hero-engage .hs-tooltip {
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+}
+#hero-engage:hover .hs-tooltip { display: block; }
+
 @media(max-width:700px){.pl-grid{grid-template-columns:repeat(2,1fr);}#caderno-nav .nav-brand{display:none;}#search-input{width:120px;}}
 </style>
 </head>
@@ -2380,19 +2386,9 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
       <span id="m-cond" class="m-info">Carregando</span>
     </div>
     <div id="m-clock" class="m-clock">00:00:00</div>
-    <!-- MUSIC PLAYER integrado ao meta -->
-    <div id="music-player">
-      <div id="music-btn" onclick="musicToggle()" title="Música ambiente">
-        <svg id="icon-muted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-        <div class="eq-bars" id="icon-playing" style="display:none">
-          <div class="eq-bar"></div><div class="eq-bar"></div>
-          <div class="eq-bar"></div><div class="eq-bar"></div>
-        </div>
-      </div>
-      <span id="music-label">Sem som</span>
-    </div>
+
   </div>
-  <iframe id="yt-frame" src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=0&loop=1&playlist=jfKfPfyJRdk&controls=0&mute=1" allow="autoplay" frameborder="0"></iframe>
+
 
   <!-- CENTRO: saudação + nome -->
   <div id="hero-content">
@@ -2763,38 +2759,7 @@ document.getElementById('ht-input').addEventListener('keydown', e => {
 });
 // Mostrar barra junto com o hero-content
 
-// MUSIC PLAYER
-let musicPlaying = false;
-let ytReady = false;
 
-function musicToggle() {
-  const frame = document.getElementById('yt-frame');
-  const btn   = document.getElementById('music-btn');
-  const label = document.getElementById('music-label');
-  const player= document.getElementById('music-player');
-  const iconM = document.getElementById('icon-muted');
-  const iconP = document.getElementById('icon-playing');
-
-  if (!musicPlaying) {
-    // Primeiro clique — carregar e tocar
-    frame.src = 'https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&loop=1&playlist=jfKfPfyJRdk&controls=0&mute=0';
-    musicPlaying = true;
-    btn.classList.add('playing');
-    player.classList.add('playing');
-    iconM.style.display = 'none';
-    iconP.style.display = 'flex';
-    label.textContent = 'Piano · ao vivo';
-  } else {
-    // Mutar — recarregar com mute=1
-    frame.src = 'https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&loop=1&playlist=jfKfPfyJRdk&controls=0&mute=1';
-    musicPlaying = false;
-    btn.classList.remove('playing');
-    player.classList.remove('playing');
-    iconM.style.display = 'block';
-    iconP.style.display = 'none';
-    label.textContent = 'Sem som';
-  }
-}
 
 // NB FILTROS
 let nbSecs = ['vocabulario','frases','termos','anotacoes'];
@@ -4067,12 +4032,50 @@ function updateHeroProgress() {
   var total  = tot + pTot + fcAc;
   var engage = Math.min(100, Math.round((tot*4 + pTot*6 + fcAc*3)/2));
 
-  // Atualizar números
-  function setEl(id,v){var el=document.getElementById(id);if(el)el.textContent=v;}
-  setEl('hp-today', hoje);
-  setEl('hp-week',  semana);
-  setEl('hp-month', mes);
-  setEl('hp-total', total);
+  // Atualizar números com tooltips
+  function setStatEl(id, val, ttTitle, ttBody, ttDetail) {
+    var el = document.getElementById(id); if(!el) return;
+    el.textContent = val;
+    var item = el.closest('.hs-item'); if(!item) return;
+    var existing = item.querySelector('.hs-tooltip');
+    if(existing) existing.remove();
+    var tt = document.createElement('div');
+    tt.className = 'hs-tooltip';
+    tt.innerHTML = '<div class="hs-tt-title">'+ttTitle+'</div>'
+      +'<div class="hs-tt-body">'+ttBody+'</div>'
+      +(ttDetail?'<div class="hs-tt-detail">'+ttDetail+'</div>':'');
+    item.appendChild(tt);
+  }
+  setStatEl('hp-today', hoje,
+    'Hoje',
+    'Total de atividades realizadas hoje: entradas no caderno + atividades do planner concluidas.',
+    hj+' vocab  ·  '+pHj+' planner'
+  );
+  setStatEl('hp-week', semana,
+    'Esta semana',
+    'Acumulado desde segunda-feira. Mantendo consistencia semanal voce avanca mais rapido.',
+    sw+' vocab  ·  '+pSw+' planner'
+  );
+  setStatEl('hp-month', mes,
+    'Este mes',
+    'Total do mes corrente. Um bom ritmo e de 20 a 30 atividades por mes.',
+    sm+' vocab  ·  '+pSm+' planner'
+  );
+  setStatEl('hp-total', total,
+    'Total acumulado',
+    'Soma de tudo desde o inicio: entradas no caderno, atividades do planner e flashcards acertados.',
+    tot+' vocab  ·  '+pTot+' planner  ·  '+fcAc+' cards'
+  );
+
+  // Tooltip na barra de engajamento
+  var engEl = document.getElementById('hero-engage');
+  if(engEl) {
+    var engTT = engEl.querySelector('.hs-tooltip');
+    if(!engTT){ engTT=document.createElement('div'); engTT.className='hs-tooltip'; engEl.appendChild(engTT); }
+    engTT.innerHTML = '<div class="hs-tt-title">Engajamento geral</div>'
+      +'<div class="hs-tt-body">Indice ponderado de consistencia: vocabulario (peso 4), planner (peso 6) e flashcards (peso 3).</div>'
+      +'<div class="hs-tt-detail">'+engage+'% do potencial maximo atingido</div>';
+  }
 
   // Barra engajamento
   var fill = document.getElementById('he-bar-fill');
