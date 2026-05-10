@@ -58,16 +58,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   opacity: 0;
   animation: htAppear 1s ease 1.2s forwards;
 }
-.m-overline {
-  font-family: 'Raleway', sans-serif;
-  font-size: .65rem;
-  font-weight: 600;
-  letter-spacing: .28em;
-  text-transform: uppercase;
-  color: var(--gold);
-  display: block;
-  margin-bottom: .35rem;
-}
+
 .m-info {
   font-family: 'Raleway', sans-serif;
   font-size: .68rem;
@@ -109,13 +100,24 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 #hero-meta-row { margin-top: .1rem; }
 
 /* ── NOME MENOR ── */
+.hero-greeting {
+  display: block;
+  font-family: 'Raleway', sans-serif;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: .85;
+  margin-bottom: .9rem;
+}
 .hero-name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(2rem, 5.5vw, 4rem);
   font-weight: 300;
   line-height: 1;
   color: var(--cream);
-  letter-spacing: -.01em;
+  letter-spacing: .02em;
 }
 
 /* hero-content sem overline e sem info */
@@ -155,6 +157,13 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   grid-template-columns: repeat(4, 1fr);
   gap: .6rem;
   margin-bottom: 1rem;
+}
+.hp-stat-wide {
+  grid-column: span 1;
+  text-align: left !important;
+}
+.hp-grid {
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
 }
 .hp-stat {
   text-align: center;
@@ -230,6 +239,134 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   white-space: nowrap;
   flex-shrink: 0;
 }
+
+/* hero-activity integrado ao hp-grid */
+
+/* Card de atividade */
+.ha-card {
+  background: rgba(5,13,26,.42);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 16px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 1rem 1.1rem;
+  transition: border-color .25s;
+}
+.ha-card:hover { border-color: rgba(196,164,90,.35); }
+
+.ha-overline {
+  font-family: 'Raleway', sans-serif;
+  font-size: 7.5px; font-weight: 700;
+  letter-spacing: .26em; text-transform: uppercase;
+  color: var(--gold); opacity: .8;
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: .6rem;
+}
+.ha-overline-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Lista de atividades do dia */
+.ha-list { display: flex; flex-direction: column; gap: .45rem; }
+
+.ha-item {
+  display: flex; align-items: center; gap: 8px;
+}
+.ha-icon {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.12);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.8); flex-shrink: 0;
+  transition: background .2s;
+}
+.ha-item.done .ha-icon {
+  background: rgba(76,175,80,.25);
+  border-color: rgba(76,175,80,.4);
+  color: #81C784;
+}
+.ha-text { flex: 1; min-width: 0; }
+.ha-name {
+  font-family: 'Raleway', sans-serif;
+  font-size: .67rem; font-weight: 700;
+  color: rgba(255,255,255,.85);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ha-item.done .ha-name {
+  color: rgba(255,255,255,.45);
+  text-decoration: line-through;
+}
+.ha-tip {
+  font-family: 'Raleway', sans-serif;
+  font-size: .56rem; color: rgba(255,255,255,.35);
+  margin-top: .05rem; line-height: 1.3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Card de sugestão (sem atividade) */
+.ha-empty {
+  font-family: 'Raleway', sans-serif;
+  font-size: .68rem; color: rgba(255,255,255,.55);
+  line-height: 1.55; margin-bottom: .75rem;
+}
+.ha-suggest-btn {
+  width: 100%;
+  background: rgba(196,164,90,.18);
+  border: 1px solid rgba(196,164,90,.4);
+  border-radius: 10px;
+  padding: .5rem .8rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: .62rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--gold-pale);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  transition: background .2s, border-color .2s;
+}
+.ha-suggest-btn:hover {
+  background: rgba(196,164,90,.32);
+  border-color: rgba(196,164,90,.7);
+}
+
+/* Resposta após sugestão */
+.ha-suggestion-result {
+  margin-top: .7rem;
+  padding: .65rem .8rem;
+  background: rgba(196,164,90,.12);
+  border: 1px solid rgba(196,164,90,.25);
+  border-radius: 10px;
+  animation: htFadeIn .35s ease;
+}
+.ha-sr-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 7px; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); opacity: .7; margin-bottom: .3rem;
+}
+.ha-sr-name {
+  font-family: 'Raleway', sans-serif;
+  font-size: .72rem; font-weight: 700;
+  color: var(--cream); margin-bottom: .2rem;
+}
+.ha-sr-why {
+  font-family: 'Raleway', sans-serif;
+  font-size: .6rem; color: rgba(255,255,255,.45);
+  line-height: 1.45;
+}
+.ha-sr-add {
+  margin-top: .5rem; width: 100%;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 8px; padding: .35rem .7rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: .6rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.65); cursor: pointer;
+  transition: background .2s;
+}
+.ha-sr-add:hover { background: rgba(255,255,255,.15); color: #fff; }
 
 /* BARRA DE TRADUÇÃO NO HERO */
 #hero-translator {
@@ -1952,9 +2089,6 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   
   <!-- INFO CANTO SUPERIOR ESQUERDO -->
   <div id="hero-meta">
-    <div id="hero-meta-top">
-      <span id="m-overline" class="m-overline">Boa noite</span>
-    </div>
     <div id="hero-meta-row">
       <span id="m-city" class="m-info">Sao Paulo</span>
       <span class="m-sep"></span>
@@ -1967,6 +2101,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   </div>
 
   <div id="hero-content">
+    <span class="hero-greeting" id="m-overline-center">Boa noite</span>
     <h1 class="hero-name" id="s-name">Thaiana</h1>
   </div>
 
@@ -1981,6 +2116,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
       <span class="hp-bar-label" id="hp-bar-label">Carregando...</span>
     </div>
   </div>
+
 
   <!-- TRADUTOR NO HERO -->
   <div id="hero-translator">
@@ -2221,7 +2357,7 @@ async function initHero(){
   const h=new Date().getHours();
   // IDs novos (canto sup. esq.)
   const setEl=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
-  setEl("m-overline", greet(h));
+  setEl("m-overline-center", greet(h));
   setEl("s-name", name);
   setEl("m-city", city);
   clock();
@@ -3517,16 +3653,48 @@ function updateHeroProgress() {
 
   var p = calcHeroProgress();
 
-  grid.innerHTML =
-    '<div class="hp-stat">'
-      +'<span class="hp-stat-num">'+p.hoje+'</span>'
+  // Atividade do dia — inline no grid
+  var todayK2 = new Date().toISOString().split('T')[0];
+  var todayActs = pData[todayK2]||[], todayDone = pData[todayK2+'__done']||[];
+  var svgCheckSm = '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  var svgZapSm   = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>';
+
+  var activityCard = '';
+  if (todayActs.length > 0) {
+    var allDone = todayDone.length >= todayActs.length;
+    var actItems = todayActs.slice(0,3).map(function(sid){
+      var sk = typeof SKL_MAP!=='undefined' ? SKL_MAP[sid] : null; if(!sk) return '';
+      var isDone = todayDone.indexOf(sid)!==-1;
+      return '<div style="display:flex;align-items:center;gap:5px;opacity:'+(isDone?.5:1)+'">'
+        +'<div style="width:18px;height:18px;border-radius:5px;background:'+(isDone?'rgba(76,175,80,.3)':'rgba(255,255,255,.1)')+';display:flex;align-items:center;justify-content:center;color:'+(isDone?'#81C784':'rgba(255,255,255,.7)')+';flex-shrink:0">'
+          +(isDone?svgCheckSm:sk.svg.replace(/width="20" height="20"/g,'width="10" height="10"'))
+        +'</div>'
+        +'<span style="font-family:Raleway,sans-serif;font-size:.55rem;font-weight:600;color:'+(isDone?'rgba(255,255,255,.35)':'rgba(255,255,255,.8)')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;">'+(isDone?'<s>'+sk.l+'</s>':sk.l)+'</span>'
+      +'</div>';
+    }).join('');
+    activityCard = '<div class="hp-stat hp-stat-wide">'
+      +'<span class="hp-stat-label" style="display:flex;align-items:center;gap:5px">'
+        +'<span style="width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;flex-shrink:0"></span>'
+        +(allDone?'Hoje completo!':'Para hoje')
+      +'</span>'
+      +'<div style="display:flex;flex-direction:column;gap:4px;margin-top:.35rem">'+actItems+'</div>'
+    +'</div>';
+  } else {
+    activityCard = '<div class="hp-stat hp-stat-wide" id="hp-suggest-wrap">'
       +'<span class="hp-stat-label">Hoje</span>'
-      +'<span class="hp-stat-sub">atividades</span>'
-    +'</div>'
+      +'<span class="hp-stat-sub" style="margin-top:.3rem;line-height:1.4">Nenhuma atividade<br>planejada.</span>'
+      +'<button id="hp-suggest-btn" style="margin-top:.5rem;width:100%;background:rgba(196,164,90,.15);border:1px solid rgba(196,164,90,.35);border-radius:8px;padding:.35rem .5rem;font-family:Raleway,sans-serif;font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:background .2s">'
+        +svgZapSm+' Sugerir para hoje'
+      +'</button>'
+    +'</div>';
+  }
+
+  grid.innerHTML =
+    activityCard
     +'<div class="hp-stat">'
       +'<span class="hp-stat-num">'+p.semana+'</span>'
       +'<span class="hp-stat-label">Semana</span>'
-      +'<span class="hp-stat-sub">acumulado</span>'
+      +'<span class="hp-stat-sub">atividades</span>'
     +'</div>'
     +'<div class="hp-stat">'
       +'<span class="hp-stat-num">'+p.mes+'</span>'
@@ -3536,8 +3704,22 @@ function updateHeroProgress() {
     +'<div class="hp-stat">'
       +'<span class="hp-stat-num"><em>'+p.total+'</em></span>'
       +'<span class="hp-stat-label">Total</span>'
-      +'<span class="hp-stat-sub">'+p.entradas+' vocab · '+p.planner+' planner · '+p.fc+' cards</span>'
+      +'<span class="hp-stat-sub">vocab+planner+cards</span>'
     +'</div>';
+
+  // Botão sugerir
+  setTimeout(function(){
+    var btn = document.getElementById('hp-suggest-btn');
+    if (btn) btn.addEventListener('click', function(){
+      var counts={};
+      if(typeof SKL!=='undefined') SKL.forEach(function(s){counts[s.id]=0;});
+      Object.keys(pData).forEach(function(k){if(k.indexOf('__')!==-1)return;(pData[k]||[]).forEach(function(sid){if(counts[sid]!==undefined)counts[sid]++;});});
+      var pick=typeof SKL!=='undefined'?SKL.slice().sort(function(a,b){return counts[a.id]-counts[b.id];})[0]:null;
+      if(!pick)return;
+      plAddAct(todayK2, pick.id);
+      updateHeroProgress();
+    });
+  }, 50);
 
   if (fill)  { setTimeout(function(){ fill.style.width = p.engagement + '%'; }, 200); }
   if (label) { label.textContent = p.engagement + '% engajamento'; }
