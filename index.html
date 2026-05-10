@@ -1361,6 +1361,351 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 }
 .fc-empty p { font-family: 'Raleway', sans-serif; font-size: .72rem; color: #aaa; line-height: 1.7; }
 
+/* ══════════════════════════════════════
+   SVG DRAW-ON
+══════════════════════════════════════ */
+@keyframes drawOn {
+  from { stroke-dashoffset: var(--path-len, 300); opacity: 0; }
+  10%  { opacity: 1; }
+  to   { stroke-dashoffset: 0; opacity: 1; }
+}
+.svg-anim path, .svg-anim circle, .svg-anim line,
+.svg-anim polyline, .svg-anim rect, .svg-anim polygon, .svg-anim ellipse {
+  stroke-dasharray: var(--path-len, 300);
+  stroke-dashoffset: var(--path-len, 300);
+  animation: drawOn var(--draw-dur,.7s) ease var(--draw-delay,0s) forwards;
+}
+
+/* ══════════════════════════════════════
+   PLANNER — NOVO DESIGN
+══════════════════════════════════════ */
+#planner-body { background: #F5F2EE; min-height: 60vh; }
+.plr { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+
+/* Header */
+.plr-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.8rem; flex-wrap:wrap; gap:.8rem; }
+.plr-title { font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:300; color:#1a1a2e; }
+.plr-title em { font-style:italic; color:var(--gold); }
+.plr-sub { font-family:'Raleway',sans-serif; font-size:.62rem; color:#bbb; letter-spacing:.08em; margin-top:.25rem; }
+
+/* View toggle */
+.plr-views { display:flex; background:#fff; border:1.5px solid #e8e4e0; border-radius:20px; padding:3px; gap:2px; }
+.plr-view-btn {
+  font-family:'Raleway',sans-serif; font-size:.58rem; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  border:none; background:transparent; border-radius:14px;
+  padding:.32rem .9rem; cursor:pointer; color:#aaa; transition:all .2s;
+}
+.plr-view-btn.on { background:#1a1a2e; color:#fff; }
+
+/* ── CARROSSEL (view diária) ── */
+.plr-carousel-wrap { position:relative; margin-bottom:2rem; overflow:hidden; }
+
+/* Faixa de cards */
+.plr-track {
+  display:flex; gap:1rem; align-items:center;
+  transition:transform .45s cubic-bezier(.4,0,.2,1);
+  will-change:transform;
+  padding:1.5rem 0;
+}
+
+/* Card de dia */
+.plr-day-card {
+  flex-shrink:0;
+  background:#fff;
+  border:1.5px solid #ece8e2;
+  border-radius:18px;
+  box-shadow:0 2px 12px rgba(0,0,0,.05);
+  transition:all .45s cubic-bezier(.4,0,.2,1);
+  overflow:hidden;
+  cursor:pointer;
+}
+/* Card lateral (não ativo) */
+.plr-day-card.side {
+  width:200px; min-height:160px;
+  opacity:.55; transform:scale(.92);
+  pointer-events:auto;
+}
+/* Card central (ativo) */
+.plr-day-card.center {
+  width:420px; min-height:420px;
+  opacity:1; transform:scale(1);
+  box-shadow:0 12px 40px rgba(0,0,0,.12);
+  border-color:#d4cfc9; cursor:default;
+}
+.plr-day-card.today.center {
+  border-color:var(--gold);
+  box-shadow:0 12px 48px rgba(196,164,90,.18);
+}
+
+/* Topo do card */
+.plr-card-top {
+  padding:1rem 1.2rem .7rem;
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom:1px solid #f5f2ee;
+}
+.plr-card-weekday { font-family:'Raleway',sans-serif; font-size:7.5px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:#bbb; }
+.plr-card-date { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; color:#1a1a2e; line-height:1; }
+.plr-card-today-badge {
+  font-family:'Raleway',sans-serif; font-size:.55rem; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  background:var(--gold); color:#fff; border-radius:20px; padding:.18rem .7rem;
+}
+.plr-card-month { font-family:'Raleway',sans-serif; font-size:.62rem; color:#bbb; }
+
+/* Atividades no card central */
+.plr-card-body { padding:.9rem 1.2rem 1.2rem; }
+.plr-card-empty {
+  text-align:center; padding:1.5rem 1rem;
+  font-family:'Raleway',sans-serif; font-size:.68rem; color:#ccc;
+  line-height:1.6;
+}
+.plr-card-empty svg { display:block; margin:0 auto .6rem; color:#ddd; }
+
+/* Item de atividade no card central */
+.plr-act-item {
+  border:1.5px solid #ece8e2; border-radius:12px;
+  margin-bottom:.7rem; overflow:hidden;
+  transition:border-color .2s;
+}
+.plr-act-item:last-child { margin-bottom:0; }
+.plr-act-item.done { border-color:#c8e6c9; }
+
+.plr-act-header {
+  display:flex; align-items:center; gap:8px;
+  padding:.65rem .85rem;
+  cursor:pointer; background:#fafafa;
+  transition:background .15s;
+}
+.plr-act-header:hover { background:#f5f2ee; }
+.plr-act-item.done .plr-act-header { background:#f0faf0; }
+
+.plr-act-icon-wrap {
+  width:30px; height:30px; border-radius:9px;
+  background:#f0ece8; border:1.5px solid #e4e0da;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; color:#777;
+}
+.plr-act-item.done .plr-act-icon-wrap { background:#e8f5e9; border-color:#c8e6c9; color:#2e7d32; }
+
+.plr-act-info { flex:1; min-width:0; }
+.plr-act-name { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700; color:#333; }
+.plr-act-tip { font-family:'Raleway',sans-serif; font-size:.58rem; color:#aaa; margin-top:.1rem; line-height:1.3; }
+
+.plr-act-check {
+  width:22px; height:22px; border-radius:50%;
+  border:1.5px solid #ddd; display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; color:transparent; background:#fff;
+  transition:all .2s;
+}
+.plr-act-item.done .plr-act-check { border-color:#66bb6a; background:#66bb6a; color:#fff; }
+
+/* Input de atividade (campo livre do aluno) */
+.plr-act-input-wrap {
+  padding:.5rem .85rem .75rem;
+  background:#fff;
+  border-top:1px solid #f0ece8;
+  display:none;
+}
+.plr-act-item.done .plr-act-input-wrap { display:block; }
+.plr-act-input-wrap.open { display:block; }
+
+.plr-act-input-label {
+  font-family:'Raleway',sans-serif; font-size:7.5px; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase; color:#bbb; margin-bottom:.35rem;
+  display:flex; align-items:center; gap:5px;
+}
+.plr-act-input-label svg { color:#ccc; }
+.plr-act-textarea {
+  width:100%; background:#fafafa; border:1.5px solid #e8e4e0;
+  border-radius:8px; padding:.5rem .75rem;
+  font-family:'Raleway',sans-serif; font-size:.68rem; color:#333;
+  line-height:1.55; resize:none; outline:none;
+  transition:border-color .2s, box-shadow .2s;
+  min-height:58px;
+}
+.plr-act-textarea:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(196,164,90,.08); background:#fff; }
+.plr-act-textarea::placeholder { color:#ccc; font-style:italic; }
+.plr-act-save-row { display:flex; justify-content:flex-end; margin-top:.4rem; }
+.plr-act-save-btn {
+  font-family:'Raleway',sans-serif; font-size:.58rem; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  background:#1a1a2e; color:#fff; border:none; border-radius:20px;
+  padding:.3rem .9rem; cursor:pointer; transition:background .2s;
+  display:flex; align-items:center; gap:4px;
+}
+.plr-act-save-btn:hover { background:#163158; }
+
+/* Botão adicionar atividade no card central */
+.plr-add-row { margin-top:.8rem; }
+.plr-add-act-btn {
+  width:100%; display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:.45rem; border:1.5px dashed #d4cfc9; border-radius:10px;
+  background:transparent; color:#bbb; cursor:pointer;
+  font-family:'Raleway',sans-serif; font-size:.62rem;
+  transition:all .2s;
+}
+.plr-add-act-btn:hover { border-color:var(--gold); color:var(--gold); background:#fffbf5; }
+
+/* Card lateral (mini) */
+.plr-card-side-body { padding:.6rem .9rem; }
+.plr-side-acts { display:flex; flex-direction:column; gap:3px; margin-top:.3rem; }
+.plr-side-chip {
+  display:flex; align-items:center; gap:5px;
+  font-family:'Raleway',sans-serif; font-size:.55rem; color:#aaa;
+}
+.plr-side-chip.done { color:#66bb6a; }
+.plr-side-chip svg { flex-shrink:0; }
+
+/* Setas de navegação */
+.plr-arrows {
+  display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:1.5rem;
+}
+.plr-arrow {
+  width:40px; height:40px; border-radius:50%;
+  border:1.5px solid #e4e0da; background:#fff;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; color:#888; transition:all .2s;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.plr-arrow:hover { border-color:#1a1a2e; color:#1a1a2e; box-shadow:0 4px 16px rgba(0,0,0,.1); }
+.plr-dot-row { display:flex; gap:5px; }
+.plr-dot {
+  width:6px; height:6px; border-radius:50%; background:#ddd;
+  transition:all .3s; cursor:pointer;
+}
+.plr-dot.on { background:#1a1a2e; width:18px; border-radius:3px; }
+
+/* Botão sugerir + hoje */
+.plr-actions { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1.5rem; }
+.plr-action-btn {
+  display:flex; align-items:center; gap:5px;
+  font-family:'Raleway',sans-serif; font-size:.62rem; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  border:1.5px solid #e4e0da; background:#fff;
+  border-radius:20px; padding:.4rem 1rem; cursor:pointer; color:#888;
+  transition:all .2s;
+}
+.plr-action-btn:hover { border-color:#1a1a2e; color:#1a1a2e; }
+.plr-action-btn.primary { background:#1a1a2e; color:#fff; border-color:#1a1a2e; }
+.plr-action-btn.primary:hover { background:#163158; }
+
+/* ── PICKER ── */
+.plr-picker {
+  display:none; position:fixed;
+  background:#fff; border:1.5px solid #e8e4e0;
+  border-radius:16px; box-shadow:0 16px 48px rgba(0,0,0,.14);
+  z-index:9999; width:300px; padding:.8rem;
+}
+.plr-picker.open { display:block; animation:ppIn .18s ease; }
+@keyframes ppIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+.plr-picker-hdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:.7rem; }
+.plr-picker-title { font-family:'Raleway',sans-serif; font-size:8px; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:#bbb; }
+.plr-picker-x { width:22px; height:22px; border-radius:50%; border:1px solid #e4e0da; background:#fafafa; color:#aaa; cursor:pointer; font-size:9px; display:flex; align-items:center; justify-content:center; }
+.plr-picker-list { display:flex; flex-direction:column; gap:.3rem; }
+.plr-picker-item { display:flex; align-items:center; gap:10px; padding:.6rem .75rem; border-radius:10px; cursor:pointer; border:1.5px solid transparent; background:#fafafa; transition:all .15s; }
+.plr-picker-item:hover { background:#f5f2ee; border-color:#d4cfc9; }
+.plr-picker-item.has { opacity:.45; pointer-events:none; }
+.plr-picker-item svg { color:#888; flex-shrink:0; }
+.plr-picker-item-name { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700; color:#333; }
+.plr-picker-item-tip { font-family:'Raleway',sans-serif; font-size:.58rem; color:#bbb; margin-top:.1rem; }
+
+/* ── CALENDÁRIO (semana / mês) ── */
+.plr-cal-wrap { margin-bottom:2rem; }
+.plr-cal-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; }
+.plr-cal-label { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:300; color:#1a1a2e; }
+.plr-cal-arrows { display:flex; gap:.4rem; }
+.plr-cal-arrow { width:30px; height:30px; border-radius:50%; border:1.5px solid #e4e0da; background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#888; transition:all .2s; }
+.plr-cal-arrow:hover { border-color:#1a1a2e; color:#1a1a2e; }
+
+/* Grid semana */
+.plr-week-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:.5rem; }
+/* Grid mês */
+.plr-month-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:.4rem; }
+.plr-cal-header { font-family:'Raleway',sans-serif; font-size:7.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#ccc; text-align:center; padding:.3rem 0; }
+
+.plr-cal-cell {
+  border:1.5px solid #ece8e2; border-radius:10px;
+  padding:.5rem; min-height:80px;
+  background:#fff; cursor:pointer;
+  transition:border-color .18s, box-shadow .18s;
+  position:relative; overflow:hidden;
+}
+.plr-cal-cell:hover { border-color:#d4cfc9; box-shadow:0 3px 12px rgba(0,0,0,.06); }
+.plr-cal-cell.today { border-color:var(--gold); box-shadow:0 3px 14px rgba(196,164,90,.14); }
+.plr-cal-cell.other-month { opacity:.4; }
+.plr-cal-cell.empty { background:transparent; border-color:transparent; cursor:default; }
+
+.plr-cal-day-num { font-family:'Cormorant Garamond',serif; font-size:1rem; font-weight:300; color:#1a1a2e; line-height:1; margin-bottom:.3rem; }
+.plr-cal-cell.today .plr-cal-day-num { color:var(--gold); font-weight:400; }
+.plr-cal-dots { display:flex; flex-wrap:wrap; gap:3px; }
+.plr-cal-dot { width:6px; height:6px; border-radius:50%; background:#ddd; }
+.plr-cal-dot.done { background:#66bb6a; }
+.plr-cal-dot.pending { background:#d4cfc9; }
+
+/* Legenda */
+.plr-legend { background:#fff; border:1.5px solid #ece8e2; border-radius:16px; padding:1.3rem 1.5rem; margin-top:1.5rem; }
+.plr-legend-title { font-family:'Raleway',sans-serif; font-size:8px; font-weight:700; letter-spacing:.26em; text-transform:uppercase; color:#bbb; margin-bottom:1rem; display:flex; align-items:center; gap:10px; }
+.plr-legend-title::after { content:''; flex:1; height:1px; background:#f0ece8; }
+.plr-legend-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:.6rem; }
+.plr-legend-item { display:flex; align-items:center; gap:10px; padding:.55rem .75rem; border-radius:10px; background:#fafafa; border:1px solid #f0ece8; transition:border-color .15s; }
+.plr-legend-item:hover { border-color:#d4cfc9; }
+.plr-legend-ico { width:30px; height:30px; border-radius:9px; background:#f0ece8; border:1.5px solid #e4e0da; display:flex; align-items:center; justify-content:center; color:#777; flex-shrink:0; }
+.plr-legend-name { font-family:'Raleway',sans-serif; font-size:.67rem; font-weight:700; color:#333; }
+.plr-legend-desc { font-family:'Raleway',sans-serif; font-size:.58rem; color:#bbb; margin-top:.1rem; line-height:1.3; }
+
+/* ── PLANNER: ícones animados e coloridos ── */
+@keyframes plFloat  { 0%,100%{transform:translateY(0) rotate(0deg)} 40%{transform:translateY(-5px) rotate(-4deg)} }
+@keyframes plPulse  { 0%,100%{transform:scale(1)} 50%{transform:scale(1.18)} }
+@keyframes plBounce { 0%,100%{transform:translateY(0)} 40%{transform:translateY(-5px)} 60%{transform:translateY(-2px)} }
+@keyframes plWiggle { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-8deg)} 75%{transform:rotate(7deg)} }
+
+.plr-act-icon-wrap[data-sk="video-sem"]   { background:#E3F2FD; border-color:#90CAF9; color:#1565C0; }
+.plr-act-icon-wrap[data-sk="video-leg"]   { background:#E8EAF6; border-color:#9FA8DA; color:#283593; }
+.plr-act-icon-wrap[data-sk="cantar"]      { background:#FCE4EC; border-color:#F48FB1; color:#880E4F; }
+.plr-act-icon-wrap[data-sk="transcrever"] { background:#E8F5E9; border-color:#A5D6A7; color:#1B5E20; }
+.plr-act-icon-wrap[data-sk="infograficos"]{ background:#FFF3E0; border-color:#FFCC80; color:#E65100; }
+.plr-act-icon-wrap[data-sk="leitura"]     { background:#F3E5F5; border-color:#CE93D8; color:#4A148C; }
+.plr-act-icon-wrap[data-sk="noticia"]     { background:#E0F7FA; border-color:#80DEEA; color:#006064; }
+
+.plr-act-icon-wrap[data-sk="video-sem"]    svg { animation:plFloat  3s ease-in-out infinite; }
+.plr-act-icon-wrap[data-sk="video-leg"]    svg { animation:plPulse  2.5s ease-in-out infinite; }
+.plr-act-icon-wrap[data-sk="cantar"]       svg { animation:plBounce 1.8s ease-in-out infinite; }
+.plr-act-icon-wrap[data-sk="transcrever"]  svg { animation:plWiggle 2.2s ease-in-out infinite; }
+.plr-act-icon-wrap[data-sk="infograficos"] svg { animation:plPulse  2s ease-in-out infinite .4s; }
+.plr-act-icon-wrap[data-sk="leitura"]      svg { animation:plFloat  3.5s ease-in-out infinite .8s; }
+.plr-act-icon-wrap[data-sk="noticia"]      svg { animation:plBounce 2.5s ease-in-out infinite .3s; }
+
+.plr-legend-ico[data-sk="video-sem"]    { background:#E3F2FD; border-color:#90CAF9; color:#1565C0; }
+.plr-legend-ico[data-sk="video-leg"]    { background:#E8EAF6; border-color:#9FA8DA; color:#283593; }
+.plr-legend-ico[data-sk="cantar"]       { background:#FCE4EC; border-color:#F48FB1; color:#880E4F; }
+.plr-legend-ico[data-sk="transcrever"]  { background:#E8F5E9; border-color:#A5D6A7; color:#1B5E20; }
+.plr-legend-ico[data-sk="infograficos"] { background:#FFF3E0; border-color:#FFCC80; color:#E65100; }
+.plr-legend-ico[data-sk="leitura"]      { background:#F3E5F5; border-color:#CE93D8; color:#4A148C; }
+.plr-legend-ico[data-sk="noticia"]      { background:#E0F7FA; border-color:#80DEEA; color:#006064; }
+
+.plr-legend-ico[data-sk="video-sem"]    svg { animation:plFloat  3s ease-in-out infinite; }
+.plr-legend-ico[data-sk="video-leg"]    svg { animation:plPulse  2.5s ease-in-out infinite; }
+.plr-legend-ico[data-sk="cantar"]       svg { animation:plBounce 1.8s ease-in-out infinite; }
+.plr-legend-ico[data-sk="transcrever"]  svg { animation:plWiggle 2.2s ease-in-out infinite; }
+.plr-legend-ico[data-sk="infograficos"] svg { animation:plPulse  2s ease-in-out infinite .4s; }
+.plr-legend-ico[data-sk="leitura"]      svg { animation:plFloat  3.5s ease-in-out infinite; }
+.plr-legend-ico[data-sk="noticia"]      svg { animation:plBounce 2.5s ease-in-out infinite; }
+
+.plr-kb-hint { display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Raleway',sans-serif;font-size:.58rem;color:#bbb;letter-spacing:.06em;margin-bottom:.8rem; }
+.plr-kb-key { display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:5px;border:1.5px solid #ddd;background:#f8f6f3;font-size:.65rem;color:#888;font-weight:700;box-shadow:0 2px 0 #ddd; }
+
+/* ── FLASHCARDS: instruções ── */
+.fc-instructions { background:#fff;border:1.5px solid #ece8e2;border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.8rem; }
+.fc-instr-title { font-family:'Raleway',sans-serif;font-size:8px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#bbb;margin-bottom:.9rem;display:flex;align-items:center;gap:8px; }
+.fc-instr-title::after { content:'';flex:1;height:1px;background:#f0ece8; }
+.fc-instr-steps { display:flex;flex-direction:column;gap:.65rem; }
+.fc-instr-step { display:flex;align-items:flex-start;gap:10px; }
+.fc-instr-num { width:22px;height:22px;border-radius:50%;background:#1a1a2e;color:#fff;font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem; }
+.fc-instr-text { font-family:'Raleway',sans-serif;font-size:.68rem;color:#555;line-height:1.55; }
+.fc-instr-text strong { color:#1a1a2e;font-weight:700; }
+.fc-instr-text em { color:var(--gold);font-style:normal;font-weight:600; }
+
 @media(max-width:700px){.pl-grid{grid-template-columns:repeat(2,1fr);}#caderno-nav .nav-brand{display:none;}#search-input{width:120px;}}
 </style>
 </head>
@@ -2193,270 +2538,429 @@ function drawRadar(data) {
 
 // PLANNER SEMANAL
 // PLANNER
-const SK = [
-  { id:'video-sem',    l:'Video s/legenda',   d:'Assista em ingles sem legenda',
-    svg:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="15" height="16" rx="2"/><path d="m17 8 5-3v14l-5-3"/></svg>' },
-  { id:'video-leg',    l:'Video c/legenda',   d:'Assista com legenda em ingles',
-    svg:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="5" y1="10" x2="11" y2="10"/><line x1="5" y1="13" x2="15" y2="13"/></svg>' },
-  { id:'cantar',       l:'Cantar',            d:'Cante acompanhando uma musica',
-    svg:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>' },
-  { id:'transcrever',  l:'Transcrever',       d:'Escreva a letra ao ouvir',
-    svg:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>' },
-  { id:'infograficos', l:'3 Infograficos',    d:'Leia 3 infograficos em ingles',
-    svg:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>' },
-  { id:'leitura',      l:'Leitura',           d:'Leia um artigo ou texto medico',
-    svg:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
-  { id:'noticia',      l:'Noticia',           d:'Leia uma noticia em ingles',
-    svg:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0-2 2Zm0 0a2 2 0 0 1-2-2V9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>' },
+// PLANNER
+const SKL = [
+  { id:'video-sem',    l:'Video s/legenda',   tip:'Melhora a compreensao auditiva natural',     ph:'Ex: Episodio de Grey\'s Anatomy S02E04, 22min. Entendi ~70% sem legenda.',
+    why:'A exposicao sem legenda treina o cerebro a processar o ingles nativo sem apoio visual.',
+    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="15" height="16" rx="2"/><path d="m17 8 5-3v14l-5-3"/></svg>' },
+  { id:'video-leg',    l:'Video c/legenda',   tip:'Associa sons a palavras escritas',           ph:'Ex: TED Talk "Your body language" com legenda EN. Anota 5 expressoes novas.',
+    why:'Ver a palavra escrita enquanto ouve cria associacoes neurologicas mais fortes.',
+    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="5" y1="10" x2="11" y2="10"/><line x1="5" y1="13" x2="15" y2="13"/></svg>' },
+  { id:'cantar',       l:'Cantar',            tip:'Melhora a diccao e a memoria sonora',        ph:'Ex: "Bohemian Rhapsody" - Queen. Repeticao 3x. Dificuldades: "magnificent".',
+    why:'Cantar ativa a memoria muscular da boca e fixa pronuncia de forma ludica.',
+    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>' },
+  { id:'transcrever',  l:'Transcrever',       tip:'Aguça a escuta seletiva e a ortografia',     ph:'Ex: Intro de "Lose Yourself" - Eminem. Acertei 18/24 versos. Reouvir "spaghetti".',
+    why:'Transcrever exige concentracao ativa e treina o ouvido para detalhes sonoros.',
+    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>' },
+  { id:'infograficos', l:'3 Infograficos',    tip:'Expande o vocabulario visual e tecnico',     ph:'Ex: Infograficos de anatomia cardiaca no Pinterest. Salvo 12 termos novos.',
+    why:'Infograficos associam vocabulario a imagens, otimizando a retencao.',
+    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>' },
+  { id:'leitura',      l:'Leitura',           tip:'Desenvolve fluencia e vocabulario contextual', ph:'Ex: NEJM - "Sepsis Management Update 2024", 4 paginas. Dicionario: 8 termos.',
+    why:'Ler textos autenticos expoe a estruturas gramaticais e vocabulario real.',
+    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
+  { id:'noticia',      l:'Noticia',           tip:'Treina leitura rapida e vocabulario atual',  ph:'Ex: BBC Health - "New Alzheimer\'s drug approved". 3 paragrafos. Resumo abaixo.',
+    why:'Noticias trazem vocabulario contemporaneo e estruturas jornalisticas.',
+    svg:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0-2 2Zm0 0a2 2 0 0 1-2-2V9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>' },
 ];
-const SK_MAP  = {};
-SK.forEach(function(s){ SK_MAP[s.id]=s; });
+const SKL_MAP = {};
+SKL.forEach(function(s){ SKL_MAP[s.id]=s; });
 const SG_WEEK = ['video-sem','leitura','video-leg','noticia','infograficos','cantar','transcrever'];
-const DN      = ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'];
+const MONTHS  = ['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const DN_FULL = ['Domingo','Segunda','Terca','Quarta','Quinta','Sexta','Sabado'];
+const DN_SHORT= ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'];
 
-let pOff = 0;
-let pData = {
+var pData = {
   '2025-05-05':['video-sem','leitura'],   '2025-05-05__done':['video-sem'],
+  '2025-05-05__notes':{'video-sem':'Grey\'s Anatomy S01E01 - 22min. Entendi ~65%.','leitura':''},
   '2025-05-06':['noticia','infograficos'], '2025-05-06__done':['noticia','infograficos'],
+  '2025-05-06__notes':{'noticia':'BBC Health - New cancer screening. 2 paragrafos entendidos.','infograficos':'Pinterest anatomy - 8 termos novos.'},
   '2025-05-07':['video-leg','cantar'],    '2025-05-07__done':['video-leg'],
+  '2025-05-07__notes':{'video-leg':'TED Talk body language - 18min.','cantar':''},
   '2025-05-08':['leitura','transcrever'], '2025-05-08__done':['leitura'],
+  '2025-05-08__notes':{'leitura':'NEJM Sepsis 2024 - 3 pags.','transcrever':''},
   '2025-05-09':['infograficos'],          '2025-05-09__done':['infograficos'],
+  '2025-05-09__notes':{'infograficos':'Cardiac anatomy infographic - salvo 10 termos.'},
 };
-let pickerEl = null, pickerKey = null;
 
-function plDates(off) {
-  var t=new Date(), dow=t.getDay(), mon=new Date(t);
-  mon.setDate(t.getDate()-dow+(dow===0?-6:1)+off*7);
-  return Array.from({length:7},function(_,i){ var d=new Date(mon); d.setDate(mon.getDate()+i); return d; });
-}
 function dKey(d){ return d.toISOString().split('T')[0]; }
-function plannerWeek(dir){ pOff+=dir; renderPlanner(); }
-function plannerToday(){ pOff=0; renderPlanner(); }
+function today(){ return dKey(new Date()); }
 
-function plannerSuggest() {
-  plDates(pOff).forEach(function(d,i){
-    var k=dKey(d);
-    if(!pData[k]||!pData[k].length) pData[k]=[SG_WEEK[i]];
-  });
-  renderPlanner();
+// Estado
+var plView     = 'day';    // 'day' | 'week' | 'month'
+var plDayIdx   = 0;        // índice no array de 30 dias centrado hoje
+var plMonthOff = 0;        // offset de mês
+var plWeekOff  = 0;        // offset de semana
+var plPickerKey= null;
+var plPickerEl = null;
+
+// Gera array de 30 dias: 14 antes de hoje, hoje, 15 depois
+function plDayRange() {
+  var arr=[], base=new Date();
+  for(var i=-14;i<=15;i++){
+    var d=new Date(base); d.setDate(base.getDate()+i);
+    arr.push(d);
+  }
+  return arr;
 }
 
-function pToggleDone(key,sid) {
+// ── TOGGLE DONE ────────────────────────────────────────
+function plToggleDone(key,sid){
   var dk=key+'__done', done=pData[dk]||[];
   var i=done.indexOf(sid);
   if(i===-1) done.push(sid); else done.splice(i,1);
-  pData[dk]=done; renderPlanner();
-}
-function pRemove(key,sid) {
-  if(pData[key]) pData[key]=pData[key].filter(function(s){return s!==sid;});
+  pData[dk]=done;
+  // abrir/fechar input
   renderPlanner();
 }
-function pAddAct(key,sid) {
+function plRemove(key,sid){
+  if(pData[key]) pData[key]=pData[key].filter(function(s){return s!==sid;});
+  var nk=key+'__notes'; if(pData[nk]) delete pData[nk][sid];
+  renderPlanner();
+}
+function plSaveNote(key,sid){
+  var ta=document.getElementById('plr-ta-'+key+'-'+sid);
+  if(!ta) return;
+  if(!pData[key+'__notes']) pData[key+'__notes']={};
+  pData[key+'__notes'][sid]=ta.value;
+  // feedback visual
+  var btn=ta.parentElement.querySelector('.plr-act-save-btn');
+  if(btn){ var orig=btn.innerHTML; btn.innerHTML='Salvo!'; setTimeout(function(){btn.innerHTML=orig;},1200); }
+}
+function plAddAct(key,sid){
   if(!pData[key]) pData[key]=[];
   if(pData[key].indexOf(sid)===-1) pData[key].push(sid);
-  closePlPicker(); renderPlanner();
+  plClosePicker(); renderPlanner();
+}
+function plSuggest(){
+  var days=plDayRange();
+  for(var i=0;i<7;i++){
+    var k=dKey(days[14+i]); // hoje + i
+    if(!pData[k]||!pData[k].length) pData[k]=[SG_WEEK[i]];
+  }
+  renderPlanner();
 }
 
-/* Picker */
-function openPlPicker(key, btn) {
-  pickerKey = key;
-  if (!pickerEl) {
-    pickerEl = document.createElement('div');
-    pickerEl.className = 'pl-picker';
-    document.body.appendChild(pickerEl);
-    pickerEl.addEventListener('click', function(e){
-      var item = e.target.closest('[data-pl-add]');
-      var cls  = e.target.closest('.pl-picker-close-btn');
-      if (cls)  closePlPicker();
-      if (item) pAddAct(item.dataset.plKey, item.dataset.plAdd);
+// ── PICKER ─────────────────────────────────────────────
+function plOpenPicker(key,btn){
+  plPickerKey=key;
+  if(!plPickerEl){
+    plPickerEl=document.createElement('div');
+    plPickerEl.className='plr-picker';
+    document.body.appendChild(plPickerEl);
+    plPickerEl.addEventListener('click',function(e){
+      var item=e.target.closest('[data-pl-add]');
+      var x=e.target.closest('.plr-picker-x');
+      if(x) plClosePicker();
+      if(item) plAddAct(item.dataset.plKey, item.dataset.plAdd);
     });
   }
-  var existing = pData[key]||[];
-  var items = '';
-  SK.forEach(function(s){
-    var has = existing.indexOf(s.id)!==-1;
-    items += '<div class="pl-picker-item'+(has?' already':'')+'" data-pl-add="'+s.id+'" data-pl-key="'+key+'">'
-      + s.svg
-      + '<div class="pl-picker-item-info">'
-        + '<div class="pl-picker-item-name">'+s.l+(has?' <span style="color:#4caf50;font-size:.55rem">&#10003; adicionado</span>':'')+'</div>'
-        + '<div class="pl-picker-item-desc">'+s.d+'</div>'
-      + '</div></div>';
+  var existing=pData[key]||[];
+  var items='';
+  SKL.forEach(function(s){
+    var has=existing.indexOf(s.id)!==-1;
+    items+='<div class="plr-picker-item'+(has?' has':'')+'" data-pl-add="'+s.id+'" data-pl-key="'+key+'">'
+      +s.svg
+      +'<div><div class="plr-picker-item-name">'+s.l+(has?' <span style="color:#66bb6a;font-size:.55rem">adicionado</span>':'')+'</div>'
+        +'<div class="plr-picker-item-tip">'+s.tip+'</div></div>'
+      +'</div>';
   });
-  pickerEl.innerHTML =
-    '<div class="pl-picker-hdr">'
-      + '<span class="pl-picker-title">Adicionar atividade</span>'
-      + '<button class="pl-picker-close-btn">&#10005;</button>'
-    + '</div>'
-    + '<div class="pl-picker-list">'+items+'</div>';
-
-  var rect = btn.getBoundingClientRect();
-  pickerEl.style.top  = (rect.bottom + 8) + 'px';
-  pickerEl.style.left = Math.min(rect.left, window.innerWidth-290) + 'px';
-  pickerEl.classList.add('open');
+  plPickerEl.innerHTML='<div class="plr-picker-hdr"><span class="plr-picker-title">Adicionar atividade</span>'
+    +'<button class="plr-picker-x">x</button></div>'
+    +'<div class="plr-picker-list">'+items+'</div>';
+  var rect=btn.getBoundingClientRect();
+  plPickerEl.style.top=(rect.bottom+8)+'px';
+  plPickerEl.style.left=Math.min(rect.left,window.innerWidth-310)+'px';
+  plPickerEl.classList.add('open');
 }
-function closePlPicker() {
-  if(pickerEl) pickerEl.classList.remove('open');
-  pickerKey = null;
-}
-document.addEventListener('click', function(e){
-  if(pickerEl && pickerEl.classList.contains('open')
-     && !pickerEl.contains(e.target)
-     && !e.target.closest('.pl-add-btn')) closePlPicker();
+function plClosePicker(){ if(plPickerEl) plPickerEl.classList.remove('open'); plPickerKey=null; }
+document.addEventListener('click',function(e){
+  if(plPickerEl&&plPickerEl.classList.contains('open')
+     &&!plPickerEl.contains(e.target)&&!e.target.closest('.plr-add-act-btn')) plClosePicker();
 });
 
-/* Render principal */
-function renderPlanner() {
-  var body = document.getElementById('planner-body');
-  if (!body) return;
+// ── RENDER PRINCIPAL ───────────────────────────────────
+function renderPlanner(){
+  var body=document.getElementById('planner-body');
+  if(!body) return;
 
-  var dates   = plDates(pOff);
-  var today   = dKey(new Date());
-  var fmt     = function(d){ return d.getDate()+'/'+(d.getMonth()+1); };
-  var isThisWeek = pOff===0;
+  var viewBtns='<div class="plr-views">'
+    +['day','week','month'].map(function(v){
+      var lbl={day:'Diario',week:'Semana',month:'Mes'}[v];
+      return '<button class="plr-view-btn'+(plView===v?' on':'')+'" data-pl-view="'+v+'">'+lbl+'</button>';
+    }).join('')
+    +'</div>';
 
-  /* Progresso */
-  var totalDone=0, totalPlan=0;
-  dates.forEach(function(d){
-    var k=dKey(d);
-    totalPlan += (pData[k]||[]).length;
-    totalDone += (pData[k+'__done']||[]).length;
-  });
-  var pct = totalPlan>0 ? Math.round(totalDone/totalPlan*100) : 0;
+  var html='<div class="plr">'
+    +'<div class="plr-head">'
+      +'<div><div class="plr-title">Meu <em>Planner</em></div>'
+        +'<div class="plr-sub">Registre o que praticou em cada dia</div></div>'
+      +viewBtns
+    +'</div>';
 
-  /* HTML dos dias */
-  var daysHtml = '';
-  dates.forEach(function(d){
-    var key    = dKey(d);
-    var acts   = pData[key]||[];
-    var done   = pData[key+'__done']||[];
-    var isT    = key===today;
-    var isPast = d < new Date() && !isT;
+  if(plView==='day')   html+=renderPlannerDay();
+  if(plView==='week')  html+=renderPlannerCal('week');
+  if(plView==='month') html+=renderPlannerCal('month');
 
-    var chipsHtml = '';
-    acts.forEach(function(sid){
-      var sk = SK_MAP[sid]; if(!sk) return;
-      var isDone = done.indexOf(sid)!==-1;
-      var checkSvg = isDone
-        ? '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
-        : '';
-      chipsHtml +=
-        '<div class="pl-act-chip'+(isDone?' done':'')+'" data-key="'+key+'" data-sid="'+sid+'">'
-          + sk.svg
-          + '<span class="pl-act-chip-label">'+sk.l+'</span>'
-          + '<div class="pl-act-chip-check">'+checkSvg+'</div>'
-          + '<div class="pl-act-remove" data-remove="1" data-key="'+key+'" data-sid="'+sid+'">&#10005;</div>'
-        + '</div>';
-    });
+  html+=renderPlannerLegend()+'</div>';
+  body.innerHTML=html;
 
-    daysHtml +=
-      '<div class="pl-day'+(isT?' today':'')+(isPast?' past':'')+'">'
-        + '<div class="pl-day-head">'
-          + '<div class="pl-day-weekday">'+DN[d.getDay()]+'</div>'
-          + '<div class="pl-day-num">'+d.getDate()+'</div>'
-        + '</div>'
-        + '<div class="pl-acts">'+chipsHtml+'</div>'
-        + '<div class="pl-add-wrap">'
-          + '<button class="pl-add-btn" data-addkey="'+key+'">'
-            + '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
-            + 'Adicionar'
-          + '</button>'
-        + '</div>'
-      + '</div>';
-  });
-
-  /* HTML da legenda */
-  var legHtml = '';
-  SK.forEach(function(s){
-    legHtml +=
-      '<div class="pl-legend-item">'
-        + '<div class="pl-legend-icon">'+s.svg+'</div>'
-        + '<div><div class="pl-legend-name">'+s.l+'</div>'
-          + '<div class="pl-legend-desc">'+s.d+'</div></div>'
-      + '</div>';
-  });
-
-  body.innerHTML =
-    '<div class="pl-wrap">'
-
-    /* Header */
-    + '<div class="pl-header">'
-      + '<div>'
-        + '<div class="pl-title">Meu <em>Planner</em></div>'
-        + '<div class="pl-subtitle">'
-          + (isThisWeek ? 'Esta semana' : 'Semana de '+fmt(dates[0])+' a '+fmt(dates[6]))
-          + (totalPlan>0 ? ' &middot; '+totalDone+' de '+totalPlan+' concluidas' : '')
-        + '</div>'
-      + '</div>'
-      + '<div class="pl-nav-row">'
-        + '<button class="pl-nav-btn" data-pl="prev">'
-          + '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>'
-        + '</button>'
-        + '<span class="pl-week-range">'+fmt(dates[0])+'  &ndash;  '+fmt(dates[6])+'</span>'
-        + '<button class="pl-nav-btn" data-pl="next">'
-          + '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>'
-        + '</button>'
-        + (!isThisWeek ? '<button class="pl-today-btn" data-pl="today">Hoje</button>' : '')
-        + '<button class="pl-suggest-btn" data-pl="suggest">'
-          + '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'
-          + 'Sugerir'
-        + '</button>'
-      + '</div>'
-    + '</div>'
-
-    /* Progress */
-    + (totalPlan>0
-      ? '<div class="pl-progress">'
-          + '<div class="pl-prog-stat"><div class="pl-prog-num">'+totalDone+'</div><div class="pl-prog-lbl">Feitas</div></div>'
-          + '<div class="pl-prog-stat"><div class="pl-prog-num">'+totalPlan+'</div><div class="pl-prog-lbl">Planejadas</div></div>'
-          + '<div class="pl-prog-bar-wrap">'
-            + '<div class="pl-prog-bar-top">'
-              + '<span class="pl-prog-bar-label">Progresso da semana</span>'
-              + '<span class="pl-prog-pct">'+pct+'%</span>'
-            + '</div>'
-            + '<div class="pl-prog-track"><div class="pl-prog-fill" style="width:'+pct+'%"></div></div>'
-          + '</div>'
-        + '</div>'
-      : '')
-
-    /* Grid */
-    + '<div class="pl-grid" id="pl-grid">'+daysHtml+'</div>'
-
-    /* Legenda */
-    + '<div class="pl-legend">'
-      + '<div class="pl-legend-title">Habilidades</div>'
-      + '<div class="pl-legend-grid">'+legHtml+'</div>'
-    + '</div>'
-
-    + '</div>';
-
-  /* Event delegation */
-  body.addEventListener('click', function(e){
-    /* Nav botões */
-    var pl = e.target.closest('[data-pl]');
-    if (pl) {
-      var a = pl.dataset.pl;
-      if (a==='prev') plannerWeek(-1);
-      if (a==='next') plannerWeek(1);
-      if (a==='today') plannerToday();
-      if (a==='suggest') plannerSuggest();
-      return;
+  // Event delegation
+  body.addEventListener('click',function(e){
+    // View toggle
+    var vb=e.target.closest('[data-pl-view]');
+    if(vb){ plView=vb.dataset.plView; renderPlanner(); return; }
+    // Setas carrossel
+    var arr=e.target.closest('[data-pl-arr]');
+    if(arr){
+      plDayIdx=parseInt(arr.dataset.plArr);
+      renderPlanner(); return;
     }
-    /* Toggle done */
-    var chip = e.target.closest('.pl-act-chip');
-    var rem  = e.target.closest('[data-remove]');
-    if (rem && chip) {
-      e.stopPropagation();
-      pRemove(rem.dataset.key, rem.dataset.sid);
-      return;
+    // Dot
+    var dot=e.target.closest('[data-pl-dot]');
+    if(dot){ plDayIdx=parseInt(dot.dataset.plDot); renderPlanner(); return; }
+    // Toggle done
+    var td=e.target.closest('[data-pl-done]');
+    if(td){ plToggleDone(td.dataset.plKey,td.dataset.plSid); return; }
+    // Remove
+    var rm=e.target.closest('[data-pl-rm]');
+    if(rm){ e.stopPropagation(); plRemove(rm.dataset.plKey,rm.dataset.plSid); return; }
+    // Add btn
+    var ab=e.target.closest('[data-pl-addbtn]');
+    if(ab){ plOpenPicker(ab.dataset.plAddbtn,ab); return; }
+    // Save note
+    var sv=e.target.closest('[data-pl-save]');
+    if(sv){ plSaveNote(sv.dataset.plKey,sv.dataset.plSid); return; }
+    // Hoje
+    var hj=e.target.closest('[data-pl-today]');
+    if(hj){ plDayIdx=0; renderPlanner(); return; }
+    // Suggest
+    var sg=e.target.closest('[data-pl-suggest]');
+    if(sg){ plSuggest(); return; }
+    // Cal arrows
+    var ca=e.target.closest('[data-pl-cal]');
+    if(ca){
+      var dir=parseInt(ca.dataset.plCal);
+      if(plView==='week') plWeekOff+=dir;
+      if(plView==='month') plMonthOff+=dir;
+      renderPlanner(); return;
     }
-    if (chip && !rem) {
-      pToggleDone(chip.dataset.key, chip.dataset.sid);
-      return;
-    }
-    /* Add btn */
-    var addBtn = e.target.closest('[data-addkey]');
-    if (addBtn) { openPlPicker(addBtn.dataset.addkey, addBtn); return; }
+    // Cal cell click -> ir pro dia
+    var cc=e.target.closest('[data-pl-calday]');
+    if(cc){ plView='day'; var td2=new Date(); var diff=parseInt(cc.dataset.plCalday); plDayIdx=diff; renderPlanner(); return; }
   });
+}
+
+// ── VIEW: DIÁRIA (carrossel) ───────────────────────────
+function renderPlannerDay(){
+  var days=plDayRange();   // 30 dias: idx 0..29, hoje = 14
+  var centerAbs=14+plDayIdx; // índice absoluto no array
+  if(centerAbs<0) centerAbs=0;
+  if(centerAbs>29) centerAbs=29;
+  plDayIdx=centerAbs-14;
+
+  // Mostrar: center-1, center, center+1 (com fallback nas bordas)
+  var slots=[-1,0,1];
+  var cards='';
+  slots.forEach(function(offset){
+    var idx=centerAbs+offset;
+    if(idx<0||idx>=days.length){ cards+='<div style="width:200px;flex-shrink:0"></div>'; return; }
+    var d=days[idx], key=dKey(d), isCenter=offset===0, isTod=key===today();
+    var acts=pData[key]||[], done=pData[key+'__done']||[], notes=pData[key+'__notes']||{};
+
+    if(isCenter){
+      // Card central: completo com inputs
+      var actsHtml='';
+      if(!acts.length){
+        actsHtml='<div class="plr-card-empty">'
+          +'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
+          +'Nenhuma atividade planejada<br>para este dia.<br>'
+          +'<small style="font-size:.55rem">Use o botao abaixo para adicionar.</small>'
+          +'</div>';
+      } else {
+        acts.forEach(function(sid){
+          var sk=SKL_MAP[sid]; if(!sk) return;
+          var isDone=done.indexOf(sid)!==-1;
+          var note=notes[sid]||'';
+          var svgCheck='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+          actsHtml+=
+            '<div class="plr-act-item'+(isDone?' done':'')+'">'
+              +'<div class="plr-act-header" data-pl-done data-pl-key="'+key+'" data-pl-sid="'+sid+'">'
+                +'<div class="plr-act-icon-wrap" data-sk="'+sid+'">'+sk.svg+'</div>'
+                +'<div class="plr-act-info">'
+                  +'<div class="plr-act-name">'+sk.l+'</div>'
+                  +'<div class="plr-act-tip">'+sk.why+'</div>'
+                +'</div>'
+                +'<div class="plr-act-check">'+(isDone?svgCheck:'')+'</div>'
+              +'</div>'
+              +'<div class="plr-act-input-wrap'+(isDone?' open':'')+'">'
+                +'<div class="plr-act-input-label">'
+                  +'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>'
+                  +'Registre sua pratica'
+                +'</div>'
+                +'<textarea id="plr-ta-'+key+'-'+sid+'" class="plr-act-textarea" placeholder="'+sk.ph+'">'+(note)+'</textarea>'
+                +'<div class="plr-act-save-row">'
+                  +'<button class="plr-act-save-btn" data-pl-save data-pl-key="'+key+'" data-pl-sid="'+sid+'">'
+                    +'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+                    +'Salvar'
+                  +'</button>'
+                +'</div>'
+              +'</div>'
+            +'</div>';
+        });
+      }
+      cards+=
+        '<div class="plr-day-card center'+(isTod?' today':'')+'">'
+          +'<div class="plr-card-top">'
+            +'<div>'
+              +'<div class="plr-card-weekday">'+DN_FULL[d.getDay()]+'</div>'
+              +'<div class="plr-card-date">'+d.getDate()+'</div>'
+            +'</div>'
+            +(isTod?'<div class="plr-card-today-badge">Hoje</div>'
+              :'<div class="plr-card-month">'+MONTHS[d.getMonth()]+'</div>')
+          +'</div>'
+          +'<div class="plr-card-body">'
+            +actsHtml
+            +'<div class="plr-add-row">'
+              +'<button class="plr-add-act-btn" data-pl-addbtn="'+key+'">'
+                +'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
+                +'Adicionar atividade'
+              +'</button>'
+            +'</div>'
+          +'</div>'
+        +'</div>';
+    } else {
+      // Card lateral: mini
+      var miniActs='';
+      acts.forEach(function(sid){
+        var sk=SKL_MAP[sid]; if(!sk) return;
+        var isDone=done.indexOf(sid)!==-1;
+        miniActs+='<div class="plr-side-chip'+(isDone?' done':'')+'">'
+          +sk.svg
+          +'<span>'+sk.l+'</span>'
+        +'</div>';
+      });
+      cards+=
+        '<div class="plr-day-card side'+(isTod?' today':'')+'" data-pl-arr="'+plDayIdx+offset+'">'
+          +'<div class="plr-card-top">'
+            +'<div>'
+              +'<div class="plr-card-weekday">'+DN_SHORT[d.getDay()]+'</div>'
+              +'<div class="plr-card-date" style="font-size:1.1rem">'+d.getDate()+'</div>'
+            +'</div>'
+            +(isTod?'<div class="plr-card-today-badge" style="font-size:.45rem">Hoje</div>':'')
+          +'</div>'
+          +'<div class="plr-card-side-body"><div class="plr-side-acts">'+miniActs+'</div></div>'
+        +'</div>';
+    }
+  });
+
+  // Dots de navegação (7 dias visíveis ao redor do centro)
+  var dots=''; var dotRange=[-3,-2,-1,0,1,2,3];
+  dotRange.forEach(function(i){
+    var abs=14+plDayIdx+i;
+    if(abs>=0&&abs<days.length){
+      dots+='<div class="plr-dot'+(i===0?' on':'')+'" data-pl-dot="'+(plDayIdx+i)+'"></div>';
+    }
+  });
+
+  var isAtToday=plDayIdx===0;
+  return '<div class="plr-actions">'
+    +(isAtToday?'':'<button class="plr-action-btn" data-pl-today><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Hoje</button>')
+    +'<button class="plr-action-btn primary" data-pl-suggest><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Sugerir semana</button>'
+    +'</div>'
+    +'<div class="plr-carousel-wrap">'
+      +'<div class="plr-track">'+cards+'</div>'
+    +'</div>'
+    +'<div class="plr-kb-hint"><span class="plr-kb-key">&larr;</span>&nbsp;navegar&nbsp;<span class="plr-kb-key">&rarr;</span></div>'+'<div class="plr-arrows">'
+      +'<button class="plr-arrow" data-pl-arr="'+(plDayIdx-1)+'">'
+        +'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>'
+      +'</button>'
+      +'<div class="plr-dot-row">'+dots+'</div>'
+      +'<button class="plr-arrow" data-pl-arr="'+(plDayIdx+1)+'">'
+        +'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>'
+      +'</button>'
+    +'</div>';
+}
+
+// ── VIEW: CALENDÁRIO ───────────────────────────────────
+function renderPlannerCal(view){
+  var now=new Date(), html='';
+  if(view==='week'){
+    var base=new Date(now); base.setDate(now.getDate()-now.getDay()+1+plWeekOff*7);
+    var label='Semana de '+base.getDate()+'/'+(base.getMonth()+1);
+    html+='<div class="plr-cal-wrap">'
+      +'<div class="plr-cal-nav">'
+        +'<span class="plr-cal-label">'+label+'</span>'
+        +'<div class="plr-cal-arrows">'
+          +'<button class="plr-cal-arrow" data-pl-cal="-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>'
+          +'<button class="plr-cal-arrow" data-pl-cal="1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>'
+        +'</div>'
+      +'</div>'
+      +'<div class="plr-week-grid">';
+    DN_SHORT.forEach(function(d){ html+='<div class="plr-cal-header">'+d+'</div>'; });
+    for(var i=0;i<7;i++){
+      var d=new Date(base); d.setDate(base.getDate()+i);
+      var key=dKey(d), isT=key===today();
+      var acts=pData[key]||[], done=pData[key+'__done']||[];
+      var diff=Math.round((d-now)/(1000*60*60*24));
+      var dots=acts.map(function(sid){
+        var isDone=done.indexOf(sid)!==-1;
+        return '<div class="plr-cal-dot '+(isDone?'done':'pending')+'"></div>';
+      }).join('');
+      html+='<div class="plr-cal-cell'+(isT?' today':'')+'" data-pl-calday="'+diff+'">'
+        +'<div class="plr-cal-day-num">'+d.getDate()+'</div>'
+        +'<div class="plr-cal-dots">'+dots+'</div>'
+      +'</div>';
+    }
+    html+='</div></div>';
+  } else {
+    // Month
+    var y=now.getFullYear(), m=now.getMonth()+plMonthOff;
+    while(m>11){m-=12;y++;} while(m<0){m+=12;y--;}
+    var firstDay=new Date(y,m,1), lastDay=new Date(y,m+1,0);
+    var label2=MONTHS[m]+' '+y;
+    html+='<div class="plr-cal-wrap">'
+      +'<div class="plr-cal-nav">'
+        +'<span class="plr-cal-label">'+label2+'</span>'
+        +'<div class="plr-cal-arrows">'
+          +'<button class="plr-cal-arrow" data-pl-cal="-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>'
+          +'<button class="plr-cal-arrow" data-pl-cal="1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>'
+        +'</div>'
+      +'</div>'
+      +'<div class="plr-month-grid">';
+    DN_SHORT.forEach(function(d){ html+='<div class="plr-cal-header">'+d+'</div>'; });
+    var startDow=(firstDay.getDay()+6)%7;
+    for(var i=0;i<startDow;i++) html+='<div class="plr-cal-cell empty"></div>';
+    for(var day=1;day<=lastDay.getDate();day++){
+      var d2=new Date(y,m,day), key2=dKey(d2), isT2=key2===today();
+      var acts2=pData[key2]||[], done2=pData[key2+'__done']||[];
+      var diff2=Math.round((d2-now)/(1000*60*60*24));
+      var dots2=acts2.map(function(sid){
+        return '<div class="plr-cal-dot '+(done2.indexOf(sid)!==-1?'done':'pending')+'"></div>';
+      }).join('');
+      html+='<div class="plr-cal-cell'+(isT2?' today':'')+'" data-pl-calday="'+diff2+'">'
+        +'<div class="plr-cal-day-num">'+day+'</div>'
+        +'<div class="plr-cal-dots">'+dots2+'</div>'
+      +'</div>';
+    }
+    html+='</div></div>';
+  }
+  return html;
+}
+
+function renderPlannerLegend(){
+  var items=SKL.map(function(s){
+    return '<div class="plr-legend-item">'
+      +'<div class="plr-legend-ico" data-sk="'+s.id+'">'+s.svg+'</div>'
+      +'<div>'
+        +'<div class="plr-legend-name">'+s.l+'</div>'
+        +'<div class="plr-legend-desc">'+s.tip+'</div>'
+      +'</div>'
+    +'</div>';
+  }).join('');
+  return '<div class="plr-legend">'
+    +'<div class="plr-legend-title">Habilidades</div>'
+    +'<div class="plr-legend-grid">'+items+'</div>'
+  +'</div>';
 }
 
 // FLASHCARDS
@@ -2470,7 +2974,7 @@ const FC_LABELS = { vocabulario:'Vocabulario', frases:'Frases', termos:'Termos',
 
 var SVG_CHECK  = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
 var SVG_SKIP   = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>';
-var SVG_FLIP2  = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>';
+var SVG_FLIP2  = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>';
 var SVG_SHUF2  = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>';
 var SVG_HINT   = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>';
 var SVG_GREAT  = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -2619,6 +3123,7 @@ function renderFlash() {
       +'<div class="fc-sec-pills">'+secHtml+'</div>'
       +'<div class="fc-mode-seg">'+modeHtml+'</div>'
     +'</div>'
+    +(fIdx===0?'<div class="fc-instructions">'+'<div class="fc-instr-title">Como usar os flashcards</div>'+'<div class="fc-instr-steps">'+'<div class="fc-instr-step"><div class="fc-instr-num">1</div><div class="fc-instr-text">Leia o <strong>termo</strong> na frente do card e tente lembrar a traducao antes de virar.</div></div>'+'<div class="fc-instr-step"><div class="fc-instr-num">2</div><div class="fc-instr-text"><strong>Clique no card</strong> ou no botao <em>Virar</em> para revelar a resposta.</div></div>'+'<div class="fc-instr-step"><div class="fc-instr-num">3</div><div class="fc-instr-text">Se lembrou facilmente: <em>Sabia!</em>. Se precisou de esforco: <em>Revisar</em>.</div></div>'+'<div class="fc-instr-step"><div class="fc-instr-num">4</div><div class="fc-instr-text">Use os filtros de <strong>secao</strong> para focar em vocabulario, frases ou termos clinicos.</div></div>'+'<div class="fc-instr-step"><div class="fc-instr-num">5</div><div class="fc-instr-text">Repita o baralho. A <strong>repeticao espacada</strong> e o segredo da retencao a longo prazo.</div></div>'+'</div></div>':'')
     +progHtml
     +mainHtml
     +'</div>';
@@ -2661,7 +3166,65 @@ function renderTourStep(){const s=TOUR[tIdx],n=TOUR.length;document.getElementBy
 function tourNext(){tIdx++;if(tIdx>=TOUR.length)fecharTour();else renderTourStep();}
 function fecharTour(){document.getElementById('tour-ov').classList.remove('on');localStorage.setItem('mdtalk_tour_ok','1');}
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){fecharModal();fecharTour();nbDropOpen=false;const d=document.getElementById('nb-dropdown');if(d)d.classList.remove('open');const b=document.getElementById('nb-filter-btn');if(b)b.classList.remove('open');closePicker();}});
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowLeft'  && activeTab==='planner'){ plDayIdx=Math.max(plDayIdx-1,-14); renderPlanner(); return; }
+  if(e.key==='ArrowRight' && activeTab==='planner'){ plDayIdx=Math.min(plDayIdx+1,15);  renderPlanner(); return; }if(e.key==='Escape'){fecharModal();fecharTour();nbDropOpen=false;const d=document.getElementById('nb-dropdown');if(d)d.classList.remove('open');const b=document.getElementById('nb-filter-btn');if(b)b.classList.remove('open');closePicker();}});
+
+// ── SVG DRAW-ON ──────────────────────────────────────────
+function animateSvgs(root) {
+  var r = root || document;
+  var svgs = r.querySelectorAll('svg:not(.no-anim)');
+  svgs.forEach(function(svg, si) {
+    // Não re-animar
+    if (svg.dataset.animated) return;
+    svg.dataset.animated = '1';
+    svg.classList.add('svg-anim');
+
+    // Calcular comprimento total dos paths para --path-len
+    var total = 0;
+    var paths = svg.querySelectorAll('path, circle, line, polyline, rect, polygon, ellipse');
+    paths.forEach(function(p) {
+      try {
+        var len = p.getTotalLength ? p.getTotalLength() : 60;
+        total = Math.max(total, len);
+      } catch(e) { total = Math.max(total, 60); }
+    });
+    if (total < 10) total = 80;
+
+    // Delay escalonado por grupo
+    var delay = (si % 8) * 0.06;
+    svg.style.setProperty('--path-len', total);
+    svg.style.setProperty('--draw-dur', '0.65s');
+    svg.style.setProperty('--draw-delay', delay + 's');
+  });
+}
+
+// Chamar após cada render
+var _origRenderDash    = typeof renderDash    !== 'undefined' ? renderDash    : null;
+var _origRenderPlanner = typeof renderPlanner !== 'undefined' ? renderPlanner : null;
+var _origRenderFlash   = typeof renderFlash   !== 'undefined' ? renderFlash   : null;
+var _origRenderCards   = typeof renderCards   !== 'undefined' ? renderCards   : null;
+
+function wrapRender(fn, id) {
+  return function() {
+    fn.apply(this, arguments);
+    setTimeout(function() {
+      var el = document.getElementById(id);
+      if (el) animateSvgs(el);
+    }, 30);
+  };
+}
+
+// Aplicar wraps após DOM pronto
+setTimeout(function() {
+  if (typeof renderDash    === 'function') { var o=renderDash;    renderDash    = wrapRender(o,'dash-body');    }
+  if (typeof renderPlanner === 'function') { var o=renderPlanner; renderPlanner = wrapRender(o,'planner-body'); }
+  if (typeof renderFlash   === 'function') { var o=renderFlash;   renderFlash   = wrapRender(o,'flash-body');   }
+  if (typeof renderCards   === 'function') { var o=renderCards;   renderCards   = wrapRender(o,'cards-grid');   }
+  // Animar SVGs estáticos no HTML
+  animateSvgs(document.getElementById('chrome-tabbar'));
+  animateSvgs(document.getElementById('caderno-nav'));
+}, 200);
 
 // INIT
 renderCards();
