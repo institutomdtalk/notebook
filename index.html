@@ -731,6 +731,44 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 }
 @media(max-width:800px){ .dash-bottom-grid { grid-template-columns: 1fr; } }
 
+/* NB FILTROS */
+.nb-left{display:flex;align-items:center;gap:.5rem;flex:1;min-width:0;overflow:hidden;}
+.nb-all{display:flex;align-items:center;gap:6px;font-family:'Raleway',sans-serif;font-size:.67rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#aaa;background:transparent;border:none;border-bottom:2px solid transparent;height:60px;padding:0 .8rem;cursor:pointer;transition:color .2s,border-color .2s;white-space:nowrap;flex-shrink:0;}
+.nb-all:hover{color:#555;}
+.nb-all.active{color:#1a1a2e;border-bottom-color:var(--gold);}
+.nb-all.active svg{stroke:var(--gold);}
+.nb-all svg{transition:stroke .2s;}
+.nb-filter-wrap{position:relative;flex-shrink:0;}
+.nb-filter-btn{display:flex;align-items:center;gap:6px;font-family:'Raleway',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#aaa;background:transparent;border:1.5px solid #e0dbd4;border-radius:20px;padding:.35rem 1rem;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.nb-filter-btn:hover{border-color:#aaa;color:#555;}
+.nb-filter-btn.open{background:#1a1a2e;color:#fff;border-color:#1a1a2e;}
+.nb-filter-count{background:var(--gold);color:#fff;width:16px;height:16px;border-radius:50%;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.nb-dropdown{display:none;position:absolute;top:calc(100% + 10px);left:0;width:260px;background:#fff;border:1.5px solid #e8e4e0;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.12);z-index:200;padding:.6rem 0;}
+.nb-dropdown.open{display:block;animation:ddIn .2s ease;}
+@keyframes ddIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.nb-dd-section{padding:.5rem 1rem;}
+.nb-dd-label{font-family:'Raleway',sans-serif;font-size:8px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#bbb;margin-bottom:.5rem;}
+.nb-dd-divider{height:1px;background:#f0ece8;margin:.2rem 0;}
+.nb-dd-chips{display:flex;flex-wrap:wrap;gap:.35rem;}
+.nb-chip{display:inline-flex;align-items:center;gap:5px;font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.08em;border:1.5px solid #e0dbd4;border-radius:20px;padding:.25rem .75rem;cursor:pointer;color:#aaa;background:#fafafa;transition:all .15s;}
+.nb-chip.active{background:#1a1a2e;border-color:#1a1a2e;color:#fff;}
+.nb-chip:not(.active):hover{border-color:#aaa;color:#555;}
+.nb-dd-radios{display:flex;flex-direction:column;gap:.2rem;}
+.nb-radio{display:flex;align-items:center;gap:8px;font-family:'Raleway',sans-serif;font-size:.68rem;color:#777;cursor:pointer;padding:.32rem .4rem;border-radius:8px;transition:background .15s;}
+.nb-radio:hover{background:#f8f5f2;}
+.nb-radio.active{color:#1a1a2e;font-weight:600;}
+.nb-radio svg{color:#ccc;flex-shrink:0;}
+.nb-radio.active svg{color:var(--gold);}
+.nb-nova-sec{display:flex;align-items:center;gap:6px;font-family:'Raleway',sans-serif;font-size:.63rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:#f8f5f2;border:1.5px dashed #d4cfc9;border-radius:10px;padding:.5rem 1rem;cursor:pointer;color:#aaa;width:100%;transition:all .2s;}
+.nb-nova-sec:hover{border-color:var(--gold);color:var(--gold);background:#fff8ee;}
+.nb-active-filters{display:flex;align-items:center;gap:.3rem;overflow:hidden;}
+.nb-af-chip{display:inline-flex;align-items:center;font-family:'Raleway',sans-serif;font-size:.57rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .6rem;border-radius:20px;white-space:nowrap;}
+.nb-af-chip.vocabulario{background:#FFF3DC;color:#9A7B2E;}
+.nb-af-chip.frases{background:#E0F7FA;color:#00838F;}
+.nb-af-chip.termos{background:#EDE7F6;color:#6A3FA0;}
+.nb-af-chip.anotacoes{background:#F1F8E9;color:#558B2F;}
+.nb-af-chip.ord{background:#f0ece8;color:#888;}
+
 /* CADERNO NAV */
 #caderno-nav{position:sticky;top:0;z-index:50;background:rgba(245,242,238,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1.5px solid #e4e0da;}
 .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:1rem;height:60px;}
@@ -1519,13 +1557,43 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   <div class="tab-panel" id="panel-caderno">
 <nav id="caderno-nav">
   <div class="nav-inner">
-    <div class="nav-tabs" id="tabs-wrap">
-      <button class="ntab active" data-tab="todos" onclick="setTab('todos',this)">Todos</button>
-      <button class="ntab" data-tab="vocabulario" onclick="setTab('vocabulario',this)">Vocabulario</button>
-      <button class="ntab" data-tab="frases" onclick="setTab('frases',this)">Frases</button>
-      <button class="ntab" data-tab="termos" onclick="setTab('termos',this)">Termos</button>
-      <button class="ntab" data-tab="anotacoes" onclick="setTab('anotacoes',this)">Anotacoes</button>
-      <button class="ntab ntab-nova" onclick="novaSecao()">+ Secao</button>
+    <div class="nb-left">
+      <button class="nb-all active" id="nb-all" onclick="nbSetAll()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Todos
+      </button>
+      <div class="nb-filter-wrap" id="nb-filter-wrap">
+        <button class="nb-filter-btn" id="nb-filter-btn" onclick="nbToggleFilter()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+          Filtrar
+          <span class="nb-filter-count" id="nb-filter-count" style="display:none">0</span>
+        </button>
+        <div class="nb-dropdown" id="nb-dropdown">
+          <div class="nb-dd-section">
+            <div class="nb-dd-label">Seção</div>
+            <div class="nb-dd-chips">
+              <div class="nb-chip active" data-sec="vocabulario" onclick="nbToggleSec('vocabulario',this)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Vocabulário</div>
+              <div class="nb-chip active" data-sec="frases" onclick="nbToggleSec('frases',this)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Frases</div>
+              <div class="nb-chip active" data-sec="termos" onclick="nbToggleSec('termos',this)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Termos</div>
+              <div class="nb-chip active" data-sec="anotacoes" onclick="nbToggleSec('anotacoes',this)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Anotações</div>
+            </div>
+          </div>
+          <div class="nb-dd-divider"></div>
+          <div class="nb-dd-section">
+            <div class="nb-dd-label">Ordenar por</div>
+            <div class="nb-dd-radios">
+              <label class="nb-radio active" id="nb-ord-rec" onclick="nbSetOrd('recente',this)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Mais recente</label>
+              <label class="nb-radio" id="nb-ord-ant" onclick="nbSetOrd('antigo',this)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="4"/><polyline points="6 10 12 4 18 10"/></svg>Mais antigo</label>
+              <label class="nb-radio" id="nb-ord-az" onclick="nbSetOrd('az',this)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="14" y2="12"/><line x1="4" y1="18" x2="9" y2="18"/></svg>A → Z</label>
+            </div>
+          </div>
+          <div class="nb-dd-divider"></div>
+          <div class="nb-dd-section">
+            <button class="nb-nova-sec" onclick="novaSecao();nbToggleFilter()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Nova seção personalizada</button>
+          </div>
+        </div>
+      </div>
+      <div class="nb-active-filters" id="nb-active-filters"></div>
     </div>
     <div class="nav-actions">
       <div class="nav-sw"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" id="search-input" placeholder="Buscar..."></div>
@@ -1714,6 +1782,70 @@ function musicToggle() {
   }
 }
 
+// NB FILTROS
+let nbSecs = ['vocabulario','frases','termos','anotacoes'];
+let nbOrd  = 'recente';
+let nbDropOpen = false;
+const NB_TLS  = {vocabulario:'Vocabulário',frases:'Frases',termos:'Termos',anotacoes:'Anotações'};
+const NB_ORDS = {recente:'Recente',antigo:'Antigo',az:'A→Z'};
+
+function nbToggleFilter() {
+  nbDropOpen = !nbDropOpen;
+  document.getElementById('nb-filter-btn').classList.toggle('open', nbDropOpen);
+  document.getElementById('nb-dropdown').classList.toggle('open', nbDropOpen);
+}
+
+function nbSetAll() {
+  nbSecs = ['vocabulario','frases','termos','anotacoes'];
+  nbOrd  = 'recente';
+  document.querySelectorAll('.nb-chip').forEach(ch => ch.classList.add('active'));
+  document.querySelectorAll('.nb-radio').forEach(r  => r.classList.remove('active'));
+  const rec = document.getElementById('nb-ord-rec');
+  if (rec) rec.classList.add('active');
+  document.getElementById('nb-all').classList.add('active');
+  nbUpdateUI(); renderCards();
+}
+
+function nbToggleSec(sec, el) {
+  const idx = nbSecs.indexOf(sec);
+  if (idx === -1) { nbSecs.push(sec); el.classList.add('active'); }
+  else if (nbSecs.length > 1) { nbSecs.splice(idx,1); el.classList.remove('active'); }
+  const allBtn = document.getElementById('nb-all');
+  if (allBtn) allBtn.classList.toggle('active', nbSecs.length === 4 && nbOrd === 'recente');
+  nbUpdateUI(); renderCards();
+}
+
+function nbSetOrd(ord, el) {
+  nbOrd = ord;
+  document.querySelectorAll('.nb-radio').forEach(r => r.classList.remove('active'));
+  if (el) el.classList.add('active');
+  const allBtn = document.getElementById('nb-all');
+  if (allBtn) allBtn.classList.toggle('active', nbSecs.length === 4 && nbOrd === 'recente');
+  nbUpdateUI(); renderCards();
+}
+
+function nbUpdateUI() {
+  const changed = nbSecs.length < 4 || nbOrd !== 'recente';
+  const count   = (4 - nbSecs.length) + (nbOrd !== 'recente' ? 1 : 0);
+  const badge   = document.getElementById('nb-filter-count');
+  if (badge) { badge.style.display = changed ? 'flex' : 'none'; badge.textContent = count; }
+  const wrap = document.getElementById('nb-active-filters');
+  if (!wrap) return;
+  const hidden = ['vocabulario','frases','termos','anotacoes'].filter(s => !nbSecs.includes(s));
+  let html = hidden.map(s => '<span class="nb-af-chip '+s+'">−'+NB_TLS[s]+'</span>').join('');
+  if (nbOrd !== 'recente') html += '<span class="nb-af-chip ord">'+NB_ORDS[nbOrd]+'</span>';
+  wrap.innerHTML = html;
+}
+
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('nb-filter-wrap');
+  if (wrap && !wrap.contains(e.target) && nbDropOpen) {
+    nbDropOpen = false;
+    document.getElementById('nb-filter-btn').classList.remove('open');
+    document.getElementById('nb-dropdown').classList.remove('open');
+  }
+});
+
 // CADERNO
 let entradas=[
   {id:1, secao:'vocabulario', termo:'Dyspnea on exertion',          traducao:'Dispneia aos esforços',            exemplo:'The patient reports dyspnea on exertion, worsening over the past two weeks.',                    data:'2025-04-10'},
@@ -1748,13 +1880,18 @@ function renderCards(){
   const busca  = sinput ? sinput.value.toLowerCase() : '';
 
   let f = entradas.filter(e => {
-    const mt = tabAtiva === 'todos' || e.secao === tabAtiva;
+    const mt = (typeof nbSecs !== 'undefined') ? nbSecs.includes(e.secao) : true;
     const mb = !busca
       || e.termo.toLowerCase().includes(busca)
       || (e.traducao && e.traducao.toLowerCase().includes(busca))
       || (e.exemplo  && e.exemplo.toLowerCase().includes(busca));
     return mt && mb;
   });
+  if (typeof nbOrd !== 'undefined') {
+    if      (nbOrd === 'antigo') f.sort((a,b) => a.data.localeCompare(b.data));
+    else if (nbOrd === 'az')     f.sort((a,b) => a.termo.localeCompare(b.termo, 'pt'));
+    else                          f.sort((a,b) => b.data.localeCompare(a.data));
+  }
 
   if (ec) ec.innerHTML = '<strong>' + f.length + '</strong> '
     + (f.length===1?'entrada':'entradas')
