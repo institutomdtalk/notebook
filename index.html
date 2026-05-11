@@ -565,6 +565,25 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 /* MUSIC PLAYER */
 
 
+/* ═══════════════════════════════════
+   CHROME TABBAR
+═══════════════════════════════════ */
+#chrome-tabbar {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 2px;
+  background: #E8E4DF;
+  padding: 8px 12px 0;
+  overflow-x: auto;
+  overflow-y: visible;
+  position: relative;
+  z-index: 10;
+  border-bottom: 1px solid #D0CBC4;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
 #chrome-tabbar::-webkit-scrollbar { display: none; }
 
 /* Cada aba */
@@ -2364,6 +2383,202 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 }
 #hero-engage:hover .hs-tooltip { display: block; }
 
+/* ══════════════════════════════════════
+   LIVE CLASS MODE
+══════════════════════════════════════ */
+
+/* Botão Live */
+#live-btn {
+  position: absolute;
+  bottom: 6rem; right: 2.5rem;
+  z-index: 30;
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(220,38,38,.15);
+  border: 1.5px solid rgba(220,38,38,.4);
+  border-radius: 30px;
+  padding: .52rem 1.2rem .52rem .9rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: .65rem; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.85);
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: background .2s, border-color .2s, box-shadow .2s, transform .15s;
+  opacity: 0;
+  animation: htAppear 1s ease 1.8s forwards;
+}
+#live-btn:hover { background:rgba(220,38,38,.28); border-color:rgba(220,38,38,.7); transform:translateY(-2px); }
+#live-btn.active { background:rgba(220,38,38,.3); border-color:#ef4444; box-shadow:0 0 24px rgba(239,68,68,.3); }
+
+.live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #ef4444; flex-shrink: 0;
+  animation: livePulse 1.3s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,.5); }
+  60%     { box-shadow: 0 0 0 5px rgba(239,68,68,0); }
+}
+
+/* Painel */
+#live-panel {
+  display: none;
+  position: absolute;
+  bottom: 6.5rem; right: 2.5rem;
+  z-index: 40;
+  width: 320px;
+  background: rgba(4,8,18,.9);
+  border: 1px solid rgba(255,255,255,.1);
+  border-top: 2px solid rgba(239,68,68,.5);
+  border-radius: 18px;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: 0 32px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(239,68,68,.1) inset;
+  overflow: hidden;
+}
+#live-panel.open { display:block; animation:lpIn .25s cubic-bezier(.4,0,.2,1); }
+@keyframes lpIn { from{opacity:0;transform:translateY(12px) scale(.98)} to{opacity:1;transform:translateY(0) scale(1)} }
+
+/* Head */
+.lp-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .8rem 1rem .65rem;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.lp-head-left { display:flex; align-items:center; gap:8px; }
+.lp-title {
+  font-family: 'Raleway', sans-serif;
+  font-size: .62rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,.85);
+}
+#lp-count-badge {
+  background: rgba(239,68,68,.25);
+  border: 1px solid rgba(239,68,68,.4);
+  border-radius: 20px;
+  padding: .05rem .45rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem; font-weight: 700;
+  color: #fca5a5;
+  min-width: 20px; text-align: center;
+  transition: transform .2s;
+}
+.lp-close {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.05);
+  color: rgba(255,255,255,.4); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+}
+.lp-close:hover { background:rgba(255,255,255,.15); color:#fff; }
+
+/* Tags rápidas */
+.lp-tags-row {
+  display: flex; gap: .35rem;
+  padding: .65rem 1rem .5rem;
+}
+.lp-tag {
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  border: 1.5px solid rgba(255,255,255,.1);
+  border-radius: 20px; padding: .22rem .7rem;
+  cursor: pointer; color: rgba(255,255,255,.35);
+  background: transparent;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.lp-tag:hover { border-color:rgba(255,255,255,.3); color:rgba(255,255,255,.65); }
+.lp-tag.active {
+  background: rgba(239,68,68,.2);
+  border-color: rgba(239,68,68,.55);
+  color: #fca5a5;
+}
+
+/* Body */
+.lp-body { padding: .1rem 1rem .8rem; }
+.lp-textarea {
+  width: 100%; background: rgba(255,255,255,.05);
+  border: 1.5px solid rgba(255,255,255,.1);
+  border-radius: 11px;
+  padding: .65rem .85rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: .78rem; line-height: 1.55;
+  color: rgba(255,255,255,.9);
+  outline: none; resize: none;
+  transition: border-color .2s, background .2s;
+  margin-bottom: .55rem;
+}
+.lp-textarea:focus { border-color:rgba(239,68,68,.5); background:rgba(255,255,255,.08); }
+.lp-textarea::placeholder { color:rgba(255,255,255,.18); font-style:italic; }
+
+.lp-save-btn {
+  width: 100%; display:flex; align-items:center; justify-content:center; gap:7px;
+  background: rgba(239,68,68,.8);
+  border: none; border-radius: 10px; padding: .58rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: .63rem; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: #fff; cursor: pointer;
+  transition: opacity .2s, transform .15s;
+}
+.lp-save-btn:hover { opacity:.88; transform:translateY(-1px); }
+.lp-enter-hint {
+  font-size: .55rem; opacity: .55; letter-spacing: .06em;
+  text-transform: none; font-weight: 400;
+}
+
+/* Feed de registros */
+.lp-feed {
+  max-height: 160px; overflow-y: auto;
+  padding: 0 .8rem .7rem;
+  display: flex; flex-direction: column; gap: .3rem;
+  scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.1) transparent;
+}
+.lp-feed-item {
+  display: flex; align-items: flex-start; gap: 7px;
+  padding: .45rem .65rem;
+  background: rgba(255,255,255,.04);
+  border-radius: 8px;
+  border-left: 2px solid rgba(239,68,68,.35);
+  animation: lpItemIn .2s ease;
+}
+@keyframes lpItemIn { from{opacity:0;transform:translateX(-6px)} to{opacity:1;transform:translateX(0)} }
+.lp-feed-tag {
+  font-family: 'Raleway', sans-serif;
+  font-size: .52rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: #fca5a5; flex-shrink: 0; margin-top: .05rem;
+  min-width: 38px;
+}
+.lp-feed-text {
+  font-family: 'Raleway', sans-serif;
+  font-size: .66rem; color: rgba(255,255,255,.55);
+  line-height: 1.4;
+  overflow: hidden; display: -webkit-box;
+  -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+
+/* Flash salvo */
+.lp-flash {
+  position: absolute; bottom: 5rem; right: 2.5rem;
+  background: rgba(4,8,18,.9); border:1px solid rgba(239,68,68,.4);
+  border-radius: 12px; padding: .5rem 1rem;
+  font-family: 'Raleway', sans-serif; font-size: .65rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: #fca5a5;
+  display: flex; align-items: center; gap: 7px;
+  z-index: 50; pointer-events: none;
+  animation: flashSlide .8s ease forwards;
+}
+@keyframes flashSlide {
+  0%   { opacity:0; transform:translateY(8px); }
+  15%  { opacity:1; transform:translateY(0); }
+  75%  { opacity:1; }
+  100% { opacity:0; transform:translateY(-4px); }
+}
+
 @media(max-width:700px){.pl-grid{grid-template-columns:repeat(2,1fr);}#caderno-nav .nav-brand{display:none;}#search-input{width:120px;}}
 </style>
 </head>
@@ -2470,6 +2685,45 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
     <span class="he-bar-label">engajamento</span>
   </div>
 
+  <!-- LIVE CLASS MODE -->
+  <button id="live-btn" onclick="liveToggle()">
+    <span class="live-dot"></span>
+    Live Class
+  </button>
+
+  <div id="live-panel">
+    <div class="lp-head">
+      <div class="lp-head-left">
+        <span class="live-dot"></span>
+        <span class="lp-title">Live Class Mode</span>
+        <span id="lp-count-badge">0</span>
+      </div>
+      <button class="lp-close" id="lp-close-btn">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Tags rápidas -->
+    <div class="lp-tags-row">
+      <button class="lp-tag active" data-tag="vocabulario">Vocab</button>
+      <button class="lp-tag" data-tag="frases">Frase</button>
+      <button class="lp-tag" data-tag="termos">Termo</button>
+      <button class="lp-tag" data-tag="anotacoes">Dúvida</button>
+    </div>
+
+    <!-- Campo principal -->
+    <div class="lp-body">
+      <textarea id="lp-nota" class="lp-textarea" placeholder="Anote aqui..." rows="3"></textarea>
+      <button class="lp-save-btn" id="lp-save-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Salvar  <span class="lp-enter-hint">↵ Enter</span>
+      </button>
+    </div>
+
+    <!-- Feed dos salvos nesta sessão -->
+    <div class="lp-feed" id="lp-feed"></div>
+  </div>
+
   <div class="scroll-indicator"><span>Explorar</span><div class="scroll-line"></div></div>
 </section>
 
@@ -2483,7 +2737,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
         <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
       </svg>
     </span>
-    <span class="ctab-title">Dashboard</span>
+    <span class="ctab-title">Meu Progresso</span>
     <span class="ctab-x" onclick="event.stopPropagation();closeTab('dash')">✕</span>
   </div>
 
@@ -2494,7 +2748,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
       </svg>
     </span>
-    <span class="ctab-title">Meu Caderno</span>
+    <span class="ctab-title">Meu Banco de Termos</span>
     <span class="ctab-x" onclick="event.stopPropagation();closeTab('caderno')">✕</span>
   </div>
 
@@ -2507,7 +2761,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
         <line x1="3" y1="10" x2="21" y2="10"/>
       </svg>
     </span>
-    <span class="ctab-title">Planner Semanal</span>
+    <span class="ctab-title">Micro-Tasks 24/7</span>
     <span class="ctab-x" onclick="event.stopPropagation();closeTab('planner')">✕</span>
   </div>
 
@@ -2519,7 +2773,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
         <line x1="12" y1="17" x2="12" y2="21"/>
       </svg>
     </span>
-    <span class="ctab-title">Flashcards</span>
+    <span class="ctab-title">Smart Cards para Revisão</span>
     <span class="ctab-x" onclick="event.stopPropagation();closeTab('flash')">✕</span>
   </div>
 
@@ -2955,7 +3209,7 @@ function closeTab(id) {
   }
 }
 
-// Dashboard abre por padrão
+// Meu Progresso abre por padrão
 document.getElementById('tab-panels').style.display = 'block';
 
 // DASHBOARD
@@ -2987,7 +3241,7 @@ function renderDash() {
     { label: 'Termos',      val: Math.min(100, porSec.termos * 10) },
     { label: 'Anotações',   val: Math.min(100, porSec.anotacoes * 15) },
     { label: 'Planner',     val: Math.min(100, planDone * 14) },
-    { label: 'Flashcards',  val: Math.min(100, comTrad > 0 ? (fcAcertos / comTrad * 100) : 0) },
+    { label: 'Smart Cards para Revisão',  val: Math.min(100, comTrad > 0 ? (fcAcertos / comTrad * 100) : 0) },
   ];
 
   // Histórico semanal (últimas 7 semanas — demo gradual)
@@ -3082,7 +3336,7 @@ function renderDash() {
             <span class="mc-trend info">${total>0?Math.round(comTrad/total*100):0}%</span>
           </div>
           <div class="mc-num">${fcAcertos}</div>
-          <div class="mc-label">Flashcards certos</div>
+          <div class="mc-label">Smart Cards para Revisão certos</div>
           <div class="mc-sub">${comTrad} cards disponíveis</div>
           <div class="mc-bar"><div class="mc-bar-fill" style="width:${comTrad>0?Math.min(100,fcAcertos/comTrad*100):0}%;background:#00BCD4"></div></div>
         </div>
@@ -3294,7 +3548,7 @@ const SKL = [
     why:"Escrever obriga a recuperar vocabulario e organizar o pensamento em ingles.",
     clr:'#BF360C', bg:'#FBE9E7', dot:'#FFAB91', glow:'rgba(191,54,12,.35)', dur:'3.8s',
     svg:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="12" y1="6" x2="16" y2="6"/><line x1="12" y1="10" x2="16" y2="10"/><line x1="12" y1="14" x2="16" y2="14"/></svg>' },
-  { id:'flashcards',   l:'Revisao Flashcards',  tip:'Repeticao espacada dos seus proprios termos',
+  { id:'flashcards',   l:'Revisao Smart Cards para Revisão',  tip:'Repeticao espacada dos seus proprios termos',
     ph:"Ex: 25 cards revisados, 3 novos. Taxa: 88%. Foco: vocabulario cardiologico.",
     why:"Usa seus proprios termos do caderno com repeticao espacada para maxima retencao.",
     clr:'#0D47A1', bg:'#E3F2FD', dot:'#90CAF9', glow:'rgba(13,71,161,.35)', dur:'2.4s',
@@ -3679,7 +3933,7 @@ function renderFlash() {
   });
 
   if (!avail.length) {
-    body.innerHTML = '<div class="fc-wrap"><div class="fc-header"><div class="fc-title">Meus <em>Flashcards</em></div></div>'
+    body.innerHTML = '<div class="fc-wrap"><div class="fc-header"><div class="fc-title">Meus <em>Smart Cards para Revisão</em></div></div>'
       +'<div class="fc-empty"><div class="fc-empty-icon">'+(FC_SVGS.vocabulario||'')+'</div>'
       +'<h3>Nenhum card disponivel</h3>'
       +'<p>Adicione termos com traducao no caderno para gerar flashcards automaticamente.</p>'
@@ -3764,7 +4018,7 @@ function renderFlash() {
   body.innerHTML =
     '<div class="fc-wrap">'
     +'<div class="fc-header">'
-      +'<div class="fc-title">Meus <em>Flashcards</em></div>'
+      +'<div class="fc-title">Meus <em>Smart Cards para Revisão</em></div>'
       +'<div class="fc-subtitle">'+fDeck.length+' cards &middot; '+total+' entradas com traducao</div>'
     +'</div>'
     +'<div class="fc-toolbar">'
@@ -3805,7 +4059,7 @@ const TOUR=[
   {i:"<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2\"/><path d=\"M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2\"/><path d=\"M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8\"/><path d=\"M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15\"/></svg>",t:'Bem-vindo ao seu Caderno',d:'Seu espaco pessoal de aprendizado. Registre vocabulario, frases e termos clinicos das suas aulas.'},
   {i:"<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 20h9\"/><path d=\"M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z\"/></svg>",t:'Nova entrada',d:'Clique em "Nova entrada" para adicionar um termo, frase ou anotacao. Traducao e exemplo sao opcionais.'},
   {i:"<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z\"/></svg>",t:'Secoes',d:'Navegue pelas secoes na barra de cima. Voce pode criar novas secoes personalizadas.'},
-  {i:"<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><line x1=\"16\" y1=\"2\" x2=\"16\" y2=\"6\"/><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"6\"/><line x1=\"3\" y1=\"10\" x2=\"21\" y2=\"10\"/></svg>",t:'Planner e Flashcards',d:'Use as abas na lateral direita para abrir o Planner Semanal ou seus Flashcards. Voce pode arrastar as janelas para qualquer posicao.'},
+  {i:"<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><line x1=\"16\" y1=\"2\" x2=\"16\" y2=\"6\"/><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"6\"/><line x1=\"3\" y1=\"10\" x2=\"21\" y2=\"10\"/></svg>",t:'Planner e Smart Cards para Revisão',d:'Use as abas na lateral direita para abrir o Micro-Tasks 24/7 ou seus Smart Cards para Revisão. Voce pode arrastar as janelas para qualquer posicao.'},
   {i:"<svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><polyline points=\"7 10 12 15 17 10\"/><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"/></svg>",t:'Download',d:'Clique no icone de download para exportar todo o conteudo do caderno.'},
 ];
 let tIdx=0;
@@ -3905,7 +4159,7 @@ function calcHeroProgress() {
     if (d >= startOfMonth)     mesPlanDone    += cnt;
   });
 
-  // ── Flashcards ──
+  // ── Smart Cards para Revisão ──
   var fcTotal = typeof fKnew !== 'undefined' ? fKnew : 0;
 
   // ── Totais combinados ──
@@ -4148,6 +4402,106 @@ function renderHeroDayActivity(todayK) {
     +'</div>';
   }).join('');
 }
+
+// LIVE CLASS MODE
+var liveOpen  = false;
+var liveCount = 0;
+var liveTag   = 'vocabulario';
+
+function liveToggle() {
+  liveOpen = !liveOpen;
+  var panel = document.getElementById('live-panel');
+  var btn   = document.getElementById('live-btn');
+  if (panel) panel.classList.toggle('open', liveOpen);
+  if (btn)   btn.classList.toggle('active', liveOpen);
+  if (liveOpen) {
+    setTimeout(function(){ var ta=document.getElementById('lp-nota'); if(ta)ta.focus(); }, 80);
+  }
+}
+
+function liveInitEvents() {
+  // Tags
+  document.querySelectorAll('.lp-tag').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      liveTag = this.dataset.tag;
+      document.querySelectorAll('.lp-tag').forEach(function(b){b.classList.remove('active');});
+      this.classList.add('active');
+      var ta=document.getElementById('lp-nota'); if(ta)ta.focus();
+    });
+  });
+
+  // Enter salva
+  var ta = document.getElementById('lp-nota');
+  if (ta) {
+    ta.addEventListener('keydown', function(e){
+      if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); liveSaveNow(); }
+    });
+  }
+
+  // Botão salvar
+  var saveBtn = document.getElementById('lp-save-btn');
+  if (saveBtn) saveBtn.addEventListener('click', liveSaveNow);
+
+  // Fechar
+  var closeBtn = document.getElementById('lp-close-btn');
+  if (closeBtn) closeBtn.addEventListener('click', liveToggle);
+}
+
+function liveSaveNow() {
+  var ta   = document.getElementById('lp-nota'); if(!ta) return;
+  var txt  = ta.value.trim(); if(!txt) { ta.focus(); return; }
+
+  // Salvar no caderno
+  var hoje = new Date().toISOString().split('T')[0];
+  entradas.unshift({
+    id:      Date.now(),
+    secao:   liveTag,
+    termo:   txt,
+    traducao:'',
+    exemplo: '[Live Class]',
+    data:    hoje
+  });
+
+  // Contador
+  liveCount++;
+  var badge = document.getElementById('lp-count-badge');
+  if (badge) {
+    badge.textContent = liveCount;
+    badge.style.transform = 'scale(1.3)';
+    setTimeout(function(){ badge.style.transform='scale(1)'; }, 200);
+  }
+
+  // Feed
+  var feed = document.getElementById('lp-feed');
+  if (feed) {
+    var tagLabels = {vocabulario:'Vocab',frases:'Frase',termos:'Termo',anotacoes:'Dúvida'};
+    var item = document.createElement('div');
+    item.className = 'lp-feed-item';
+    item.innerHTML = '<span class="lp-feed-tag">'+(tagLabels[liveTag]||liveTag)+'</span>'
+      +'<span class="lp-feed-text">'+txt+'</span>';
+    feed.insertBefore(item, feed.firstChild);
+  }
+
+  // Limpar
+  ta.value = '';
+  ta.focus();
+
+  // Flash
+  var hero = document.getElementById('hero');
+  if (hero) {
+    var flash = document.createElement('div');
+    flash.className = 'lp-flash';
+    flash.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Salvo!';
+    hero.appendChild(flash);
+    setTimeout(function(){ if(flash.parentNode) flash.parentNode.removeChild(flash); }, 850);
+  }
+
+  // Atualizar progresso e caderno
+  if (typeof updateHeroProgress==='function') updateHeroProgress();
+  if (typeof renderCards==='function') renderCards();
+}
+
+setTimeout(liveInitEvents, 400);
 
 // INIT
 renderCards();
