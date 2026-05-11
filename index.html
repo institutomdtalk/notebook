@@ -3598,7 +3598,9 @@ function plCloseSidebar(){
 function plToggleDone(key,sid){
   var dk=key+'__done',done=pData[dk]||[];
   var i=done.indexOf(sid);if(i===-1)done.push(sid);else done.splice(i,1);
-  pData[dk]=done; renderPlanner();
+  pData[dk]=done;
+  if(typeof gsSalvarPlanner!=='undefined'){var _n=(pData[key+'__notes']||{})[sid]||'';gsSalvarPlanner(key,sid,done.indexOf(sid)!==-1,_n);}
+  renderPlanner();
 }
 function plRemove(key,sid){
   if(pData[key])pData[key]=pData[key].filter(function(s){return s!==sid;});
@@ -4479,11 +4481,109 @@ function liveSaveNow() {
 
 setTimeout(liveInitEvents, 400);
 
+// ═══════════════════════════════════════════════════════════
+//  INTEGRAÇÃO GOOGLE SHEETS — NOTEBOOK BACKEND
+// ═══════════════════════════════════════════════════════════
+var GS_URL  = 'https://script.google.com/macros/s/AKfycbxgiLTWypZ8tNYgtEOP5W7E0WOwTrip-mfuXYyJ_xjzgjNS5ii0_uwLeN7UhwaWyW7bfQ/exec';
+var gsAluno = sessionStorage.getItem('mdtalk_student_name')  || 'Thaiana';
+var gsEmail = sessionStorage.getItem('mdtalk_student_email') || '';
+
+function gsPost(payload) {
+  if (!GS_URL) return Promise.resolve({ ok: false });
+  return fetch(GS_URL, {
+    method:  'POST',
+    body:    JSON.stringify(payload),
+    headers: { 'Content-Type': 'text/plain' }
+  })
+  .then(function(r){ return r.json(); })
+  .catch(function(e){ console.warn('[Sheets]', e); return { ok: false }; });
+}
+
+function gsSalvarTermo(entrada) {
+  gsAluno = sessionStorage.getItem('mdtalk_student_name') || gsAluno;
+  return gsPost({
+    acao:      'salvarTermo',
+    aluno:     gsAluno,
+    secao:     entrada.secao    || 'vocabulario',
+    termo:     entrada.termo    || '',
+    traducao:  entrada.traducao || '',
+    exemplo:   entrada.exemplo  || '',
+    confianca: entrada.confianca|| 0,
+    fonte:     entrada.fonte    || 'caderno'
+  });
+}
+
+function gsSalvarPlanner(dateKey, sid, feito, nota) {
+  gsAluno = sessionStorage.getItem('mdtalk_student_name') || gsAluno;
+  return gsPost({
+    acao:       'salvarPlanner',
+    aluno:      gsAluno,
+    data:       dateKey,
+    habilidade: sid,
+    feito:      feito,
+    nota:       nota || ''
+  });
+}
+
+function gsSalvarLive(tag, conteudo) {
+  gsAluno = sessionStorage.getItem('mdtalk_student_name') || gsAluno;
+  return gsPost({ acao:'salvarLive', aluno:gsAluno, tag:tag, conteudo:conteudo });
+}
+
+function gsSalvarProgresso() {
+  if (!GS_URL || typeof calcHeroProgress === 'undefined') return;
+  gsAluno = sessionStorage.getItem('mdtalk_student_name') || gsAluno;
+  var p = calcHeroProgress();
+  gsPost({
+    acao:        'salvarProgresso',
+    aluno:       gsAluno,
+    hoje:        p.hoje,
+    semana:      p.semana,
+    mes:         p.mes,
+    total:       p.total,
+    engajamento: p.engagement
+  });
+}
+
+function gsCarregarDados() {
+  if (!GS_URL) return;
+  gsAluno = sessionStorage.getItem('mdtalk_student_name') || gsAluno;
+
+  // Carregar termos
+  gsPost({ acao:'buscarTermos', aluno:gsAluno }).then(function(res){
+    if (!res.ok || !res.termos || !res.termos.length) return;
+    var idsLocais = entradas.map(function(e){ return String(e.id); });
+    res.termos.forEach(function(t){
+      if (idsLocais.indexOf(t.id) !== -1) return;
+      entradas.push({ id:t.id, secao:t.secao, termo:t.termo, traducao:t.traducao, exemplo:t.exemplo, data:t.data });
+    });
+    if (typeof renderCards === 'function') renderCards();
+    if (typeof updateHeroProgress === 'function') updateHeroProgress();
+  });
+
+  // Carregar planner
+  gsPost({ acao:'buscarPlanner', aluno:gsAluno }).then(function(res){
+    if (!res.ok || !res.planner) return;
+    Object.keys(res.planner).forEach(function(k){
+      var dia = res.planner[k];
+      if (!pData[k])              pData[k]           = dia.atividades || [];
+      if (!pData[k+'__done'])     pData[k+'__done']  = dia.done       || [];
+      if (dia.notas)              pData[k+'__notes'] = dia.notas;
+    });
+    if (typeof renderPlanner === 'function' && typeof activeTab !== 'undefined' && activeTab === 'planner') renderPlanner();
+  });
+}
+
+// Auto-salvar progresso a cada 3 min e ao fechar
+setInterval(gsSalvarProgresso, 3 * 60 * 1000);
+window.addEventListener('beforeunload', gsSalvarProgresso);
+
 // INIT
 renderCards();
 initTour();
 setTimeout(renderDash, 150);
 setTimeout(updateHeroProgress, 900);
+setTimeout(gsCarregarDados, 1500);
 </script>
 </body>
 </html>
