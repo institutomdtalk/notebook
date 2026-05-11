@@ -3170,6 +3170,7 @@ function switchTab(id) {
   document.getElementById('panel-'+id).classList.add('active');
   document.getElementById('tab-panels').style.display = 'block';
   if (id === 'planner')   renderPlanner();
+  if(typeof gsTrackAba!=='undefined') gsTrackAba(id);
   if (id === 'flash')     renderFlash();
   if (id === 'dash')      renderDash();
   if (id === 'caderno')   activateCaderno();
@@ -4023,7 +4024,9 @@ function fcFlip() {
   var card=document.getElementById('fc-card');
   if(card) card.classList.toggle('flipped');
 }
-function fcNext(knew) { if(knew)fKnew++;else fSkip++; fFlip=false; fIdx++; renderFlash(); }
+function fcNext(knew) { if(knew)fKnew++;else fSkip++; fFlip=false;
+  var entry=fDeck[fIdx]; if(entry&&typeof gsAtualizarFC!=='undefined') gsAtualizarFC(entry.id,knew,knew?Math.min(5,Math.round(fKnew/Math.max(1,fIdx+1)*5)):1);
+  fIdx++; renderFlash(); }
 function fcShuf() { fDeck.sort(function(){return Math.random()-.5;}); fIdx=0;fKnew=0;fSkip=0;fFlip=false; renderFlash(); }
 function fcRestart() { fcBuildDeck(); renderFlash(); }
 
@@ -4484,73 +4487,116 @@ setTimeout(liveInitEvents, 400);
 // ═══════════════════════════════════════════════════════════
 //  INTEGRAÇÃO GOOGLE SHEETS — NOTEBOOK BACKEND
 // ═══════════════════════════════════════════════════════════
-var GS_URL  = 'https://script.google.com/macros/s/AKfycbxgiLTWypZ8tNYgtEOP5W7E0WOwTrip-mfuXYyJ_xjzgjNS5ii0_uwLeN7UhwaWyW7bfQ/exec';
-var gsAluno = sessionStorage.getItem('mdtalk_student_name')  || 'Thaiana';
-var gsEmail = sessionStorage.getItem('mdtalk_student_email') || '';
+var GS_URL   = 'https://script.google.com/macros/s/AKfycbxgiLTWypZ8tNYgtEOP5W7E0WOwTrip-mfuXYyJ_xjzgjNS5ii0_uwLeN7UhwaWyW7bfQ/exec';
+var gsLogin  = sessionStorage.getItem('mdtalk_student_name') || 'Thaiana';
+var gsSessaoId = null;
+var gsAbasVistas = [];
+var gsTermosAdicionados = 0;
+var gsTasksFeitas = 0;
+var gsLiveCount = 0;
 
 function gsPost(payload) {
   if (!GS_URL) return Promise.resolve({ ok: false });
   return fetch(GS_URL, {
-    method:  'POST',
-    body:    JSON.stringify(payload),
+    method: 'POST',
+    body: JSON.stringify(payload),
     headers: { 'Content-Type': 'text/plain' }
   })
   .then(function(r){ return r.json(); })
   .catch(function(e){ console.warn('[Sheets]', e); return { ok: false }; });
 }
 
+// ── Refresh do login (pega sempre o mais recente do sessionStorage)
+function gsRefreshLogin() {
+  gsLogin = sessionStorage.getItem('mdtalk_student_name') || gsLogin;
+}
+
+// ── Termos ──────────────────────────────────────────────────
 function gsSalvarTermo(entrada) {
-  gsAluno = sessionStorage.getItem('mdtalk_student_name') || gsAluno;
+  gsRefreshLogin(); gsTermosAdicionados++;
   return gsPost({
     acao:      'salvarTermo',
-    aluno:     gsAluno,
-    secao:     entrada.secao    || 'vocabulario',
-    termo:     entrada.termo    || '',
-    traducao:  entrada.traducao || '',
-    exemplo:   entrada.exemplo  || '',
-    confianca: entrada.confianca|| 0,
-    fonte:     entrada.fonte    || 'caderno'
+    login:     gsLogin,
+    secao:     entrada.secao     || 'vocabulario',
+    termo:     entrada.termo     || '',
+    traducao:  entrada.traducao  || '',
+    exemplo:   entrada.exemplo   || '',
+    confianca: entrada.confianca || 0,
+    fonte:     entrada.fonte     || 'caderno'
   });
 }
 
+// ── Flashcards: registrar revisão ───────────────────────────
+function gsAtualizarFC(id, sabia, confianca) {
+  gsRefreshLogin();
+  return gsPost({ acao:'atualizarFC', login:gsLogin, id:id, sabia:sabia, confianca:confianca||0 });
+}
+
+// ── Planner ─────────────────────────────────────────────────
 function gsSalvarPlanner(dateKey, sid, feito, nota) {
-  gsAluno = sessionStorage.getItem('mdtalk_student_name') || gsAluno;
+  gsRefreshLogin(); if(feito) gsTasksFeitas++;
   return gsPost({
-    acao:       'salvarPlanner',
-    aluno:      gsAluno,
-    data:       dateKey,
-    habilidade: sid,
-    feito:      feito,
-    nota:       nota || ''
+    acao:'salvarPlanner', login:gsLogin,
+    data:dateKey, habilidade:sid, feito:feito, nota:nota||''
   });
 }
 
+// ── Live Class ───────────────────────────────────────────────
 function gsSalvarLive(tag, conteudo) {
-  gsAluno = sessionStorage.getItem('mdtalk_student_name') || gsAluno;
-  return gsPost({ acao:'salvarLive', aluno:gsAluno, tag:tag, conteudo:conteudo });
+  gsRefreshLogin(); gsLiveCount++;
+  return gsPost({ acao:'salvarLive', login:gsLogin, tag:tag, conteudo:conteudo });
 }
 
+// ── Progresso ────────────────────────────────────────────────
 function gsSalvarProgresso() {
   if (!GS_URL || typeof calcHeroProgress === 'undefined') return;
-  gsAluno = sessionStorage.getItem('mdtalk_student_name') || gsAluno;
+  gsRefreshLogin();
   var p = calcHeroProgress();
   gsPost({
-    acao:        'salvarProgresso',
-    aluno:       gsAluno,
-    hoje:        p.hoje,
-    semana:      p.semana,
-    mes:         p.mes,
-    total:       p.total,
-    engajamento: p.engagement
+    acao:'salvarProgresso', login:gsLogin,
+    hoje:p.hoje, semana:p.semana, mes:p.mes, total:p.total,
+    engajamento:p.engagement,
+    termos:p.entradas, planner:p.planner, flashcards:p.fc
   });
 }
 
+// ── Sessão ───────────────────────────────────────────────────
+function gsIniciarSessao() {
+  gsRefreshLogin();
+  gsPost({ acao:'registrarSessao', login:gsLogin, userAgent:navigator.userAgent })
+    .then(function(r){
+      if (r.ok) gsSessaoId = r.sessaoId;
+    });
+}
+
+function gsEncerrarSessao() {
+  if (!gsSessaoId) return;
+  var payload = JSON.stringify({
+    acao:'atualizarSessao', sessaoId:gsSessaoId,
+    abas: gsAbasVistas.join(','),
+    termos: gsTermosAdicionados,
+    tasks:  gsTasksFeitas,
+    live:   gsLiveCount
+  });
+  // sendBeacon garante envio mesmo ao fechar a aba
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon(GS_URL, payload);
+  } else {
+    gsPost(JSON.parse(payload));
+  }
+}
+
+// Rastrear abas visitadas
+function gsTrackAba(id) {
+  if (gsAbasVistas.indexOf(id) === -1) gsAbasVistas.push(id);
+}
+
+// ── Carregar dados ao iniciar ────────────────────────────────
 function gsCarregarDados() {
   if (!GS_URL) return;
-  gsAluno = sessionStorage.getItem('mdtalk_student_name') || gsAluno;
+  gsRefreshLogin();
 
-  // Carregar termos
-  gsPost({ acao:'buscarTermos', aluno:gsAluno }).then(function(res){
+  gsPost({ acao:'buscarTermos', login:gsLogin }).then(function(res){
     if (!res.ok || !res.termos || !res.termos.length) return;
     var idsLocais = entradas.map(function(e){ return String(e.id); });
     res.termos.forEach(function(t){
@@ -4561,20 +4607,24 @@ function gsCarregarDados() {
     if (typeof updateHeroProgress === 'function') updateHeroProgress();
   });
 
-  // Carregar planner
-  gsPost({ acao:'buscarPlanner', aluno:gsAluno }).then(function(res){
+  gsPost({ acao:'buscarPlanner', login:gsLogin }).then(function(res){
     if (!res.ok || !res.planner) return;
     Object.keys(res.planner).forEach(function(k){
       var dia = res.planner[k];
-      if (!pData[k])              pData[k]           = dia.atividades || [];
-      if (!pData[k+'__done'])     pData[k+'__done']  = dia.done       || [];
-      if (dia.notas)              pData[k+'__notes'] = dia.notas;
+      if (!pData[k])             pData[k]           = dia.atividades || [];
+      if (!pData[k+'__done'])    pData[k+'__done']  = dia.done || [];
+      if (dia.notas)             pData[k+'__notes'] = dia.notas;
     });
-    if (typeof renderPlanner === 'function' && typeof activeTab !== 'undefined' && activeTab === 'planner') renderPlanner();
+    if (typeof activeTab !== 'undefined' && activeTab === 'planner' && typeof renderPlanner === 'function') renderPlanner();
   });
 }
 
-// Auto-salvar progresso a cada 3 min e ao fechar
+// ── Auto-saves ───────────────────────────────────────────────
+setInterval(gsSalvarProgresso, 3 * 60 * 1000);
+window.addEventListener('beforeunload', function() { gsSalvarProgresso(); gsEncerrarSessao(); });
+
+// Iniciar sessão após DOM pronto
+setTimeout(gsIniciarSessao, 2000);
 setInterval(gsSalvarProgresso, 3 * 60 * 1000);
 window.addEventListener('beforeunload', gsSalvarProgresso);
 
