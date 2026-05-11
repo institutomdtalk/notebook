@@ -1651,25 +1651,6 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .plr-view-btn.on { background:#1a1a2e; color:#fff; }
 
 /* ── MENU HAMBURGER LATERAL ── */
-.plr-sidebar-toggle {
-  position:fixed; right:0; top:50%; transform:translateY(-50%);
-  z-index:500;
-  width:44px; height:120px;
-  background:#1a1a2e;
-  border-radius:12px 0 0 12px;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
-  cursor:pointer;
-  box-shadow:-4px 0 20px rgba(0,0,0,.15);
-  transition:transform .2s, background .2s;
-}
-.plr-sidebar-toggle:hover { background:#163158; transform:translateY(-50%) translateX(-3px); }
-.plr-sidebar-toggle .hb-line {
-  width:18px; height:2px; background:rgba(255,255,255,.7); border-radius:2px; transition:all .3s;
-}
-.plr-sidebar-toggle .hb-label {
-  font-family:'Raleway',sans-serif; font-size:7px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
-  color:rgba(255,255,255,.5); writing-mode:vertical-lr; transform:rotate(180deg); margin-top:4px;
-}
 
 /* Sidebar */
 .plr-sidebar {
@@ -2390,7 +2371,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 /* Botão Live */
 #live-btn {
   position: absolute;
-  bottom: 9rem; right: 2.5rem;
+  bottom: 13rem; right: 2.5rem;
   z-index: 30;
   display: flex; align-items: center; gap: 8px;
   background: rgba(220,38,38,.15);
@@ -2424,7 +2405,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 #live-panel {
   display: none;
   position: absolute;
-  bottom: 9.5rem; right: 2.5rem;
+  bottom: 13.5rem; right: 2.5rem;
   z-index: 40;
   width: 320px;
   background: rgba(4,8,18,.9);
@@ -2858,12 +2839,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 <div id="plr-sidebar-static" class="plr-sidebar">
   <!-- conteúdo preenchido por renderSidebarStatic() -->
 </div>
-<button id="plr-sidebar-btn" class="plr-sidebar-toggle" onclick="plToggleSidebar()">
-  <div class="hb-line"></div>
-  <div class="hb-line"></div>
-  <div class="hb-line"></div>
-  <span class="hb-label">Habilidades</span>
-</button>
+
 
 <!-- CADERNO NAV -->
 
