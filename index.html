@@ -103,25 +103,158 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 #hero-meta-row { display:flex; align-items:center; }
 
 /* ── NOME MENOR ── */
-.hero-greeting {
-  display: block;
+/* ── HERO CONTENT REDESENHADO ── */
+.hc-label {
   font-family: 'Raleway', sans-serif;
-  font-size: .72rem;
+  font-size: .62rem;
   font-weight: 600;
-  letter-spacing: .35em;
+  letter-spacing: .28em;
   text-transform: uppercase;
-  color: var(--gold);
-  opacity: .85;
-  margin-bottom: .9rem;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 1.4rem;
+  display: block;
 }
-.hero-name {
+
+.hc-main {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  justify-content: center;
+}
+
+.hc-greeting-block {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+}
+
+.hc-greeting {
+  display: block;
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2rem, 5.5vw, 4rem);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
   font-weight: 300;
-  line-height: 1;
   color: var(--cream);
-  letter-spacing: .02em;
+  line-height: 1.05;
+  letter-spacing: -.01em;
 }
+
+.hc-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--gold-light);
+  line-height: 1.05;
+  letter-spacing: -.01em;
+  margin: 0;
+}
+
+/* ── FOTO COM ORBITAIS ── */
+.hc-photo-orbital {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Anéis orbitais */
+.hc-orb {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(180,180,210,.18);
+}
+
+/* Externo: 160px */
+.hc-orb-1 {
+  width: 160px; height: 160px;
+  animation: hcOrbitSpin 14s linear infinite;
+}
+/* Médio: 128px */
+.hc-orb-2 {
+  width: 128px; height: 128px;
+  animation: hcOrbitSpin 9s linear infinite reverse;
+}
+/* Interno: 104px */
+.hc-orb-3 {
+  width: 104px; height: 104px;
+  animation: hcOrbitSpin 6s linear infinite;
+}
+
+@keyframes hcOrbitSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Pontos nos anéis */
+.hc-orb-dot {
+  position: absolute;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(210,210,240,.75);
+  box-shadow: 0 0 6px 2px rgba(180,180,255,.4);
+  top: 50%; left: -3px;
+  transform: translateY(-50%);
+}
+.hc-orb-dot-2 {
+  width: 5px; height: 5px;
+  background: rgba(220,220,255,.65);
+  box-shadow: 0 0 5px 2px rgba(180,180,255,.35);
+  left: -2.5px;
+  top: 50%; right: auto;
+}
+/* Segundo ponto no anel externo (oposto) */
+.hc-orb-1::after {
+  content: '';
+  position: absolute;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(200,200,230,.5);
+  bottom: 50%; right: -2px;
+  transform: translateY(50%);
+  box-shadow: 0 0 4px 1px rgba(180,180,255,.25);
+}
+.hc-orb-dot-3 {
+  width: 4px; height: 4px;
+  background: rgba(230,230,255,.55);
+  left: -2px;
+}
+
+/* Frame da foto */
+.hc-photo-frame {
+  position: relative;
+  z-index: 5;
+  width: 84px; height: 84px;
+  border-radius: 50%;
+}
+.hc-photo {
+  width: 84px; height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(196,164,90,.5);
+  box-shadow: 0 0 0 4px rgba(196,164,90,.1), 0 8px 28px rgba(0,0,0,.5);
+  display: block;
+  position: relative; z-index: 2;
+}
+/* Placeholder sem foto */
+.hc-photo-placeholder {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.06);
+  border: 2px solid rgba(196,164,90,.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,.25);
+  z-index: 1;
+}
+/* Quando foto está carregada, esconde placeholder */
+.hc-photo[src]:not([src=""]) ~ .hc-photo-placeholder { display: none; }
+.hc-photo[src=""] { display: none; }
 
 /* hero-content sem overline e sem info */
 #hero-content {
@@ -2588,8 +2721,41 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 
   <!-- CENTRO: saudação + nome -->
   <div id="hero-content">
-    <span class="hero-greeting" id="m-overline-center">Boa noite,</span>
-    <h1 class="hero-name" id="s-name">Thaiana</h1>
+    <!-- Label superior -->
+    <div class="hc-label" id="m-overline-center">Manhã · Instituto MD Talk</div>
+
+    <!-- Linha principal: saudação + foto + nome -->
+    <div class="hc-main">
+      <!-- FOTO À ESQUERDA com orbitais -->
+      <div class="hc-photo-orbital">
+        <!-- Anel orbital externo -->
+        <div class="hc-orb hc-orb-1">
+          <span class="hc-orb-dot"></span>
+        </div>
+        <!-- Anel orbital médio -->
+        <div class="hc-orb hc-orb-2">
+          <span class="hc-orb-dot hc-orb-dot-2"></span>
+        </div>
+        <!-- Anel orbital interno -->
+        <div class="hc-orb hc-orb-3">
+          <span class="hc-orb-dot hc-orb-dot-3"></span>
+        </div>
+        <!-- Foto -->
+        <div class="hc-photo-frame">
+          <img id="hc-photo" class="hc-photo" src="" alt="Foto do aluno">
+          <!-- Placeholder quando sem foto -->
+          <div class="hc-photo-placeholder" id="hc-photo-placeholder">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- SAUDAÇÃO À DIREITA -->
+      <div class="hc-greeting-block">
+        <span class="hc-greeting" id="hc-greeting-text">Bom dia,</span>
+        <h1 class="hc-name" id="s-name">Thaiana.</h1>
+      </div>
+    </div>
   </div>
 
   <!-- TRADUTOR: topo centro -->
@@ -2896,7 +3062,11 @@ async function initHero(){
   const h=new Date().getHours();
   // IDs novos (canto sup. esq.)
   const setEl=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
-  setEl("m-overline-center", greet(h));
+  // Label superior
+  var lbl=document.getElementById('m-overline-center');
+  if(lbl) lbl.textContent=(greet(h)+' · Instituto MD Talk').toUpperCase();
+  // Saudação grande
+  setEl('hc-greeting-text', greet(h)+',');
   setEl("s-name", name);
   setEl("m-city", city);
   clock();
