@@ -61,6 +61,12 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   flex-direction: column;
   align-items: flex-start;
   gap: .45rem;
+  background: rgba(255,255,255,.04);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px;
+  padding: .75rem 1rem;
 }
 
 .m-info {
@@ -314,7 +320,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   border: 1px solid rgba(255,255,255,.08);
   border-radius: 12px;
   padding: .7rem .5rem .6rem;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(60px);
   transition: background .2s, border-color .2s, transform .2s;
 }
 .hp-stat:hover {
@@ -390,8 +396,8 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   background: rgba(5,13,26,.42);
   border: 1px solid rgba(255,255,255,.1);
   border-radius: 16px;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
   padding: 1rem 1.1rem;
   transition: border-color .25s;
 }
@@ -528,11 +534,11 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .ht-wrap {
   display: flex;
   align-items: center;
-  background: rgba(5,13,26,0.28);
-  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.09);
   border-radius: 50px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
   padding: 5px 5px 5px 18px;
   gap: 8px;
   transition: border-color .3s, background .3s;
@@ -643,7 +649,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   background: rgba(5,13,26,.6);
   border: 1px solid rgba(255,255,255,.1);
   border-radius: 14px;
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(60px);
   display: none;
   animation: htFadeIn .3s ease;
 }
@@ -2159,11 +2165,11 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   display: flex;
   align-items: center;
   gap: .6rem;
-  background: rgba(3,8,18,.72);
-  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.09);
   border-radius: 18px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
   padding: 1.2rem 1.4rem;
 }
 .hs-item { text-align: center; flex: 1; }
@@ -2199,11 +2205,11 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 
 /* ── HEATMAP ── */
 #hero-heatmap {
-  background: rgba(3,8,18,.72);
-  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.09);
   border-radius: 18px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
   padding: 1.1rem 1.3rem 1rem;
 }
 .hh-label {
@@ -2259,11 +2265,11 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 
 /* ── ATIVIDADE DO DIA ── */
 #hero-today {
-  background: rgba(3,8,18,.72);
-  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.09);
   border-radius: 18px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
   padding: 1.1rem 1.2rem;
   min-height: 90px;
 }
@@ -2432,7 +2438,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   background: rgba(5,13,26,.92);
   border: 1px solid rgba(196,164,90,.25);
   border-radius: 10px;
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(60px);
   padding: .6rem .85rem;
   width: 180px;
   z-index: 100;
@@ -2515,8 +2521,10 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   bottom: 13rem; right: 2.5rem;
   z-index: 30;
   display: flex; align-items: center; gap: 8px;
-  background: rgba(220,38,38,.15);
-  border: 1.5px solid rgba(220,38,38,.4);
+  background: rgba(220,38,38,.25);
+  border: 1.5px solid rgba(220,38,38,.5);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
   border-radius: 30px;
   padding: .52rem 1.2rem .52rem .9rem;
   font-family: 'Raleway', sans-serif;
@@ -2524,7 +2532,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   letter-spacing: .18em; text-transform: uppercase;
   color: rgba(255,255,255,.85);
   cursor: pointer;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(60px);
   transition: background .2s, border-color .2s, box-shadow .2s, transform .15s;
   opacity: 0;
   animation: htAppear 1s ease 1.8s forwards;
@@ -2549,12 +2557,12 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   bottom: 13.5rem; right: 2.5rem;
   z-index: 40;
   width: 320px;
-  background: rgba(4,8,18,.9);
-  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.09);
   border-top: 2px solid rgba(239,68,68,.5);
   border-radius: 18px;
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
   box-shadow: 0 32px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(239,68,68,.1) inset;
   overflow: hidden;
 }
@@ -2701,6 +2709,209 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   100% { opacity:0; transform:translateY(-4px); }
 }
 
+/* ══════════════════════════════════════
+   HERO LAYOUT — INSPIRAÇÃO PORTAL
+══════════════════════════════════════ */
+
+/* hero-content: canto sup ESQ */
+#hero-content {
+  position: absolute;
+  top: 2.5rem;
+  left: 3rem;
+  z-index: 20;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1s ease .5s, transform 1s ease .5s;
+}
+#hero-content.visible { opacity:1; transform:translateY(0); }
+
+/* Label "MANHÃ · INSTITUTO MD TALK" */
+.hc-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: .58rem;
+  font-weight: 600;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 1.1rem;
+  display: block;
+  text-shadow: 0 1px 6px rgba(0,0,0,.8);
+}
+
+/* Linha foto + saudação */
+.hc-main {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+/* Saudação */
+.hc-greeting-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.hc-greeting {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1;
+  text-shadow: 0 2px 20px rgba(0,0,0,.8);
+}
+.hc-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--gold-light);
+  line-height: 1.1;
+  margin: 0;
+  text-shadow: 0 2px 20px rgba(0,0,0,.8);
+}
+
+/* ── FOTO ORBITAL ── */
+.hc-photo-orbital {
+  position: relative;
+  width: 140px; height: 140px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hc-orb {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(180,180,210,.18);
+}
+.hc-orb-1 { width:140px; height:140px; animation: hcOrbitSpin 14s linear infinite; }
+.hc-orb-2 { width:112px; height:112px; animation: hcOrbitSpin 9s linear infinite reverse; }
+.hc-orb-3 { width: 90px; height: 90px; animation: hcOrbitSpin 6s linear infinite; }
+@keyframes hcOrbitSpin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+.hc-orb-dot {
+  position:absolute; width:6px; height:6px; border-radius:50%;
+  background:rgba(210,210,240,.75); box-shadow:0 0 6px 2px rgba(180,180,255,.4);
+  top:50%; left:-3px; transform:translateY(-50%);
+}
+.hc-orb-dot-2 { width:5px; height:5px; background:rgba(220,220,255,.65); left:-2.5px; }
+.hc-orb-1::after {
+  content:''; position:absolute; width:4px; height:4px; border-radius:50%;
+  background:rgba(200,200,230,.5); bottom:50%; right:-2px; transform:translateY(50%);
+  box-shadow:0 0 4px 1px rgba(180,180,255,.25);
+}
+.hc-orb-dot-3 { width:4px; height:4px; background:rgba(230,230,255,.55); left:-2px; }
+.hc-photo-frame {
+  position:relative; z-index:5;
+  width:74px; height:74px; border-radius:50%; background:#0B1D3A;
+}
+.hc-photo {
+  width:74px; height:74px; border-radius:50%;
+  object-fit:cover;
+  border:2px solid rgba(196,164,90,.5);
+  box-shadow:0 0 0 4px rgba(196,164,90,.12), 0 8px 28px rgba(0,0,0,.6);
+  display:block; position:relative; z-index:2; background:#0B1D3A;
+}
+.hc-photo-placeholder {
+  position:absolute; inset:0; border-radius:50%;
+  background:#0B1D3A; border:2px solid rgba(196,164,90,.4);
+  display:flex; align-items:center; justify-content:center;
+  color:rgba(255,255,255,.35); z-index:1;
+}
+.hc-photo[src]:not([src=""]) ~ .hc-photo-placeholder { display:none; }
+.hc-photo[src=""] { display:none; }
+.hc-photo-frame::after {
+  content:''; position:absolute; inset:-6px; border-radius:50%;
+  border:1px solid rgba(196,164,90,.15);
+  animation:ringPulse 3s ease-in-out infinite;
+}
+@keyframes ringPulse { 0%,100%{transform:scale(1);opacity:.5} 50%{transform:scale(1.04);opacity:.9} }
+
+/* ── RELÓGIO: canto sup DIR ── */
+#hero-clock-block {
+  position: absolute;
+  top: 2.5rem;
+  right: 3rem;
+  z-index: 20;
+  text-align: right;
+  opacity: 0;
+  animation: htAppear 1s ease 1s forwards;
+}
+#m-clock {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.6rem;
+  font-weight: 300;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.92);
+  text-shadow: 0 2px 16px rgba(0,0,0,.8);
+  line-height: 1;
+}
+.m-date {
+  font-family: 'Raleway', sans-serif;
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  margin-top: .3rem;
+  text-shadow: 0 1px 6px rgba(0,0,0,.8);
+}
+#hero-meta-row {
+  margin-top: .25rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0;
+}
+.m-info {
+  font-family: 'Raleway', sans-serif;
+  font-size: .6rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  text-shadow: 0 1px 6px rgba(0,0,0,.8);
+}
+.m-sep {
+  display: inline-block;
+  width: 3px; height: 3px;
+  background: rgba(196,164,90,.5);
+  border-radius: 50%;
+  margin: 0 7px;
+  vertical-align: middle;
+  opacity: .5;
+}
+
+/* Live Class — posição */
+#live-btn {
+  position: absolute;
+  top: 2.5rem;
+  right: 16rem;
+  bottom: auto;
+  z-index: 30;
+  opacity: 0;
+  animation: htAppear 1s ease 1.4s forwards;
+}
+
+#live-panel {
+  position: absolute;
+  top: 5.5rem;
+  right: 3rem;
+  bottom: auto;
+}
+
+/* Tradutor: centro-topo */
+#hero-translator {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  width: min(500px, 55vw);
+  opacity: 0;
+  animation: htAppear 1s ease .8s forwards;
+}
+
 @media(max-width:700px){.pl-grid{grid-template-columns:repeat(2,1fr);}#caderno-nav .nav-brand{display:none;}#search-input{width:120px;}}
 </style>
 </head>
@@ -2713,52 +2924,21 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   <div id="hero-overlay"></div>
   <div id="hero-dots"></div>
 
-  <!-- CANTO SUP. ESQ: cidade + clima + relógio -->
-  <div id="hero-meta">
-    <div id="hero-meta-row">
-      <span id="m-city" class="m-info">Sao Paulo</span>
-      <span class="m-sep"></span>
-      <span id="m-temp" class="m-info">--°C</span>
-      <span class="m-sep"></span>
-      <span id="m-cond" class="m-info">Carregando</span>
-    </div>
-    <div id="m-clock" class="m-clock">00:00:00</div>
-
-  </div>
-
-
-  <!-- CENTRO: saudação + nome -->
+  <!-- CANTO SUP ESQ: label + foto + saudação -->
   <div id="hero-content">
-    <!-- Label superior -->
     <div class="hc-label" id="m-overline-center">Manhã · Instituto MD Talk</div>
-
-    <!-- Linha principal: saudação + foto + nome -->
     <div class="hc-main">
-      <!-- FOTO À ESQUERDA com orbitais -->
       <div class="hc-photo-orbital">
-        <!-- Anel orbital externo -->
-        <div class="hc-orb hc-orb-1">
-          <span class="hc-orb-dot"></span>
-        </div>
-        <!-- Anel orbital médio -->
-        <div class="hc-orb hc-orb-2">
-          <span class="hc-orb-dot hc-orb-dot-2"></span>
-        </div>
-        <!-- Anel orbital interno -->
-        <div class="hc-orb hc-orb-3">
-          <span class="hc-orb-dot hc-orb-dot-3"></span>
-        </div>
-        <!-- Foto -->
+        <div class="hc-orb hc-orb-1"><span class="hc-orb-dot"></span></div>
+        <div class="hc-orb hc-orb-2"><span class="hc-orb-dot hc-orb-dot-2"></span></div>
+        <div class="hc-orb hc-orb-3"><span class="hc-orb-dot hc-orb-dot-3"></span></div>
         <div class="hc-photo-frame">
-          <img id="hc-photo" class="hc-photo" src="" alt="Foto do aluno">
-          <!-- Placeholder quando sem foto -->
+          <img id="hc-photo" class="hc-photo" src="" alt="">
           <div class="hc-photo-placeholder" id="hc-photo-placeholder">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </div>
         </div>
       </div>
-
-      <!-- SAUDAÇÃO À DIREITA -->
       <div class="hc-greeting-block">
         <span class="hc-greeting" id="hc-greeting-text">Bom dia,</span>
         <h1 class="hc-name" id="s-name">Thaiana.</h1>
@@ -2766,7 +2946,45 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
     </div>
   </div>
 
-  <!-- TRADUTOR: topo centro -->
+  <!-- CANTO SUP DIR: relógio grande + data -->
+  <div id="hero-clock-block">
+    <div id="m-clock" class="m-clock">00:00:00</div>
+    <div id="m-date" class="m-date"></div>
+    <div id="hero-meta-row">
+      <span id="m-city" class="m-info">Sao Paulo</span>
+      <span class="m-sep"></span>
+      <span id="m-temp" class="m-info">--°C</span>
+    </div>
+  </div>
+
+  <!-- LIVE CLASS -->
+  <button id="live-btn" onclick="liveToggle()">
+    <span class="live-dot"></span>
+    Live Class
+  </button>
+
+  <div id="live-panel" class="">
+    <div class="lp-head">
+      <div class="lp-head-left"><span class="live-dot"></span><span class="lp-title">Live Class Mode</span><span id="lp-count-badge">0</span></div>
+      <button class="lp-close" id="lp-close-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="lp-tags-row">
+      <button class="lp-tag active" data-tag="vocabulario">Vocab</button>
+      <button class="lp-tag" data-tag="frases">Frase</button>
+      <button class="lp-tag" data-tag="termos">Termo</button>
+      <button class="lp-tag" data-tag="anotacoes">Dúvida</button>
+    </div>
+    <div class="lp-body">
+      <textarea id="lp-nota" class="lp-textarea" placeholder="Anote aqui..." rows="3"></textarea>
+      <button class="lp-save-btn" id="lp-save-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Salvar  <span class="lp-enter-hint">↵ Enter</span>
+      </button>
+    </div>
+    <div class="lp-feed" id="lp-feed"></div>
+  </div>
+
+  <!-- TRADUTOR -->
   <div id="hero-translator">
     <div class="ht-wrap">
       <div class="ht-dir" id="ht-dir" onclick="htToggleDir()">
@@ -2782,101 +3000,6 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
       <button class="ht-close" onclick="htClose()">✕</button>
       <div id="ht-out"></div>
     </div>
-  </div>
-
-  <!-- PAINEL INFERIOR: métricas + heatmap -->
-  <div id="hero-bottom">
-
-    <!-- Coluna esq: métricas grandes -->
-    <div id="hero-stats">
-      <div class="hs-item" id="hs-today">
-        <span class="hs-num" id="hp-today">0</span>
-        <span class="hs-label">Hoje</span>
-      </div>
-      <div class="hs-divider"></div>
-      <div class="hs-item">
-        <span class="hs-num" id="hp-week">0</span>
-        <span class="hs-label">Semana</span>
-      </div>
-      <div class="hs-divider"></div>
-      <div class="hs-item">
-        <span class="hs-num" id="hp-month">0</span>
-        <span class="hs-label">Mês</span>
-      </div>
-      <div class="hs-divider"></div>
-      <div class="hs-item">
-        <span class="hs-num hs-gold" id="hp-total">0</span>
-        <span class="hs-label">Total</span>
-      </div>
-    </div>
-
-    <!-- Coluna centro: heatmap -->
-    <div id="hero-heatmap">
-      <div class="hh-label">Consistência — últimos 28 dias</div>
-      <div class="hh-grid" id="hh-grid"></div>
-      <div class="hh-legend">
-        <span class="hh-legend-lbl">Menos</span>
-        <div class="hh-cell hh-0"></div>
-        <div class="hh-cell hh-1"></div>
-        <div class="hh-cell hh-2"></div>
-        <div class="hh-cell hh-3"></div>
-        <div class="hh-cell hh-4"></div>
-        <span class="hh-legend-lbl">Mais</span>
-      </div>
-    </div>
-
-    <!-- Coluna dir: atividade do dia -->
-    <div id="hero-today">
-      <div class="ht-day-label" id="ht-day-label">Para hoje</div>
-      <div id="ht-day-acts"></div>
-    </div>
-
-  </div>
-
-  <!-- Barra de engajamento -->
-  <div id="hero-engage">
-    <div class="he-bar-track"><div class="he-bar-fill" id="he-bar-fill"></div></div>
-    <span class="he-bar-pct" id="he-bar-pct">0%</span>
-    <span class="he-bar-label">engajamento</span>
-  </div>
-
-  <!-- LIVE CLASS MODE -->
-  <button id="live-btn" onclick="liveToggle()">
-    <span class="live-dot"></span>
-    Live Class
-  </button>
-
-  <div id="live-panel">
-    <div class="lp-head">
-      <div class="lp-head-left">
-        <span class="live-dot"></span>
-        <span class="lp-title">Live Class Mode</span>
-        <span id="lp-count-badge">0</span>
-      </div>
-      <button class="lp-close" id="lp-close-btn">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-
-    <!-- Tags rápidas -->
-    <div class="lp-tags-row">
-      <button class="lp-tag active" data-tag="vocabulario">Vocab</button>
-      <button class="lp-tag" data-tag="frases">Frase</button>
-      <button class="lp-tag" data-tag="termos">Termo</button>
-      <button class="lp-tag" data-tag="anotacoes">Dúvida</button>
-    </div>
-
-    <!-- Campo principal -->
-    <div class="lp-body">
-      <textarea id="lp-nota" class="lp-textarea" placeholder="Anote aqui..." rows="3"></textarea>
-      <button class="lp-save-btn" id="lp-save-btn">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Salvar  <span class="lp-enter-hint">↵ Enter</span>
-      </button>
-    </div>
-
-    <!-- Feed dos salvos nesta sessão -->
-    <div class="lp-feed" id="lp-feed"></div>
   </div>
 
   <div class="scroll-indicator"><span>Explorar</span><div class="scroll-line"></div></div>
@@ -3064,7 +3187,7 @@ async function initHero(){
   const setEl=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
   // Label superior
   var lbl=document.getElementById('m-overline-center');
-  if(lbl) lbl.textContent=(greet(h)+' · Instituto MD Talk').toUpperCase();
+  if(lbl) lbl.textContent='Instituto MD Talk';
   // Saudação grande
   setEl('hc-greeting-text', greet(h)+',');
   setEl("s-name", name);
