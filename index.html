@@ -3063,13 +3063,9 @@ async function initHero(){
   setEl("m-city", city);
   clock();
   // Carregar imagem ANTES do clima para não bloquear
-  const codeFallback=0;
-  const key=selImg(codeFallback,h);
   const bg=document.getElementById("hero-bg");
-  const img=new Image();
-  img.onload=()=>{bg.style.backgroundImage="url('"+dUrl(IMG[key])+"')";bg.classList.add("loaded");};
-  img.onerror=()=>{bg.style.background="radial-gradient(ellipse at 50% 30%,#163158 0%,#050D1A 70%)";bg.classList.add("loaded");};
-  img.src=dUrl(IMG[key]);
+  bg.style.backgroundImage="url('"+ALPS_IMG+"')";
+  bg.classList.add("loaded");
   setTimeout(()=>{
     document.getElementById("loading-state").classList.add("hidden");
     document.getElementById("hero-content").classList.add("visible");
@@ -3081,13 +3077,7 @@ async function initHero(){
     const w=await getWeather(city);
     setEl("m-temp", w.temp+"°C");
     setEl("m-cond", wDesc(w.code));
-    // Atualizar imagem com clima real se diferente
-    const keyReal=selImg(w.code,h);
-    if(keyReal!==key){
-      const img2=new Image();
-      img2.onload=()=>{bg.style.backgroundImage="url('"+dUrl(IMG[keyReal])+"')";};
-      img2.src=dUrl(IMG[keyReal]);
-    }
+    // Imagem fixa Alps — nao muda com clima
   }catch(e){
     setEl("m-temp","--°C");
     setEl("m-cond","");
