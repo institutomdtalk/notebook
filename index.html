@@ -2713,17 +2713,17 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
    HERO LAYOUT — INSPIRAÇÃO PORTAL
 ══════════════════════════════════════ */
 
-/* hero-content: canto sup ESQ */
+/* hero-content: esq, centralizado verticalmente */
 #hero-content {
   position: absolute;
-  top: 2.5rem;
+  top: 50%;
   left: 3rem;
+  transform: translateY(-50%);
   z-index: 20;
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 1s ease .5s, transform 1s ease .5s;
+  transition: opacity 1s ease .5s;
 }
-#hero-content.visible { opacity:1; transform:translateY(0); }
+#hero-content.visible { opacity:1; }
 
 /* Label "MANHÃ · INSTITUTO MD TALK" */
 .hc-label {
