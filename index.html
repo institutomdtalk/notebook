@@ -2715,15 +2715,19 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
    HERO LAYOUT — INSPIRAÇÃO PORTAL
 ══════════════════════════════════════ */
 
-/* hero-content: esq, centralizado verticalmente */
+/* hero-content: centralizado horizontalmente, abaixo do tradutor */
 #hero-content {
   position: absolute;
   top: 50%;
-  left: 3rem;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 20;
   opacity: 0;
   transition: opacity 1s ease .5s;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 #hero-content.visible { opacity:1; }
 
@@ -2735,7 +2739,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   letter-spacing: .28em;
   text-transform: uppercase;
   color: rgba(255,255,255,.5);
-  margin-bottom: 1.1rem;
+  margin-bottom: .5rem;
   display: block;
   text-shadow: 0 1px 6px rgba(0,0,0,.8);
 }
@@ -2752,6 +2756,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   display: flex;
   flex-direction: column;
   gap: 0;
+  margin-bottom: 1.4rem;
 }
 .hc-greeting {
   display: block;
@@ -2777,10 +2782,10 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 .hc-photo-orbital {
   position: relative;
   width: 140px; height: 140px;
-  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: flex-start;
 }
 .hc-orb {
   position: absolute;
@@ -2926,24 +2931,25 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   <div id="hero-overlay"></div>
   <div id="hero-dots"></div>
 
-  <!-- CANTO SUP ESQ: label + foto + saudação -->
+  <!-- HERO CONTENT: centralizado abaixo do tradutor -->
   <div id="hero-content">
-    <div class="hc-label" id="m-overline-center">Manhã · Instituto MD Talk</div>
-    <div class="hc-main">
-      <div class="hc-photo-orbital">
-        <div class="hc-orb hc-orb-1"><span class="hc-orb-dot"></span></div>
-        <div class="hc-orb hc-orb-2"><span class="hc-orb-dot hc-orb-dot-2"></span></div>
-        <div class="hc-orb hc-orb-3"><span class="hc-orb-dot hc-orb-dot-3"></span></div>
-        <div class="hc-photo-frame">
-          <img id="hc-photo" class="hc-photo" src="" alt="">
-          <div class="hc-photo-placeholder" id="hc-photo-placeholder">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </div>
+    <!-- Label alinhado à esquerda do bloco -->
+    <div class="hc-label" id="m-overline-center">Instituto MD Talk</div>
+    <!-- Saudação + Nome -->
+    <div class="hc-greeting-block">
+      <span class="hc-greeting" id="hc-greeting-text">Bom dia,</span>
+      <h1 class="hc-name" id="s-name">Thaiana.</h1>
+    </div>
+    <!-- Foto abaixo do nome -->
+    <div class="hc-photo-orbital">
+      <div class="hc-orb hc-orb-1"><span class="hc-orb-dot"></span></div>
+      <div class="hc-orb hc-orb-2"><span class="hc-orb-dot hc-orb-dot-2"></span></div>
+      <div class="hc-orb hc-orb-3"><span class="hc-orb-dot hc-orb-dot-3"></span></div>
+      <div class="hc-photo-frame">
+        <img id="hc-photo" class="hc-photo" src="" alt="">
+        <div class="hc-photo-placeholder" id="hc-photo-placeholder">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </div>
-      </div>
-      <div class="hc-greeting-block">
-        <span class="hc-greeting" id="hc-greeting-text">Bom dia,</span>
-        <h1 class="hc-name" id="s-name">Thaiana.</h1>
       </div>
     </div>
   </div>
