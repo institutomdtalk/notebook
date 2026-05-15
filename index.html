@@ -2518,7 +2518,9 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 /* Botão Live */
 #live-btn {
   position: absolute;
-  bottom: 13rem; right: 2.5rem;
+  top: 2rem;
+  left: calc(50% - 420px);
+  bottom: auto;
   z-index: 30;
   display: flex; align-items: center; gap: 8px;
   background: rgba(220,38,38,.25);
@@ -2885,8 +2887,8 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 /* Live Class — posição */
 #live-btn {
   position: absolute;
-  top: 2.5rem;
-  right: 16rem;
+  top: 2rem;
+  left: calc(50% - 420px);
   bottom: auto;
   z-index: 30;
   opacity: 0;
@@ -3189,7 +3191,7 @@ async function initHero(){
   var lbl=document.getElementById('m-overline-center');
   if(lbl) lbl.textContent='Instituto MD Talk';
   // Saudação grande
-  setEl('hc-greeting-text', greet(h)+',');
+  setEl('hc-greeting-text', greet(h));
   setEl("s-name", name);
   setEl("m-city", city);
   clock();
