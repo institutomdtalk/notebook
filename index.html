@@ -20,7 +20,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 #hero{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
 #hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease;}
 #hero-bg.loaded{opacity:1;}
-#hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,13,26,.72) 0%,rgba(5,13,26,.58) 40%,rgba(5,13,26,.82) 100%);}
+#hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(3,8,18,.82) 0%,rgba(3,8,18,.65) 35%,rgba(3,8,18,.85) 75%,rgba(3,8,18,.95) 100%);}
 #hero-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(196,164,90,.07) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;}
 
 
@@ -69,7 +69,8 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   font-weight: 500;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.55);
+  color: rgba(255,255,255,.75);
+  text-shadow: 0 1px 6px rgba(0,0,0,.9);
 }
 .m-sep {
   display: inline-block;
@@ -85,7 +86,8 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   font-size: 1.1rem;
   font-weight: 300;
   letter-spacing: .2em;
-  color: rgba(255,255,255,.7);
+  color: rgba(255,255,255,.88);
+  text-shadow: 0 1px 8px rgba(0,0,0,.9);
 }
 .m-clima {
   font-family: 'Raleway', sans-serif;
@@ -110,9 +112,10 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   font-weight: 600;
   letter-spacing: .28em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.5);
+  color: rgba(255,255,255,.65);
   margin-bottom: 1.4rem;
   display: block;
+  text-shadow: 0 1px 8px rgba(0,0,0,.9);
 }
 
 .hc-main {
@@ -137,6 +140,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   color: var(--cream);
   line-height: 1.05;
   letter-spacing: -.01em;
+  text-shadow: 0 2px 20px rgba(0,0,0,.8), 0 1px 4px rgba(0,0,0,.9);
 }
 
 .hc-name {
@@ -148,6 +152,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   line-height: 1.05;
   letter-spacing: -.01em;
   margin: 0;
+  text-shadow: 0 2px 20px rgba(0,0,0,.8), 0 1px 4px rgba(0,0,0,.9);
 }
 
 /* ── FOTO COM ORBITAIS ── */
@@ -2154,11 +2159,11 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   display: flex;
   align-items: center;
   gap: .6rem;
-  background: rgba(5,13,26,.38);
-  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(3,8,18,.72);
+  border: 1px solid rgba(255,255,255,.12);
   border-radius: 18px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   padding: 1.2rem 1.4rem;
 }
 .hs-item { text-align: center; flex: 1; }
@@ -2171,6 +2176,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   line-height: 1;
   letter-spacing: -.02em;
   transition: transform .3s ease;
+  text-shadow: 0 1px 6px rgba(0,0,0,.5);
 }
 .hs-num.hs-gold { color: var(--gold-light); }
 .hs-item:hover .hs-num { transform: scale(1.08); }
@@ -2193,11 +2199,11 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 
 /* ── HEATMAP ── */
 #hero-heatmap {
-  background: rgba(5,13,26,.38);
-  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(3,8,18,.72);
+  border: 1px solid rgba(255,255,255,.12);
   border-radius: 18px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   padding: 1.1rem 1.3rem 1rem;
 }
 .hh-label {
@@ -2253,11 +2259,11 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 
 /* ── ATIVIDADE DO DIA ── */
 #hero-today {
-  background: rgba(5,13,26,.38);
-  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(3,8,18,.72);
+  border: 1px solid rgba(255,255,255,.12);
   border-radius: 18px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   padding: 1.1rem 1.2rem;
   min-height: 90px;
 }
