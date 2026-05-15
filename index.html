@@ -20,7 +20,7 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
 #hero{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
 #hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease;}
 #hero-bg.loaded{opacity:1;}
-#hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,13,26,.80) 0%,rgba(5,13,26,.68) 40%,rgba(5,13,26,.88) 100%);}
+#hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,13,26,.72) 0%,rgba(5,13,26,.58) 40%,rgba(5,13,26,.82) 100%);}
 #hero-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(196,164,90,.07) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;}
 
 
@@ -229,27 +229,29 @@ body{font-family:'Raleway',sans-serif;background:var(--navy-deep);color:var(--cr
   z-index: 5;
   width: 84px; height: 84px;
   border-radius: 50%;
+  background: #0B1D3A;
 }
 .hc-photo {
   width: 84px; height: 84px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid rgba(196,164,90,.5);
-  box-shadow: 0 0 0 4px rgba(196,164,90,.1), 0 8px 28px rgba(0,0,0,.5);
+  box-shadow: 0 0 0 4px rgba(196,164,90,.12), 0 8px 28px rgba(0,0,0,.6);
   display: block;
   position: relative; z-index: 2;
+  background: #0B1D3A;
 }
 /* Placeholder sem foto */
 .hc-photo-placeholder {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: rgba(255,255,255,.06);
-  border: 2px solid rgba(196,164,90,.3);
+  background: #0B1D3A;
+  border: 2px solid rgba(196,164,90,.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255,255,255,.25);
+  color: rgba(255,255,255,.35);
   z-index: 1;
 }
 /* Quando foto está carregada, esconde placeholder */
